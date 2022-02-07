@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_first.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_second.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.37657773859366583" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.23596014492753623" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.11421436904942275" />
