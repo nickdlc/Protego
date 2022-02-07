@@ -10,7 +10,7 @@
         android:id="@+id/Sign_In_Button"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:text="SIGN IN"
+        android:text="LOGIN"
         app:backgroundTint="@color/protego_color"
         app:layout_constraintBottom_toTopOf="@+id/Create_Account_Sign_In_Button"
         app:layout_constraintEnd_toEndOf="parent"
