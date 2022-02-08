@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <Button
+        android:id="@+id/Sign_In_Button"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:text="LOGIN"
+        app:backgroundTint="@color/protego_color"
+        app:layout_constraintBottom_toTopOf="@+id/Create_Account_Sign_In_Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Layout_Password_Sign_In_Text_Input" />
+
+    <TextView
+        android:id="@+id/Protego_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Protego"
+        android:textColor="@color/protego_color"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toTopOf="@+id/Login_Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/Layout_Email_Sign_In_Text_Input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="278dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+
+        app:boxCornerRadiusBottomEnd="1dp"
+        app:boxCornerRadiusBottomStart="1dp"
+        app:boxCornerRadiusTopEnd="1dp"
+        app:boxCornerRadiusTopStart="1dp"
+        app:boxStrokeColor="@color/protego_color"
+        app:boxStrokeWidth="2dp"
+        app:hintTextColor="@color/protego_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Email_Sign_In_Text_Input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:ellipsize="none"
+            android:hint="Email *"
+            android:inputType="textEmailAddress"
+            android:textSize="20dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/Layout_Password_Sign_In_Text_Input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="47dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        app:boxCornerRadiusBottomEnd="1dp"
+        app:boxCornerRadiusBottomStart="1dp"
+        app:boxCornerRadiusTopEnd="1dp"
+        app:boxCornerRadiusTopStart="1dp"
+        app:boxStrokeColor="@color/protego_color"
+        app:boxStrokeWidth="2dp"
+        app:hintTextColor="@color/protego_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Layout_Email_Sign_In_Text_Input">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Password_Sign_In_Text_Input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:ellipsize="none"
+            android:hint="Password *"
+            android:inputType="textPassword"
+            android:password="true"
+            android:textSize="20dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/Create_Account_Sign_In_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="134dp"
+        android:text="Don't have an account? Sign Up"
+        android:textColor="#000000"
+        android:textSize="9sp"
+        app:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/Login_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/Sign_In_Icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Protego_Title" />
+
+    <ImageView
+        android:id="@+id/Sign_In_Icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/protego_color"
+        app:layout_constraintBottom_toTopOf="@+id/Layout_Email_Sign_In_Text_Input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Login_Title"
+        app:srcCompat="@android:drawable/ic_lock_idle_lock" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
