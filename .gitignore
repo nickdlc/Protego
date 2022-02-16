@@ -1,3 +1,7 @@
+.DS_Store
+.idea
+serviceAccountKey.json
+
 # Compiled class file
 *.class
 
