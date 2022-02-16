@@ -63,9 +63,9 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
             public void onClick(View v) {
                 Log.i(TAG, "onClick signup button");
 
-                String username = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
-                registerUser(username, password);
+                String email = email_input.getText().toString();
+                String password = password_input.getText().toString();
+                registerUser(email, password);
             }
         });
     }
