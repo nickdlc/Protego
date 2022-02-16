@@ -29,6 +29,8 @@
         android:layout_marginBottom="16dp"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
-    <include layout="@layout/content_main" />
+    <include
+        android:id="@+id/message_icon"
+        layout="@layout/content_main" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
