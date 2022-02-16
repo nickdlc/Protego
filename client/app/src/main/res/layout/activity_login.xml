@@ -7,12 +7,12 @@
     tools:context=".LoginActivity">
 
     <Button
-        android:id="@+id/Sign_In_Button"
+        android:id="@+id/btnLogin"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:text="LOGIN"
         app:backgroundTint="@color/protego_color"
-        app:layout_constraintBottom_toTopOf="@+id/Create_Account_Sign_In_Button"
+        app:layout_constraintBottom_toTopOf="@+id/btnSignup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Email_Sign_In_Text_Input"
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
@@ -86,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Layout_Email_Sign_In_Text_Input">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Password_Sign_In_Text_Input"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
@@ -98,7 +98,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/Create_Account_Sign_In_Button"
+        android:id="@+id/btnSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="1dp"
