@@ -1,6 +1,5 @@
 package com.example.protego;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -10,16 +9,26 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentContainerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SignupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     public static final String TAG = "SignupActivity";
+    private FirebaseAuth mAuth;
 
     // add other input fields here
     private Button btnSignup;
@@ -29,12 +38,13 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     private EditText password_input;
     private EditText confirm_password_input;
     private Spinner spinner;
-   
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        mAuth = FirebaseAuth.getInstance();
         //the spinner component
         spinner = (Spinner) findViewById(R.id.typeOfUserSpinner);
         //ArrayAdapter
@@ -46,49 +56,66 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         spinner.setOnItemSelectedListener(this);
 
 
-        /*
+        
         btnSignup = findViewById(R.id.btnSignup);
             btnSignup.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "onClick signup button");
 
-                String username = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
-                registerUser(username, password);
-            }
-        });*/
-    }
-
-    private void registerUser(String username, String password) {
-        Log.i(TAG, "Attempting to register user " + username);
-
-        // ADD firebase signup here (Parse signup setup is shown)
-
-        /*
-        // Create the User
-        ParseUser user = new ParseUser();
-
-        // Set core properties
-        user.setUsername(username);
-        user.setPassword(password);
-
-        // Invoke signUpInBackground
-        user.signUpInBackground(new SignUpCallback() {
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue with registration", e);
-                    Toast.makeText(LoginActivity.this, "Issue with registration!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                goMainActivity();
+                String email = email_input.getText().toString();
+                String password = password_input.getText().toString();
+                registerUser(email, password);
             }
         });
-        */
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            reload();
         }
+    }
 
+    private void registerUser(String email, String password) {
+        Log.i(TAG, "Attempting to register user " + email);
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                            goMainActivity();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(SignupActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+                    }
+                });
+    }
+
+    private void reload() { }
+
+    private void updateUI(FirebaseUser user) {
+
+    }
+
+    // navigate to the main activity once the user has signed up
+    private void goMainActivity() {
+        Intent i = new Intent(this, MainActivity.class); // TODO: change to user dashboard activity 
+        startActivity(i);
+        finish();
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
