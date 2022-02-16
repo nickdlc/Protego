@@ -1,20 +1,35 @@
 package com.example.protego;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class SignupActivity {
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class SignupActivity extends AppCompatActivity {
     public static final String TAG = "SignupActivity";
+    private FirebaseAuth mAuth;
 
     // add other input fields here
-    private Button btnSignup;
+    //private Button btnSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        //setContentView(R.layout.activity_signup);
+
+        mAuth = FirebaseAuth.getInstance();
+
         /*
         btnSignup = findViewById(R.id.btnSignup);
             btnSignup.setOnClickListener(new View.OnClickListener(){
@@ -29,32 +44,51 @@ public class SignupActivity {
         });*/
     }
 
-    private void registerUser(String username, String password) {
-        Log.i(TAG, "Attempting to register user " + username);
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            reload();
+        }
+    }
 
-        // ADD firebase signup here (Parse signup setup is shown)
+    private void registerUser(String email, String password) {
+        Log.i(TAG, "Attempting to register user " + email);
 
-        /*
-        // Create the User
-        ParseUser user = new ParseUser();
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                            goMainActivity();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(SignupActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+                    }
+                });
+    }
 
-        // Set core properties
-        user.setUsername(username);
-        user.setPassword(password);
+    private void reload() { }
 
-        // Invoke signUpInBackground
-        user.signUpInBackground(new SignUpCallback() {
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue with registration", e);
-                    Toast.makeText(LoginActivity.this, "Issue with registration!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                goMainActivity();
-            }
-        });
-        */
+    private void updateUI(FirebaseUser user) {
+
+    }
+
+    // navigate to the main activity once the user has signed up
+    private void goMainActivity() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 }
 
