@@ -11,6 +11,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_login">activity_login</string>
     <string-array name="type_of_user_array">
+        <item></item>
         <item>Patient</item>
         <item>Doctor</item>
     </string-array>
