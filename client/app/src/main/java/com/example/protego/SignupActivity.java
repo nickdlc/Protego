@@ -101,6 +101,11 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
 
         if(userType.equals(userTypeOptions[0])){ //the user is a patient therefore only the patient signup fragment is visible
+            patient_view.setVisibility(FragmentContainerView.INVISIBLE);
+            doctor_view.setVisibility(FragmentContainerView.INVISIBLE);
+        }
+
+        else if(userType.equals(userTypeOptions[1])){ //the user is a patient therefore only the patient signup fragment is visible
             patient_view.setVisibility(FragmentContainerView.VISIBLE);
             doctor_view.setVisibility(FragmentContainerView.INVISIBLE);
             btnSignup = (Button) findViewById(R.id.patientSignupButton);
@@ -113,7 +118,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
         }
 
-        else if(userType.equals(userTypeOptions[1])) { // the user is a doctor therefore only the doctor signup fragment is visible
+        else if(userType.equals(userTypeOptions[2])) { // the user is a doctor therefore only the doctor signup fragment is visible
             patient_view.setVisibility(FragmentContainerView.INVISIBLE);
             doctor_view.setVisibility(FragmentContainerView.VISIBLE);
             btnSignup = (Button) findViewById(R.id.doctorSignupButton);
