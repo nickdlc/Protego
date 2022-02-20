@@ -10,6 +10,9 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_login">activity_login</string>
+    <string name="title_activity_signup">activity_signup</string>
+    <string name="splash_activity">activity_splash</string>
+
     <string-array name="type_of_user_array">
         <item></item>
         <item>Patient</item>
