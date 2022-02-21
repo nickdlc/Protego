@@ -14,7 +14,7 @@
             android:name=".SplashScreenActivity"
             android:exported="true"
             android:label="@string/splash_activity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/Theme.Protego.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,15 +25,16 @@
             android:name=".LoginActivity"
             android:exported="false"
             android:label="@string/title_activity_login"
-            android:theme="@style/Theme.Protego">
-
+            android:theme="@style/Theme.Protego.NoActionBar">
         </activity>
 
         <activity
             android:name=".SignupActivity"
             android:exported="false"
             android:label="@string/title_activity_signup"
-            android:theme="@style/Theme.Protego" />
+            android:theme="@style/Theme.Protego.NoActionBar">
+        </activity>
+
 
         <meta-data
             android:name="preloaded_fonts"

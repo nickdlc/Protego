@@ -3,6 +3,7 @@ package com.example.protego;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,12 +34,14 @@ public class SplashScreenActivity extends AppCompatActivity {
         if(getSupportActionBar() != null)
             getSupportActionBar().hide();
 
+
         handler = new Handler();
         handler.postDelayed(() -> {
-            Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+            Log.i(TAG, "onDelay");
+            Intent intent = new Intent(this, SignupActivity.class);
+            Log.i(TAG, "onDelay");
             startActivity(intent);
-            finish();
-        },5000);
+        },2000);
 
     }
 }

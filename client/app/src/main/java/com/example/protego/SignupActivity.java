@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,7 +45,8 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
+
         //the spinner component
         spinner = (Spinner) findViewById(R.id.typeOfUserSpinner);
         //ArrayAdapter
@@ -57,7 +59,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
 
         
-        btnSignup = findViewById(R.id.btnSignup);
+        /*btnSignup = findViewById(R.id.btnSignup);
             btnSignup.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -67,9 +69,9 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                 String password = password_input.getText().toString();
                 registerUser(email, password);
             }
-        });
+        });*/
     }
-
+/*
     @Override
     public void onStart() {
         super.onStart();
@@ -78,7 +80,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         if(currentUser != null){
             reload();
         }
-    }
+    }*/
 
     private void registerUser(String email, String password) {
         Log.i(TAG, "Attempting to register user " + email);
@@ -143,7 +145,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                 }
             });
 
-        }
+        } // TODO: save user type during signup process as well so we know which dashboard to display when they login
 
         else if(userType.equals(userTypeOptions[2])) { // the user is a doctor therefore only the doctor signup fragment is visible
             patient_view.setVisibility(FragmentContainerView.INVISIBLE);
@@ -179,6 +181,8 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         String password = password_input.getText().toString();
         String confirm_password = confirm_password_input.getText().toString();
 
+        registerUser(email, password);
+
         Bundle signup_bundle = new Bundle();
         signup_bundle.putString(first_name, first_name);
         signup_bundle.putString(email, email);
@@ -206,6 +210,8 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         String email = email_input.getText().toString();
         String password = password_input.getText().toString();
         String confirm_password = confirm_password_input.getText().toString();
+
+        registerUser(email, password);
 
         Bundle signup_bundle = new Bundle();
         signup_bundle.putString(first_name, first_name); //The first String is the key and the second string is the String associated to the key
