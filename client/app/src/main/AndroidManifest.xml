@@ -4,29 +4,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher_foreground"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Protego">
 
         <activity
-            android:name=".LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.Protego.NoActionBar">
-
-        </activity>
-
-
-        <activity
-            android:name=".SignupActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.Protego.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".SplashScreenActivity"
             android:exported="true"
+            android:label="@string/splash_activity"
             android:theme="@style/Theme.Protego.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,10 +21,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Protego.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".SignupActivity"
+            android:exported="false"
+            android:label="@string/title_activity_signup"
+            android:theme="@style/Theme.Protego.NoActionBar">
+        </activity>
 
 
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
-<!--        <activity-->
+
+        <!--        <activity-->
 <!--            android:name=".MainActivity"-->
 <!--            android:exported="false"-->
 <!--            android:label="@string/app_name"-->
