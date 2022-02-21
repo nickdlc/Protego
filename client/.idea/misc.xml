@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_login.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_main.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_signup.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/content_main.xml" value="0.2" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_doctor_signup.xml" value="0.2" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_first.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_patient_signup.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_second.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_dashboard.xml" value="0.22" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/menu/menu_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/activity_login.xml" value="0.176" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/activity_signup.xml" value="0.2" />
