@@ -35,8 +35,12 @@
             android:label="@string/title_activity_signup"
             android:theme="@style/Theme.Protego" />
 
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
-<!--        <activity-->
+
+        <!--        <activity-->
 <!--            android:name=".MainActivity"-->
 <!--            android:exported="false"-->
 <!--            android:label="@string/app_name"-->
