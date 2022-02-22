@@ -1,6 +1,5 @@
 package com.example.Protego.web;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,9 +10,9 @@ public class ProtegoHomeController {
     }
 
     @GetMapping("/getUser")
-    public User getUser() {
+    public ProtegoUser getUser() {
         // Temporarily create a new user and return that
-        User user = new User();
+        ProtegoUser user = new ProtegoUser();
         user.setId(12);
         user.setName("spring test");
 
@@ -21,11 +20,10 @@ public class ProtegoHomeController {
     }
 
     @PostMapping("/createUser")
-    public User homie(@RequestBody User user) {
+    public ProtegoUser homie(@RequestBody ProtegoUser user) {
         /* Save the user and send back a completed message */
 
         user.setName(user.getName() + " COMPLETED");
-        FirebaseAttributes.firestore.createNewObject(new User(name="dvsdsdfsd"))
         return user;
     }
 }
