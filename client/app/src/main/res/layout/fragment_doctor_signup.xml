@@ -38,6 +38,7 @@
                 android:id="@+id/doctorFirstNameTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:singleLine="true"
                 android:hint="First Name *" />
 
             <Space
@@ -53,6 +54,7 @@
                     android:id="@+id/doctorLastNameTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:singleLine="true"
                     android:hint="Last Name *" />
 
                 <Space
@@ -68,6 +70,7 @@
                         android:id="@+id/doctorEmailTextInput"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:singleLine="true"
                         android:hint="Email *" />
 
                     <Space
@@ -83,6 +86,7 @@
                             android:id="@+id/doctorPasswordTextInput"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:singleLine="true"
                             android:hint="Password *"
                             android:password="true" />
 
@@ -100,6 +104,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:hint="Confirm Password *"
+                                android:singleLine="true"
                                 android:password="true" />
 
                         </com.google.android.material.textfield.TextInputLayout>
