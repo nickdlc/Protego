@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -95,66 +96,52 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         Log.i(TAG, "Attempting to register user " + email);
 
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnFailureListener(new OnFailureListener() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                            goMainActivity();
-
-                            CollectionReference users = firestore.collection("users");
-
-                            Log.d(TAG, "Creating the user...");
-
-                            AuthResult res = task.getResult();
-                            FirebaseUser fuser = res.getUser();
-                            String uid = fuser.getUid();
-
-
-                            ProtegoUser puser = new ProtegoUser();
-                            puser.setId(uid);
-                            puser.setName(first_name_input.getText().toString());
-
-                            Log.d(TAG, "user name: " + first_name_input.getText().toString() + " id " + uid);
-                            users.add(puser);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignupActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
+                    public void onFailure(@NonNull Exception e) {
+                        // If sign in fails, display a message to the user.
+                        // TODO: Show 5xx server error to user
+                        Log.w(TAG, "registerUser:failure", e);
+                        Toast.makeText(SignupActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                        updateUI(null);
                     }
-                }).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                // Task completed successfully
-                // ...
-                Log.d(TAG, "HIIIIII:success");
-                // Sign in success, update UI with the signed-in user's information
-                Log.d(TAG, "createUserWithEmail:success");
-                FirebaseUser user = mAuth.getCurrentUser();
+               })
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        // Task completed successfully
+                        // ...
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "registerUser:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
 
-                CollectionReference users = firestore.collection("users");
+                        Log.d(TAG, "Creating the user...");
 
-                Log.d(TAG, "Creating the user...");
-
-                FirebaseUser fuser = authResult.getUser();
-                String uid = fuser.getUid();
+                        FirebaseUser firebaseUser = authResult.getUser();
 
 
-                ProtegoUser puser = new ProtegoUser();
-                puser.setId(uid);
-                puser.setName(first_name_input.getText().toString());
+                        ProtegoUser protegoUser = new ProtegoUser();
+                        protegoUser.setFirstName(first_name_input.getText().toString());
+                        protegoUser.setLastName(last_name_input.getText().toString());
 
-                Log.d(TAG, "user name: " + first_name_input.getText().toString() + " id " + uid);
-                users.add(puser);
-                Log.d(TAG, "FESADFuser name: " + first_name_input.getText().toString() + " id " + uid);
-            }
-        });;
+                        String uid = firebaseUser.getUid();
+                        firestore.collection("users").document(uid)
+                                .set(protegoUser)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "Successfully created user " + uid);
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing new user to Firestore", e);
+                                        }
+                                    });
+                    }
+                });
     }
 
     private void reload() { }

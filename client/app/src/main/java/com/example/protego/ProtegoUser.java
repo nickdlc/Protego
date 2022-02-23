@@ -3,22 +3,21 @@ package com.example.protego;
 public class ProtegoUser {
     private String firstName;
     private String lastName;
-    private String id;
 
-    public String getName() {
-        return this.firstName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.lastName = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getId() {
-        return this.id;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override
@@ -26,7 +25,6 @@ public class ProtegoUser {
         return "ProtegoUser{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", id='" + id + '\'' +
                 '}';
     }
 }
