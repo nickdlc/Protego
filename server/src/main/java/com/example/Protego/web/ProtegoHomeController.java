@@ -1,11 +1,11 @@
 package com.example.Protego.web;
 
+import com.example.Protego.FirebaseAttributes.FirebaseAttributes;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.DocumentSnapshot;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 public class ProtegoHomeController {
@@ -15,97 +15,109 @@ public class ProtegoHomeController {
     }
 
     @GetMapping("/user")
-    public ProtegoUser getUser() {
-        // Temporarily create a new user and return that
-        ProtegoUser user = new ProtegoUser();
-        user.setId("12");
-        user.setFirstName("spring");
-        user.setLastName("test");
+    public ProtegoUser getUser(@RequestParam("user") String uid) {
+        // Get user with id uid
+        try {
+            // Temporarily create a new doctor and return that
+            FirebaseAttributes.firestore.collection("users").document(uid).get();
 
-        return user;
+            // Asynchronously retrieve multiple documents
+            ApiFuture<DocumentSnapshot> future =
+                    FirebaseAttributes.firestore.collection("users").document(uid).get();
+            // future.get() blocks on response
+            DocumentSnapshot document = future.get();
+
+            return document.toObject(ProtegoUser.class);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @GetMapping("/patient")
-    public Patient getPatient() {
-        // Temporarily create a new patient and return that
-        Patient patient = new Patient();
-        patient.setId("13");
-        patient.setPatientID("p13");
-        patient.setFirstName("patient");
-        patient.setLastName("test");
+    public Patient getPatient(@RequestParam("patient") String puid) {
+        // Get patient with id puid
+        try {
+            // Temporarily create a new doctor and return that
+            FirebaseAttributes.firestore.collection("users").document(puid).get();
 
-        return patient;
+            // Asynchronously retrieve multiple documents
+            ApiFuture<DocumentSnapshot> future =
+                    FirebaseAttributes.firestore.collection("users").document(puid).get();
+            // future.get() blocks on response
+            DocumentSnapshot document = future.get();
+
+            return document.toObject(Patient.class);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @GetMapping("/doctor")
-    public Doctor getDoctor() {
-        // Temporarily create a new doctor and return that
-        Doctor doctor = new Doctor();
-        doctor.setId("14");
-        doctor.setDoctorID("d14");
-        doctor.setFirstName("doctor");
-        doctor.setLastName("test");
-        doctor.setAddress("city college's address");
-        doctor.setSpecialty("optometry");
+    public Doctor getDoctor(@RequestParam("doctor") String duid) {
+        // Get doctor with id duid
+        try {
+            // Temporarily create a new doctor and return that
+            FirebaseAttributes.firestore.collection("users").document(duid).get();
 
-        return doctor;
+            // Asynchronously retrieve multiple documents
+            ApiFuture<DocumentSnapshot> future =
+                    FirebaseAttributes.firestore.collection("users").document(duid).get();
+            // future.get() blocks on response
+            DocumentSnapshot document = future.get();
+
+            return document.toObject(Doctor.class);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @PostMapping("/assign")
     public AssignedTo homie(@RequestBody AssignedTo pair) {
-        /* Assign a patient to a doctor */
-        AssignedTo newPair = new AssignedTo();
-        newPair.setUid(pair.getUid());
-        newPair.setPatient(pair.getPatient());
-        newPair.setDoctor(pair.getDoctor());
-        newPair.setActive(pair.getActive());
+        /* Assign a patient to a doctor and return the pair */
+        FirebaseAttributes.firestore.collection("AssignedTo").add(pair);
 
-        return newPair;
+        return pair;
     }
 
     @PostMapping("/note")
     public Note postNote(@RequestBody Note note) {
-        // Create a new note and return it
-        Note newNote = new Note();
-        System.out.println(note);
-        newNote.setNoteID(note.getNoteID());
-        newNote.setCreator(note.getCreator());
-        newNote.setDateCreated(note.getDateCreated());
-        newNote.setApprovedDoctors(note.getApprovedDoctors());
-        newNote.setContent(note.getContent());
+        // Add note to Firestore and return it
+        FirebaseAttributes.firestore.collection("users")
+                .document(note.getCreator()).collection("Notes")
+                .add(note);
 
-        return newNote;
+        return note;
     }
 
     @PostMapping("/medicalInfo")
     public MedicalInfo postMedicalInfo(@RequestBody MedicalInfo medInfo) {
-        // Create a new medical info record and return it
-        MedicalInfo mi = new MedicalInfo();
-        mi.setInfoID(medInfo.getInfoID());
-        mi.setPatient(medInfo.getPatient());
-        mi.setLastUpdated(medInfo.getLastUpdated());
-        mi.setHealthInsuranceNumber(medInfo.getHealthInsuranceNumber());
-        mi.setSex(medInfo.getSex());
-        mi.setBloodType(medInfo.getBloodType());
-        mi.setHeightIN(medInfo.getHeightIN());
-        mi.setWeight(medInfo.getWeight());
-        mi.setHeartRate(medInfo.getHeartRate());
-        mi.setBloodPressure(medInfo.getBloodPressure());
+        // Add medInfo to Firestore and return it
+        FirebaseAttributes.firestore.collection("users")
+                .document(medInfo.getPatient()).collection("MedicalInfo")
+                .add(medInfo);
 
-        return mi;
+        return medInfo;
     }
 
     @PostMapping("/medication")
     public Medication postMedication(@RequestBody Medication medication) {
-        // Create a new medication record and return it
-        Medication med = new Medication();
-        System.out.println(medication);
-        med.setMedID(medication.getMedID());
-        med.setPrescribee(medication.getPrescribee());
-        med.setDatePrescribed(medication.getDatePrescribed());
-        med.setDosage(medication.getDosage());
-        med.setPrescriber(medication.getPrescriber());
+        // Add medication to Firestore and use it
+        FirebaseAttributes.firestore.collection("users")
+                        .document(medication.getPrescribee()).collection("Medication")
+                        .add(medication);
 
-        return med;
+        return medication;
     }
 }

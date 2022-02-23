@@ -10,7 +10,7 @@ public class MedicalInfo {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm'Z'")
     private Date lastUpdated;
     private String healthInsuranceNumber;
-    private Character sex;
+    private String sex;
     private String bloodType;
     private Integer heightIN;
     private Integer weight;
@@ -49,11 +49,11 @@ public class MedicalInfo {
         this.healthInsuranceNumber = healthInsuranceNumber;
     }
 
-    public Character getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Character sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
