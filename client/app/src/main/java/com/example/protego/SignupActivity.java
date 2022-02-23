@@ -1,6 +1,7 @@
 package com.example.protego;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -13,8 +14,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,10 +30,14 @@ import android.widget.Spinner;
 import androidx.fragment.app.FragmentContainerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.provider.FirebaseInitProvider;
 
 public class SignupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     public static final String TAG = "SignupActivity";
     private FirebaseAuth mAuth;
+    private FirebaseFirestore firestore;
 
     // add other input fields here
     private Button btnSignup;
@@ -46,7 +53,8 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        //mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
         //the spinner component
         spinner = (Spinner) findViewById(R.id.typeOfUserSpinner);
@@ -72,7 +80,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
             }
         });*/
     }
-/*
+
     @Override
     public void onStart() {
         super.onStart();
@@ -81,7 +89,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         if(currentUser != null){
             reload();
         }
-    }*/
+    }
 
     private void registerUser(String email, String password) {
         Log.i(TAG, "Attempting to register user " + email);
@@ -96,6 +104,22 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                             goMainActivity();
+
+                            CollectionReference users = firestore.collection("users");
+
+                            Log.d(TAG, "Creating the user...");
+
+                            AuthResult res = task.getResult();
+                            FirebaseUser fuser = res.getUser();
+                            String uid = fuser.getUid();
+
+
+                            ProtegoUser puser = new ProtegoUser();
+                            puser.setId(uid);
+                            puser.setName(first_name_input.getText().toString());
+
+                            Log.d(TAG, "user name: " + first_name_input.getText().toString() + " id " + uid);
+                            users.add(puser);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -104,7 +128,33 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                             updateUI(null);
                         }
                     }
-                });
+                }).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                // Task completed successfully
+                // ...
+                Log.d(TAG, "HIIIIII:success");
+                // Sign in success, update UI with the signed-in user's information
+                Log.d(TAG, "createUserWithEmail:success");
+                FirebaseUser user = mAuth.getCurrentUser();
+
+                CollectionReference users = firestore.collection("users");
+
+                Log.d(TAG, "Creating the user...");
+
+                FirebaseUser fuser = authResult.getUser();
+                String uid = fuser.getUid();
+
+
+                ProtegoUser puser = new ProtegoUser();
+                puser.setId(uid);
+                puser.setName(first_name_input.getText().toString());
+
+                Log.d(TAG, "user name: " + first_name_input.getText().toString() + " id " + uid);
+                users.add(puser);
+                Log.d(TAG, "FESADFuser name: " + first_name_input.getText().toString() + " id " + uid);
+            }
+        });;
     }
 
     private void reload() { }
