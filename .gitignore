@@ -2,6 +2,7 @@
 .idea
 serviceAccountKey.json
 google-services.json
+*.iml
 
 # Compiled class file
 *.class
