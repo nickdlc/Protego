@@ -1,6 +1,7 @@
 .DS_Store
 .idea
 serviceAccountKey.json
+*.iml
 
 # Compiled class file
 *.class
