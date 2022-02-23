@@ -1,6 +1,5 @@
 package com.example.protego;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -167,8 +165,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void patient_Dashboard_Screen(View view){
-        Intent intent = new Intent(this, LoginActivity.class); //To do: change the loginActivity to the patient Dashboard Activity
-
+        Intent intent = new Intent(this, DoctorDashboardActivity.class);
         first_name_input = (TextInputEditText) findViewById(R.id.patientFirstNameTextInput);
         email_input = (TextInputEditText) findViewById(R.id.patientEmailTextInput);
         password_input = (TextInputEditText) findViewById(R.id.patientPasswordTextInput);
