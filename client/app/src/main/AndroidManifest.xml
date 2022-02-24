@@ -11,15 +11,27 @@
         android:theme="@style/Theme.Protego">
 
         <activity
-            android:name=".SplashScreenActivity"
-            android:exported="true"
-            android:label="@string/splash_activity"
+            android:name=".MainActivity"
             android:theme="@style/Theme.Protego.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".SplashScreenActivity"
+            android:exported="true"
+            android:label="@string/splash_activity"
+            android:theme="@style/Theme.Protego.NoActionBar">
+            <!--
+            <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+
+                    <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".LoginActivity"

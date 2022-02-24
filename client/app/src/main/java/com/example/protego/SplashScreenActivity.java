@@ -41,6 +41,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SignupActivity.class);
             Log.i(TAG, "onDelay");
             startActivity(intent);
+            finish();
         },2000);
 
     }
