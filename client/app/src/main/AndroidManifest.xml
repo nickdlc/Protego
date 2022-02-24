@@ -20,6 +20,10 @@
 
         <activity
             android:name=".PatientDashboardActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".PatientNotesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
