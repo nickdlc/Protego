@@ -18,6 +18,16 @@
         <item>Patient</item>
         <item>Doctor</item>
     </string-array>
+
+    <string-array name="doctor_navbar_options_array">
+        <item></item>
+        <item>Home</item>
+        <item>Profile</item>
+        <item>Log out</item>
+    </string-array>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_doctor_profile">DoctorProfileActivity</string>
 </resources>

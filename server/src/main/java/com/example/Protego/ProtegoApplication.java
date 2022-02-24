@@ -1,11 +1,13 @@
 package com.example.Protego;
 
+import com.example.Protego.FirebaseAttributes.FirebaseAttributes;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.cloud.FirestoreClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -23,11 +25,11 @@ public class ProtegoApplication {
 					.setCredentials(GoogleCredentials.getApplicationDefault())
 					.build();
 
-			FirebaseApp.initializeApp(options);
+			FirebaseAttributes.firebaseApp = FirebaseApp.initializeApp(options);
 
-			Firestore firestore = FirestoreClient.getFirestore();
+			FirebaseAttributes.firestore = FirestoreClient.getFirestore();
 
-			FirebaseAuth auth = FirebaseAuth.getInstance();
+			FirebaseAttributes.firebaseAuth = FirebaseAuth.getInstance();
 		} catch (IOException e) {
 			System.out.println("Could not create Firebase options, exiting...");
 			e.printStackTrace();

@@ -8,22 +8,29 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Protego">
-
+        android:theme="@style/Theme.Protego.NoActionBar">
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.Protego.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".DoctorScanQRCodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorViewPatientsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorEditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorProfileActivity"
+            android:exported="false"
+            android:label="@string/title_activity_doctor_profile"
+            android:theme="@style/Theme.Protego.NoActionBar.NoActionBar" />
+        <activity
+            android:name=".DoctorDashboardActivity"
             android:exported="true"
-            android:label="@string/splash_activity"
             android:theme="@style/Theme.Protego.NoActionBar">
             <!--
             <intent-filter>
@@ -34,36 +41,40 @@
             -->
         </activity>
         <activity
+            android:name=".SplashScreenActivity"
+            android:exported="false"
+            android:label="@string/splash_activity"
+            android:theme="@style/Theme.Protego.NoActionBar">
+
+            <intent-filter> -->
+              <action android:name="android.intent.action.MAIN" /> 
+
+              <category android:name="android.intent.category.LAUNCHER" /> 
+              </intent-filter> 
+        </activity>
+        <activity
             android:name=".LoginActivity"
             android:exported="false"
             android:label="@string/title_activity_login"
-            android:theme="@style/Theme.Protego.NoActionBar">
-        </activity>
-
+            android:theme="@style/Theme.Protego.NoActionBar" />
         <activity
             android:name=".SignupActivity"
             android:exported="false"
             android:label="@string/title_activity_signup"
             android:theme="@style/Theme.Protego.NoActionBar">
-        </activity>
 
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-
-        <!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="false"-->
-<!--            android:label="@string/app_name"-->
-<!--            android:theme="@style/Theme.Protego.NoActionBar">-->
-<!--&lt;!&ndash;            <intent-filter>&ndash;&gt;-->
-<!--&lt;!&ndash;                <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
-
-<!--&lt;!&ndash;                <category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
-<!--&lt;!&ndash;            </intent-filter>&ndash;&gt;-->
-<!--        </activity>-->
     </application>
 
 </manifest>

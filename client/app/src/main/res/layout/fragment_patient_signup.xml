@@ -26,6 +26,7 @@
                 android:id="@+id/patientFirstNameTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:hint="First Name *" />
 
             <Space
@@ -41,6 +42,7 @@
                     android:id="@+id/patientEmailTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:hint="Email *" />
 
                 <Space
@@ -56,6 +58,7 @@
                         android:id="@+id/patientPasswordTextInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:singleLine="true"
                         android:hint="Password *"
                         android:password="true" />
 
@@ -72,6 +75,7 @@
                             android:id="@+id/patientConfirmPasswordTextInput"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:singleLine="true"
                             android:hint="Confirm Password *"
                             android:password="true" />
 
