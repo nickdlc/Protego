@@ -206,7 +206,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void patient_Dashboard_Screen(View view){
-        Intent intent = new Intent(this, DoctorDashboardActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         first_name_input = (TextInputEditText) findViewById(R.id.patientFirstNameTextInput);
         email_input = (TextInputEditText) findViewById(R.id.patientEmailTextInput);
         password_input = (TextInputEditText) findViewById(R.id.patientPasswordTextInput);
@@ -233,7 +233,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void doctor_Dashboard_Screen(View view){
-        Intent intent = new Intent(this, MainActivity.class); //To do: change the loginActivity to the doctor Dashboard Activity
+        Intent intent = new Intent(this, DoctorDashboardActivity.class); //To do: change the loginActivity to the doctor Dashboard Activity
 
         first_name_input = (TextInputEditText) findViewById(R.id.doctorFirstNameTextInput);
         last_name_input = (TextInputEditText) findViewById(R.id.doctorLastNameTextInput);
