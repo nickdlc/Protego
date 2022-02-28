@@ -31,8 +31,8 @@ public class PatientNotesActivity extends AppCompatActivity {
         }
 
         public String getVisibility() {
-            if(visibility) return "public";
-            else return "private";
+            if(visibility) return "visibility: public";
+            else return "visibility: private";
         }
 
         public String getDetails() {
