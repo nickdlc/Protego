@@ -1,13 +1,8 @@
 package com.example.protego;
 
 import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import androidx.cardview.widget.CardView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,15 +40,15 @@ public class PatientNotesActivity extends AppCompatActivity {
         }
     }
 
-    ArrayList<NotesInfo> NotesData = new ArrayList<>();
+    ArrayList<NotesInfo> notesData = new ArrayList<>();
 
     private void setUpPatientNotes(){
-        NotesData.add(new NotesInfo("test 1","2/24/2022",true,"This is a test note"));
-        NotesData.add(new NotesInfo("test 1","2/24/2022",true,"This is a test note"));
-        NotesData.add(new NotesInfo("test 1","2/24/2022",true,"This is a test note"));
-        NotesData.add(new NotesInfo("test 1","2/24/2022",true,"This is a test note"));
-        NotesData.add(new NotesInfo("test 1","2/24/2022",true,"This is a test note"));
-        NotesData.add(new NotesInfo("test 1","2/24/2022",true,"This is a test note"));
+        notesData.add(new NotesInfo("test 1","2/24/2022",true,"This is a test note"));
+        notesData.add(new NotesInfo("test 1","2/24/2022",true,"This is a test note"));
+        notesData.add(new NotesInfo("test 1","2/24/2022",true,"This is a test note"));
+        notesData.add(new NotesInfo("test 1","2/24/2022",true,"This is a test note"));
+        notesData.add(new NotesInfo("test 1","2/24/2022",true,"This is a test note"));
+        notesData.add(new NotesInfo("test 1","2/24/2022",true,"This is a test note"));
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +59,7 @@ public class PatientNotesActivity extends AppCompatActivity {
 
         setUpPatientNotes();
 
-        PatientNotesRecyclerViewAdapter adapter = new PatientNotesRecyclerViewAdapter(this,NotesData);
+        PatientNotesRecyclerViewAdapter adapter = new PatientNotesRecyclerViewAdapter(this,notesData);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

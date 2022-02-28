@@ -1,5 +1,6 @@
 package com.example.protego;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,35 +14,38 @@ import java.util.ArrayList;
 
 public class PatientNotesRecyclerViewAdapter extends RecyclerView.Adapter<PatientNotesRecyclerViewAdapter.MyViewHolder> {
     Context context;
-    ArrayList<PatientNotesActivity.NotesInfo> patientNotesData;
+    ArrayList<PatientNotesActivity.NotesInfo> patientNotes;
 
-    public PatientNotesRecyclerViewAdapter(Context context, ArrayList<PatientNotesActivity.NotesInfo> patientNotesData){
+
+    public PatientNotesRecyclerViewAdapter(Context context, ArrayList<PatientNotesActivity.NotesInfo> patientNotes) {
         this.context = context;
-        this.patientNotesData = patientNotesData;
+        this.patientNotes = patientNotes;
     }
+
     @NonNull
     @Override
     public PatientNotesRecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.patient_notes_note_container,parent,false);
+
         return new PatientNotesRecyclerViewAdapter.MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PatientNotesRecyclerViewAdapter.MyViewHolder holder, int position) {
-        holder.tvTitle.setText(patientNotesData.get(position).getTitle());
-        holder.tvDate.setText(patientNotesData.get(position).getDate());
-        holder.tvVisibility.setText(patientNotesData.get(position).getVisibility());
-        holder.tvDetails.setText(patientNotesData.get(position).getDetails());
+        holder.tvTitle.setText(patientNotes.get(position).getTitle());
+        holder.tvDate.setText(patientNotes.get(position).getDate());
+        holder.tvVisibility.setText(patientNotes.get(position).getVisibility());
+        holder.tvDetails.setText(patientNotes.get(position).getDetails());
     }
 
     @Override
     public int getItemCount() {
-        return patientNotesData.size();
+        return patientNotes.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView tvTitle,tvDate,tvVisibility,tvDetails;
+        TextView tvTitle, tvDate, tvVisibility, tvDetails;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
