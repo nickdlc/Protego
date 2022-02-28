@@ -5,25 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/patientDataScrollview"
-        android:layout_width="386dp"
-        android:layout_height="347dp"
-        android:background="#FFD452"
-        android:elevation="10dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/patientDataRecyclerView"
+        android:layout_width="401dp"
+        android:layout_height="317dp"
+        android:background="@color/notes_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635">
-
-        <LinearLayout
-            android:id="@+id/patientDataLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"/>
-    </ScrollView>
+        app:layout_constraintVertical_bias="0.577" />
 
     <ImageButton
         android:id="@+id/qrCodeButton"
@@ -33,10 +24,10 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.969"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.979"
+        app:layout_constraintVertical_bias="0.939"
         app:srcCompat="@drawable/qr_code" />
 
     <Button

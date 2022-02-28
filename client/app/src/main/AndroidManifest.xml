@@ -21,6 +21,7 @@
         <activity
             android:name=".PatientDashboardActivity"
             android:exported="false">
+
         </activity>
         <activity
             android:name=".PatientNotesActivity"

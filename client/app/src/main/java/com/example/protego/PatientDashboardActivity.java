@@ -1,11 +1,16 @@
 package com.example.protego;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
+
+import java.util.ArrayList;
 
 public class PatientDashboardActivity extends AppCompatActivity{
     public static class PatientInfo {
@@ -16,46 +21,51 @@ public class PatientDashboardActivity extends AppCompatActivity{
             this.title = title;
             this.details = details;
         }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getDetails() {
+            return details;
+        }
     }
 
-    PatientInfo[] patientData = new PatientInfo[] {
-            new PatientInfo("Heart Rate:", "87 Bpm"),
-            new PatientInfo("Blood Pressure:", "120.5"),
-            new PatientInfo("Temperature:", "97.8"),
-            new PatientInfo("Blood-Type:","O-")};
+    ArrayList<PatientInfo> patientData = new ArrayList<>();
 
-
-
-    private void getPatientInfo(){
-        LinearLayout patientDataLayout =(LinearLayout)findViewById(R.id.patientDataLinearLayout);
-
-        for(PatientInfo info: patientData){
-            TextView dataTitle = new TextView(getBaseContext());
-            dataTitle.setText(info.title);
-            dataTitle.setTextSize(28);
-            dataTitle.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
-
-
-            TextView dataDetails = new TextView(getBaseContext());
-            dataDetails.setText(info.details);
-            dataDetails.setTextSize(28);
-            dataDetails.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
-            dataDetails.setTypeface(null, android.graphics.Typeface.BOLD);
-            dataDetails.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
-
-            LinearLayout newLayout = new LinearLayout(getBaseContext());
-            newLayout.setOrientation(LinearLayout.HORIZONTAL);
-            newLayout.addView(dataTitle);
-            newLayout.addView(dataDetails);
-
-            patientDataLayout.addView(newLayout);
-        }
+    private void setUpPatientInfo(){
+        patientData.add( new PatientInfo("Heart Rate:", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood Pressure:", "87 Bpm"));
+        patientData.add( new PatientInfo("Temperature:", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
     }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_dashboard);
 
-        getPatientInfo();
+        RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
+
+        setUpPatientInfo();
+
+        PatientDashboardRecyclerViewAdapter adapter = new PatientDashboardRecyclerViewAdapter(this,patientData);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
