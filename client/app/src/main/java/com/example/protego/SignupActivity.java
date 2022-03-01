@@ -119,8 +119,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
                         Log.d(TAG, "Creating the user...");
 
-                        FirebaseUser firebaseUser = authResult.getUser();
-
+                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                         ProtegoUser protegoUser = new ProtegoUser();
                         protegoUser.setFirstName(first_name_input.getText().toString());
@@ -133,12 +132,17 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Log.d(TAG, "Successfully created user " + uid);
+
+                                            firebaseUser.sendEmailVerification();
+                                            Toast.makeText(SignupActivity.this, "Check your email for a verification link.", Toast.LENGTH_LONG);
+                                            // TODO: redirect to the sign in page
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             Log.w(TAG, "Error writing new user to Firestore", e);
+                                            // TODO: Redirect to the MainActivity page
                                         }
                                     });
                     }
