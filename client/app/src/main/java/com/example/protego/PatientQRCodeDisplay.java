@@ -2,7 +2,6 @@ package com.example.protego;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PatientQRCodeDisplay extends AppCompatActivity {

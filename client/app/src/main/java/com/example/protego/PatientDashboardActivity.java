@@ -8,6 +8,7 @@ package com.example.protego;
         import android.os.Bundle;
         import android.view.View;
         import android.widget.Button;
+        import android.widget.ImageButton;
         import android.widget.LinearLayout;
         import android.widget.TextView;
         import android.view.ViewGroup.LayoutParams;
@@ -17,6 +18,7 @@ package com.example.protego;
 public class PatientDashboardActivity extends AppCompatActivity{
     //input fields
     private Button button;
+    private ImageButton imageButton;
     private static String Name;
 
 
@@ -83,7 +85,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         //TODO : update the connection, the View Doctors button is connected to the View Notes Activity to test it.
         connectButtonToActivity(R.id.viewDoctorsButton, PatientNotesActivity.class);
-        connectButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
+
+        connectImageButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
 
     }
 
@@ -92,6 +95,19 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         button = findViewById(buttonId);
         button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), nextActivityClass);
+                startActivity(i);
+                finish();
+            }
+        });
+    }
+
+    private void connectImageButtonToActivity(Integer buttonId, Class nextActivityClass) {
+
+        imageButton = findViewById(buttonId);
+        imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
