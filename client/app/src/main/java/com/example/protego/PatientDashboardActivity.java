@@ -83,6 +83,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         //TODO : update the connection, the View Doctors button is connected to the View Notes Activity to test it.
         connectButtonToActivity(R.id.viewDoctorsButton, PatientNotesActivity.class);
+        connectButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
 
     }
 
