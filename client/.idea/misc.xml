@@ -3,7 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/karee/Protego/client/app/src/main/res/layout/activity_signup.xml" value="0.1" />
+        <entry key="..\:/Users/karee/Protego/client/app/src/main/res/layout/activity_splash.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/karee/Protego/client/app/src/main/res/layout/fragment_doctor_signup.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/karee/Protego/client/app/src/main/res/layout/fragment_patient_signup.xml" value="0.17447916666666666" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15885416666666666" />
         <entry key="app/src/main/res/drawable/circle.xml" value="0.2" />
+        <entry key="app/src/main/res/drawable/ic_illustration.xml" value="0.1296875" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.15885416666666666" />
+        <entry key="app/src/main/res/drawable/ic_splash.xml" value="0.159375" />
+        <entry key="app/src/main/res/drawable/ic_splash_screen.xml" value="0.948783987694939" />
+        <entry key="app/src/main/res/drawable/splash_background.xml" value="0.15885416666666666" />
+        <entry key="app/src/main/res/drawable/splash_fg_background.xml" value="0.15885416666666666" />
+        <entry key="app/src/main/res/drawable/splash_screen_background.xml" value="0.18425925925925926" />
         <entry key="app/src/main/res/layout/activity_doctor_dashboard.xml" value="0.152" />
         <entry key="app/src/main/res/layout/activity_doctor_edit_profile.xml" value="0.176" />
         <entry key="app/src/main/res/layout/activity_doctor_profile.xml" value="0.2" />
@@ -15,8 +27,9 @@
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.176" />
         <entry key="app/src/main/res/layout/circle.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/content_activity_login.xml" value="0.23239909026564376" />
         <entry key="app/src/main/res/layout/content_doctor_profile.xml" value="0.264" />
-        <entry key="app/src/main/res/layout/content_main.xml" value="0.264" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.23596014492753623" />
         <entry key="app/src/main/res/layout/fragment_doctor_dropdown_selection.xml" value="0.1408514492753623" />
         <entry key="app/src/main/res/layout/fragment_doctor_header.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_doctor_navbar_options.xml" value="0.1" />
@@ -25,16 +38,6 @@
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/fragment_patient_signup.xml" value="0.176" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.19010416666666666" />
-        <entry key="app/src/main/res/layout/content_activity_login.xml" value="0.23239909026564376" />
-        <entry key="app/src/main/res/layout/content_main.xml" value="0.23596014492753623" />
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15885416666666666" />
-        <entry key="app/src/main/res/drawable/ic_illustration.xml" value="0.1296875" />
-        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.15885416666666666" />
-        <entry key="app/src/main/res/drawable/ic_splash.xml" value="0.159375" />
-        <entry key="app/src/main/res/drawable/ic_splash_screen.xml" value="0.948783987694939" />
-        <entry key="app/src/main/res/drawable/splash_background.xml" value="0.15885416666666666" />
-        <entry key="app/src/main/res/drawable/splash_fg_background.xml" value="0.15885416666666666" />
-        <entry key="app/src/main/res/drawable/splash_screen_background.xml" value="0.18425925925925926" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/splash_fg.xml" value="0.15885416666666666" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/splash_screen_round.xml" value="0.18425925925925926" />
       </map>
