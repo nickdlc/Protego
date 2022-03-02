@@ -92,8 +92,15 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                            goMainActivity();
+                            if (user.isEmailVerified()) {
+                                updateUI(user);
+                                goMainActivity();
+                            } else {
+                                Log.d(TAG, "user not verified by email");
+                                Toast.makeText(LoginActivity.this, "Please verify your email with the sent link.", Toast.LENGTH_LONG);
+                                // TODO: have a button that says "resend link"?
+                                // to resend link, call `user.sendEmailVerification();`
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
