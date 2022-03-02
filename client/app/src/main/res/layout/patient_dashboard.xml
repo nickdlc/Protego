@@ -9,12 +9,10 @@
         android:id="@+id/btnNotifications"
         android:layout_width="50dp"
         android:layout_height="35dp"
-        android:background=""
         android:insetTop="0dp"
         android:insetBottom="0dp"
-
         android:text="————"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:iconPadding="0dp"
@@ -29,9 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="Notifications"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNotifications"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 

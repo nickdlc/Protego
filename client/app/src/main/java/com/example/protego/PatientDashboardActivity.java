@@ -1,19 +1,23 @@
 package com.example.protego;
 
-        import androidx.appcompat.app.AppCompatActivity;
-        import androidx.recyclerview.widget.LinearLayoutManager;
-        import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.ImageButton;
-        import android.widget.LinearLayout;
-        import android.widget.TextView;
-        import android.view.ViewGroup.LayoutParams;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.view.ViewGroup.LayoutParams;
 
-        import java.util.ArrayList;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import java.util.ArrayList;
 
 public class PatientDashboardActivity extends AppCompatActivity{
     //input fields
@@ -71,6 +75,13 @@ public class PatientDashboardActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_dashboard);
 
+        btnNotifications = findViewById(R.id.btnNotifications);
+        btnNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBottomSheetDialog();
+            }
+        });
 
         RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
 
@@ -90,8 +101,14 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         connectImageButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
 
-        //connectNotificationMenuToActivity(R.id.btnNotifications, PatientNotifications.class);
+    }
 
+    private void showBottomSheetDialog() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.notifications_bottom_sheet);
+
+        LinearLayout menu = bottomSheetDialog.findViewById(R.id.bottom_sheet);
+        bottomSheetDialog.show();
     }
 
     // navigate to next activity
@@ -112,19 +129,6 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         imageButton = findViewById(buttonId);
         imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), nextActivityClass);
-                startActivity(i);
-                finish();
-            }
-        });
-    }
-
-    private void connectNotificationMenuToActivity(Integer buttonId, Class nextActivityClass) {
-
-        btnNotifications = findViewById(buttonId);
-        btnNotifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
