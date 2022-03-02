@@ -3,10 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_dashboard.xml" value="0.1956521739130435" />
-        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_dashboard_data_row.xml" value="0.2" />
-        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_notes.xml" value="0.22" />
-        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_notes_note_container.xml" value="0.17119565217391305" />
+        <entry key="..\:/Users/chels/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_item.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/drawable/circle.xml" value="0.146" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/drawable/ic_launcher_background.xml" value="0.146" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/drawable/patient_circle.xml" value="0.1275" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/activity_doctor_dashboard.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/activity_doctor_edit_profile.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/activity_doctor_profile.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/activity_doctor_scan_qrcode.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/activity_doctor_view_patients.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/activity_signup.xml" value="0.536" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/circle.xml" value="0.2" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_doctor_navigation_bar.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_doctor_signup.xml" value="0.2" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_patient_navigation_bar.xml" value="0.1" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_patient_signup.xml" value="0.1" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_second.xml" value="0.22282608695652173" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/patient_dashboard.xml" value="0.176" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/patient_dashboard_data_row.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/patient_notes.xml" value="0.264" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/patient_notes_note_container.xml" value="0.2" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15885416666666666" />
         <entry key="app/src/main/res/drawable/circle.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/ic_illustration.xml" value="0.1296875" />
