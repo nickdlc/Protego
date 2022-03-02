@@ -38,6 +38,7 @@ import com.google.firebase.provider.FirebaseInitProvider;
 
 public class SignupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     public static final String TAG = "SignupActivity";
+    public boolean isAuth = false;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
 
@@ -114,6 +115,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                         // Task completed successfully
                         // ...
                         // Sign in success, update UI with the signed-in user's information
+                        isAuth = true;
                         Log.d(TAG, "registerUser:success");
                         FirebaseUser user = mAuth.getCurrentUser();
 
@@ -138,13 +140,15 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                             firebaseUser.sendEmailVerification();
                                             Toast.makeText(SignupActivity.this, "Check your email for a verification link.", Toast.LENGTH_LONG);
                                             // TODO: redirect to the sign in page
+                                            //  (I don't think we need this; send user to dashboard)
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             Log.w(TAG, "Error writing new user to Firestore", e);
-                                            // TODO: Redirect to the MainActivity page
+                                            // redirect to the MainActivity page
+                                            goMainActivity();
                                         }
                                     });
                     }
@@ -159,7 +163,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
     // navigate to the main activity once the user has signed up
     private void goMainActivity() {
-        Intent i = new Intent(this, MainActivity.class); // TODO: change to user dashboard activity 
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
     }
@@ -234,9 +238,10 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         signup_bundle.putString(confirm_password, confirm_password);
 
         intent.putExtras(signup_bundle); //sets the bundle to the intent
-        startActivity(intent); //starts an instance of the doctor dashboard
 
-    }
+        if(isAuth)
+            startActivity(intent); //starts an instance of the patient dashboard
+        }
 
     public void doctor_Dashboard_Screen(View view){
         Intent intent = new Intent(this, DoctorDashboardActivity.class); //To do: change the loginActivity to the doctor Dashboard Activity
@@ -265,7 +270,9 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         signup_bundle.putString(confirm_password, confirm_password);
 
         intent.putExtras(signup_bundle); //sets the bundle to the intent
-        startActivity(intent); //starts an instance of the doctor dashboard
+
+        if(isAuth)
+            startActivity(intent); //starts an instance of the doctor dashboard
 
     }
 
