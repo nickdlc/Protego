@@ -19,6 +19,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
     //input fields
     private Button button;
     private ImageButton imageButton;
+    private Button btnNotifications;
+    private TextView tvNotifications;
     private static String Name;
 
 
@@ -88,6 +90,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         connectImageButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
 
+        //connectNotificationMenuToActivity(R.id.btnNotifications, PatientNotifications.class);
+
     }
 
     // navigate to next activity
@@ -108,6 +112,19 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         imageButton = findViewById(buttonId);
         imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), nextActivityClass);
+                startActivity(i);
+                finish();
+            }
+        });
+    }
+
+    private void connectNotificationMenuToActivity(Integer buttonId, Class nextActivityClass) {
+
+        btnNotifications = findViewById(buttonId);
+        btnNotifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);

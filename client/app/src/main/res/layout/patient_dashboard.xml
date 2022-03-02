@@ -5,6 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/btnNotifications"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:background=""
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+
+        android:text="————"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:iconPadding="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qrCodeButton" />
+
+    <TextView
+        android:id="@+id/tvNotifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Notifications"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/patientDataRecyclerView"
         android:layout_width="401dp"
@@ -18,16 +48,16 @@
 
     <ImageButton
         android:id="@+id/qrCodeButton"
-        android:layout_width="87dp"
-        android:layout_height="91dp"
+        android:layout_width="68dp"
+        android:layout_height="51dp"
         android:elevation="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.972"
+        app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.968"
+        app:layout_constraintVertical_bias="0.908"
         app:srcCompat="@drawable/qr_code" />
 
     <Button

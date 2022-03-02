@@ -62,6 +62,8 @@
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/fragment_patient_signup.xml" value="0.176" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.19010416666666666" />
+        <entry key="app/src/main/res/layout/patient_dashboard.xml" value="0.30016214561065174" />
+        <entry key="app/src/main/res/layout/patient_dashboard_data_row.xml" value="0.2028985507246377" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/splash_fg.xml" value="0.15885416666666666" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/splash_screen_round.xml" value="0.18425925925925926" />
       </map>
