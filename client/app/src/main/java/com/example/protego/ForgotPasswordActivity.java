@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.SignInMethodQueryResult;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     public static final String TAG = "ForgotPasswordActivity";
@@ -24,11 +23,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText etEmail;
     private Button btnResetPassword;
     private Button btnReturnToSignIn;
-    /* Using a second button to return to sign in page so that users are not
-     * immediately redirected on both success and failure.
-     *
-     * TODO: Implement a way to navigate the user to the sign in page on success
-     *  and keep the user on the reset password page on failure. */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,20 +73,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             return;
         }
 
-        // TOOD: handle emails that are not attached to an existing user
-        // may need SignInMethodQueryResult to accomplish.
-
-//        mAuth.fetchSignInMethodsForEmail(email)
-//                .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-//                        boolean isNewUser = task.getResult().getSignInMethods().isEmpty();
-//
-//                        // if isNewUser, setError and requestFocus for etEmail then
-//                        // do not proceed from here
-//                    }
-//                });
-
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -102,7 +82,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(ForgotPasswordActivity.this,
-                            "Something went wrong, please try again!",
+                            "Something went wrong. Please check that your email is correct!",
                             Toast.LENGTH_LONG).show();
                 }
             }
