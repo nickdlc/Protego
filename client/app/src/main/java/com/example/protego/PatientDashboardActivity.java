@@ -1,6 +1,7 @@
 package com.example.protego;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.motion.widget.OnSwipe;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -76,9 +78,17 @@ public class PatientDashboardActivity extends AppCompatActivity{
         setContentView(R.layout.patient_dashboard);
 
         btnNotifications = findViewById(R.id.btnNotifications);
-        btnNotifications.setOnClickListener(new View.OnClickListener() {
+        /*btnNotifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showBottomSheetDialog();
+            }
+        });*/
+
+        btnNotifications.setOnTouchListener(new OnSwipeTouchListener(this) {
+            @Override
+            public void onSwipeUp() {
+                //Toast.makeText(PatientDashboardActivity.this, "Up", Toast.LENGTH_SHORT).show();
                 showBottomSheetDialog();
             }
         });
