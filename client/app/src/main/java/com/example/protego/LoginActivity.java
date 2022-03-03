@@ -33,7 +33,8 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     private Button btnLogin;
     private Spinner spinner;
     private Button buttonLogin;
-
+    private Button btnForgotPassword;
+    private Button btnSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,26 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         //connects the button for users who do not have accounts to the sign up activity.
         connectButtonToActivity(R.id.btnSignup, SignupActivity.class);
 
+        btnForgotPassword = findViewById(R.id.btnForgotPassword);
+        btnForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick forgot password button");
+                Intent i = new Intent(v.getContext(), ForgotPasswordActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+        btnSignUp = findViewById(R.id.btnSignup);
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick register here button");
+                Intent i = new Intent(v.getContext(), SignupActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
     @Override
