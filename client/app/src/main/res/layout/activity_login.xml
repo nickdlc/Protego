@@ -16,31 +16,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Layout_Password_Sign_In_Text_Input" />
+        app:layout_constraintTop_toBottomOf="@+id/Layout_Password_Sign_In_Text_Input"
+        app:layout_constraintVertical_bias="0.65" />
 
     <TextView
         android:id="@+id/Protego_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:text="Protego"
         android:textColor="@color/protego_color"
         android:textSize="48sp"
-        app:layout_constraintBottom_toTopOf="@+id/Login_Title"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Layout_Email_Sign_In_Text_Input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="278dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
 
         app:boxCornerRadiusBottomEnd="1dp"
         app:boxCornerRadiusBottomStart="1dp"
@@ -49,9 +47,11 @@
         app:boxStrokeColor="@color/protego_color"
         app:boxStrokeWidth="2dp"
         app:hintTextColor="@color/protego_color"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55">
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -70,10 +70,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="47dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
         app:boxCornerRadiusBottomEnd="1dp"
         app:boxCornerRadiusBottomStart="1dp"
         app:boxCornerRadiusTopEnd="1dp"
@@ -81,9 +78,11 @@
         app:boxStrokeColor="@color/protego_color"
         app:boxStrokeWidth="2dp"
         app:hintTextColor="@color/protego_color"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Layout_Email_Sign_In_Text_Input">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
@@ -97,32 +96,48 @@
             android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/loginUserTypeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Which user are you?"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/loginTypeOfUserSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Login_Title"
+        app:layout_constraintVertical_bias="0.815" />
+
     <Button
         android:id="@+id/btnSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="199dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginBottom="134dp"
+        android:layout_marginBottom="56dp"
         android:text="Don't have an account? Sign Up"
         android:textColor="#000000"
         android:textSize="9sp"
         app:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="264dp"
-        android:layout_marginBottom="134dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="17dp"
         android:text="Forgot Password"
         android:textColor="#000000"
         android:textSize="9sp"
         app:backgroundTint="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
     <TextView
         android:id="@+id/Login_Title"
@@ -130,25 +145,37 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/Sign_In_Icon"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Protego_Title" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.20" />
 
     <ImageView
         android:id="@+id/Sign_In_Icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
         android:background="@color/protego_color"
-        app:layout_constraintBottom_toTopOf="@+id/Layout_Email_Sign_In_Text_Input"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Login_Title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.28"
         app:srcCompat="@android:drawable/ic_lock_idle_lock" />
 
+    <Spinner
+        android:id="@+id/loginTypeOfUserSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

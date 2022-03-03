@@ -66,7 +66,7 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
         }
 
         else if (userNavbarSelection.equals(userNavbarOptions[3])) { //the user selects the Log out option which will take them to sign in
-            createIntent(SignupActivity.class);
+            createIntent(LoginActivity.class);
         }
     }
 
