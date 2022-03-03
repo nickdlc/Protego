@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.protego">
 
     <application
@@ -85,14 +86,8 @@
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.Protego.NoActionBar" />
-      
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Protego.NoActionBar">
-        </activity>
 
-        <activity>
+        <activity
             android:name=".SignupActivity"
             android:exported="false"
             android:label="@string/title_activity_signup"
