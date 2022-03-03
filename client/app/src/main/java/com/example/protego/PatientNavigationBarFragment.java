@@ -40,12 +40,11 @@ public class PatientNavigationBarFragment extends Fragment implements AdapterVie
 
         View view = inflater.inflate(R.layout.fragment_patient_navigation_bar, container, false);
 
-        //the spinner component
-        spinner = view.findViewById(R.id.patientNavbarSpinner);
-
-        //to update the first name of the user on their navbar
+        //to update the first name of the patient on their navbar
         updateNavbarName(view);
 
+        //the spinner component
+        spinner = view.findViewById(R.id.patientNavbarSpinner);
         //ArrayAdapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, navbar_options_array);
         //specify layout
