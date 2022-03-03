@@ -136,11 +136,11 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Log.d(TAG, "Successfully created user " + uid);
-
-                                            firebaseUser.sendEmailVerification();
+                                            Intent i = new Intent(SignupActivity.this, LoginActivity.class);
                                             Toast.makeText(SignupActivity.this, "Check your email for a verification link.", Toast.LENGTH_LONG);
-                                            // TODO: redirect to the sign in page
-                                            //  (I don't think we need this; send user to dashboard)
+                                            startActivity(i);
+                                            firebaseUser.sendEmailVerification();
+                                            finish();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
