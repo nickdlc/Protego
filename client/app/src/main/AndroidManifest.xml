@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.protego">
 
     <application
@@ -50,9 +51,35 @@
             android:theme="@style/Theme.Protego.NoActionBar">
             <intent-filter>
               <action android:name="android.intent.action.MAIN" />
-
+              
               <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+           </intent-filter>
+        </activity>
+            
+        <activity
+            android:name=".PatientDashboardActivity"
+            android:exported="false">
+                    <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+
+        </activity>
+        <activity
+            android:name=".PatientNotesActivity"
+            android:exported="false">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".PatientQRCodeDisplay"
+            android:exported="false">
         </activity>
 
         <activity
@@ -60,18 +87,19 @@
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.Protego.NoActionBar" />
+
         <activity
             android:name=".SignupActivity"
             android:exported="false"
             android:label="@string/title_activity_signup"
             android:theme="@style/Theme.Protego.NoActionBar">
 
-                        <!-- <intent-filter> -->
+      <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+      <!-- </intent-filter> -->
 
         </activity>
 
