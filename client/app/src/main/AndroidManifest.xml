@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Protego.NoActionBar">
+        android:theme="@style/Theme.Protego.NoActionBar"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
@@ -76,6 +77,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

@@ -89,5 +89,6 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
     private void createIntent(Class nextActivityClass) {
         Intent i = new Intent(getContext(), nextActivityClass);
         startActivity(i);
+        finish();
     }
 }
