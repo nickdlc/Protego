@@ -116,7 +116,8 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user.isEmailVerified()) {
                                 updateUI(user);
-                                goMainActivity();
+                                goDoctorActivity(); // TODO: check for user type before sending user to dashboard
+                                                        // can add this once user type option is added to LoginActivity
                             } else {
                                 Log.d(TAG, "user not verified by email");
                                 Toast.makeText(LoginActivity.this, "Please verify your email with the sent link.", Toast.LENGTH_LONG);
@@ -140,7 +141,15 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
 
     }
 
-    // navigate to the main activity if the user has signed in properly
+    // navigate to the appropriate dashboard activity if the user has signed in properly
+    private void goDoctorActivity() {
+        Intent i = new Intent(this, DoctorDashboardActivity.class);
+        startActivity(i);
+        finish();
+    }
+
+
+
     private void goMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);

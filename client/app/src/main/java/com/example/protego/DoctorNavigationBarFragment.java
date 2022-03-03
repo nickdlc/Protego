@@ -15,9 +15,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class DoctorNavigationBarFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
     private Spinner spinner;
+    private FirebaseAuth mAuth;
+
 
     public DoctorNavigationBarFragment() {
         // Required empty public constructor
@@ -26,6 +30,7 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
 
     }
 
@@ -66,7 +71,12 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
         }
 
         else if (userNavbarSelection.equals(userNavbarOptions[3])) { //the user selects the Log out option which will take them to sign in
-            createIntent(LoginActivity.class);
+            try {
+                mAuth.signOut();
+                createIntent(LoginActivity.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -79,5 +89,6 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
     private void createIntent(Class nextActivityClass) {
         Intent i = new Intent(getContext(), nextActivityClass);
         startActivity(i);
+        finish();
     }
 }
