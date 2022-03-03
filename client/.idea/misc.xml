@@ -3,13 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/chels/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_item.xml" value="0.1308876811594203" />
-        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.146" />
-        <entry key="app/src/main/res/drawable/patient_circle.xml" value="0.1275" />
-        <entry key="app/src/main/res/layout/patient_dashboard.xml" value="0.176" />
-        <entry key="app/src/main/res/layout/patient_dashboard_data_row.xml" value="0.1308876811594203" />
-        <entry key="app/src/main/res/layout/patient_notes.xml" value="0.264" />
-        <entry key="app/src/main/res/layout/patient_notes_note_container.xml" value="0.2" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15885416666666666" />
         <entry key="app/src/main/res/drawable/circle.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/ic_illustration.xml" value="0.1296875" />
@@ -25,7 +18,7 @@
         <entry key="app/src/main/res/layout/activity_doctor_scan_qrcode.xml" value="0.176" />
         <entry key="app/src/main/res/layout/activity_doctor_view_patients.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.21" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.36314904785156255" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/activity_patient_dashboard.xml" value="0.10989583333333333" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.1" />
