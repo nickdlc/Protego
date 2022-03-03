@@ -165,9 +165,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
 
         //TODO: check that the user first login with the correct credentials and user type if so then their user type selection determines their dashboard view
         if(userType.equals(userTypeOptions[1])){ //the user is a patient therefore the patient dashboard is shown
-            //TODO: Change Signup Activity to Doctor Activity once the Activity is on the branch
-            connectButtonToActivity(R.id.btnLogin, SignupActivity.class); //Temporarily connects to Signup Activity to Test
-            //connectButtonToActivity(R.id.btnLogin, PatientDashboardActivity.class);
+            connectButtonToActivity(R.id.btnLogin, PatientDashboardActivity.class);
 
         }
         else if(userType.equals(userTypeOptions[2])) { // the user is a doctor therefore the doctor dashboard is shown
