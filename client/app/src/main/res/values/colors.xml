@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="protego_color"> #F0C044 </color>
     <color name="notes_color">#FFEB3B</color>
+    <color name="splash_screen_color"> #332d98</color>
 </resources>

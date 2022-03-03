@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:layout_height="match_parent">
 
     <Spinner
         android:id="@+id/typeOfUserSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/protego_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.369"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Sign Up"
-        android:textSize="34sp"
+        android:textSize="50sp"
         app:layout_constraintBottom_toTopOf="@+id/typeOfUserSpinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -40,7 +40,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/typeOfUserSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/typeOfUserSpinner"
+        app:layout_constraintVertical_bias="0.1" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/doctorFragmentContainerView"
@@ -51,18 +52,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/typeOfUserSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/typeOfUserSpinner"
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
-        android:id="@+id/UserTypeTextView"
-        android:layout_width="match_parent"
+        android:id="@+id/loginUserTypeTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:password="false"
         android:text="Which user are you?"
-        android:textSize="18sp"
+        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/typeOfUserSpinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUpTextView"
         app:layout_constraintVertical_bias="0.815" />

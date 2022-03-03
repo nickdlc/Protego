@@ -10,15 +10,23 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_login">activity_login</string>
+    <string name="title_activity_signup">activity_signup</string>
+    <string name="splash_activity">activity_splash</string>
+
     <string-array name="type_of_user_array">
-        <item></item>
+        <item>Select Option</item>
         <item>Patient</item>
         <item>Doctor</item>
     </string-array>
 
-
-
+    <string-array name="doctor_navbar_options_array">
+        <item></item>
+        <item>Home</item>
+        <item>Profile</item>
+        <item>Log out</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_doctor_profile">DoctorProfileActivity</string>
 </resources>
