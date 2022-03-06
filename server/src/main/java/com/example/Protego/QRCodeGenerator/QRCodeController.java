@@ -1,6 +1,7 @@
 package com.example.Protego.QRCodeGenerator;
 
 import com.google.zxing.WriterException;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +11,7 @@ import java.io.IOException;
 
 @RestController
 public class QRCodeController {
-    @GetMapping("/qrcode")
+    @GetMapping(path = "/qrcode", produces = MediaType.IMAGE_PNG_VALUE)
     public BufferedImage getQRCode(@RequestParam("patient") String puid) {
         try {
             QRCodeGenerator qrCodeGenerator = new QRCodeGenerator();
