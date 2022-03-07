@@ -3,7 +3,7 @@ package com.example.protego;
 public class ProtegoUser {
     private String firstName;
     private String lastName;
-    private String type;
+    private String userType;
 
     public enum ProtegoUserType {
         PATIENT, DOCTOR;
@@ -25,12 +25,12 @@ public class ProtegoUser {
         this.lastName = lastName;
     }
 
-    public String getType() {
-        return type;
+    public ProtegoUserType getUserType() {
+        return ProtegoUserType.valueOf(this.userType);
     }
 
-    public void setType(ProtegoUserType type) {
-        this.type = type.name();
+    public void setUserType(ProtegoUserType type) {
+        this.userType = type.name();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ProtegoUser {
         return "ProtegoUser{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", type='" + type + '\'' +
+                ", type='" + userType + '\'' +
                 '}';
     }
 }

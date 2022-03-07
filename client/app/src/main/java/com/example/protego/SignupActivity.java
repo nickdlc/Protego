@@ -125,9 +125,15 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
                         ProtegoUser protegoUser = new ProtegoUser();
                         protegoUser.setFirstName(first_name_input.getText().toString());
-                        // the user is a doctor so set last name
-                        if (last_name_input != null)
+
+                        if (last_name_input != null) {
+                            // is a doctor, set last name
                             protegoUser.setLastName(last_name_input.getText().toString());
+                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.DOCTOR);
+                        } else {
+                            // is a patient
+                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.PATIENT);
+                        }
 
                         String uid = firebaseUser.getUid();
                         firestore.collection("users").document(uid)
