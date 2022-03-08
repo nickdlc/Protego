@@ -12,12 +12,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import java.util.ArrayList;
 
@@ -90,7 +88,9 @@ public class PatientDashboardActivity extends AppCompatActivity{
             public void onSwipeUp() {
                 //Toast.makeText(PatientDashboardActivity.this, "Up", Toast.LENGTH_SHORT).show();
                 showBottomSheetDialog();
+
             }
+
         });
 
         RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
@@ -111,6 +111,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         connectImageButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
 
+
+
     }
 
     private void showBottomSheetDialog() {
@@ -118,7 +120,9 @@ public class PatientDashboardActivity extends AppCompatActivity{
         bottomSheetDialog.setContentView(R.layout.notifications_bottom_sheet);
 
         LinearLayout menu = bottomSheetDialog.findViewById(R.id.bottom_sheet);
+
         bottomSheetDialog.show();
+
     }
 
     // navigate to next activity

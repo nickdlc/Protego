@@ -16,13 +16,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentContainerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 
 public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     public static final String TAG = "LoginActivity";
@@ -102,6 +102,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         if(currentUser != null){
             reload();
         }
+
     }
 
     private void loginUser(String email, String password) {
