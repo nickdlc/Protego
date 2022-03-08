@@ -2,6 +2,7 @@ package com.example.protego.web;
 
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Map;
@@ -10,7 +11,7 @@ public class ServerRequest {
     private Endpoint endpoint;
     private RequestManager.RequestType requestType;
     private boolean completed;
-    private Object result;
+    private String result;
 
     public ServerRequest(Endpoint endpoint) {
         this.endpoint = endpoint;
@@ -51,7 +52,7 @@ public class ServerRequest {
                 .getRequest(urlParams, uri, new RequestListener<String>() {
                     @Override
                     public void getResult(String object) {
-                        setResult(object.toString());
+                        setResult(object);
                         completed = true;
                         serverRequestListener.recieveCompletedRequest(thisRequest);
                     }
@@ -62,15 +63,19 @@ public class ServerRequest {
         return this.requestType;
     }
 
-    public Object getResult() {
-        switch (this.requestType) {
-            case POST: return (String)this.result;
-            case GET: return (JSONObject)this.result;
-            default: return null; // invalid request type
-        }
+    public String getResult() {
+        return this.result;
     }
 
-    public void setResult(Object object) {
+    public String getResultString() {
+        return this.result == null ? null : (String)this.result;
+    }
+
+    public JSONObject getResultJSON() throws JSONException {
+        return this.result == null ? null : new JSONObject(this.result);
+    }
+
+    public void setResult(String object) {
         this.result = object;
     }
 }
