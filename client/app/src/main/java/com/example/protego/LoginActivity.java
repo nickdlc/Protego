@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     public static final String TAG = "LoginActivity";
+    public boolean isPatient = true;
     private FirebaseAuth mAuth;
 
     private EditText etEmail;
@@ -89,7 +90,6 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
                 Log.i(TAG, "onClick register here button");
                 Intent i = new Intent(v.getContext(), SignupActivity.class);
                 startActivity(i);
-                finish();
             }
         });
     }
@@ -116,7 +116,12 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user.isEmailVerified()) {
                                 updateUI(user);
-                                goDoctorActivity(); // TODO: check for user type before sending user to dashboard
+                                /*
+                                if(isPatient)
+                                    connectButtonToActivity(R.id.btnLogin, PatientDashboardActivity.class);*/
+                                //else
+                                //    connectButtonToActivity(R.id.btnLogin, DoctorDashboardActivity.class);
+                                goDoctorActivity(); //TODO: check for user type before sending user to dashboard
                                                         // can add this once user type option is added to LoginActivity
                             } else {
                                 Log.d(TAG, "user not verified by email");
@@ -165,13 +170,12 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
 
         //TODO: check that the user first login with the correct credentials and user type if so then their user type selection determines their dashboard view
         if(userType.equals(userTypeOptions[1])){ //the user is a patient therefore the patient dashboard is shown
-            //TODO: Change Signup Activity to Doctor Activity once the Activity is on the branch
-            connectButtonToActivity(R.id.btnLogin, SignupActivity.class); //Temporarily connects to Signup Activity to Test
-            //connectButtonToActivity(R.id.btnLogin, PatientDashboardActivity.class);
+            connectButtonToActivity(R.id.btnLogin, PatientDashboardActivity.class);
 
         }
         else if(userType.equals(userTypeOptions[2])) { // the user is a doctor therefore the doctor dashboard is shown
             connectButtonToActivity(R.id.btnLogin, DoctorDashboardActivity.class);
+            //isPatient = false;
         }
 
     }
@@ -190,7 +194,6 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
                 startActivity(i);
-                finish();
             }
         });
     }

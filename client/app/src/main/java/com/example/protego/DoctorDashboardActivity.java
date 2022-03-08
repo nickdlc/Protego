@@ -28,10 +28,17 @@ public class DoctorDashboardActivity extends AppCompatActivity{
     private Button button;
     private JSONObject doctorInfo;
 
-    @Override
+    //to store the doctor's last name
+    private static String lastName;
+
+  @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_dashboard);
+
+        // update the user's last name based on their profile information
+        //TODO: update this last name according to the database
+        lastName = "Example";
 
         //Connects the Scan QR Code button to the QR Code activity
         connectButtonToActivity(R.id.DoctorViewPatientsButton, DoctorViewPatientsActivity.class);
@@ -81,5 +88,9 @@ public class DoctorDashboardActivity extends AppCompatActivity{
         });
     }
 
+    //function to call from the navbar fragment class to update the navbar according to the doctor last name
+    public static String getName(){
+        return lastName;
+    }
 }
 
