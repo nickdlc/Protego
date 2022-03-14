@@ -1,7 +1,6 @@
 package com.example.protego;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.motion.widget.OnSwipe;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -22,6 +20,7 @@ import java.util.ArrayList;
 public class PatientDashboardActivity extends AppCompatActivity{
     //input fields
     private Button button;
+    private LinearLayout layout;
     private ImageButton imageButton;
     private Button btnNotifications;
     private TextView tvNotifications;
@@ -74,24 +73,23 @@ public class PatientDashboardActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_dashboard);
-
         btnNotifications = findViewById(R.id.btnNotifications);
-        /*btnNotifications.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showBottomSheetDialog();
-            }
-        });*/
+
+//        btnNotifications.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showBottomSheetDialog();
+//            }
+//        });
 
         btnNotifications.setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override
             public void onSwipeUp() {
                 //Toast.makeText(PatientDashboardActivity.this, "Up", Toast.LENGTH_SHORT).show();
                 showBottomSheetDialog();
-
             }
-
         });
+
 
         RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
 
@@ -111,18 +109,24 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         connectImageButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
 
-
-
     }
 
-    private void showBottomSheetDialog() {
+    public void showBottomSheetDialog() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.notifications_bottom_sheet);
 
         LinearLayout menu = bottomSheetDialog.findViewById(R.id.bottom_sheet);
 
-        bottomSheetDialog.show();
+        //TODO: update this connection to the Medication Activity once it is created
+        connectLayoutToActivity(R.id.medicationSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
+        //connects the notification notes button to the Notes activity
+        connectLayoutToActivity(R.id.notesSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
+        //TODO: update this connection to the Vitals Activity once it is created
+        connectLayoutToActivity(R.id.VitalsSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
+        //connects the notification View QR Code button to the View QR Code activity
+        connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientQRCodeDisplay.class,  bottomSheetDialog);
 
+        bottomSheetDialog.show();
     }
 
     // navigate to next activity
@@ -151,7 +155,19 @@ public class PatientDashboardActivity extends AppCompatActivity{
             }
         });
     }
-
+    //will connect a layout to an Activity by the layout ID
+    private void connectLayoutToActivity(Integer layoutId, Class nextActivityClass, BottomSheetDialog dialog) {
+        layout = dialog.findViewById(layoutId);
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), nextActivityClass);
+                startActivity(i);
+                finish();
+            }
+        });
+        dialog.dismiss();
+    }
     //function to call from the navbar fragment class to update the navbar according to the patients first name
     public static String getName(){
         return Name;
