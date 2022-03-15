@@ -22,8 +22,10 @@
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_doctor_navigation_bar.xml" value="0.4" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_doctor_signup.xml" value="0.2" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_patient_navigation_bar.xml" value="0.1" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_patient_notification_selections.xml" value="0.152" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_patient_signup.xml" value="0.1" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_second.xml" value="0.22282608695652173" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/notifications_bottom_sheet.xml" value="0.264" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/patient_dashboard.xml" value="0.2" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/patient_dashboard_data_row.xml" value="0.1308876811594203" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/patient_notes.xml" value="0.264" />

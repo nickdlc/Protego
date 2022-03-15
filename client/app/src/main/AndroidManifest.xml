@@ -53,23 +53,18 @@
             
         <activity
             android:name=".PatientDashboardActivity"
-            android:exported="false">
-                    <!--
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
 
         </activity>
         <activity
             android:name=".PatientNotesActivity"
             android:exported="false">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
         </activity>
 
         <activity
@@ -93,13 +88,6 @@
             android:exported="false"
             android:label="@string/title_activity_signup"
             android:theme="@style/Theme.Protego.NoActionBar">
-
-      <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-      <!-- </intent-filter> -->
 
         </activity>
 
