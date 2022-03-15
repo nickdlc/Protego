@@ -4,305 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaintVitals"
-    >
+    tools:context=".PaintVitals">
 
-    <TableLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    <LinearLayout
+        android:layout_width="396dp"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/patientVitalsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.626" >
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TableRow
-        android:background="@color/protego_color">
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="Date"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="Source"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:background="@color/notes_color"
             android:gravity="center_horizontal"
             android:text="Heart Rate"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white"
             android:textSize="14sp" />
 
         <TextView
-            android:layout_width="25dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="Blood Pressure"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="41dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:background="@color/notes_color"
             android:gravity="center_horizontal"
             android:text="Respiratory Rate"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:background="@color/notes_color"
             android:gravity="center_horizontal"
             android:text="Temperature"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
 
-    </TableRow>
-    <TableRow>
-
         <TextView
-            android:layout_width="6dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="03/02/2022"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="9dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="Dr.(Doctor Name)"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="(Number) BPM"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="16dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="126/81"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="7dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="(Number) BPM"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-        <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(Number) F"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"/>
-
-    </TableRow>
-    <TableRow>
-
-        <TextView
-            android:layout_width="6dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:background="@color/notes_color"
             android:gravity="center_horizontal"
-            android:text="03/03/2022"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
+            android:text="Date"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
 
         <TextView
-            android:layout_width="9dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:background="@color/notes_color"
             android:gravity="center_horizontal"
-            android:text="Dr.(Doctor Name)"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
+            android:text="Blood Pressure"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
 
         <TextView
-            android:layout_width="5dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:background="@color/notes_color"
             android:gravity="center_horizontal"
-            android:text="(Number) BPM"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="16dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="126/81"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="7dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="(Number) BPM"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="(Number) F"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"/>
-
-    </TableRow>
-    <TableRow>
-
-        <TextView
-            android:layout_width="6dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="03/02/2022"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="9dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="Dr.(Doctor Name)"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="(Number) BPM"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="16dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="126/81"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="7dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="(Number) BPM"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="(Number) F"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"/>
-
-    </TableRow>
-    <TableRow>
-
-        <TextView
-            android:layout_width="6dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="03/02/2022"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="9dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="Dr.(Doctor Name)"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="(Number) BPM"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="16dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="126/81"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="7dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"
-            android:text="(Number) BPM"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="(Number) F"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"
-            android:layout_weight="4"
-            android:gravity="center_horizontal"/>
-
-    </TableRow>
-
-</TableLayout>
+            android:text="Source"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnReturn"
@@ -332,6 +100,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.699" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/patientVitalsRecyclerView"
+        android:layout_width="393dp"
+        android:layout_height="167dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.326" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/linlayRow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvVitalsDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date" />
+
+        <TextView
+            android:id="@+id/tvSource"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dr. Name" />
+
+        <TextView
+            android:id="@+id/tvHeartRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Heartrate" />
+
+        <TextView
+            android:id="@+id/tvBloodPressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Blood Pressure" />
+
+        <TextView
+            android:id="@+id/tvRespiratoryRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Heartrate" />
+
+        <TextView
+            android:id="@+id/tvTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Temperature"
+            tools:text="Temperature" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
