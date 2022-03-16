@@ -95,7 +95,7 @@
             android:password="true"
             android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
-
+<!--
     <TextView
         android:id="@+id/loginUserTypeTextView"
         android:layout_width="wrap_content"
@@ -109,7 +109,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Login_Title"
         app:layout_constraintVertical_bias="0.815" />
-
+-->
     <Button
         android:id="@+id/btnSignup"
         android:layout_width="wrap_content"
@@ -159,23 +159,23 @@
         android:background="@color/protego_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.28"
+        app:layout_constraintVertical_bias="0.324"
         app:srcCompat="@android:drawable/ic_lock_idle_lock" />
-
-    <Spinner
-        android:id="@+id/loginTypeOfUserSpinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
-
+    <!--
+        <Spinner
+            android:id="@+id/loginTypeOfUserSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.45" />
+    -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
