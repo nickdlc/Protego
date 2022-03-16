@@ -8,7 +8,7 @@ public class ProtegoUser {
     public enum ProtegoUserType {
         PATIENT, DOCTOR;
     }
-
+    public ProtegoUser() { }
     public String getFirstName() {
         return firstName;
     }
