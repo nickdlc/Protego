@@ -17,23 +17,33 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.protego.web.ServerAPI;
+import com.example.protego.web.ServerRequest;
+import com.example.protego.web.ServerRequestListener;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
 
 
-public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class LoginActivity extends AppCompatActivity{
     public static final String TAG = "LoginActivity";
-    public boolean isPatient = true;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore firestore;
 
     private EditText etEmail;
     private EditText etPassword;
     private Button btnLogin;
     private Spinner spinner;
-    private Button buttonLogin;
     private Button btnForgotPassword;
     private Button btnSignUp;
 
@@ -41,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+/*
         //the spinner component to determine the type of user - patient or doctor
         spinner = (Spinner) findViewById(R.id.loginTypeOfUserSpinner);
         //ArrayAdapter
@@ -51,10 +61,11 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         //apply adapter to spinner
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-
+*/
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -115,15 +126,32 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            ProtegoUser protegoUser;
+                            //ProtegoUser protegoUser = new ProtegoUser(mAuth.getUid());
+                            //Log.d(TAG, protegoUser.toString());
+                            String uid = user.getUid();
+
                             if (user.isEmailVerified()) {
                                 updateUI(user);
-                                /*
-                                if(isPatient)
-                                    connectButtonToActivity(R.id.btnLogin, PatientDashboardActivity.class);*/
-                                //else
-                                //    connectButtonToActivity(R.id.btnLogin, DoctorDashboardActivity.class);
-                                goDoctorActivity(); //TODO: check for user type before sending user to dashboard
-                                                        // can add this once user type option is added to LoginActivity
+                                DocumentReference docRef = firestore.collection("users").document(uid);
+                                docRef.get().addOnCompleteListener(task1 -> {
+                                    if (task1.isSuccessful()) {
+                                        DocumentSnapshot document = task1.getResult();
+                                        if (document != null) {
+                                            Log.i(TAG,"userType "+document.getString("userType"));
+                                            if(document.getString("userType").equals("DOCTOR"))
+                                                connectButtonToActivity(R.id.btnLogin, DoctorDashboardActivity.class);
+                                            else
+                                                connectButtonToActivity(R.id.btnLogin, PatientDashboardActivity.class);
+
+                                        } else {
+                                            Log.d(TAG, "No such document");
+                                        }
+                                    } else {
+                                        Log.d(TAG, "failed with ", task1.getException());
+                                    }
+                                });
+
                             } else {
                                 Log.d(TAG, "user not verified by email");
                                 Toast.makeText(LoginActivity.this, "Please verify your email with the sent link.", Toast.LENGTH_LONG);
@@ -162,6 +190,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         finish();
     }
 
+    /*
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
@@ -184,7 +213,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
-    }
+    }*/
 
     // navigate to next activity
     private void connectButtonToActivity(Integer buttonId, Class nextActivityClass) {
