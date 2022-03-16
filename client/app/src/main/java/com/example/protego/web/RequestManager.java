@@ -49,6 +49,12 @@ public class RequestManager {
         return instance;
     }
 
+    public static synchronized RequestQueue getRequestQueue() {
+        if (null == instance.queue)
+            throw new IllegalStateException("Queue is not initialized, call getInstance(...) first");
+        return instance.queue;
+    }
+
     public void postRequest(Map<String, Object> paramList, String uri, final RequestListener<String> listener)
     {
         StringRequest request = new StringRequest(Request.Method.POST, uri, new Response.Listener<String>()
