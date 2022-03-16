@@ -20,13 +20,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView2"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView20"
         app:layout_constraintVertical_bias="0.90" />
 
 
 
 <androidx.fragment.app.FragmentContainerView
-    android:id="@+id/fragmentContainerView2"
+    android:id="@+id/fragmentContainerView20"
     android:name="com.example.protego.DoctorNavigationBarFragment"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

@@ -58,18 +58,22 @@
             
         <activity
             android:name=".PatientDashboardActivity"
-            android:exported="true">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
 
         </activity>
         <activity
             android:name=".PatientNotesActivity"
             android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".PatientMedicationActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity

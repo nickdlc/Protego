@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/patientNotesCard"
+        android:id="@+id/patientMedicationCard"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -25,14 +25,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/patientNotesDateText"
+                android:id="@+id/patientMedicationNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Date"
                 android:textSize="34sp" />
 
             <TextView
-                android:id="@+id/patientNotesTitleText"
+                android:id="@+id/patientMedicationDateLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Title"
@@ -40,14 +40,14 @@
                 android:textSize="60sp" />
 
             <TextView
-                android:id="@+id/patientNotesVisibilityText"
+                android:id="@+id/patientMedicationDosageLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Visibility"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/patientNotesDetailsText"
+                android:id="@+id/patientMedicationPrescribedByLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Details"
