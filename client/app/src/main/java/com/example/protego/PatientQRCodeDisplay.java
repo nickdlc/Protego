@@ -47,8 +47,9 @@ public class PatientQRCodeDisplay extends AppCompatActivity {
                     }
                 });
 
+        mAuth = FirebaseAuth.getInstance();
         Map<String, String> map = new HashMap<>();
-        map.put("puid", mAuth.getCurrentUser().getUid());
+        map.put("patient", mAuth.getCurrentUser().getUid());
         map.put("width", "250");
         map.put("height", "250");
 
