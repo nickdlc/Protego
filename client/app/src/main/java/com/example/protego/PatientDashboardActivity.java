@@ -122,7 +122,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
         //connects the notification notes button to the Notes activity
         connectLayoutToActivity(R.id.notesSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
         //TODO: update this connection to the Vitals Activity once it is created
-        connectLayoutToActivity(R.id.VitalsSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
+        connectLayoutToActivity(R.id.VitalsSelectionLayout, PaintVitals.class,  bottomSheetDialog);
         //connects the notification View QR Code button to the View QR Code activity
         connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientQRCodeDisplay.class,  bottomSheetDialog);
 
