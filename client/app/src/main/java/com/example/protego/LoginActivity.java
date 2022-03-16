@@ -90,7 +90,6 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
                 Log.i(TAG, "onClick register here button");
                 Intent i = new Intent(v.getContext(), SignupActivity.class);
                 startActivity(i);
-                finish();
             }
         });
     }

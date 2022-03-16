@@ -21,10 +21,8 @@ import java.util.Map;
 
 // Our manager to make requests to the server
 public class RequestManager {
-    private static boolean areYouKareem = true;
-
     private static final String TAG = "RequestManager";
-    public static final String prefixURL = areYouKareem ? "192.168.1.152:8000" : "127.0.0.1:8000";
+    public static final String prefixURL = "10.0.2.2:8000";
 
     private static RequestManager instance = null;
 
