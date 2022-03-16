@@ -13,6 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.protego.web.ServerAPI;
+import com.example.protego.web.ServerRequest;
+import com.example.protego.web.ServerRequestListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -146,6 +149,14 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                             Toast.makeText(SignupActivity.this, "Check your email for a verification link.", Toast.LENGTH_LONG);
                                             startActivity(i);
                                             firebaseUser.sendEmailVerification();
+                                            if (last_name_input == null) {
+                                                ServerAPI.generateMedData(uid, new ServerRequestListener() {
+                                                    @Override
+                                                    public void recieveCompletedRequest(ServerRequest req) {
+                                                        // do nothing, just generate data
+                                                    }
+                                                });
+                                            }
                                             finish();
                                         }
                                     })

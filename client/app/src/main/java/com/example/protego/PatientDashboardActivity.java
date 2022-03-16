@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,18 +16,29 @@ import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Toast;
 
+import com.example.protego.web.ServerAPI;
+import com.example.protego.web.ServerRequest;
+import com.example.protego.web.ServerRequestListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class PatientDashboardActivity extends AppCompatActivity{
+    public static final String TAG = "PatientDashboardActivity";
     //input fields
     private Button button;
     private ImageButton imageButton;
     private Button btnNotifications;
     private TextView tvNotifications;
+    private FirebaseAuth mAuth;
+    private PatientDetails patientDetails;
     private static String Name;
 
 
@@ -51,26 +63,11 @@ public class PatientDashboardActivity extends AppCompatActivity{
     ArrayList<PatientInfo> patientData = new ArrayList<>();
 
     private void setUpPatientInfo(){
-        patientData.add( new PatientInfo("Heart Rate:", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood Pressure:", "87 Bpm"));
-        patientData.add( new PatientInfo("Temperature:", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
-        patientData.add( new PatientInfo("Blood-Type", "87 Bpm"));
+        patientData.add( new PatientInfo("Heart Rate:", patientDetails.heartRate.toString()));
+        patientData.add( new PatientInfo("Blood Pressure:", patientDetails.bloodPressure.toString()));
+        // patientData.add( new PatientInfo("Temperature:", "87 Bpm"));
+        patientData.add( new PatientInfo("Height (in.)", patientDetails.heightIN.toString()));
+        patientData.add( new PatientInfo("Weight (lbs.)", patientDetails.weight.toString()));
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +75,33 @@ public class PatientDashboardActivity extends AppCompatActivity{
         setContentView(R.layout.patient_dashboard);
 
         btnNotifications = findViewById(R.id.btnNotifications);
+        mAuth = FirebaseAuth.getInstance();
+        this.patientDetails = new PatientDetails();
+        PatientDashboardActivity thisObj = this;
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        ServerAPI.getMedication(currentUser.getUid(), new ServerRequestListener() {
+            @Override
+            public void recieveCompletedRequest(ServerRequest req) {
+                try {
+                    JSONObject res = req.getResultJSON();
+                    patientDetails.heartRate = res.getInt("heartRate");
+                    patientDetails.bloodPressure = res.getString("bloodPressure");
+                    patientDetails.heightIN = res.getInt("heightIN");
+                    patientDetails.weight = res.getInt("weight");
+
+                    RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
+                    setUpPatientInfo();
+
+                    PatientDashboardRecyclerViewAdapter adapter = new PatientDashboardRecyclerViewAdapter(thisObj, patientData);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+                } catch (JSONException e) {
+                    Log.e(TAG, "Could not get JSON from request : ", e);
+                }
+            }
+        });
         /*btnNotifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,17 +117,17 @@ public class PatientDashboardActivity extends AppCompatActivity{
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
+        // RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
 
         // update the user's name based on their profile information
         //TODO: update this name according to the database to get the patient's first name
         Name = "Example";
 
-        setUpPatientInfo();
-
-        PatientDashboardRecyclerViewAdapter adapter = new PatientDashboardRecyclerViewAdapter(this,patientData);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        setUpPatientInfo();
+//
+//        PatientDashboardRecyclerViewAdapter adapter = new PatientDashboardRecyclerViewAdapter(this,patientData);
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
         //TODO : update the connection, the View Doctors button is connected to the View Notes Activity to test it.
