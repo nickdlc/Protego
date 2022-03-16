@@ -18,17 +18,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.209" />
 
-    <ImageView
-        android:id="@+id/qrCodeImageView"
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/qrCode"
         android:layout_width="346dp"
         android:layout_height="374dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.607"
-        app:srcCompat="@drawable/qr_code_for_mobile_english_wikipedia_svg" />
+        app:layout_constraintVertical_bias="0.607" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView3"
