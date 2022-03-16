@@ -138,11 +138,12 @@ public class LoginActivity extends AppCompatActivity{
                                         DocumentSnapshot document = task1.getResult();
                                         if (document != null) {
                                             Log.i(TAG,"userType "+document.getString("userType"));
+                                            Intent intentD = new Intent(LoginActivity.this, DoctorDashboardActivity.class);
+                                            Intent intentP = new Intent(LoginActivity.this, PatientDashboardActivity.class);
                                             if(document.getString("userType").equals("DOCTOR"))
-                                                connectButtonToActivity(R.id.btnLogin, DoctorDashboardActivity.class);
+                                                startActivity(intentD);
                                             else
-                                                connectButtonToActivity(R.id.btnLogin, PatientDashboardActivity.class);
-
+                                                startActivity(intentP);
                                         } else {
                                             Log.d(TAG, "No such document");
                                         }
