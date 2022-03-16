@@ -8,6 +8,8 @@ import org.json.JSONObject;
 import java.util.Map;
 
 public class ServerRequest {
+    public static final String TAG = "ServerRequest";
+
     private Endpoint endpoint;
     private RequestManager.RequestType requestType;
     private boolean completed;
