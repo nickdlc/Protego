@@ -46,7 +46,7 @@ public class DoctorDashboardActivity extends AppCompatActivity{
         connectButtonToActivity(R.id.DoctorScanQRCodeButton, DoctorScanQRCodeActivity.class);
 
         // manually write in doctor uid for now
-        getDoctorInfo("gdI3CjRaCHRo9rn1PKfB");
+        //getDoctorInfo("gdI3CjRaCHRo9rn1PKfB");
     }
 
     // navigate to next activity
