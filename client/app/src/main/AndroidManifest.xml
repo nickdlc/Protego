@@ -62,11 +62,7 @@
             android:name=".PatientDashboardActivity"
             android:exported="true">
         </activity>
-            
-        <activity
-            android:name=".PatientDashboardActivity"
-            android:exported="true">
-        </activity>
+
         <activity
             android:name=".PatientNotesActivity"
             android:exported="false">
