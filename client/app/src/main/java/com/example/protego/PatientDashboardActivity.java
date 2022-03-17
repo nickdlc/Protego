@@ -37,7 +37,9 @@ public class PatientDashboardActivity extends AppCompatActivity{
     private TextView tvNotifications;
     private FirebaseAuth mAuth;
     private PatientDetails patientDetails;
-    private static String Name;
+    public static String Name;
+    private String saveName;
+
 
 
     public static class PatientInfo {
@@ -77,6 +79,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
         this.patientDetails = new PatientDetails();
         PatientDashboardActivity thisObj = this;
 
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         ServerAPI.getPatient(currentUser.getUid(), new ServerRequestListener() {
@@ -87,18 +90,38 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
                     try {
                         JSONObject pateintJSON = req.getResultJSON();
-
                         patientDetails.firstName = pateintJSON.getString("firstName");
+
+
+                        if(patientDetails.firstName == "" || patientDetails.firstName == null){
+                            Name = "";
+                        }
+                        else{
+                            Name = new String(patientDetails.firstName);
+                        }
+
+
+                        //Name = patientDetails.firstName;
                         Log.d(TAG, "info first name : " + pateintJSON.getString("firstName"));
+                        Log.d(TAG, "info first name : " + patientDetails.firstName);
+                        //saveName = patientDetails.firstName;
                     } catch (JSONException e) {
                         Log.e(TAG, "could not recieve doctor info : ", e);
                     }
+
                 } else {
                     Log.d(TAG, "Can't get patient info.");
+                    //Name = "Example";
                 }
             }
         });
 
+
+
+//        String callName = "example";
+//        Name = "Test";
+
+        String id = currentUser.getUid();
         ServerAPI.getMedication(currentUser.getUid(), new ServerRequestListener() {
             @Override
             public void recieveCompletedRequest(ServerRequest req) {
@@ -140,7 +163,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         // update the user's name based on their profile information
         //TODO: update this name according to the database to get the patient's first name
-        Name = "Example";
+
+       //Name = "Example";
 
 //        setUpPatientInfo();
 //
