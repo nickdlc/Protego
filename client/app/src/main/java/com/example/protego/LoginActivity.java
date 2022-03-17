@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity{
         spinner.setOnItemSelectedListener(this);
 */
 
+        RequestManager.getInstance(this);
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
