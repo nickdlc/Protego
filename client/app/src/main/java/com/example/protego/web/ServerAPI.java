@@ -84,6 +84,30 @@ public class ServerAPI {
                 .post(params, serverRequestListener);
     }
 
+    public static void getMedication(String puid, ServerRequestListener serverRequestListener) {
+        Map<String, String> urlParams = new HashMap<>();
+        urlParams.put("patient", puid);
+
+        new ServerRequest(Endpoint.GET_MEDICALINFO)
+                .get(urlParams, serverRequestListener);
+    }
+
+    public static void generateMedData(String puid, ServerRequestListener serverRequestListener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("patientID", puid);
+
+        new ServerRequest(Endpoint.GEN_DATA)
+                .post(params, serverRequestListener);
+    }
+
+    public static void getDoctorAssignedPatients(String duid, ServerRequestListener serverRequestListener) {
+        Map<String, String> urlParams = new HashMap<>();
+        urlParams.put("doctor", duid);
+
+        new ServerRequest(Endpoint.GET_DOCTORS_FOR_PATIENT)
+                .get(urlParams, serverRequestListener);
+    }
+
     public static String getCurrentFormmatedDate() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
         Date currentDate = new Date(System.currentTimeMillis());
