@@ -9,4 +9,5 @@ public class PatientDetails {
     public Integer weight;
     public Integer heartRate;
     public String bloodPressure;
+    public String firstName;
 }

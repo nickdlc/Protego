@@ -71,7 +71,7 @@ public class DoctorDashboardActivity extends AppCompatActivity{
         ServerAPI.getDoctor(duid, new ServerRequestListener() {
             @Override
             public void recieveCompletedRequest(ServerRequest req) {
-                if (req.getResult().equals("")) {
+                if (req != null && !req.getResultString().equals("")) {
                     Log.d(TAG, "req recieved for doctor : " + req.getResult().toString());
 
                     try {

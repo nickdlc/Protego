@@ -1,6 +1,8 @@
 package com.example.protego.web.schemas;
 
 public class PatientDetails {
+    public String firstName;
+    public String lastName;
     public String lastUpdated;
     public String healthInsuranceNumber;
     public String sex;

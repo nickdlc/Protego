@@ -78,6 +78,26 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
+        ServerAPI.getPatient(currentUser.getUid(), new ServerRequestListener() {
+            @Override
+            public void recieveCompletedRequest(ServerRequest req) {
+                if (req != null && !req.getResultString().equals("")) {
+                    Log.d(TAG, "req recieved for patient : " + req.getResult().toString());
+
+                    try {
+                        JSONObject pateintJSON = req.getResultJSON();
+
+                        patientDetails.firstName = pateintJSON.getString("firstName");
+                        Log.d(TAG, "info first name : " + pateintJSON.getString("firstName"));
+                    } catch (JSONException e) {
+                        Log.e(TAG, "could not recieve doctor info : ", e);
+                    }
+                } else {
+                    Log.d(TAG, "Can't get patient info.");
+                }
+            }
+        });
+
         ServerAPI.getMedication(currentUser.getUid(), new ServerRequestListener() {
             @Override
             public void recieveCompletedRequest(ServerRequest req) {
