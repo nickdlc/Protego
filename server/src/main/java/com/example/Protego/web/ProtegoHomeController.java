@@ -3,9 +3,16 @@ package com.example.Protego.web;
 import com.example.Protego.FirebaseAttributes.FirebaseAttributes;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.Query;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @RestController
 public class ProtegoHomeController {
@@ -101,6 +108,29 @@ public class ProtegoHomeController {
         return note;
     }
 
+    @GetMapping("/medicalInfo")
+    public MedicalInfo getMedicalInfo(@RequestParam("patient") String puid) {
+        try {
+            // Asynchronously retrieve multiple documents
+            ApiFuture<QuerySnapshot> future =
+                    FirebaseAttributes.firestore.collection("users")
+                                            .document(puid)
+                                            .collection("MedicalInfo").get();
+                                            //.orderBy("date", Query.Direction.DESCENDING).limit(1).get();
+
+            // Just grab the top element for now
+            DocumentSnapshot document = future.get().getDocuments().get(0);
+
+            return document.toObject(MedicalInfo.class);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     @PostMapping("/medicalInfo")
     public MedicalInfo postMedicalInfo(@RequestBody MedicalInfo medInfo) {
         // Add medInfo to Firestore and return it
@@ -119,5 +149,60 @@ public class ProtegoHomeController {
                         .add(medication);
 
         return medication;
+    }
+
+    @PostMapping("/generatePatientInfo")
+    public MedicalInfo generatePatientInfo(@RequestBody Patient patient) {
+        String puid = patient.getPatientID();
+        MedicalInfo medInfo = new MedicalInfo();
+        medInfo.setHeartRate(randNum());
+        medInfo.setBloodPressure(randNum() + 40 + "/" + randNum());
+        medInfo.setBloodType("A+");
+        medInfo.setHeightIN(randNum() - 20);
+        medInfo.setWeight(randNum() + 60);
+        // Add medication to Firestore and use it
+        FirebaseAttributes.firestore.collection("users")
+                .document(puid).collection("MedicalInfo")
+                .add(medInfo);
+
+        return medInfo;
+    }
+
+    @GetMapping("/patientsAssignedTo")
+    public List<Patient> getPatientsForDoctor(@RequestParam("doctor") String duid) {
+        try {
+            // Asynchronously retrieve multiple documents
+            ApiFuture<QuerySnapshot> future =
+                    FirebaseAttributes.firestore.collection("AssignedTo")
+                            .whereEqualTo("doctor", duid)
+                            .get();
+            //.orderBy("date", Query.Direction.DESCENDING).limit(1).get();
+
+            // Just grab the top element for now
+            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+            return documents.stream()
+                    .map(qds -> // results -> Patient IDs
+                            qds.toObject(AssignedTo.class).getPatient()).collect(Collectors.toList()).stream()
+                    .map(puid -> // Patient IDs -> api calls
+                        FirebaseAttributes.firestore.collection("users")
+                                .document(puid).get()).collect(Collectors.toList()).stream()
+                    .map(snapshot -> { // api calls -> Patients
+                        try {
+                            return snapshot.get().toObject(Patient.class);
+                        } catch (InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                    }).collect(Collectors.toList());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private Integer randNum() {
+        return (int)Math.floor(Math.random() * 40) + 60;
     }
 }

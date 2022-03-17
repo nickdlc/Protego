@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
+import com.example.protego.web.schemas.DoctorDetails;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
@@ -26,12 +27,13 @@ public class DoctorDashboardActivity extends AppCompatActivity{
 
     //input fields
     private Button button;
-    private JSONObject doctorInfo;
+    private DoctorDetails doctorInfo;
+    private FirebaseAuth mAuth;
 
     //to store the doctor's last name
     private static String lastName;
 
-  @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_dashboard);
@@ -45,8 +47,10 @@ public class DoctorDashboardActivity extends AppCompatActivity{
         //Connects the View Patients button to the View Patients Activity
         connectButtonToActivity(R.id.DoctorScanQRCodeButton, DoctorScanQRCodeActivity.class);
 
+        doctorInfo = new DoctorDetails();
+        mAuth = FirebaseAuth.getInstance();
         // manually write in doctor uid for now
-        //getDoctorInfo("gdI3CjRaCHRo9rn1PKfB");
+        getDoctorInfo(mAuth.getCurrentUser().getUid());
     }
 
     // navigate to next activity
@@ -67,17 +71,15 @@ public class DoctorDashboardActivity extends AppCompatActivity{
         ServerAPI.getDoctor(duid, new ServerRequestListener() {
             @Override
             public void recieveCompletedRequest(ServerRequest req) {
-                if (req.getResult().equals("")) {
+                if (req != null && !req.getResultString().equals("")) {
                     Log.d(TAG, "req recieved for doctor : " + req.getResult().toString());
 
                     try {
-                        doctorInfo = req.getResultJSON();
+                        JSONObject doctorJSON = req.getResultJSON();
 
-                        Log.d(TAG, "info first name : " + doctorInfo.getString("firstName"));
-
-                        // To get more info
-                        // doctorInfo.getString("firstName")
-                        // doctorInfo.getString("lastName")
+                        doctorInfo.firstName = doctorJSON.getString("firstName");
+                        doctorInfo.lastName = doctorJSON.getString("lastName");
+                        Log.d(TAG, "info first name : " + doctorJSON.getString("firstName"));
                     } catch (JSONException e) {
                         Log.e(TAG, "could not recieve doctor info : ", e);
                     }
