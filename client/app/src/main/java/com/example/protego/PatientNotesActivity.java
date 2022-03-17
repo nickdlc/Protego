@@ -55,7 +55,7 @@ public class PatientNotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_notes);
 
-        RecyclerView recyclerView = findViewById(R.id.patientNotesRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.patientMedicationRecyclerView);
 
         setUpPatientNotes();
 

@@ -53,9 +53,8 @@
             android:label="@string/splash_activity"
             android:theme="@style/Theme.Protego.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+              <action android:name="android.intent.action.MAIN" />-->
+              <category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
         </activity>
             
@@ -63,8 +62,14 @@
             android:name=".PatientDashboardActivity"
             android:exported="true">
         </activity>
+
         <activity
             android:name=".PatientNotesActivity"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".PatientMedicationActivity"
             android:exported="false">
         </activity>
 

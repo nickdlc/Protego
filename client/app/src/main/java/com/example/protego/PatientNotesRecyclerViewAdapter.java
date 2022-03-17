@@ -49,10 +49,10 @@ public class PatientNotesRecyclerViewAdapter extends RecyclerView.Adapter<Patien
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvTitle = itemView.findViewById(R.id.patientNotesTitleText);
-            tvDate = itemView.findViewById(R.id.patientNotesDateText);
-            tvVisibility = itemView.findViewById(R.id.patientNotesVisibilityText);
-            tvDetails = itemView.findViewById(R.id.patientNotesDetailsText);
+            tvTitle = itemView.findViewById(R.id.patientMedicationDateLabel);
+            tvDate = itemView.findViewById(R.id.patientMedicationNameLabel);
+            tvVisibility = itemView.findViewById(R.id.patientMedicationDosageLabel);
+            tvDetails = itemView.findViewById(R.id.patientMedicationPrescribedByLabel);
         }
     }
 }
