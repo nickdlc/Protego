@@ -4,10 +4,15 @@ import com.example.Protego.FirebaseAttributes.FirebaseAttributes;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Query;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 @RestController
 public class ProtegoHomeController {
@@ -161,6 +166,40 @@ public class ProtegoHomeController {
                 .add(medInfo);
 
         return medInfo;
+    }
+
+    @GetMapping("/patientsAssignedTo")
+    public List<Patient> getPatientsForDoctor(@RequestParam("doctor") String duid) {
+        try {
+            // Asynchronously retrieve multiple documents
+            ApiFuture<QuerySnapshot> future =
+                    FirebaseAttributes.firestore.collection("AssignedTo")
+                            .whereEqualTo("doctor", duid)
+                            .get();
+            //.orderBy("date", Query.Direction.DESCENDING).limit(1).get();
+
+            // Just grab the top element for now
+            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+            return documents.stream()
+                    .map(qds -> // results -> Patient IDs
+                            qds.toObject(AssignedTo.class).getPatient()).collect(Collectors.toList()).stream()
+                    .map(puid -> // Patient IDs -> api calls
+                        FirebaseAttributes.firestore.collection("users")
+                                .document(puid).get()).collect(Collectors.toList()).stream()
+                    .map(snapshot -> { // api calls -> Patients
+                        try {
+                            return snapshot.get().toObject(Patient.class);
+                        } catch (InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                    }).collect(Collectors.toList());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     private Integer randNum() {

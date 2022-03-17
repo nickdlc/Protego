@@ -100,6 +100,14 @@ public class ServerAPI {
                 .post(params, serverRequestListener);
     }
 
+    public static void getDoctorAssignedPatients(String duid, ServerRequestListener serverRequestListener) {
+        Map<String, String> urlParams = new HashMap<>();
+        urlParams.put("doctor", duid);
+
+        new ServerRequest(Endpoint.GET_DOCTORS_FOR_PATIENT)
+                .get(urlParams, serverRequestListener);
+    }
+
     public static String getCurrentFormmatedDate() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
         Date currentDate = new Date(System.currentTimeMillis());
