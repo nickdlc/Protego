@@ -20,7 +20,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout5"
-        android:layout_width="396dp"
+        android:layout_width="400dp"
         android:layout_height="45dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/patientVitalsRecyclerView"
@@ -31,56 +31,62 @@
         app:layout_constraintVertical_bias="1.0">
 
         <TextView
-            android:layout_width="63dp"
+            android:layout_width="0px"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/protego_color"
-            android:gravity="center_horizontal"
             android:text="Heart Rate"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="11sp" />
 
         <TextView
-            android:layout_width="91dp"
+            android:layout_width="0px"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/protego_color"
-            android:gravity="center_horizontal"
             android:text="Respiratory Rate"
+            android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="11sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0px"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/protego_color"
-            android:gravity="center_horizontal"
             android:text="Temperature"
+            android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="11sp" />
 
         <TextView
-            android:layout_width="42dp"
+            android:layout_width="0px"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/protego_color"
-            android:gravity="center_horizontal"
             android:text="Date"
+            android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="11sp" />
 
         <TextView
-            android:layout_width="85dp"
+            android:layout_width="0px"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/protego_color"
-            android:gravity="center_horizontal"
             android:text="Blood Pressure"
+            android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="11sp" />
 
         <TextView
-            android:layout_width="55dp"
+            android:layout_width="0px"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/protego_color"
-            android:gravity="center_horizontal"
             android:text="Source"
+            android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="11sp" />
     </LinearLayout>
@@ -115,7 +121,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/patientVitalsRecyclerView"
-        android:layout_width="393dp"
+        android:layout_width="400dp"
         android:layout_height="167dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
