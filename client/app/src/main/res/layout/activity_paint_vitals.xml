@@ -76,7 +76,7 @@
             android:textSize="11sp" />
 
         <TextView
-            android:layout_width="50dp"
+            android:layout_width="55dp"
             android:layout_height="match_parent"
             android:background="@color/protego_color"
             android:gravity="center_horizontal"
@@ -100,7 +100,7 @@
         app:layout_constraintVertical_bias="0.584" />
 
     <Button
-        android:id="@+id/btnReturn2"
+        android:id="@+id/btnAdd"
         android:layout_width="59dp"
         android:layout_height="55dp"
         android:background="@drawable/circle"

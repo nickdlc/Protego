@@ -4,12 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
 public class PaintVitals extends AppCompatActivity {
+    private Button button;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_doctor_profile);
+
+        //Connects the Edit Profile Code button to the Edit Profile activity
+        connectButtonToActivity(R.id.btnReturn, PatientDashboardActivity.class);
+
+    }
     public static class  VitalsInfo {
         private final String date;
         private final String source;
@@ -66,17 +79,16 @@ public class PaintVitals extends AppCompatActivity {
         patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
         patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
     }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_paint_vitals);
+    private void connectButtonToActivity(Integer buttonId, Class nextActivityClass) {
 
-        RecyclerView recyclerView = findViewById(R.id.patientVitalsRecyclerView);
-
-        setUpPatientInfo();
-
-        PatientVitalsRecyclerViewAdapter adapter = new PatientVitalsRecyclerViewAdapter(this,patientData);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        button = findViewById(buttonId);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), nextActivityClass);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 }
