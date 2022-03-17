@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.protego.web.RequestManager;
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;

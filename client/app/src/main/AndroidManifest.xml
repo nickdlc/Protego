@@ -15,9 +15,6 @@
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.Protego.NoActionBar" />
-        <activity
             android:name=".DoctorScanQRCodeActivity"
             android:exported="false" />
         <activity
