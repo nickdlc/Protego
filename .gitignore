@@ -4,6 +4,8 @@ serviceAccountKey.json
 google-services.json
 *.iml
 gradle.properties
+build
+.gradle
 
 # Compiled class file
 *.class
