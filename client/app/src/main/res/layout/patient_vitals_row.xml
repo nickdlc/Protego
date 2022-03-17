@@ -19,38 +19,57 @@
             android:id="@+id/tvVitalsDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date" />
+            android:text="Date"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
+            />
 
         <TextView
             android:id="@+id/tvSource"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dr. Name" />
+            android:text="Dr. Name"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
+            />
 
         <TextView
             android:id="@+id/tvHeartRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Heartrate" />
+            tools:text="Heartrate"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
+            />
 
         <TextView
             android:id="@+id/tvBloodPressure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Blood Pressure" />
+            tools:text="Blood Pressure"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
+            />
 
         <TextView
             android:id="@+id/tvRespiratoryRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Heartrate" />
+            tools:text="Heartrate"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
+
+           />
 
         <TextView
             android:id="@+id/tvTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Temperature"
-            tools:text="Temperature" />
+            tools:text="Temperature"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
+            />
 
     </LinearLayout>
 

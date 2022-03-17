@@ -25,64 +25,64 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/patientVitalsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="63dp"
             android:layout_height="match_parent"
-            android:background="@color/notes_color"
+            android:background="@color/protego_color"
             android:gravity="center_horizontal"
             android:text="Heart Rate"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textColor="@color/black"
+            android:textSize="11sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="91dp"
             android:layout_height="match_parent"
-            android:background="@color/notes_color"
+            android:background="@color/protego_color"
             android:gravity="center_horizontal"
             android:text="Respiratory Rate"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:textColor="@android:color/black"
+            android:textSize="11sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/notes_color"
+            android:background="@color/protego_color"
             android:gravity="center_horizontal"
             android:text="Temperature"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:textColor="@android:color/black"
+            android:textSize="11sp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/notes_color"
+            android:layout_width="42dp"
+            android:layout_height="26dp"
+            android:background="@color/protego_color"
             android:gravity="center_horizontal"
             android:text="Date"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:textColor="@android:color/black"
+            android:textSize="11sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="85dp"
             android:layout_height="match_parent"
-            android:background="@color/notes_color"
+            android:background="@color/protego_color"
             android:gravity="center_horizontal"
             android:text="Blood Pressure"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:textColor="@android:color/black"
+            android:textSize="11sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:background="@color/notes_color"
+            android:background="@color/protego_color"
             android:gravity="center_horizontal"
             android:text="Source"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:textColor="@android:color/black"
+            android:textSize="11sp" />
     </LinearLayout>
 
     <Button
@@ -121,7 +121,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.326" />
+        app:layout_constraintVertical_bias="0.365" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
