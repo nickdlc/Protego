@@ -53,7 +53,6 @@ public class PatientQRCodeDisplay extends AppCompatActivity {
         map.put("width", "250");
         map.put("height", "250");
 
-        nv.setDefaultImageResId(android.R.drawable.spinner_background);
         nv.setImageUrl(UriFormatter.formatUrl(Endpoint.GET_QR_CODE, map), imageLoader);
     }
 }
