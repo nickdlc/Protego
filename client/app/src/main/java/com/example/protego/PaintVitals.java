@@ -80,3 +80,4 @@ public class PaintVitals extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
+
