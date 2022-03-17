@@ -16,8 +16,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentContainerView;
 
+import com.example.protego.web.RequestManager;
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
@@ -31,6 +31,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,6 +114,7 @@ public class LoginActivity extends AppCompatActivity{
         if(currentUser != null){
             reload();
         }
+
     }
 
     private void loginUser(String email, String password) {
@@ -138,12 +140,13 @@ public class LoginActivity extends AppCompatActivity{
                                         DocumentSnapshot document = task1.getResult();
                                         if (document != null) {
                                             Log.i(TAG,"userType "+document.getString("userType"));
-                                            Intent i = new Intent(btnLogin.getContext(),
-                                                    document.getString("userType").equals("DOCTOR") ?
-                                                    DoctorDashboardActivity.class :
-                                                    PatientDashboardActivity.class);
-                                            startActivity(i);
-
+                                          
+                                            Intent intentD = new Intent(LoginActivity.this, DoctorDashboardActivity.class);
+                                            Intent intentP = new Intent(LoginActivity.this, PatientDashboardActivity.class);
+                                            if(document.getString("userType").equals("DOCTOR"))
+                                                startActivity(intentD);
+                                            else
+                                                startActivity(intentP);
                                         } else {
                                             Log.d(TAG, "No such document");
                                         }

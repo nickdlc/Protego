@@ -1,7 +1,6 @@
 package com.example.protego;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.motion.widget.OnSwipe;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,8 +12,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.Toast;
 
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
@@ -23,7 +20,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +30,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
     public static final String TAG = "PatientDashboardActivity";
     //input fields
     private Button button;
+    private LinearLayout layout;
     private ImageButton imageButton;
     private Button btnNotifications;
     private TextView tvNotifications;
@@ -73,8 +70,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_dashboard);
-
         btnNotifications = findViewById(R.id.btnNotifications);
+
         mAuth = FirebaseAuth.getInstance();
         this.patientDetails = new PatientDetails();
         PatientDashboardActivity thisObj = this;
@@ -102,12 +99,13 @@ public class PatientDashboardActivity extends AppCompatActivity{
                 }
             }
         });
-        /*btnNotifications.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showBottomSheetDialog();
-            }
-        });*/
+      
+//        btnNotifications.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showBottomSheetDialog();
+//            }
+//        });
 
         btnNotifications.setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override
@@ -117,7 +115,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
             }
         });
 
-        // RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
 
         // update the user's name based on their profile information
         //TODO: update this name according to the database to get the patient's first name
@@ -137,11 +135,21 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
     }
 
-    private void showBottomSheetDialog() {
+    public void showBottomSheetDialog() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.notifications_bottom_sheet);
 
         LinearLayout menu = bottomSheetDialog.findViewById(R.id.bottom_sheet);
+
+        //TODO: update this connection to the Medication Activity once it is created
+        connectLayoutToActivity(R.id.medicationSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
+        //connects the notification notes button to the Notes activity
+        connectLayoutToActivity(R.id.notesSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
+        //TODO: update this connection to the Vitals Activity once it is created
+        connectLayoutToActivity(R.id.VitalsSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
+        //connects the notification View QR Code button to the View QR Code activity
+        connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientQRCodeDisplay.class,  bottomSheetDialog);
+
         bottomSheetDialog.show();
     }
 
@@ -171,7 +179,18 @@ public class PatientDashboardActivity extends AppCompatActivity{
             }
         });
     }
-
+    //will connect a layout to an Activity by the layout ID
+    private void connectLayoutToActivity(Integer layoutId, Class nextActivityClass, BottomSheetDialog dialog) {
+        layout = dialog.findViewById(layoutId);
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), nextActivityClass);
+                startActivity(i);
+            }
+        });
+        dialog.dismiss();
+    }
     //function to call from the navbar fragment class to update the navbar according to the patients first name
     public static String getName(){
         return Name;

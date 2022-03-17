@@ -165,7 +165,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                         public void onFailure(@NonNull Exception e) {
                                             Log.w(TAG, "Error writing new user to Firestore", e);
                                             // redirect to the MainActivity page
-                                            goMainActivity();
+                                            goLoginActivity();
                                         }
                                     });
                     }
@@ -179,8 +179,8 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     // navigate to the main activity once the user has signed up
-    private void goMainActivity() {
-        Intent i = new Intent(this, MainActivity.class);
+    private void goLoginActivity() {
+        Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
         finish();
     }
