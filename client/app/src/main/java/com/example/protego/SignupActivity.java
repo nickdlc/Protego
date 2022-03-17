@@ -13,6 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.protego.web.ServerAPI;
+import com.example.protego.web.ServerRequest;
+import com.example.protego.web.ServerRequestListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -124,7 +127,15 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
                         ProtegoUser protegoUser = new ProtegoUser();
                         protegoUser.setFirstName(first_name_input.getText().toString());
-                        protegoUser.setLastName(last_name_input.getText().toString());
+
+                        if (last_name_input != null) {
+                            // is a doctor, set last name
+                            protegoUser.setLastName(last_name_input.getText().toString());
+                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.DOCTOR);
+                        } else {
+                            // is a patient
+                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.PATIENT);
+                        }
 
                         String uid = firebaseUser.getUid();
                         firestore.collection("users").document(uid)
@@ -133,12 +144,27 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Log.d(TAG, "Successfully created user " + uid);
+                                            Intent i = new Intent(SignupActivity.this, LoginActivity.class);
+                                            Toast.makeText(SignupActivity.this, "Check your email for a verification link.", Toast.LENGTH_LONG);
+                                            startActivity(i);
+                                            firebaseUser.sendEmailVerification();
+                                            if (last_name_input == null) {
+                                                ServerAPI.generateMedData(uid, new ServerRequestListener() {
+                                                    @Override
+                                                    public void recieveCompletedRequest(ServerRequest req) {
+                                                        // do nothing, just generate data
+                                                    }
+                                                });
+                                            }
+                                            finish();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             Log.w(TAG, "Error writing new user to Firestore", e);
+                                            // redirect to the MainActivity page
+                                            goLoginActivity();
                                         }
                                     });
                     }
@@ -152,8 +178,8 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     // navigate to the main activity once the user has signed up
-    private void goMainActivity() {
-        Intent i = new Intent(this, MainActivity.class); // TODO: change to user dashboard activity 
+    private void goLoginActivity() {
+        Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
         finish();
     }
@@ -233,7 +259,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void doctor_Dashboard_Screen(View view){
-        Intent intent = new Intent(this, DoctorDashboardActivity.class); //To do: change the loginActivity to the doctor Dashboard Activity
+        Intent intent = new Intent(this, DoctorDashboardActivity.class);
 
         first_name_input = (TextInputEditText) findViewById(R.id.doctorFirstNameTextInput);
         last_name_input = (TextInputEditText) findViewById(R.id.doctorLastNameTextInput);

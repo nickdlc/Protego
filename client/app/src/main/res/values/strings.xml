@@ -14,7 +14,7 @@
     <string name="splash_activity">activity_splash</string>
 
     <string-array name="type_of_user_array">
-        <item></item>
+        <item>Select Option</item>
         <item>Patient</item>
         <item>Doctor</item>
     </string-array>
@@ -25,7 +25,6 @@
         <item>Profile</item>
         <item>Log out</item>
     </string-array>
-
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

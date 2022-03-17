@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.protego">
 
     <application
@@ -8,23 +9,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Protego.NoActionBar">
+        android:theme="@style/Theme.Protego.NoActionBar"
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".PatientViewProfileActivity"
-            android:exported="true" >
-            <intent-filter>
-                -->
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".PatientEditProfileActivity"
+            android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.Protego.NoActionBar" />
+            android:name=".PatientViewDoctorsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PatientUpdateDataActivity"
+            android:exported="false" />
         <activity
             android:name=".DoctorScanQRCodeActivity"
             android:exported="false" />
@@ -42,7 +37,7 @@
         <activity
             android:name=".DoctorDashboardActivity"
             android:exported="false"
-            android:theme="@style/Theme.Protego.NoActionBar">>
+            android:theme="@style/Theme.Protego.NoActionBar">
 
             <!--
             <intent-filter>
@@ -57,30 +52,57 @@
             android:exported="false"
             android:label="@string/splash_activity"
             android:theme="@style/Theme.Protego.NoActionBar">
+            <intent-filter>
+              <action android:name="android.intent.action.MAIN" />-->
+              <category android:name="android.intent.category.LAUNCHER" />-->
+            </intent-filter>
         </activity>
+            
+        <activity
+            android:name=".PatientDashboardActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".PatientNotesActivity"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".PatientMedicationActivity"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".PatientQRCodeDisplay"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".PatientVitals"
+            android:exported="false">
+        </activity>
+
         <activity
             android:name=".LoginActivity"
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.Protego.NoActionBar" />
+
         <activity
             android:name=".SignupActivity"
             android:exported="false"
             android:label="@string/title_activity_signup"
             android:theme="@style/Theme.Protego.NoActionBar">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-
         </activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

@@ -14,10 +14,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class DoctorNavigationBarFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
     private Spinner spinner;
+    private static String[] navbar_options_array = {"", "Home", "Profile", "Log out"};
+
+    private FirebaseAuth mAuth;
+
 
     public DoctorNavigationBarFragment() {
         // Required empty public constructor
@@ -26,6 +33,7 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
 
     }
 
@@ -35,10 +43,13 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
 
         View view = inflater.inflate(R.layout.fragment_doctor_navigation_bar, container, false);
 
+        //to update the last name of the doctor on their navbar
+        updateNavbarName(view);
+
         //the spinner component
         spinner = view.findViewById(R.id.doctorNavbarSpinner);
         //ArrayAdapter
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.doctor_navbar_options_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, navbar_options_array);
         //specify layout
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //apply adapter to spinner
@@ -49,6 +60,15 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
         return view;
     }
 
+
+    //updates the patientNameTextView according to the patient's first name
+    public void updateNavbarName(View view){
+        String lastName = DoctorDashboardActivity.getName();
+        TextView nameTextView = (TextView) view.findViewById(R.id.doctorNameTextView);
+        nameTextView.setText(lastName);
+        navbar_options_array[0] = Character.toString(lastName.charAt(0));
+
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -66,7 +86,12 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
         }
 
         else if (userNavbarSelection.equals(userNavbarOptions[3])) { //the user selects the Log out option which will take them to sign in
-            createIntent(SignupActivity.class);
+            try {
+                mAuth.signOut();
+                createIntent(LoginActivity.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -121,7 +121,7 @@
 
 
 <androidx.fragment.app.FragmentContainerView
-    android:id="@+id/fragmentContainerView2"
+    android:id="@+id/fragmentContainerView20"
     android:name="com.example.protego.DoctorNavigationBarFragment"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
