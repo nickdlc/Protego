@@ -118,7 +118,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
         LinearLayout menu = bottomSheetDialog.findViewById(R.id.bottom_sheet);
 
         //TODO: update this connection to the Medication Activity once it is created
-        connectLayoutToActivity(R.id.medicationSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
+        connectLayoutToActivity(R.id.medicationSelectionLayout, PatientMedicationActivity.class,  bottomSheetDialog);
         //connects the notification notes button to the Notes activity
         connectLayoutToActivity(R.id.notesSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
         //TODO: update this connection to the Vitals Activity once it is created
