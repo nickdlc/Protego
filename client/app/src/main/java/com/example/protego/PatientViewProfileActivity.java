@@ -31,7 +31,7 @@ public class PatientViewProfileActivity extends AppCompatActivity {
         connectButtonToActivity(R.id.btnEdit, PatientEditProfileActivity.class);
         //Connects the Return from Profile button to the Doctor Dashboard Activity
         //connectButtonToActivity(R.id.btnReturn, PatientDashboardActivity.class);
-        connectButtonToActivity(R.id.btnProfile, PatientViewProfileActivity.class);
+        connectButtonToActivity(R.id.btnReturn, PatientDashboardActivity.class);
     }
 
     // navigate to next activity
