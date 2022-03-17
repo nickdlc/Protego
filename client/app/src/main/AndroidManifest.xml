@@ -15,6 +15,12 @@
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity
+            android:name=".PatientViewDoctorsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PatientUpdateDataActivity"
+            android:exported="false" />
+        <activity
             android:name=".DoctorScanQRCodeActivity"
             android:exported="false" />
         <activity
@@ -47,22 +53,15 @@
             android:label="@string/splash_activity"
             android:theme="@style/Theme.Protego.NoActionBar">
             <intent-filter>
-              <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-              <category android:name="android.intent.category.LAUNCHER" />
-           </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
             
         <activity
             android:name=".PatientDashboardActivity"
-            android:exported="false">
-
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-
+            android:exported="true">
         </activity>
         <activity
             android:name=".PatientNotesActivity"
