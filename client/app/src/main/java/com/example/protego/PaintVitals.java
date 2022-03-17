@@ -14,15 +14,6 @@ import java.util.ArrayList;
 public class PaintVitals extends AppCompatActivity {
     private Button button;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doctor_profile);
-
-        //Connects the Edit Profile Code button to the Edit Profile activity
-        connectButtonToActivity(R.id.btnReturn, PatientDashboardActivity.class);
-
-    }
     public static class  VitalsInfo {
         private final String date;
         private final String source;
@@ -30,7 +21,6 @@ public class PaintVitals extends AppCompatActivity {
         private final String bloodPressure;
         private final String respiratoryRate;
         private final String temperature;
-
         public VitalsInfo(String date, String source, String heartRate, String bloodPressure, String respiratoryRate, String temperature) {
             this.date = date;
             this.source = source;
@@ -63,6 +53,7 @@ public class PaintVitals extends AppCompatActivity {
         public String getTemperature() {
             return temperature;
         }
+
     }
 
     ArrayList<VitalsInfo> patientData = new ArrayList<>();
@@ -79,6 +70,25 @@ public class PaintVitals extends AppCompatActivity {
         patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
         patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_paint_vitals);
+
+        RecyclerView recyclerView = findViewById(R.id.patientVitalsRecyclerView);
+
+        setUpPatientInfo();
+
+        PatientVitalsRecyclerViewAdapter adapter = new PatientVitalsRecyclerViewAdapter(this,patientData);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //Connects the Edit Profile Code button to the Edit Profile activity
+        connectButtonToActivity(R.id.btnReturn, PatientDashboardActivity.class);
+
+    }
+
     private void connectButtonToActivity(Integer buttonId, Class nextActivityClass) {
 
         button = findViewById(buttonId);
