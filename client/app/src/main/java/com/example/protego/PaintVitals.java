@@ -69,6 +69,30 @@ public class PaintVitals extends AppCompatActivity {
         patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
         patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
         patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
+
     }
 
     @Override
