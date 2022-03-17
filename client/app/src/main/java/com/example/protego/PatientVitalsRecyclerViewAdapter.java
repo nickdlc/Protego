@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class PatientVitalsRecyclerViewAdapter extends RecyclerView.Adapter<PatientVitalsRecyclerViewAdapter.MyViewHolder> {
     Context context;
-    ArrayList<PaintVitals.VitalsInfo> patientData;
+    ArrayList<PatientVitals.VitalsInfo> patientData;
 
-    public PatientVitalsRecyclerViewAdapter(Context context, ArrayList<PaintVitals.VitalsInfo> patientData){
+    public PatientVitalsRecyclerViewAdapter(Context context, ArrayList<PatientVitals.VitalsInfo> patientData){
         this.context = context;
         this.patientData = patientData;
     }
