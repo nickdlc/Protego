@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
-public class PaintVitals extends AppCompatActivity {
+public class PatientVitals extends AppCompatActivity {
     private Button button;
 
     public static class  VitalsInfo {
@@ -98,7 +98,7 @@ public class PaintVitals extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_paint_vitals);
+        setContentView(R.layout.activity_patient_vitals);
 
         RecyclerView recyclerView = findViewById(R.id.patientVitalsRecyclerView);
 

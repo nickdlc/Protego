@@ -74,7 +74,7 @@
         </activity>
 
         <activity
-            android:name=".PaintVitals"
+            android:name=".PatientVitals"
             android:exported="false">
         </activity>
 
