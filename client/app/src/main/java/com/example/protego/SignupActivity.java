@@ -13,6 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.protego.web.ServerAPI;
+import com.example.protego.web.ServerRequest;
+import com.example.protego.web.ServerRequestListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -125,9 +128,15 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
                         ProtegoUser protegoUser = new ProtegoUser();
                         protegoUser.setFirstName(first_name_input.getText().toString());
-                        // the user is a doctor so set last name
-                        if (last_name_input != null)
+
+                        if (last_name_input != null) {
+                            // is a doctor, set last name
                             protegoUser.setLastName(last_name_input.getText().toString());
+                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.DOCTOR);
+                        } else {
+                            // is a patient
+                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.PATIENT);
+                        }
 
                         String uid = firebaseUser.getUid();
                         firestore.collection("users").document(uid)
@@ -140,6 +149,14 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                             Toast.makeText(SignupActivity.this, "Check your email for a verification link.", Toast.LENGTH_LONG);
                                             startActivity(i);
                                             firebaseUser.sendEmailVerification();
+                                            if (last_name_input == null) {
+                                                ServerAPI.generateMedData(uid, new ServerRequestListener() {
+                                                    @Override
+                                                    public void recieveCompletedRequest(ServerRequest req) {
+                                                        // do nothing, just generate data
+                                                    }
+                                                });
+                                            }
                                             finish();
                                         }
                                     })
@@ -148,7 +165,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                         public void onFailure(@NonNull Exception e) {
                                             Log.w(TAG, "Error writing new user to Firestore", e);
                                             // redirect to the MainActivity page
-                                            goMainActivity();
+                                            goLoginActivity();
                                         }
                                     });
                     }
@@ -162,8 +179,8 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     // navigate to the main activity once the user has signed up
-    private void goMainActivity() {
-        Intent i = new Intent(this, MainActivity.class);
+    private void goLoginActivity() {
+        Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
         finish();
     }

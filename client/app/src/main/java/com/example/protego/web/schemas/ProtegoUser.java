@@ -1,4 +1,4 @@
-package com.example.protego;
+package com.example.protego.web.schemas;
 
 public class ProtegoUser {
     private String firstName;

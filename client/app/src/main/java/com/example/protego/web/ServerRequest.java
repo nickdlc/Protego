@@ -2,12 +2,15 @@ package com.example.protego.web;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Map;
 
 public class ServerRequest {
+    public static final String TAG = "ServerRequest";
+
     private Endpoint endpoint;
     private RequestManager.RequestType requestType;
     private boolean completed;
@@ -73,6 +76,10 @@ public class ServerRequest {
 
     public JSONObject getResultJSON() throws JSONException {
         return this.result == null ? null : new JSONObject(this.result);
+    }
+
+    public JSONArray getResultJSONList() throws JSONException {
+        return this.result == null ? null : new JSONArray(this.result);
     }
 
     public void setResult(String object) {

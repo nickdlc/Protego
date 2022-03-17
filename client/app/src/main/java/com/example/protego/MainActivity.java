@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Create the instance of RequestManager for requesting from the server
-        RequestManager.getInstance(this);
+
 
     }
 

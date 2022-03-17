@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/linlayRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvHeartRate"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="11dp"
+            tools:text="Heartrate" />
+
+        <TextView
+            android:id="@+id/tvRespiratoryRate"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="11dp"
+            tools:text="Heartrate" />
+
+        <TextView
+            android:id="@+id/tvTemperature"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Temperature"
+            android:textAlignment="center"
+            android:textSize="11dp"
+            tools:text="Temperature" />
+
+        <TextView
+            android:id="@+id/tvVitalsDate"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Date"
+            android:textAlignment="center"
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/tvBloodPressure"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="11dp"
+            tools:text="Blood Pressure" />
+
+        <TextView
+            android:id="@+id/tvSource"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Dr. Name"
+            android:textAlignment="center"
+            android:textSize="11dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
