@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,20 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.protego.web.ServerAPI;
+import com.example.protego.web.ServerRequest;
+import com.example.protego.web.ServerRequestListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DoctorNavigationBarFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
+    public static final String TAG = "DoctorDashboardNavbar";
     private Spinner spinner;
-    private static String[] navbar_options_array = {"", "Home", "Profile", "Log out"};
+    private static String[] navbar_options_array = {"Menu", "Home", "Profile", "Log out"};
 
     private FirebaseAuth mAuth;
 
@@ -43,8 +52,33 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
 
         View view = inflater.inflate(R.layout.fragment_doctor_navigation_bar, container, false);
 
-        //to update the last name of the doctor on their navbar
-        updateNavbarName(view);
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        ServerAPI.getDoctor(currentUser.getUid(), new ServerRequestListener() {
+            @Override
+            public void recieveCompletedRequest(ServerRequest req) {
+                if (req != null && !req.getResultString().equals("")) {
+                    Log.d(TAG, "req recieved for doctor : " + req.getResult().toString());
+
+                    try {
+                        JSONObject doctorJSON = req.getResultJSON();
+
+                        DoctorDashboardActivity.lastName = doctorJSON.getString("lastName");
+
+                        //to update the last name of the doctor on their navbar
+                        updateNavbarName(view);
+
+                        Log.d(TAG, "info last name : " + doctorJSON.getString("lastName"));
+                    } catch (JSONException e) {
+                        Log.e(TAG, "could not recieve doctor info : ", e);
+                    }
+                } else {
+                    Log.d(TAG, "failed to get doctor : " + req.toString());
+                }
+            }
+        });
+
 
         //the spinner component
         spinner = view.findViewById(R.id.doctorNavbarSpinner);
@@ -66,8 +100,6 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
         String lastName = DoctorDashboardActivity.getName();
         TextView nameTextView = (TextView) view.findViewById(R.id.doctorNameTextView);
         nameTextView.setText(lastName);
-        navbar_options_array[0] = Character.toString(lastName.charAt(0));
-
     }
 
     @Override

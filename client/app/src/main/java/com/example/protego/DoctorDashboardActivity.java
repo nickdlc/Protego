@@ -31,26 +31,26 @@ public class DoctorDashboardActivity extends AppCompatActivity{
     private FirebaseAuth mAuth;
 
     //to store the doctor's last name
-    private static String lastName;
+    public static String lastName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_dashboard);
 
+        doctorInfo = new DoctorDetails();
+        mAuth = FirebaseAuth.getInstance();
+
         // update the user's last name based on their profile information
-        //TODO: update this last name according to the database
-        lastName = "Example";
+        getDoctorLastName(mAuth.getCurrentUser().getUid());
 
         //Connects the Scan QR Code button to the QR Code activity
         connectButtonToActivity(R.id.DoctorViewPatientsButton, DoctorViewPatientsActivity.class);
         //Connects the View Patients button to the View Patients Activity
         connectButtonToActivity(R.id.DoctorScanQRCodeButton, DoctorScanQRCodeActivity.class);
 
-        doctorInfo = new DoctorDetails();
-        mAuth = FirebaseAuth.getInstance();
         // manually write in doctor uid for now
-        getDoctorInfo(mAuth.getCurrentUser().getUid());
+        //getDoctorInfo(mAuth.getCurrentUser().getUid());
     }
 
     // navigate to next activity
@@ -66,6 +66,38 @@ public class DoctorDashboardActivity extends AppCompatActivity{
             }
         });
     }
+
+    private void getDoctorLastName(String duid) {
+        ServerAPI.getDoctor(duid, new ServerRequestListener() {
+            @Override
+            public void recieveCompletedRequest(ServerRequest req) {
+                if (req != null && !req.getResultString().equals("")) {
+                    Log.d(TAG, "req received for doctor : " + req.getResult().toString());
+
+                    try {
+                        JSONObject doctorJSON = req.getResultJSON();
+
+                        doctorInfo.lastName = doctorJSON.getString("lastName");
+
+                        if(doctorInfo.lastName == "" || doctorInfo.lastName == null){
+                            lastName = "";
+                        }
+                        else{
+                            lastName = doctorInfo.lastName;
+                        }
+
+
+                        Log.d(TAG, "info last name : " + doctorJSON.getString("lastName"));
+                    } catch (JSONException e) {
+                        Log.e(TAG, "could not recieve doctor info : ", e);
+                    }
+                } else {
+                    Log.d(TAG, "failed to get doctor : " + req.toString());
+                }
+            }
+        });
+    }
+
 
     private void getDoctorInfo(String duid) {
         ServerAPI.getDoctor(duid, new ServerRequestListener() {
