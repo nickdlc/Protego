@@ -27,7 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class PatientDashboardActivity extends AppCompatActivity{
+public class PatientDashboardActivity extends AppCompatActivity {
     public static final String TAG = "PatientDashboardActivity";
     //input fields
     private Button button;
@@ -44,7 +44,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
         private final String title;
         private final String details;
 
-        public PatientInfo(String title,String details) {
+        public PatientInfo(String title, String details) {
             this.title = title;
             this.details = details;
         }
@@ -60,12 +60,12 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
     ArrayList<PatientInfo> patientData = new ArrayList<>();
 
-    private void setUpPatientInfo(){
-        patientData.add( new PatientInfo("Heart Rate:", patientDetails.heartRate.toString()));
-        patientData.add( new PatientInfo("Blood Pressure:", patientDetails.bloodPressure.toString()));
+    private void setUpPatientInfo() {
+        patientData.add(new PatientInfo("Heart Rate:", patientDetails.heartRate.toString()));
+        patientData.add(new PatientInfo("Blood Pressure:", patientDetails.bloodPressure.toString()));
         // patientData.add( new PatientInfo("Temperature:", "87 Bpm"));
-        patientData.add( new PatientInfo("Height (in.)", patientDetails.heightIN.toString()));
-        patientData.add( new PatientInfo("Weight (lbs.)", patientDetails.weight.toString()));
+        patientData.add(new PatientInfo("Height (in.)", patientDetails.heightIN.toString()));
+        patientData.add(new PatientInfo("Weight (lbs.)", patientDetails.weight.toString()));
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,34 +79,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        ServerAPI.getPatient(currentUser.getUid(), new ServerRequestListener() {
-            @Override
-            public void recieveCompletedRequest(ServerRequest req) {
-                if (req != null && !req.getResultString().equals("")) {
-                    Log.d(TAG, "req recieved for patient : " + req.getResult().toString());
-
-                    try {
-                        JSONObject patientJSON = req.getResultJSON();
-
-                        patientDetails.firstName = patientJSON.getString("firstName");
-
-
-                        if(patientDetails.firstName == "" || patientDetails.firstName == null){
-                            Name = "";
-                        }
-                        else{
-                            Name = new String(patientDetails.firstName);
-                        }
-
-                        Log.d(TAG, "info first name : " + patientJSON.getString("firstName"));
-                    } catch (JSONException e) {
-                        Log.e(TAG, "could not recieve doctor info : ", e);
-                    }
-                } else {
-                    Log.d(TAG, "Can't get patient info.");
-                }
-            }
-        });
+        //updates the navbar to show the patient's first name
+        getPatientFirstName(currentUser.getUid());
 
         ServerAPI.getMedication(currentUser.getUid(), new ServerRequestListener() {
             @Override
@@ -129,7 +103,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
                 }
             }
         });
-      
+
 //        btnNotifications.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -148,7 +122,6 @@ public class PatientDashboardActivity extends AppCompatActivity{
         RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
 
 
-
         connectButtonToActivity(R.id.viewDoctorsButton, PatientViewDoctorsActivity.class);
         connectButtonToActivity(R.id.updateDataButton, PatientUpdateDataActivity.class);
         connectImageButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
@@ -162,13 +135,13 @@ public class PatientDashboardActivity extends AppCompatActivity{
         LinearLayout menu = bottomSheetDialog.findViewById(R.id.bottom_sheet);
 
         //connects the notification medication button to the Medication activity
-        connectLayoutToActivity(R.id.medicationSelectionLayout, PatientMedicationActivity.class,  bottomSheetDialog);
+        connectLayoutToActivity(R.id.medicationSelectionLayout, PatientMedicationActivity.class, bottomSheetDialog);
         //connects the notification notes button to the Notes activity
-        connectLayoutToActivity(R.id.notesSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
+        connectLayoutToActivity(R.id.notesSelectionLayout, PatientNotesActivity.class, bottomSheetDialog);
         //connects the notification vitals button to the Vitals activity
-        connectLayoutToActivity(R.id.VitalsSelectionLayout, PatientVitals.class,  bottomSheetDialog);
+        connectLayoutToActivity(R.id.VitalsSelectionLayout, PatientVitals.class, bottomSheetDialog);
         //connects the notification View QR Code button to the View QR Code activity
-        connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientQRCodeDisplay.class,  bottomSheetDialog);
+        connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientQRCodeDisplay.class, bottomSheetDialog);
 
         bottomSheetDialog.show();
     }
@@ -199,6 +172,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
             }
         });
     }
+
     //will connect a layout to an Activity by the layout ID
     private void connectLayoutToActivity(Integer layoutId, Class nextActivityClass, BottomSheetDialog dialog) {
         layout = dialog.findViewById(layoutId);
@@ -210,6 +184,37 @@ public class PatientDashboardActivity extends AppCompatActivity{
             }
         });
         dialog.dismiss();
+    }
+
+    private void getPatientFirstName(String puid) {
+
+        ServerAPI.getPatient(puid, new ServerRequestListener() {
+            @Override
+            public void recieveCompletedRequest (ServerRequest req){
+                if (req != null && !req.getResultString().equals("")) {
+                    Log.d(TAG, "req recieved for patient : " + req.getResult().toString());
+
+                    try {
+                        JSONObject patientJSON = req.getResultJSON();
+
+                        patientDetails.firstName = patientJSON.getString("firstName");
+
+
+                        if (patientDetails.firstName == "" || patientDetails.firstName == null) {
+                            Name = "";
+                        } else {
+                            Name = patientDetails.firstName;
+                        }
+
+                        Log.d(TAG, "info first name : " + patientJSON.getString("firstName"));
+                    } catch (JSONException e) {
+                        Log.e(TAG, "could not receive patient info : ", e);
+                    }
+                } else {
+                    Log.d(TAG, "Can't get patient info.");
+                }
+            }
+        });
     }
     //function to call from the navbar fragment class to update the navbar according to the patients first name
     public static String getName(){
