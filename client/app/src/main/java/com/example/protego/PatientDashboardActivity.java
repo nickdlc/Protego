@@ -37,7 +37,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
     private TextView tvNotifications;
     private FirebaseAuth mAuth;
     private PatientDetails patientDetails;
-    private static String Name;
+    public static String Name;
 
 
     public static class PatientInfo {
@@ -86,10 +86,19 @@ public class PatientDashboardActivity extends AppCompatActivity{
                     Log.d(TAG, "req recieved for patient : " + req.getResult().toString());
 
                     try {
-                        JSONObject pateintJSON = req.getResultJSON();
+                        JSONObject patientJSON = req.getResultJSON();
 
-                        patientDetails.firstName = pateintJSON.getString("firstName");
-                        Log.d(TAG, "info first name : " + pateintJSON.getString("firstName"));
+                        patientDetails.firstName = patientJSON.getString("firstName");
+
+
+                        if(patientDetails.firstName == "" || patientDetails.firstName == null){
+                            Name = "";
+                        }
+                        else{
+                            Name = new String(patientDetails.firstName);
+                        }
+
+                        Log.d(TAG, "info first name : " + patientJSON.getString("firstName"));
                     } catch (JSONException e) {
                         Log.e(TAG, "could not recieve doctor info : ", e);
                     }
@@ -138,18 +147,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
 
-        // update the user's name based on their profile information
-        //TODO: update this name according to the database to get the patient's first name
-        Name = "Example";
-
-//        setUpPatientInfo();
-//
-//        PatientDashboardRecyclerViewAdapter adapter = new PatientDashboardRecyclerViewAdapter(this,patientData);
-//        recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        //TODO : update the connection, the View Doctors button is connected to the View Notes Activity to test it.
         connectButtonToActivity(R.id.viewDoctorsButton, PatientViewDoctorsActivity.class);
         connectButtonToActivity(R.id.updateDataButton, PatientUpdateDataActivity.class);
         connectImageButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
@@ -162,11 +161,11 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         LinearLayout menu = bottomSheetDialog.findViewById(R.id.bottom_sheet);
 
-        //TODO: update this connection to the Medication Activity once it is created
+        //connects the notification medication button to the Medication activity
         connectLayoutToActivity(R.id.medicationSelectionLayout, PatientMedicationActivity.class,  bottomSheetDialog);
         //connects the notification notes button to the Notes activity
         connectLayoutToActivity(R.id.notesSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
-        //TODO: update this connection to the Vitals Activity once it is created
+        //connects the notification vitals button to the Vitals activity
         connectLayoutToActivity(R.id.VitalsSelectionLayout, PatientVitals.class,  bottomSheetDialog);
         //connects the notification View QR Code button to the View QR Code activity
         connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientQRCodeDisplay.class,  bottomSheetDialog);
