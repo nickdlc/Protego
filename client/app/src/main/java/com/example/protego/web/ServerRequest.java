@@ -1,7 +1,5 @@
 package com.example.protego.web;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +34,12 @@ public class ServerRequest {
                         public void getResult(String object) {
                             setResult(object.toString());
                             completed = true;
-                            serverRequestListener.recieveCompletedRequest(thisRequest);
+                            serverRequestListener.receiveCompletedRequest(thisRequest);
+                        }
+
+                        @Override
+                        public void getError(Exception e, String msg) {
+                            serverRequestListener.receiveError(e, msg);
                         }
                     });
     }
@@ -57,7 +60,12 @@ public class ServerRequest {
                     public void getResult(String object) {
                         setResult(object);
                         completed = true;
-                        serverRequestListener.recieveCompletedRequest(thisRequest);
+                        serverRequestListener.receiveCompletedRequest(thisRequest);
+                    }
+
+                    @Override
+                    public void getError(Exception e, String msg) {
+                        serverRequestListener.receiveError(e, msg);
                     }
                 });
     }

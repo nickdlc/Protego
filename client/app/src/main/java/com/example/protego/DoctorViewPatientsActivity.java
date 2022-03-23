@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
@@ -42,7 +43,7 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
     private void getPatients() {
         ServerAPI.getDoctorAssignedPatients(mAuth.getCurrentUser().getUid(), new ServerRequestListener() {
             @Override
-            public void recieveCompletedRequest(ServerRequest req) {
+            public void receiveCompletedRequest(ServerRequest req) {
                 Log.d(TAG, "Received request for doctor's patients");
                 try {
                     JSONArray res = req.getResultJSONList();
@@ -51,6 +52,11 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void receiveError(Exception e, String msg) {
+                Toast.makeText(DoctorViewPatientsActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
     }
