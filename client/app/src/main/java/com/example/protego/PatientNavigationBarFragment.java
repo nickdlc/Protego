@@ -60,9 +60,9 @@ public class PatientNavigationBarFragment extends Fragment implements AdapterVie
 
         ServerAPI.getPatient(currentUser.getUid(), new ServerRequestListener() {
             @Override
-            public void recieveCompletedRequest(ServerRequest req) {
+            public void receiveCompletedRequest(ServerRequest req) {
                 if (req != null && !req.getResultString().equals("")) {
-                    Log.d(TAG, "req recieved for patient : " + req.getResult().toString());
+                    Log.d(TAG, "req received for patient : " + req.getResult().toString());
 
                     try {
                         JSONObject patientJSON = req.getResultJSON();
@@ -75,11 +75,16 @@ public class PatientNavigationBarFragment extends Fragment implements AdapterVie
 
                         Log.d(TAG, "info first name : " + patientJSON.getString("firstName"));
                     } catch (JSONException e) {
-                        Log.e(TAG, "could not recieve doctor info : ", e);
+                        Log.e(TAG, "could not receive doctor info : ", e);
                     }
                 } else {
                     Log.d(TAG, "Can't get patient info.");
                 }
+            }
+
+            @Override
+            public void receiveError(Exception e, String msg) {
+
             }
         });
 

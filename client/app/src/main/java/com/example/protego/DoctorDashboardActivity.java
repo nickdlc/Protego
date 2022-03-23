@@ -71,7 +71,7 @@ public class DoctorDashboardActivity extends AppCompatActivity{
     private void getDoctorLastName(String duid) {
         ServerAPI.getDoctor(duid, new ServerRequestListener() {
             @Override
-            public void recieveCompletedRequest(ServerRequest req) {
+            public void receiveCompletedRequest(ServerRequest req) {
                 if (req != null && !req.getResultString().equals("")) {
                     Log.d(TAG, "req received for doctor : " + req.getResult().toString());
 
@@ -90,11 +90,16 @@ public class DoctorDashboardActivity extends AppCompatActivity{
 
                         Log.d(TAG, "info last name : " + doctorJSON.getString("lastName"));
                     } catch (JSONException e) {
-                        Log.e(TAG, "could not recieve doctor info : ", e);
+                        Log.e(TAG, "could not receive doctor info : ", e);
                     }
                 } else {
                     Log.d(TAG, "failed to get doctor : " + req.toString());
                 }
+            }
+
+            @Override
+            public void receiveError(Exception e, String msg) {
+                Toast.makeText(DoctorDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
     }
@@ -105,7 +110,7 @@ public class DoctorDashboardActivity extends AppCompatActivity{
             @Override
             public void receiveCompletedRequest(ServerRequest req) {
                 if (req != null && !req.getResultString().equals("")) {
-                    Log.d(TAG, "req recieved for doctor : " + req.getResult().toString());
+                    Log.d(TAG, "req received for doctor : " + req.getResult().toString());
 
                     try {
                         JSONObject doctorJSON = req.getResultJSON();
@@ -114,7 +119,7 @@ public class DoctorDashboardActivity extends AppCompatActivity{
                         doctorInfo.lastName = doctorJSON.getString("lastName");
                         Log.d(TAG, "info first name : " + doctorJSON.getString("firstName"));
                     } catch (JSONException e) {
-                        Log.e(TAG, "could not recieve doctor info : ", e);
+                        Log.e(TAG, "could not receive doctor info : ", e);
                     }
                 } else {
                     Log.d(TAG, "failed to get doctor : " + req.toString());

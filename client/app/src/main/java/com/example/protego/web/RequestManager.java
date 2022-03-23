@@ -68,7 +68,7 @@ public class RequestManager {
                     public void onResponse(String response)
                     {
                         // Request completed
-                        Log.d(TAG + ": ", "postRequest:recievedResponse : " + response.toString());
+                        Log.d(TAG + ": ", "postRequest:receivedResponse : " + response.toString());
                         if (null != response.toString())
                             listener.getResult(response);
                     }
@@ -124,7 +124,7 @@ public class RequestManager {
                     public void onResponse(String response)
                     {
                         // Request completed
-                        Log.d(TAG + ": ", "postRequest:recievedResponse : " + response.toString());
+                        Log.d(TAG + ": ", "postRequest:receivedResponse : " + response.toString());
                         if (null != response)
                             listener.getResult(response);
                     }

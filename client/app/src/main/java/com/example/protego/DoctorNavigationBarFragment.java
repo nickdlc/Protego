@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
@@ -57,9 +58,9 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
 
         ServerAPI.getDoctor(currentUser.getUid(), new ServerRequestListener() {
             @Override
-            public void recieveCompletedRequest(ServerRequest req) {
+            public void receiveCompletedRequest(ServerRequest req) {
                 if (req != null && !req.getResultString().equals("")) {
-                    Log.d(TAG, "req recieved for doctor : " + req.getResult().toString());
+                    Log.d(TAG, "req received for doctor : " + req.getResult().toString());
 
                     try {
                         JSONObject doctorJSON = req.getResultJSON();
@@ -71,11 +72,16 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
 
                         Log.d(TAG, "info last name : " + doctorJSON.getString("lastName"));
                     } catch (JSONException e) {
-                        Log.e(TAG, "could not recieve doctor info : ", e);
+                        Log.e(TAG, "could not receive doctor info : ", e);
                     }
                 } else {
                     Log.d(TAG, "failed to get doctor : " + req.toString());
                 }
+            }
+
+            @Override
+            public void receiveError(Exception e, String msg) {
+
             }
         });
 

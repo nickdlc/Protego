@@ -198,7 +198,7 @@ public class PatientDashboardActivity extends AppCompatActivity {
             @Override
             public void receiveCompletedRequest (ServerRequest req){
                 if (req != null && !req.getResultString().equals("")) {
-                    Log.d(TAG, "req recieved for patient : " + req.getResult().toString());
+                    Log.d(TAG, "req received for patient : " + req.getResult().toString());
 
                     try {
                         JSONObject patientJSON = req.getResultJSON();
