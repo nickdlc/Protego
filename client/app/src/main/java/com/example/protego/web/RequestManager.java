@@ -4,9 +4,14 @@ import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -73,12 +78,26 @@ public class RequestManager {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Failed to make the request
-                        if (null != error.networkResponse)
-                        {
-                            Log.d(TAG + ": ", "Error Response code: " + error.networkResponse.statusCode);
-                            Log.e(TAG, "Error request : ", error);
-                            listener.getResult(null);
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof NoConnectionError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
                         }
+
+                        if (error.networkResponse != null) {
+                            Log.d(TAG + ": ", "Error Response code: " + error.networkResponse.statusCode);
+                        }
+                        Log.e(TAG, "Error request : ", error);
+                        listener.getError(error, message);
                     }
                 }) {
                     @Override
@@ -115,12 +134,26 @@ public class RequestManager {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Failed to make the request
-                        if (null != error.networkResponse)
-                        {
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof NoConnectionError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }
+
+                        if (error.networkResponse != null) {
                             Log.d(TAG + ": ", "Error Response code: " + error.networkResponse.statusCode);
                         }
                         Log.e(TAG, "Error request : ", error);
-                        listener.getResult(null);
+                        listener.getError(error, message);
                     }
                 });
         queue.add(request);
