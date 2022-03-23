@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
@@ -84,7 +85,7 @@ public class PatientDashboardActivity extends AppCompatActivity {
 
         ServerAPI.getMedication(currentUser.getUid(), new ServerRequestListener() {
             @Override
-            public void recieveCompletedRequest(ServerRequest req) {
+            public void receiveCompletedRequest(ServerRequest req) {
                 try {
                     JSONObject res = req.getResultJSON();
                     patientDetails.heartRate = res.getInt("heartRate");
@@ -101,6 +102,11 @@ public class PatientDashboardActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     Log.e(TAG, "Could not get JSON from request : ", e);
                 }
+            }
+
+            @Override
+            public void receiveError(Exception e, String msg) {
+                Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
 
@@ -190,7 +196,7 @@ public class PatientDashboardActivity extends AppCompatActivity {
 
         ServerAPI.getPatient(puid, new ServerRequestListener() {
             @Override
-            public void recieveCompletedRequest (ServerRequest req){
+            public void receiveCompletedRequest (ServerRequest req){
                 if (req != null && !req.getResultString().equals("")) {
                     Log.d(TAG, "req recieved for patient : " + req.getResult().toString());
 
@@ -213,6 +219,11 @@ public class PatientDashboardActivity extends AppCompatActivity {
                 } else {
                     Log.d(TAG, "Can't get patient info.");
                 }
+            }
+          
+            @Override
+            public void receiveError(Exception e, String msg) {
+               Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
     }
