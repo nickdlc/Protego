@@ -23,8 +23,12 @@
         android:layout_height="wrap_content"
         android:text="Onboarding Form"
         android:textSize="34sp"
-        tools:layout_editor_absoluteX="74dp"
-        tools:layout_editor_absoluteY="150dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.228" />
 
     <Button
         android:id="@+id/connectFitButton"
@@ -32,17 +36,24 @@
         android:layout_height="wrap_content"
         android:text="Connect Data From My Google Fit"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="211dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.31" />
 
     <Button
-        android:id="@+id/connectFitButton2"
+        android:id="@+id/uploadInsuranceButton"
         android:layout_width="381dp"
         android:layout_height="wrap_content"
         android:text="Upload Insurance Card/ Information"
         android:textSize="14sp"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="614dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.879" />
 
     <TextView
         android:id="@+id/question1Label"
@@ -50,20 +61,12 @@
         android:layout_height="wrap_content"
         android:text="Question 1: non pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="273dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="381dp"
-        android:layout_height="48dp"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="320dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="hint" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.389" />
 
     <TextView
         android:id="@+id/question2Label"
@@ -71,21 +74,12 @@
         android:layout_height="wrap_content"
         android:text="Question 1: non pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="382dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
-        android:layout_width="381dp"
-        android:layout_height="48dp"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="429dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="hint" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.547" />
 
     <TextView
         android:id="@+id/question3Label"
@@ -93,15 +87,54 @@
         android:layout_height="wrap_content"
         android:text="Question 1: non pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="495dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.71000004" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/textInputLayout1"
         android:layout_width="381dp"
         android:layout_height="48dp"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="542dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.47000003">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="hint" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout2"
+        android:layout_width="381dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.63">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="hint" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
+        android:layout_width="381dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.79">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
