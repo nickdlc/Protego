@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
@@ -70,7 +71,7 @@ public class DoctorDashboardActivity extends AppCompatActivity{
     private void getDoctorInfo(String duid) {
         ServerAPI.getDoctor(duid, new ServerRequestListener() {
             @Override
-            public void recieveCompletedRequest(ServerRequest req) {
+            public void receiveCompletedRequest(ServerRequest req) {
                 if (req != null && !req.getResultString().equals("")) {
                     Log.d(TAG, "req recieved for doctor : " + req.getResult().toString());
 
@@ -86,6 +87,11 @@ public class DoctorDashboardActivity extends AppCompatActivity{
                 } else {
                     Log.d(TAG, "failed to get doctor : " + req.toString());
                 }
+            }
+
+            @Override
+            public void receiveError(Exception e, String msg) {
+                Toast.makeText(DoctorDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
     }

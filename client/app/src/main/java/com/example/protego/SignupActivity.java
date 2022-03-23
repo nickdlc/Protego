@@ -152,8 +152,13 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                             if (last_name_input == null) {
                                                 ServerAPI.generateMedData(uid, new ServerRequestListener() {
                                                     @Override
-                                                    public void recieveCompletedRequest(ServerRequest req) {
+                                                    public void receiveCompletedRequest(ServerRequest req) {
                                                         // do nothing, just generate data
+                                                    }
+
+                                                    @Override
+                                                    public void receiveError(Exception e, String msg) {
+                                                        Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
                                                     }
                                                 });
                                             }
