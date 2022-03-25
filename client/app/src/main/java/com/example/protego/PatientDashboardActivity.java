@@ -164,6 +164,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
         connectButtonToActivity(R.id.viewDoctorsButton, PatientViewDoctorsActivity.class);
         connectButtonToActivity(R.id.updateDataButton, PatientUpdateDataActivity.class);
         connectImageButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
+        connectButtonToActivity(R.id.onBoardingButton, PatientOnboardingActivity.class);
 
     }
 
