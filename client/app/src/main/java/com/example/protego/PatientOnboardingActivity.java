@@ -12,6 +12,11 @@ public class PatientOnboardingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Sets first time in dashboard to false so
+        // user doesn't get taken back to onboarding when going to dashboard
+        PatientDashboardActivity.firstTime = false;
+
         setContentView(R.layout.patient_onboarding);
     }
 

@@ -30,6 +30,10 @@ import java.util.ArrayList;
 
 public class PatientDashboardActivity extends AppCompatActivity{
     public static final String TAG = "PatientDashboardActivity";
+
+    // Static variable in charge of deciding if user should go to onboarding instead of dashboard
+    public static boolean firstTime = true;
+
     //input fields
     private Button button;
     private LinearLayout layout;
@@ -39,7 +43,6 @@ public class PatientDashboardActivity extends AppCompatActivity{
     private FirebaseAuth mAuth;
     private PatientDetails patientDetails;
     private static String Name;
-
 
     public static class PatientInfo {
         private final String title;
@@ -69,6 +72,12 @@ public class PatientDashboardActivity extends AppCompatActivity{
         patientData.add( new PatientInfo("Weight (lbs.)", patientDetails.weight.toString()));
     }
 
+    // Function that handles going to onboarding if user is new
+    private void goToOnboarding() {
+        Intent i = new Intent(this, PatientOnboardingActivity.class);
+        startActivity(i);
+        finish();
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_dashboard);
@@ -166,6 +175,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
         connectImageButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
         connectButtonToActivity(R.id.onBoardingButton, PatientOnboardingActivity.class);
 
+        // If this is user's first time, then takes them to onboarding page
+        if(firstTime)goToOnboarding();
     }
 
     public void showBottomSheetDialog() {
