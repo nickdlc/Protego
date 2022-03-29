@@ -20,10 +20,13 @@ import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
 import com.example.protego.web.schemas.DoctorDetails;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.client.android.Intents;
 import com.journeyapps.barcodescanner.ScanContract;
@@ -65,32 +68,61 @@ public class DoctorDashboardActivity extends AppCompatActivity{
                                 Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    String duid = mAuth.getCurrentUser().getUid();
-                    String puid = result.getContents();
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("duid", duid);
-                    data.put("puid", puid);
-                    data.put("active", true);
-                    db.collection("ConnectionRequest")
-                            .add(data)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "Successfully added request to Firestore with id"
-                                            + documentReference.getId());
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.e(TAG, "Error adding request", e);
-                                }
-                            });
+                    // Verify that the result of the scan is a valid patient ID string
+                    DocumentReference ref = db.collection("users").document(result.getContents());
+                    ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                // Successfully queried Firestore so check if the result of the
+                                // scan is a patient ID that exists
+                                DocumentSnapshot doc = task.getResult();
 
-                    Log.d(TAG, "Scan successful");
-                    Toast.makeText(DoctorDashboardActivity.this,
-                            "Scan successful. The patient has received your connection request.",
-                            Toast.LENGTH_LONG).show();
+                                if (doc.exists()) {
+                                    Log.d(TAG, "Result of QR scan is a valid id");
+
+                                    String duid = mAuth.getCurrentUser().getUid();
+                                    String puid = result.getContents();
+                                    Map<String, Object> data = new HashMap<>();
+                                    data.put("duid", duid);
+                                    data.put("puid", puid);
+                                    data.put("active", true);
+                                    db.collection("ConnectionRequest")
+                                            .add(data)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    Log.d(TAG, "Successfully added request to Firestore with id"
+                                                            + documentReference.getId());
+                                                    Log.d(TAG, "Scan successful");
+                                                    Toast.makeText(DoctorDashboardActivity.this,
+                                                            "Scan successful. The patient has received your connection request.",
+                                                            Toast.LENGTH_LONG).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e(TAG, "Error adding request", e);
+                                                    Toast.makeText(DoctorDashboardActivity.this,
+                                                            "Scan unsuccessful. There was an issue linking to the patient.",
+                                                            Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+                                } else {
+                                    Log.d(TAG, "Result of QR scan is an invalid id!");
+                                    Toast.makeText(DoctorDashboardActivity.this,
+                                            "Scan unsuccessful. Please scan a valid patient's QR code",
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            } else {
+                                Log.d(TAG, "Failed to query Firestore: ", task.getException());
+                                Toast.makeText(DoctorDashboardActivity.this,
+                                        "There was an issue finding this patient. Please try again!",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
                 }
             });
 
