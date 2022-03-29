@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Protego.NoActionBar"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:hardwareAccelerated="true">
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
@@ -53,8 +54,8 @@
             android:label="@string/splash_activity"
             android:theme="@style/Theme.Protego.NoActionBar">
             <intent-filter>
-              <action android:name="android.intent.action.MAIN" />-->
-              <category android:name="android.intent.category.LAUNCHER" />-->
+              <action android:name="android.intent.action.MAIN" />
+              <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
             
@@ -104,5 +105,10 @@
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission
+        android:name="android.hardware.camera"
+        android:required="false" />
 
 </manifest>
