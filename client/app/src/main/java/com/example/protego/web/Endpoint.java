@@ -8,7 +8,13 @@ public enum Endpoint {
     POST_ASSIGN("assign"), POST_NOTE("note"),
     POST_MEDICALINFO("medicalInfo"), POST_MEDICATION("medication"),
 
-    GEN_DATA("generatePatientInfo");
+    GEN_DATA("generatePatientInfo"),
+
+    GEN_VITAL_DATA("generateVital"),
+    GET_VITALS("Vital");
+
+
+
 
     private String endpointPath;
     Endpoint(String endpointName) {

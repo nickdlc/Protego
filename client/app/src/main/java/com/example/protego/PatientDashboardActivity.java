@@ -23,12 +23,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class PatientDashboardActivity extends AppCompatActivity {
+public class PatientDashboardActivity extends AppCompatActivity{
     public static final String TAG = "PatientDashboardActivity";
     //input fields
     private Button button;
@@ -45,7 +46,7 @@ public class PatientDashboardActivity extends AppCompatActivity {
         private final String title;
         private final String details;
 
-        public PatientInfo(String title, String details) {
+        public PatientInfo(String title,String details) {
             this.title = title;
             this.details = details;
         }
@@ -61,12 +62,12 @@ public class PatientDashboardActivity extends AppCompatActivity {
 
     ArrayList<PatientInfo> patientData = new ArrayList<>();
 
-    private void setUpPatientInfo() {
-        patientData.add(new PatientInfo("Heart Rate:", patientDetails.heartRate.toString()));
-        patientData.add(new PatientInfo("Blood Pressure:", patientDetails.bloodPressure.toString()));
+    private void setUpPatientInfo(){
+        patientData.add( new PatientInfo("Heart Rate:", patientDetails.heartRate.toString()));
+        patientData.add( new PatientInfo("Blood Pressure:", patientDetails.bloodPressure.toString()));
         // patientData.add( new PatientInfo("Temperature:", "87 Bpm"));
-        patientData.add(new PatientInfo("Height (in.)", patientDetails.heightIN.toString()));
-        patientData.add(new PatientInfo("Weight (lbs.)", patientDetails.weight.toString()));
+        patientData.add( new PatientInfo("Height (in.)", patientDetails.heightIN.toString()));
+        patientData.add( new PatientInfo("Weight (lbs.)", patientDetails.weight.toString()));
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,36 @@ public class PatientDashboardActivity extends AppCompatActivity {
 
         //updates the navbar to show the patient's first name
         getPatientFirstName(currentUser.getUid());
+
+        PatientVitals.patientData.clear();
+        //to get and set the user's vitals for their vitals page
+        getPatientVitals(mAuth.getCurrentUser().getUid());
+
+
+        ServerAPI.getPatient(currentUser.getUid(), new ServerRequestListener() {
+            @Override
+            public void receiveCompletedRequest(ServerRequest req) {
+                if (req != null && !req.getResultString().equals("")) {
+                    Log.d(TAG, "req recieved for patient : " + req.getResult().toString());
+
+                    try {
+                        JSONObject pateintJSON = req.getResultJSON();
+
+                        patientDetails.firstName = pateintJSON.getString("firstName");
+                        Log.d(TAG, "info first name : " + pateintJSON.getString("firstName"));
+                    } catch (JSONException e) {
+                        Log.e(TAG, "could not recieve doctor info : ", e);
+                    }
+                } else {
+                    Log.d(TAG, "Can't get patient info.");
+                }
+            }
+
+            @Override
+            public void receiveError(Exception e, String msg) {
+                Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
+            }
+        });
 
         ServerAPI.getMedication(currentUser.getUid(), new ServerRequestListener() {
             @Override
@@ -109,13 +140,8 @@ public class PatientDashboardActivity extends AppCompatActivity {
                 Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
+      
 
-//        btnNotifications.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showBottomSheetDialog();
-//            }
-//        });
 
         btnNotifications.setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override
@@ -127,7 +153,12 @@ public class PatientDashboardActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
 
+        // update the user's name based on their profile information
+        //TODO: update this name according to the database to get the patient's first name
+        Name = "Example";
 
+
+        //TODO : update the connection, the View Doctors button is connected to the View Notes Activity to test it.
         connectButtonToActivity(R.id.viewDoctorsButton, PatientViewDoctorsActivity.class);
         connectButtonToActivity(R.id.updateDataButton, PatientUpdateDataActivity.class);
         connectImageButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
@@ -140,14 +171,14 @@ public class PatientDashboardActivity extends AppCompatActivity {
 
         LinearLayout menu = bottomSheetDialog.findViewById(R.id.bottom_sheet);
 
-        //connects the notification medication button to the Medication activity
-        connectLayoutToActivity(R.id.medicationSelectionLayout, PatientMedicationActivity.class, bottomSheetDialog);
+        //TODO: update this connection to the Medication Activity once it is created
+        connectLayoutToActivity(R.id.medicationSelectionLayout, PatientMedicationActivity.class,  bottomSheetDialog);
         //connects the notification notes button to the Notes activity
-        connectLayoutToActivity(R.id.notesSelectionLayout, PatientNotesActivity.class, bottomSheetDialog);
-        //connects the notification vitals button to the Vitals activity
-        connectLayoutToActivity(R.id.VitalsSelectionLayout, PatientVitals.class, bottomSheetDialog);
+        connectLayoutToActivity(R.id.notesSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
+        //TODO: update this connection to the Vitals Activity once it is created
+        connectLayoutToActivity(R.id.VitalsSelectionLayout, PatientVitals.class,  bottomSheetDialog);
         //connects the notification View QR Code button to the View QR Code activity
-        connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientQRCodeDisplay.class, bottomSheetDialog);
+        connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientQRCodeDisplay.class,  bottomSheetDialog);
 
         bottomSheetDialog.show();
     }
@@ -220,7 +251,7 @@ public class PatientDashboardActivity extends AppCompatActivity {
                     Log.d(TAG, "Can't get patient info.");
                 }
             }
-          
+
             @Override
             public void receiveError(Exception e, String msg) {
                Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
@@ -232,4 +263,55 @@ public class PatientDashboardActivity extends AppCompatActivity {
         return Name;
     }
 
+
+
+    private void getPatientVitals(String puid) {
+        ServerAPI.getVitals(puid, new ServerRequestListener() {
+            @Override
+            public void receiveCompletedRequest(ServerRequest req) {
+                try {
+                    JSONArray res = req.getResultJSONList();
+
+                    String heartRate;
+                    String respiratoryRate;
+                    String temperature;
+                    String puid;
+                    String bloodPressure;
+                    String source;
+                    String date;
+
+                    for(int i = 0; i < res.length(); i++) {
+
+                        JSONObject object = res.getJSONObject(i);
+
+                        heartRate = object.getString("heartRate");
+                        respiratoryRate = object.getString("respiratoryRate");
+                        temperature = object.getString("temperature");
+                        puid = object.getString("patientID");
+                        bloodPressure = object.getString("bloodPressure");
+                        source = object.getString("source");
+                        date = object.getString("date");
+
+                        PatientVitals.patientData.add(new PatientVitals.VitalsInfo(date,source, heartRate, bloodPressure,respiratoryRate,temperature));
+
+                        Log.v(TAG, "object: " + object.toString());
+
+                    }
+                    Log.v(TAG, "patient data index 0: " + PatientVitals.patientData.get(0).getSource());
+//                    Log.v(TAG, "patient data index 1: " + PatientVitals.patientData.get(1).getSource());
+
+                } catch (JSONException e) {
+                    Log.e(TAG, "Could not get JSON from request : ", e);
+                }
+            }
+
+            @Override
+            public void receiveError(Exception e, String msg) {
+                Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
+            }
+
+
+
+        });
+    }
 }

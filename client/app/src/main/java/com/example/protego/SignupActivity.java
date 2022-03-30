@@ -147,9 +147,12 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                             Log.d(TAG, "Successfully created user " + uid);
                                             Intent i = new Intent(SignupActivity.this, LoginActivity.class);
                                             Toast.makeText(SignupActivity.this, "Check your email for a verification link.", Toast.LENGTH_LONG);
-                                            startActivity(i);
+
                                             firebaseUser.sendEmailVerification();
+
                                             if (last_name_input == null) {
+
+
                                                 ServerAPI.generateMedData(uid, new ServerRequestListener() {
                                                     @Override
                                                     public void receiveCompletedRequest(ServerRequest req) {
@@ -161,6 +164,36 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                                         Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
                                                     }
                                                 });
+
+
+//                                                generate random vital information
+                                                ServerAPI.generateVitalData(uid, new ServerRequestListener() {
+                                                    @Override
+                                                    public void receiveCompletedRequest(ServerRequest req) {
+                                                        // do nothing, just generate data
+                                                    }
+
+                                                    @Override
+                                                    public void receiveError(Exception e, String msg) {
+                                                        Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
+                                                    }
+                                                });
+
+                                                //generate random vital information
+                                                ServerAPI.generateVitalData(uid, new ServerRequestListener() {
+                                                    @Override
+                                                    public void receiveCompletedRequest(ServerRequest req) {
+                                                        // do nothing, just generate data
+                                                    }
+
+                                                    @Override
+                                                    public void receiveError(Exception e, String msg) {
+                                                        Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
+                                                    }
+                                                });
+
+
+
                                             }
                                             finish();
                                         }

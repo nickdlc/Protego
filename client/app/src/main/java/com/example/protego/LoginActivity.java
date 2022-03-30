@@ -52,17 +52,6 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-/*
-        //the spinner component to determine the type of user - patient or doctor
-        spinner = (Spinner) findViewById(R.id.loginTypeOfUserSpinner);
-        //ArrayAdapter
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.type_of_user_array, android.R.layout.simple_spinner_item);
-        //specify layout
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //apply adapter to spinner
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-*/
 
         RequestManager.getInstance(this);
         // Initialize Firebase Auth
@@ -128,9 +117,7 @@ public class LoginActivity extends AppCompatActivity{
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            ProtegoUser protegoUser;
-                            //ProtegoUser protegoUser = new ProtegoUser(mAuth.getUid());
-                            //Log.d(TAG, protegoUser.toString());
+
                             String uid = user.getUid();
 
                             if (user.isEmailVerified()) {
@@ -186,38 +173,11 @@ public class LoginActivity extends AppCompatActivity{
         finish();
     }
 
-
-
     private void goMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
     }
-
-    /*
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-
-        String userType = (String) parent.getItemAtPosition(pos);
-        Resources resource = getResources();
-        String[] userTypeOptions = resource.getStringArray(R.array.type_of_user_array);
-
-        //TODO: check that the user first login with the correct credentials and user type if so then their user type selection determines their dashboard view
-        if(userType.equals(userTypeOptions[1])){ //the user is a patient therefore the patient dashboard is shown
-            connectButtonToActivity(R.id.btnLogin, PatientDashboardActivity.class);
-
-        }
-        else if(userType.equals(userTypeOptions[2])) { // the user is a doctor therefore the doctor dashboard is shown
-            connectButtonToActivity(R.id.btnLogin, DoctorDashboardActivity.class);
-            //isPatient = false;
-        }
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }*/
 
     // navigate to next activity
     private void connectButtonToActivity(Integer buttonId, Class nextActivityClass) {
