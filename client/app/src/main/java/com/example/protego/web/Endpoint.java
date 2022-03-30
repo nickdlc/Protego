@@ -15,7 +15,10 @@ public enum Endpoint {
 
 
     GEN_NOTE_DATA("generatePatientNote"),
-    GET_NOTES("note");
+    GET_NOTES("note"),
+
+    GEN_MEDICATION_DATA("generatePatientMedication"),
+    GET_MEDICATIONS("medication");
 
 
 

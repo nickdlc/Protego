@@ -158,6 +158,25 @@ public class ServerAPI {
     }
 
 
+    //generate random medication data
+    public static void generateMedicationData(String puid, ServerRequestListener serverRequestListener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("patient", puid);
+
+        new ServerRequest(Endpoint.GEN_MEDICATION_DATA)
+                .post(params, serverRequestListener);
+    }
+
+    //get all medication data
+    public static void getMedications(String puid, ServerRequestListener serverRequestListener) {
+        Map<String, String> urlParams = new HashMap<>();
+        urlParams.put("patient", puid);
+
+        new ServerRequest(Endpoint.GET_MEDICATIONS)
+                .get(urlParams, serverRequestListener);
+    }
+
+
 
 
     public static String getCurrentFormmatedDate() {

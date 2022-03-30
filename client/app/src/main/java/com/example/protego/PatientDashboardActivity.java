@@ -89,8 +89,12 @@ public class PatientDashboardActivity extends AppCompatActivity{
         getPatientVitals(mAuth.getCurrentUser().getUid());
 
         PatientNotesActivity.notesData.clear();
-        //to get and set the user's vitals for their vitals page
+        //to get and set the user's vitals for their notes page
         getPatientNotes(mAuth.getCurrentUser().getUid());
+
+        PatientMedicationActivity.medicationData.clear();
+        //to get and set the user's medication for their medications page
+        getPatientMedications(mAuth.getCurrentUser().getUid());
 
 
         ServerAPI.getPatient(currentUser.getUid(), new ServerRequestListener() {
@@ -362,6 +366,49 @@ public class PatientDashboardActivity extends AppCompatActivity{
         });
     }
 
+
+
+    private void getPatientMedications(String puid) {
+        ServerAPI.getMedications(puid, new ServerRequestListener() {
+            @Override
+            public void receiveCompletedRequest(ServerRequest req) {
+                try {
+                    JSONArray res = req.getResultJSONList();
+
+                    String name;
+                    String datePrescribed;
+                    String dosage;
+                    String prescriber;
+
+
+                    for(int i = 0; i < res.length(); i++) {
+
+                        JSONObject object = res.getJSONObject(i);
+
+
+                        name = object.getString("name");
+                        datePrescribed = object.getString("datePrescribed");
+                        dosage = object.getString("dosage");
+                        prescriber = object.getString("prescriber");
+
+                        PatientMedicationActivity.medicationData.add(new PatientMedicationActivity.MedicationInfo(name,datePrescribed,dosage,prescriber));
+
+                    }
+
+                } catch (JSONException e) {
+                    Log.e(TAG, "Could not get JSON from request : ", e);
+                }
+            }
+
+            @Override
+            public void receiveError(Exception e, String msg) {
+                Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
+            }
+
+
+
+        });
+    }
 
 
 }

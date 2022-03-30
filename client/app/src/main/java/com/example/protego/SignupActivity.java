@@ -192,6 +192,18 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                                     }
                                                 });
 
+                                                //generate random Medication information
+                                                ServerAPI.generateMedicationData(uid, new ServerRequestListener() {
+                                                    @Override
+                                                    public void receiveCompletedRequest(ServerRequest req) {
+                                                        // do nothing, just generate data
+                                                    }
+
+                                                    @Override
+                                                    public void receiveError(Exception e, String msg) {
+                                                        Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
+                                                    }
+                                                });
 
 
                                             }
