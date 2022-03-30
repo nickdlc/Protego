@@ -75,7 +75,7 @@ public class PatientDashboardActivity extends AppCompatActivity {
         btnNotifications = findViewById(R.id.btnNotifications);
 
         mAuth = FirebaseAuth.getInstance();
-        this.patientDetails = new PatientDetails();
+        //this.patientDetails = new PatientDetails(res);
         PatientDashboardActivity thisObj = this;
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -88,6 +88,7 @@ public class PatientDashboardActivity extends AppCompatActivity {
             public void receiveCompletedRequest(ServerRequest req) {
                 try {
                     JSONObject res = req.getResultJSON();
+                    patientDetails = new PatientDetails(res);
                     patientDetails.heartRate = res.getInt("heartRate");
                     patientDetails.bloodPressure = res.getString("bloodPressure");
                     patientDetails.heightIN = res.getInt("heightIN");

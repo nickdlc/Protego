@@ -1,6 +1,8 @@
 package com.example.protego;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorViewPatientsActivity extends AppCompatActivity {
@@ -37,6 +40,19 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
         //Connects the button to return from the View Patients Activity to the Doctor Dashboard activity
         connectButtonToActivity(R.id.DoctorViewPatientsReturnButton, DoctorDashboardActivity.class);
         mAuth = FirebaseAuth.getInstance();
+
+        patients = new ArrayList<>();
+        RecyclerView rvPatients = findViewById(R.id.rvPatients);
+
+        // create adapter
+        final PatientsListAdapter patientsAdapter = new PatientsListAdapter(this, patients);
+
+        // Set the adapter on recyclerview
+        rvPatients.setAdapter(patientsAdapter);
+
+        // set a layout manager on RV
+        rvPatients.setLayoutManager(new LinearLayoutManager(this));
+
         getPatients();
     }
 
@@ -47,8 +63,10 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
                 Log.d(TAG, "Received request for doctor's patients");
                 try {
                     JSONArray res = req.getResultJSONList();
+                    System.out.println("Patient List : " + res.toString() + res.length());
 
-                    System.out.println("Patient List : " + res.toString());
+                    patients.addAll(PatientDetails.constructPatients(res));
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
