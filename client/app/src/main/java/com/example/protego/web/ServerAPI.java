@@ -161,7 +161,7 @@ public class ServerAPI {
     //generate random medication data
     public static void generateMedicationData(String puid, ServerRequestListener serverRequestListener) {
         Map<String, Object> params = new HashMap<>();
-        params.put("patient", puid);
+        params.put("patientID", puid);
 
         new ServerRequest(Endpoint.GEN_MEDICATION_DATA)
                 .post(params, serverRequestListener);
