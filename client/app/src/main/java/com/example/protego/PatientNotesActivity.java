@@ -89,7 +89,6 @@ public class PatientNotesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 createNote(mAuth.getUid());
                 notesData.clear();
-                getPatientNotes(mAuth.getUid());
                 recreate();
                 Intent i = new Intent(v.getContext(), PatientDashboardActivity.class);
                 startActivity(i);

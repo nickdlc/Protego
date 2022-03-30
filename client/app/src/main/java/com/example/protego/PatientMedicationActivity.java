@@ -81,9 +81,8 @@ public class PatientMedicationActivity extends AppCompatActivity {
         findViewById(R.id.add_medication).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createMedication(mAuth.getUid());
                 medicationData.clear();
-                getPatientMedications(mAuth.getUid());
+                createMedication(mAuth.getUid());
                 recreate();
                 Intent i = new Intent(v.getContext(), PatientDashboardActivity.class);
                 startActivity(i);
