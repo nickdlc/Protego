@@ -44,4 +44,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.android.volley:volley:1.2.1'
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    implementation 'androidx.activity:activity:1.4.0'
+    implementation 'androidx.fragment:fragment:1.4.1'
 }
