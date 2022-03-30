@@ -230,6 +230,57 @@ public class ProtegoHomeController {
         return null;
     }
 
+
+    //generate a random note
+    @PostMapping("/generatePatientNote")
+    public Note generatePatientNote(@RequestBody Patient patient) {
+        String puid = patient.getPatientID();
+        Note note = new Note();
+        note.setCreator(puid);
+        int rand = randNumInRange(1, 10);
+        note.setTitle("Note #" + Integer.toString(rand));
+        Date date = new Date();
+        note.setDateCreated(date); //compute this date
+        note.setContent(randomMessage());
+        note.setVisibility(randomVisibility());
+        note.setApprovedDoctors(randomApprovedDoctors());
+        FirebaseAttributes.firestore.collection("users")
+                .document(puid).collection("Notes")
+                .add(note);
+        return note;
+    }
+
+    //get the notes
+    @GetMapping("/note")
+    public List<Note> getNotes(@RequestParam("patient") String puid) {
+        try {
+            // Asynchronously retrieve multiple documents
+            ApiFuture<QuerySnapshot> future =
+                    FirebaseAttributes.firestore.collection("users")
+                            .document(puid)
+                            .collection("Notes").orderBy("dateCreated", Query.Direction.DESCENDING).get();
+
+            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+            List<Note> NotesArray= new ArrayList<Note>();
+
+            for (QueryDocumentSnapshot document : documents) {
+                NotesArray.add(document.toObject(Note.class));
+            }
+
+
+            return NotesArray;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+
     @GetMapping("/patientsAssignedTo")
     public List<Patient> getPatientsForDoctor(@RequestParam("doctor") String duid) {
         try {
@@ -300,6 +351,53 @@ public class ProtegoHomeController {
         }
         return source;
     }
+
+
+
+    private List<String> randomApprovedDoctors(){
+
+        int rand = randNumInRange(0, 9);
+        String[] sourceTypes = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+        List<String> result = new ArrayList<String>();
+        String source;
+
+        for(int i = 0; i < rand; i++){
+            result.add("Dr. " + sourceTypes[i]);
+        }
+
+        return result;
+    }
+
+
+
+    private String randomMessage(){
+
+        int rand = randNumInRange(0, 5);
+        String[] messages = {
+               "I have intense back pain",
+               "I have an intense headache",
+               "I had a bad reaction to my medication",
+               "I have a new rash throughout my body",
+               "My blood pressure is higher than usual",
+               "My temperature is very high"
+        };
+
+        return messages[rand];
+    }
+
+    private String randomVisibility(){
+        String visibility;
+        int rand = randNumInRange(0, 1);
+        if(rand == 0){
+            visibility = "Public";
+        }
+        else{
+            visibility = "Private";
+        }
+
+        return visibility;
+    }
+
 
 
 

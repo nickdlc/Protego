@@ -134,11 +134,19 @@ public class PatientVitals extends AppCompatActivity {
         connectButtonToActivity(R.id.btnReturn, PatientDashboardActivity.class);
 
 
+        findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createVital(mAuth.getUid());
+                patientData.clear();
+                getPatientVitals(mAuth.getUid());
+                recreate();
+                Intent i = new Intent(v.getContext(), PatientDashboardActivity.class);
+                startActivity(i);
 
-
-
-
-
+                finish();
+            }
+        });
     }
 
     private void getPatientVitals(String puid) {
@@ -174,12 +182,6 @@ public class PatientVitals extends AppCompatActivity {
 
                     }
 
-
-//                    Log.v(TAG, "patient data index 0: " + patientData.get(0).getSource());
-//                    Log.v(TAG, "patient data index 1: " + patientData.get(1).getSource());
-
-
-
                 } catch (JSONException e) {
                     Log.e(TAG, "Could not get JSON from request : ", e);
                 }
@@ -207,6 +209,24 @@ public class PatientVitals extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+
+
+    private void createVital(String uid){
+
+        ServerAPI.generateVitalData(uid, new ServerRequestListener() {
+            @Override
+            public void receiveCompletedRequest(ServerRequest req) {
+                // do nothing, just generate data
+            }
+
+            @Override
+            public void receiveError(Exception e, String msg) {
+                Toast.makeText(PatientVitals.this, msg, Toast.LENGTH_LONG);
+            }
+        });
+
     }
 }
 

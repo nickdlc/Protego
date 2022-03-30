@@ -88,6 +88,10 @@ public class PatientDashboardActivity extends AppCompatActivity{
         //to get and set the user's vitals for their vitals page
         getPatientVitals(mAuth.getCurrentUser().getUid());
 
+        PatientNotesActivity.notesData.clear();
+        //to get and set the user's vitals for their vitals page
+        getPatientNotes(mAuth.getCurrentUser().getUid());
+
 
         ServerAPI.getPatient(currentUser.getUid(), new ServerRequestListener() {
             @Override
@@ -314,4 +318,50 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         });
     }
+
+
+
+    private void getPatientNotes(String puid) {
+        ServerAPI.getNotes(puid, new ServerRequestListener() {
+            @Override
+            public void receiveCompletedRequest(ServerRequest req) {
+                try {
+                    JSONArray res = req.getResultJSONList();
+
+                    String title;
+                    String date;
+                    String visibility;
+                    String details;
+
+
+                    for(int i = 0; i < res.length(); i++) {
+
+                        JSONObject object = res.getJSONObject(i);
+
+                        title = object.getString("title");
+                        date = object.getString("dateCreated");
+                        visibility = object.getString("visibility");
+                        details = object.getString("content");
+
+                        PatientNotesActivity.notesData.add(new PatientNotesActivity.NotesInfo(title,date,visibility,details));
+
+                    }
+
+                } catch (JSONException e) {
+                    Log.e(TAG, "Could not get JSON from request : ", e);
+                }
+            }
+
+            @Override
+            public void receiveError(Exception e, String msg) {
+                Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
+            }
+
+
+
+        });
+    }
+
+
+
 }

@@ -179,8 +179,8 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                                     }
                                                 });
 
-                                                //generate random vital information
-                                                ServerAPI.generateVitalData(uid, new ServerRequestListener() {
+                                                //generate random Note information
+                                                ServerAPI.generateNoteData(uid, new ServerRequestListener() {
                                                     @Override
                                                     public void receiveCompletedRequest(ServerRequest req) {
                                                         // do nothing, just generate data

@@ -125,13 +125,35 @@ public class ServerAPI {
     }
 
 
+    //generate random note data
+    public static void generateNoteData(String puid, ServerRequestListener serverRequestListener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("patientID", puid);
+
+        new ServerRequest(Endpoint.GEN_NOTE_DATA)
+                .post(params, serverRequestListener);
+    }
+
+
+
 //GET REQUESTS
 
+    //get all vital data
     public static void getVitals(String puid, ServerRequestListener serverRequestListener) {
         Map<String, String> urlParams = new HashMap<>();
         urlParams.put("patient", puid);
 
         new ServerRequest(Endpoint.GET_VITALS)
+                .get(urlParams, serverRequestListener);
+    }
+
+
+    //get all note data
+    public static void getNotes(String puid, ServerRequestListener serverRequestListener) {
+        Map<String, String> urlParams = new HashMap<>();
+        urlParams.put("patient", puid);
+
+        new ServerRequest(Endpoint.GET_NOTES)
                 .get(urlParams, serverRequestListener);
     }
 
