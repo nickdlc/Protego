@@ -7,10 +7,13 @@ import java.util.Map;
 
 public class Medication {
     private String medID;
+    private String name;
     private String prescribee; // a patient
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm'Z'")
     private Date datePrescribed;
-    private Map<String, String> dosage;
+//    private Map<String, String> dosage;
+
+    private String dosage;
     private String prescriber; // a doctor
 
     public String getMedID() {
@@ -19,6 +22,14 @@ public class Medication {
 
     public void setMedID(String medID) {
         this.medID = medID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPrescribee() {
@@ -37,11 +48,11 @@ public class Medication {
         this.datePrescribed = date;
     }
 
-    public Map<String, String> getDosage() {
+    public String getDosage() {
         return dosage;
     }
 
-    public void setDosage(Map<String, String> dosage) {
+    public void setDosage(String dosage) {
         this.dosage = dosage;
     }
 
@@ -57,8 +68,9 @@ public class Medication {
     public String toString() {
         return "Medication{" +
                 "medID='" + medID + '\'' +
+                ", name=" + name +
                 ", prescribee=" + prescribee +
-                ", date=" + datePrescribed +
+                ", datePrescribed=" + datePrescribed +
                 ", dosage='" + dosage + '\'' +
                 ", prescriber=" + prescriber +
                 '}';
