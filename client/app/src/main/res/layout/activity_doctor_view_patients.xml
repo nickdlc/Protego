@@ -15,7 +15,7 @@ tools:context=".DoctorViewPatientsActivity">
         android:layout_marginBottom="8dp"
         android:text="Patients"
         android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/PatientsListView"
+        app:layout_constraintBottom_toTopOf="@+id/rvPatients"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@ tools:context=".DoctorViewPatientsActivity">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.89"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/PatientsListView"
+        app:layout_constraintTop_toBottomOf="@id/rvPatients"
         app:layout_constraintVertical_bias="0.5">
 
         <Button
@@ -56,11 +56,10 @@ tools:context=".DoctorViewPatientsActivity">
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/PatientsListView"
-        android:layout_width="0dp"
-        android:layout_height="350dp"
-        android:background="#ECE8E8"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPatients"
+        android:layout_width="412dp"
+        android:layout_height="360dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
