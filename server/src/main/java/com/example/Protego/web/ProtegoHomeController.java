@@ -245,8 +245,8 @@ public class ProtegoHomeController {
         note.setDateCreated(date); //compute this date
         note.setContent(randomMessage());
         note.setVisibility(randomVisibility());
-//        note.setApprovedDoctors(randomApprovedDoctors());
         note.setApprovedDoctors(randomDoctors);
+        //note.setApprovedDoctors(randomApprovedDoctors());
         FirebaseAttributes.firestore.collection("users")
                 .document(puid).collection("Notes")
                 .add(note);
@@ -289,6 +289,7 @@ public class ProtegoHomeController {
         String puid = patient.getPatientID();
         Medication medication = new Medication();
         List<String> medicationResults = randomMedication(randomDoctors);
+        //List<String> medicationResults = randomMedication(randomApprovedDoctors());
         medication.setName(medicationResults.get(0));
         medication.setPrescribee(puid);
         medication.setPrescriber(medicationResults.get(2));
@@ -377,7 +378,7 @@ public class ProtegoHomeController {
     private Integer randNumInRange(Integer min, Integer max) {  //the min and max values are inclusive
         Random random = new Random();
         Integer aboveMax = max + 1;
-        int randint = random.nextInt(aboveMax); //generates between 0 to 25
+        int randint = random.nextInt(aboveMax);
 
         while (randint < min || randint > aboveMax) {
             if (randint < min) {
@@ -410,7 +411,7 @@ public class ProtegoHomeController {
 
     private List<String> randomApprovedDoctors(){
 
-        int rand = randNumInRange(0, 9);
+        int rand = randNumInRange(1, 9);
         String[] sourceTypes = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
         List<String> result = new ArrayList<String>();
         String source;
