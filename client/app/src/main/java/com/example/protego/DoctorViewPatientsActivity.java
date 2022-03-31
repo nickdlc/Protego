@@ -40,23 +40,11 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
         //Connects the button to return from the View Patients Activity to the Doctor Dashboard activity
         connectButtonToActivity(R.id.DoctorViewPatientsReturnButton, DoctorDashboardActivity.class);
         mAuth = FirebaseAuth.getInstance();
+        DoctorViewPatientsActivity thisObj = this;
 
         patients = new ArrayList<>();
-        RecyclerView rvPatients = findViewById(R.id.rvPatients);
 
-        // create adapter
-        final PatientsListAdapter patientsAdapter = new PatientsListAdapter(this, patients);
-
-        // Set the adapter on recyclerview
-        rvPatients.setAdapter(patientsAdapter);
-
-        // set a layout manager on RV
-        rvPatients.setLayoutManager(new LinearLayoutManager(this));
-
-        getPatients();
-    }
-
-    private void getPatients() {
+        //getPatients();
         ServerAPI.getDoctorAssignedPatients(mAuth.getCurrentUser().getUid(), new ServerRequestListener() {
             @Override
             public void receiveCompletedRequest(ServerRequest req) {
@@ -65,8 +53,15 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
                     JSONArray res = req.getResultJSONList();
                     System.out.println("Patient List : " + res.toString() + res.length());
 
+                    RecyclerView rvPatients = findViewById(R.id.rvPatients);
                     patients.addAll(PatientDetails.constructPatients(res));
 
+                    // create adapter
+                    final PatientsListAdapter patientsAdapter = new PatientsListAdapter(thisObj, patients);
+                    // Set the adapter on recyclerview
+                    rvPatients.setAdapter(patientsAdapter);
+                    // set a layout manager on RV
+                    rvPatients.setLayoutManager(new LinearLayoutManager(thisObj));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -78,6 +73,10 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
             }
         });
     }
+/*
+    private void getPatients() {
+
+    }*/
 
     // navigate to next activity
     private void connectButtonToActivity(Integer buttonId, Class nextActivityClass) {

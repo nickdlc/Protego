@@ -24,6 +24,7 @@ public class PatientsListAdapter extends RecyclerView.Adapter<PatientsListAdapte
     List<PatientDetails> patients;
 
     public PatientsListAdapter(Context context, List<PatientDetails> patients) {
+        Log.d("PatientsListAdapter", "patientsListAdapter");
         this.context = context;
         this.patients = patients;
     }
