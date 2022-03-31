@@ -23,6 +23,10 @@ public class PatientDetails {
     public Integer heartRate;
     public String bloodPressure;
 
+    public PatientDetails(){
+
+    }
+
     public PatientDetails(JSONObject jsonObject) throws JSONException {
         firstName = jsonObject.getString("firstName");
     }
