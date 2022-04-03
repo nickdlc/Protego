@@ -70,18 +70,20 @@
 
     <EditText
         android:id="@+id/editTextDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="372dp"
+        android:layout_height="37dp"
+        android:background="#D3D3D3"
         android:ems="10"
         android:hint="Date of Birth"
         android:inputType="date"
         android:singleLine="true"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.358"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintVertical_bias="0.449" />
 
     <TextView
         android:id="@+id/question2Label"
