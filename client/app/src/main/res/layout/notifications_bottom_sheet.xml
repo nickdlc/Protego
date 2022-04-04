@@ -142,13 +142,11 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvNotifications"
         android:layout_width="match_parent"
         android:layout_height="650dp"
-        android:background="@color/protego_color"
-        android:gravity="center"
-        android:text="Notifications Placed Here"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
+        android:background="@color/protego_color" />
+
 
 </LinearLayout>
