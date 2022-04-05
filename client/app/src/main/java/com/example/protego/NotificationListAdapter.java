@@ -16,9 +16,11 @@ import java.util.Date;
 
 public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.ViewHolder> {
     private ArrayList<Notification> notifications;
+    private RecyclerViewClickListener listener;
 
-    public NotificationListAdapter(ArrayList<Notification> notifications) {
+    public NotificationListAdapter(ArrayList<Notification> notifications, RecyclerViewClickListener listener) {
         this.notifications = notifications;
+        this.listener = listener;
     }
 
     @NonNull
@@ -41,13 +43,23 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         return notifications.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvNotification;
 
         public ViewHolder(@NonNull View view) {
             super(view);
             Log.d("NotificationListAdapter.ViewHolder", "constructor");
             tvNotification = view.findViewById(R.id.tvNotification);
+            view.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            listener.onClick(view, getAdapterPosition());
+        }
+    }
+
+    public interface RecyclerViewClickListener {
+        void onClick(View view, int position);
     }
 }

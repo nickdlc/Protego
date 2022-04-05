@@ -58,6 +58,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
     private FirebaseFirestore db;
     private PatientDetails patientDetails;
     private ArrayList<Notification> notifications;
+    private NotificationListAdapter.RecyclerViewClickListener listener;
     public static String Name;
 
 
@@ -249,11 +250,25 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
     private void setRecyclerView() {
         Log.d(TAG, "Notifications: " + notifications.toString());
-        NotificationListAdapter adapter = new NotificationListAdapter(notifications);
+
+        setOnClickListener();
+
+        NotificationListAdapter adapter = new NotificationListAdapter(notifications, listener);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvNotifications.setLayoutManager(layoutManager);
         rvNotifications.setItemAnimator(new DefaultItemAnimator());
         rvNotifications.setAdapter(adapter);
+    }
+
+    private void setOnClickListener() {
+        listener = new NotificationListAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent = new Intent(getApplicationContext(), PatientViewNotificationsActivity.class);
+                intent.putExtra("msg", notifications.get(position).getMsg());
+                startActivity(intent);
+            }
+        };
     }
 
     // navigate to next activity
