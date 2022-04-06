@@ -27,7 +27,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PatientDashboardActivity extends AppCompatActivity{
     public static final String TAG = "PatientDashboardActivity";
@@ -380,7 +383,6 @@ public class PatientDashboardActivity extends AppCompatActivity{
                     String dosage;
                     String prescriber;
 
-
                     for(int i = 0; i < res.length(); i++) {
 
                         JSONObject object = res.getJSONObject(i);
@@ -391,9 +393,13 @@ public class PatientDashboardActivity extends AppCompatActivity{
                         dosage = object.getString("dosage");
                         prescriber = object.getString("prescriber");
 
-                        PatientMedicationActivity.medicationData.add(new PatientMedicationActivity.MedicationInfo(name,datePrescribed,dosage,prescriber));
 
+
+                        PatientMedicationActivity.medicationData.add(new PatientMedicationActivity.MedicationInfo(name,datePrescribed,dosage,prescriber));
                     }
+
+
+
 
                 } catch (JSONException e) {
                     Log.e(TAG, "Could not get JSON from request : ", e);

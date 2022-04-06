@@ -20,6 +20,15 @@
         android:theme="@style/Theme.Protego.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".DoctorViewPatientNotes"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorViewPatientMedication"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorViewPatientSelections"
+            android:exported="false" />
+        <activity
             android:name=".PatientProfileActivity"
             android:exported="true" />
         <activity
@@ -39,7 +48,17 @@
             android:exported="false" />
         <activity
             android:name=".DoctorViewPatientsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Protego.NoActionBar">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+
+        </activity>
         <activity
             android:name=".DoctorEditProfileActivity"
             android:exported="false" />
