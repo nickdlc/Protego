@@ -28,6 +28,7 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
         PatientMedicationRecyclerViewAdapter adapter = new PatientMedicationRecyclerViewAdapter(this,medicationData);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
 
@@ -48,6 +49,8 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
     }
 
     private void setUpMedicationInfo() {
+        medicationData.clear();
+
         medicationData.add(new PatientMedicationActivity.MedicationInfo("Medication 1","1/01/2022","x mg","Dr. A"));
         medicationData.add(new PatientMedicationActivity.MedicationInfo("Medication 2","1/01/2022","x mg","Dr. B"));
         medicationData.add(new PatientMedicationActivity.MedicationInfo("Medication 3","1/01/2022","x mg","Dr. C"));

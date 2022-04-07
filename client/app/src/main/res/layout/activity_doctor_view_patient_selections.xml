@@ -105,7 +105,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6">
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/selectionsPatientName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -114,7 +114,7 @@
             android:textSize="27dp" />
 
         <TextView
-            android:id="@+id/patientFullNameInput"
+            android:id="@+id/selectionsPatientFullNameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -54,6 +54,12 @@ tools:context=".DoctorViewPatientsActivity">
             android:layout_height="wrap_content"
             android:text="Return" />
 
+        <Button
+            android:id="@+id/testButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Patient Information" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -66,15 +72,4 @@ tools:context=".DoctorViewPatientsActivity">
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.55" />
 
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.13"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9" />
 </androidx.constraintlayout.widget.ConstraintLayout>

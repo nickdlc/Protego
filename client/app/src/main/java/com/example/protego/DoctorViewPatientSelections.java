@@ -16,10 +16,10 @@ public class DoctorViewPatientSelections extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_view_patient_selections);
         connectButtonToActivity(R.id.returnButton, DoctorViewPatientsActivity.class);
-        connectButtonToActivity(R.id.generalButton, DoctorViewPatientsActivity.class);
+        connectButtonToActivity(R.id.generalButton, DoctorViewPatientProfile.class);
         connectButtonToActivity(R.id.medicationButton, DoctorViewPatientMedication.class);
         connectButtonToActivity(R.id.notesButton, DoctorViewPatientNotes.class);
-        connectButtonToActivity(R.id.vitalsButton, DoctorViewPatientsActivity.class);
+        connectButtonToActivity(R.id.vitalsButton, DoctorViewPatientVitals.class);
 
     }
 

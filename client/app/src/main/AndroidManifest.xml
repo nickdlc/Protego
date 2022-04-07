@@ -20,6 +20,12 @@
         android:theme="@style/Theme.Protego.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".DoctorViewPatientVitals"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorViewPatientProfile"
+            android:exported="false" />
+        <activity
             android:name=".DoctorViewPatientNotes"
             android:exported="false" />
         <activity
