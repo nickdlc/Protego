@@ -7,11 +7,13 @@ import java.util.List;
 
 public class Note {
     private String noteID;
+    private String title;
     private String creator;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm'Z'")
     private Date dateCreated;
     private List<String> approvedDoctors;
     private String content;
+    private String visibility;
 
     public String getNoteID() {
         return noteID;
@@ -20,6 +22,13 @@ public class Note {
     public void setNoteID(String noteID) {
         this.noteID = noteID;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;}
 
     public String getCreator() {
         return creator;
@@ -53,12 +62,24 @@ public class Note {
         this.content = content;
     }
 
+
+    public String getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
+    }
+
+
     @Override
     public String toString() {
         return "Note{" +
                 "noteID='" + noteID + '\'' +
                 ", creator=" + creator +
+                ", title=" + title +
                 ", dateCreated=" + dateCreated +
+                ", visibility=" + visibility +
                 ", approvedDoctors=" + approvedDoctors +
                 ", content='" + content + '\'' +
                 '}';

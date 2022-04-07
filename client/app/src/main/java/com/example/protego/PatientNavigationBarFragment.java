@@ -7,6 +7,7 @@ package com.example.protego;
         import androidx.fragment.app.Fragment;
         import androidx.fragment.app.FragmentContainerView;
 
+        import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
@@ -16,13 +17,26 @@ package com.example.protego;
         import android.widget.Spinner;
         import android.widget.TextView;
 
+        import com.example.protego.web.ServerAPI;
+        import com.example.protego.web.ServerRequest;
+        import com.example.protego.web.ServerRequestListener;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
+
+        import org.json.JSONException;
+        import org.json.JSONObject;
+
+
         import java.text.BreakIterator;
 
 public class PatientNavigationBarFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
-    private static String[] navbar_options_array = {"", "Home", "Profile", "Log out"};
+    public static final String TAG = "PatientDashboardNavbar";
+    private static String[] navbar_options_array = {"Menu", "Home", "Profile", "Log out"};
 
     private Spinner spinner;
+    private FirebaseAuth mAuth;
+
 
     public PatientNavigationBarFragment() {
         // Required empty public constructor
@@ -40,8 +54,43 @@ public class PatientNavigationBarFragment extends Fragment implements AdapterVie
 
         View view = inflater.inflate(R.layout.fragment_patient_navigation_bar, container, false);
 
-        //to update the first name of the patient on their navbar
-        updateNavbarName(view);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        ServerAPI.getPatient(currentUser.getUid(), new ServerRequestListener() {
+            @Override
+            public void receiveCompletedRequest(ServerRequest req) {
+                if (req != null && !req.getResultString().equals("")) {
+                    Log.d(TAG, "req received for patient : " + req.getResult().toString());
+
+                    try {
+                        JSONObject patientJSON = req.getResultJSON();
+
+
+                        PatientDashboardActivity.Name = patientJSON.getString("firstName");
+                        //to update the first name of the patient on their navbar
+                        updateNavbarName(view);
+
+
+                        Log.d(TAG, "info first name : " + patientJSON.getString("firstName"));
+                    } catch (JSONException e) {
+                        Log.e(TAG, "could not receive doctor info : ", e);
+                    }
+                } else {
+                    Log.d(TAG, "Can't get patient info.");
+                }
+            }
+
+            @Override
+            public void receiveError(Exception e, String msg) {
+
+            }
+        });
+
+
+
+
 
         //the spinner component
         spinner = view.findViewById(R.id.patientNavbarSpinner);
@@ -64,7 +113,7 @@ public class PatientNavigationBarFragment extends Fragment implements AdapterVie
         String userName = PatientDashboardActivity.getName();
         TextView nameTextView = (TextView) view.findViewById(R.id.patientNameTextView);
         nameTextView.setText(userName);
-        navbar_options_array[0] = Character.toString(userName.charAt(0));
+        //navbar_options_array[0] = Character.toString(userName.charAt(0)) + "'s Settings";
 
     }
 
@@ -81,11 +130,17 @@ public class PatientNavigationBarFragment extends Fragment implements AdapterVie
 
         else if (userNavbarSelection.equals(navbar_options_array[2])) { //the user selects the profile option which will take them to their profile
             //TODO: add the patient profile activity
-            //createIntent(PatientProfileActivity.class);
+            createIntent(PatientProfileActivity.class);
         }
 
         else if (userNavbarSelection.equals(navbar_options_array[3])) { //the user selects the Log out option which will take them to sign in
-            createIntent(SignupActivity.class);
+
+            try {
+                mAuth.signOut();
+                createIntent(LoginActivity.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

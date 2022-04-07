@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class ServerAPI {
     public static void getPatient(String puid, ServerRequestListener serverRequestListener) {
         Map<String, String> urlParams = new HashMap<>();
@@ -66,6 +67,8 @@ public class ServerAPI {
                 .post(params, serverRequestListener);
     }
 
+
+
     public static void createMedication(String prescribee,
                                  Map<String, String> dosage,
                                  String prescriber,
@@ -100,6 +103,7 @@ public class ServerAPI {
                 .post(params, serverRequestListener);
     }
 
+
     public static void getDoctorAssignedPatients(String duid, ServerRequestListener serverRequestListener) {
         Map<String, String> urlParams = new HashMap<>();
         urlParams.put("doctor", duid);
@@ -107,6 +111,73 @@ public class ServerAPI {
         new ServerRequest(Endpoint.GET_DOCTORS_FOR_PATIENT)
                 .get(urlParams, serverRequestListener);
     }
+
+
+//GENERATE REQUESTS
+
+    //generate random vital data
+    public static void generateVitalData(String puid, ServerRequestListener serverRequestListener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("patientID", puid);
+
+        new ServerRequest(Endpoint.GEN_VITAL_DATA)
+                .post(params, serverRequestListener);
+    }
+
+
+    //generate random note data
+    public static void generateNoteData(String puid, ServerRequestListener serverRequestListener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("patientID", puid);
+
+        new ServerRequest(Endpoint.GEN_NOTE_DATA)
+                .post(params, serverRequestListener);
+    }
+
+
+
+//GET REQUESTS
+
+    //get all vital data
+    public static void getVitals(String puid, ServerRequestListener serverRequestListener) {
+        Map<String, String> urlParams = new HashMap<>();
+        urlParams.put("patient", puid);
+
+        new ServerRequest(Endpoint.GET_VITALS)
+                .get(urlParams, serverRequestListener);
+    }
+
+
+    //get all note data
+    public static void getNotes(String puid, ServerRequestListener serverRequestListener) {
+        Map<String, String> urlParams = new HashMap<>();
+        urlParams.put("patient", puid);
+
+        new ServerRequest(Endpoint.GET_NOTES)
+                .get(urlParams, serverRequestListener);
+    }
+
+
+    //generate random medication data
+    public static void generateMedicationData(String puid, ServerRequestListener serverRequestListener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("patientID", puid);
+
+        new ServerRequest(Endpoint.GEN_MEDICATION_DATA)
+                .post(params, serverRequestListener);
+    }
+
+    //get all medication data
+    public static void getMedications(String puid, ServerRequestListener serverRequestListener) {
+        Map<String, String> urlParams = new HashMap<>();
+        urlParams.put("patient", puid);
+
+        new ServerRequest(Endpoint.GET_MEDICATIONS)
+                .get(urlParams, serverRequestListener);
+    }
+
+
+
 
     public static String getCurrentFormmatedDate() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
