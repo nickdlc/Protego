@@ -32,6 +32,8 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
     private List<PatientDetails> patients;
     private FirebaseAuth mAuth;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,8 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
 
         //Connects the button to return from the View Patients Activity to the Doctor Dashboard activity
         connectButtonToActivity(R.id.DoctorViewPatientsReturnButton, DoctorDashboardActivity.class);
+        connectButtonToActivity(R.id.testButton, DoctorViewPatientSelections.class);
+
         mAuth = FirebaseAuth.getInstance();
         DoctorViewPatientsActivity thisObj = this;
 
@@ -57,7 +61,7 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
                     patients.addAll(PatientDetails.constructPatients(res));
 
                     // create adapter
-                    final PatientsListAdapter patientsAdapter = new PatientsListAdapter(thisObj, patients);
+                    final PatientsListAdapter patientsAdapter = new PatientsListAdapter(thisObj,  patients);
                     // Set the adapter on recyclerview
                     rvPatients.setAdapter(patientsAdapter);
                     // set a layout manager on RV
@@ -72,6 +76,11 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
                 Toast.makeText(DoctorViewPatientsActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
+
+
+
+
+
     }
 /*
     private void getPatients() {

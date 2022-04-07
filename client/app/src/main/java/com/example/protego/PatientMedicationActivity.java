@@ -19,10 +19,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PatientMedicationActivity extends AppCompatActivity {
     public static ArrayList<MedicationInfo> medicationData = new ArrayList<>();
+//    public static ArrayList<MedicationInfo> medicationFormatted = new ArrayList<>();
     public static final String TAG = "PatientMedicationActivity";
     private FirebaseAuth mAuth;
 
@@ -52,6 +56,7 @@ public class PatientMedicationActivity extends AppCompatActivity {
         public String getPrescribedBy() {
             return prescribedBy;
         }
+
     }
 
 
@@ -113,6 +118,7 @@ public class PatientMedicationActivity extends AppCompatActivity {
                         datePrescribed = object.getString("datePrescribed");
                         dosage = object.getString("dosage");
                         prescriber = object.getString("prescriber");
+
 
                         medicationData.add(new MedicationInfo(name,datePrescribed,dosage,prescriber));
                         Log.v(TAG, "object: " + object.toString());
