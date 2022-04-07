@@ -109,6 +109,7 @@ public class DoctorDashboardActivity extends AppCompatActivity{
                                                     Map<String, Object> nData = new HashMap<>();
                                                     String msg = "You received a connection request from Dr. " + lastName;
                                                     nData.put("puid", puid);
+                                                    nData.put("duid", duid);
                                                     nData.put("msg", msg);
                                                     nData.put("timestamp", timestamp);
                                                     db.collection("Notification")

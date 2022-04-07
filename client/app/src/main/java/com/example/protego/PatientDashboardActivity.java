@@ -234,6 +234,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
                                 Map<String, Object> data = document.getData();
                                 notifications.add(new Notification(
                                         (String) data.get("puid"),
+                                        (String) data.get("duid"),
                                         (String) data.get("msg"),
                                         (Boolean) data.get("active"),
                                         ((Timestamp) data.get("timestamp")).toDate()
@@ -266,6 +267,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
             public void onClick(View view, int position) {
                 Intent intent = new Intent(getApplicationContext(), PatientViewNotificationsActivity.class);
                 intent.putExtra("msg", notifications.get(position).getMsg());
+                intent.putExtra("duid", notifications.get(position).getDuid());
+                intent.putExtra("puid", notifications.get(position).getPuid());
                 startActivity(intent);
             }
         };

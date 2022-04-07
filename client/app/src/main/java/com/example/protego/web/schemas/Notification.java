@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Notification implements Comparable<Notification> {
     private String puid;
+    private String duid;
     private String msg;
     private Boolean active;
     private Date date;
@@ -11,8 +12,9 @@ public class Notification implements Comparable<Notification> {
     public Notification() {
     }
 
-    public Notification(String puid, String msg, Boolean active, Date date) {
+    public Notification(String puid, String duid, String msg, Boolean active, Date date) {
         this.puid = puid;
+        this.duid = duid;
         this.msg = msg;
         this.active = active;
         this.date = date;
@@ -24,6 +26,14 @@ public class Notification implements Comparable<Notification> {
 
     public void setPuid(String puid) {
         this.puid = puid;
+    }
+
+    public String getDuid() {
+        return duid;
+    }
+
+    public void setDuid(String duid) {
+        this.duid = duid;
     }
 
     public String getMsg() {
@@ -54,6 +64,7 @@ public class Notification implements Comparable<Notification> {
     public String toString() {
         return "Notification{" +
                 "puid='" + puid + '\'' +
+                ", duid='" + duid + '\'' +
                 ", msg='" + msg + '\'' +
                 ", active=" + active +
                 ", date=" + date +
