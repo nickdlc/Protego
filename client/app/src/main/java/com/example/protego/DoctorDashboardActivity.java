@@ -24,9 +24,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.client.android.Intents;
 import com.journeyapps.barcodescanner.ScanContract;
@@ -81,23 +83,50 @@ public class DoctorDashboardActivity extends AppCompatActivity{
                                 if (doc.exists()) {
                                     Log.d(TAG, "Result of QR scan is a valid id");
 
+                                    // Create an active ConnectionRequest between the patient and
+                                    // doctor denoted by puid and duid
                                     String duid = mAuth.getCurrentUser().getUid();
                                     String puid = result.getContents();
-                                    Map<String, Object> data = new HashMap<>();
-                                    data.put("duid", duid);
-                                    data.put("puid", puid);
-                                    data.put("active", true);
+                                    FieldValue timestamp = FieldValue.serverTimestamp();
+                                    Map<String, Object> crData = new HashMap<>();
+                                    crData.put("duid", duid);
+                                    crData.put("puid", puid);
+                                    crData.put("active", true);
+                                    crData.put("timeCreated", timestamp);
                                     db.collection("ConnectionRequest")
-                                            .add(data)
+                                            .add(crData)
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
-                                                    Log.d(TAG, "Successfully added request to Firestore with id"
+                                                    Log.d(TAG, "Successfully added request to Firestore with id "
                                                             + documentReference.getId());
                                                     Log.d(TAG, "Scan successful");
                                                     Toast.makeText(DoctorDashboardActivity.this,
                                                             "Scan successful. The patient has received your connection request.",
                                                             Toast.LENGTH_LONG).show();
+
+                                                    // Create Notification for patient based on the ConnectionRequest
+                                                    Map<String, Object> nData = new HashMap<>();
+                                                    String msg = "You received a connection request from Dr. " + lastName;
+                                                    nData.put("puid", puid);
+                                                    nData.put("duid", duid);
+                                                    nData.put("msg", msg);
+                                                    nData.put("timestamp", timestamp);
+                                                    db.collection("Notification")
+                                                            .add(nData)
+                                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                                @Override
+                                                                public void onSuccess(DocumentReference documentReference) {
+                                                                    Log.d(TAG, "Added Notification to Firestore with id " +
+                                                                            documentReference.getId());
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Log.e(TAG, "Error adding Notification", e);
+                                                                }
+                                                            });
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {

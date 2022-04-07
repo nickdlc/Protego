@@ -122,6 +122,9 @@
             android:exported="false"
             android:label="@string/title_activity_signup"
             android:theme="@style/Theme.Protego.NoActionBar" />
+        <activity
+            android:name=".PatientViewNotificationsActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

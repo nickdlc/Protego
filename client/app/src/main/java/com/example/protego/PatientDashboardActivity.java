@@ -1,6 +1,8 @@
 package com.example.protego;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,10 +19,20 @@ import android.widget.Toast;
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
+import com.example.protego.web.schemas.Notification;
 import com.example.protego.web.schemas.PatientDetails;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 import org.json.JSONArray;
@@ -31,6 +43,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PatientDashboardActivity extends AppCompatActivity{
     public static final String TAG = "PatientDashboardActivity";
@@ -40,8 +56,12 @@ public class PatientDashboardActivity extends AppCompatActivity{
     private ImageButton imageButton;
     private Button btnNotifications;
     private TextView tvNotifications;
+    private RecyclerView rvNotifications;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
     private PatientDetails patientDetails;
+    private ArrayList<Notification> notifications;
+    private NotificationListAdapter.RecyclerViewClickListener listener;
     public static String Name;
 
 
@@ -79,6 +99,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
         btnNotifications = findViewById(R.id.btnNotifications);
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         this.patientDetails = new PatientDetails();
         PatientDashboardActivity thisObj = this;
 
@@ -151,8 +172,6 @@ public class PatientDashboardActivity extends AppCompatActivity{
                 Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
-      
-
 
         btnNotifications.setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override
@@ -182,6 +201,12 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         LinearLayout menu = bottomSheetDialog.findViewById(R.id.bottom_sheet);
 
+        // Get RecyclerView from bottomSheetDialog
+        rvNotifications = bottomSheetDialog.findViewById(R.id.rvNotifications);
+
+        // Populate RecyclerView with patient's notifications
+        getNotifications();
+
         //TODO: update this connection to the Medication Activity once it is created
         connectLayoutToActivity(R.id.medicationSelectionLayout, PatientMedicationActivity.class,  bottomSheetDialog);
         //connects the notification notes button to the Notes activity
@@ -192,6 +217,64 @@ public class PatientDashboardActivity extends AppCompatActivity{
         connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientQRCodeDisplay.class,  bottomSheetDialog);
 
         bottomSheetDialog.show();
+    }
+
+    private void getNotifications() {
+        String puid = mAuth.getCurrentUser().getUid();
+        notifications = new ArrayList<>();
+
+        // TODO: translate this to FirestoreAPI equivalents
+        // TODO: limit this to the x most recent notifications
+        db.collection("Notification")
+                .whereEqualTo("puid", puid)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, "Creating Notification " + document.getData());
+                                Map<String, Object> data = document.getData();
+                                notifications.add(new Notification(
+                                        (String) data.get("puid"),
+                                        (String) data.get("duid"),
+                                        (String) data.get("msg"),
+                                        (Boolean) data.get("active"),
+                                        ((Timestamp) data.get("timestamp")).toDate()
+                                ));
+                            }
+                            Collections.sort(notifications, Collections.reverseOrder());
+                            setRecyclerView();
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void setRecyclerView() {
+        Log.d(TAG, "Notifications: " + notifications.toString());
+
+        setOnClickListener();
+
+        NotificationListAdapter adapter = new NotificationListAdapter(notifications, listener);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        rvNotifications.setLayoutManager(layoutManager);
+        rvNotifications.setItemAnimator(new DefaultItemAnimator());
+        rvNotifications.setAdapter(adapter);
+    }
+
+    private void setOnClickListener() {
+        listener = new NotificationListAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent = new Intent(getApplicationContext(), PatientViewNotificationsActivity.class);
+                intent.putExtra("msg", notifications.get(position).getMsg());
+                intent.putExtra("duid", notifications.get(position).getDuid());
+                intent.putExtra("puid", notifications.get(position).getPuid());
+                startActivity(intent);
+            }
+        };
     }
 
     // navigate to next activity
