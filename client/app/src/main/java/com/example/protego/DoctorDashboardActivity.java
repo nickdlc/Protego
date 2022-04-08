@@ -31,6 +31,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.client.android.Intents;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -88,59 +90,7 @@ public class DoctorDashboardActivity extends AppCompatActivity{
                                     // doctor denoted by puid and duid
                                     String duid = mAuth.getCurrentUser().getUid();
                                     String puid = result.getContents();
-                                    FieldValue timestamp = FieldValue.serverTimestamp();
-                                    Map<String, Object> crData = new HashMap<>();
-                                    crData.put("duid", duid);
-                                    crData.put("puid", puid);
-                                    crData.put("active", true);
-                                    crData.put("timeCreated", timestamp);
-                                    db.collection("ConnectionRequest")
-                                            .add(crData)
-                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                @Override
-                                                public void onSuccess(DocumentReference documentReference) {
-                                                    Log.d(TAG, "Successfully added request to Firestore with id "
-                                                            + documentReference.getId());
-                                                    Log.d(TAG, "Scan successful");
-                                                    Toast.makeText(DoctorDashboardActivity.this,
-                                                            "Scan successful. The patient has received your connection request.",
-                                                            Toast.LENGTH_LONG).show();
-
-                                                    // Create Notification for patient based on the ConnectionRequest
-                                                    Map<String, Object> nData = new HashMap<>();
-                                                    String msg = "You received a connection request from Dr. " + lastName;
-                                                    nData.put("puid", puid);
-                                                    nData.put("duid", duid);
-                                                    nData.put("msg", msg);
-                                                    nData.put("timestamp", timestamp);
-                                                    nData.put("active", true);
-                                                    nData.put("type", NotificationType.CONNECTIONREQUEST.getType());
-                                                    db.collection("Notification")
-                                                            .add(nData)
-                                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                                @Override
-                                                                public void onSuccess(DocumentReference documentReference) {
-                                                                    Log.d(TAG, "Added Notification to Firestore with id " +
-                                                                            documentReference.getId());
-                                                                }
-                                                            })
-                                                            .addOnFailureListener(new OnFailureListener() {
-                                                                @Override
-                                                                public void onFailure(@NonNull Exception e) {
-                                                                    Log.e(TAG, "Error adding Notification", e);
-                                                                }
-                                                            });
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.e(TAG, "Error adding request", e);
-                                                    Toast.makeText(DoctorDashboardActivity.this,
-                                                            "Scan unsuccessful. There was an issue linking to the patient.",
-                                                            Toast.LENGTH_LONG).show();
-                                                }
-                                            });
+                                    createConnectionRequest(puid, duid);
                                 } else {
                                     Log.d(TAG, "Result of QR scan is an invalid id!");
                                     Toast.makeText(DoctorDashboardActivity.this,
@@ -157,6 +107,90 @@ public class DoctorDashboardActivity extends AppCompatActivity{
                     });
                 }
             });
+
+    private void createConnectionRequest(String puid, String duid) {
+        // Only create the ConnectionRequest if there is not an existing connection between
+        // puid and duid
+        db.collection("AssignedTo")
+                .whereEqualTo("patient", puid)
+                .whereEqualTo("doctor", duid)
+                .whereEqualTo("active", true)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        // task.getResult() is the list of all AssignedTo documents with duid and puid
+                        if (task.getResult().isEmpty()) {
+                            Log.d(TAG, "Connection between " + duid + puid + " does not exist. Now creating ConnectionRequest.");
+
+                            FieldValue timestamp = FieldValue.serverTimestamp();
+                            Map<String, Object> crData = new HashMap<>();
+                            crData.put("duid", duid);
+                            crData.put("puid", puid);
+                            crData.put("active", true);
+                            crData.put("timeCreated", timestamp);
+
+                            db.collection("ConnectionRequest")
+                                    .add(crData)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Log.d(TAG, "Successfully added request to Firestore with id "
+                                                    + documentReference.getId());
+                                            Log.d(TAG, "Scan successful");
+                                            Toast.makeText(DoctorDashboardActivity.this,
+                                                    "Scan successful. The patient has received your connection request.",
+                                                    Toast.LENGTH_LONG).show();
+
+                                            // Create Notification for patient based on the ConnectionRequest
+                                            createNotification(puid, duid, timestamp);
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e(TAG, "Error adding request", e);
+                                            Toast.makeText(DoctorDashboardActivity.this,
+                                                    "Scan unsuccessful. There was an issue linking to the patient.",
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                        } else {
+                            Log.d(TAG, "Connection between " + duid + puid + " already exists. Skipping ConnectionRequest creation.");
+                            Toast.makeText(DoctorDashboardActivity.this,
+                                    "You are already connected to this patient!",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    private void createNotification(String puid, String duid, FieldValue timestamp) {
+        Map<String, Object> nData = new HashMap<>();
+        String msg = "You received a connection request from Dr. " + lastName;
+        nData.put("puid", puid);
+        nData.put("duid", duid);
+        nData.put("msg", msg);
+        nData.put("timestamp", timestamp);
+        nData.put("active", true);
+        nData.put("type", NotificationType.CONNECTIONREQUEST.getType());
+
+        db.collection("Notification")
+                .add(nData)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Added Notification to Firestore with id " +
+                                documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Error adding Notification", e);
+                    }
+                });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
