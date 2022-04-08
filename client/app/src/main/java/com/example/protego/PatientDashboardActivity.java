@@ -20,6 +20,7 @@ import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
 import com.example.protego.web.schemas.Notification;
+import com.example.protego.web.schemas.NotificationType;
 import com.example.protego.web.schemas.PatientDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -227,6 +228,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
         // TODO: limit this to the x most recent notifications
         db.collection("Notification")
                 .whereEqualTo("puid", puid)
+                .whereEqualTo("active", true)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -240,7 +242,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
                                         (String) data.get("duid"),
                                         (String) data.get("msg"),
                                         (Boolean) data.get("active"),
-                                        ((Timestamp) data.get("timestamp")).toDate()
+                                        ((Timestamp) data.get("timestamp")).toDate(),
+                                        NotificationType.CONNECTIONREQUEST.getType()
                                 ));
                             }
                             Collections.sort(notifications, Collections.reverseOrder());

@@ -20,6 +20,7 @@ import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
 import com.example.protego.web.schemas.DoctorDetails;
+import com.example.protego.web.schemas.NotificationType;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -112,6 +113,8 @@ public class DoctorDashboardActivity extends AppCompatActivity{
                                                     nData.put("duid", duid);
                                                     nData.put("msg", msg);
                                                     nData.put("timestamp", timestamp);
+                                                    nData.put("active", true);
+                                                    nData.put("type", NotificationType.CONNECTIONREQUEST.getType());
                                                     db.collection("Notification")
                                                             .add(nData)
                                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
