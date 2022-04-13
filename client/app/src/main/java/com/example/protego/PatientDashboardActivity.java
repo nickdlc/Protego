@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.protego.web.FirestoreAPI;
+import com.example.protego.web.FirestoreListener;
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
@@ -24,6 +26,12 @@ import com.example.protego.web.schemas.NotificationType;
 import com.example.protego.web.schemas.PatientDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.example.protego.web.schemas.MedicalInfo;
+import com.example.protego.web.schemas.Medication;
+import com.example.protego.web.schemas.Note;
+import com.example.protego.web.schemas.Patient;
+import com.example.protego.web.schemas.PatientDetails;
+import com.example.protego.web.schemas.Vital;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,6 +56,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 public class PatientDashboardActivity extends AppCompatActivity{
     public static final String TAG = "PatientDashboardActivity";
@@ -121,41 +130,37 @@ public class PatientDashboardActivity extends AppCompatActivity{
         //to get and set the user's medication for their medications page
         getPatientMedications(mAuth.getCurrentUser().getUid());
 
-
-        ServerAPI.getPatient(currentUser.getUid(), new ServerRequestListener() {
+        FirestoreAPI.getInstance().getPatient(currentUser.getUid(), new FirestoreListener<Patient>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
-                if (req != null && !req.getResultString().equals("")) {
-                    Log.d(TAG, "req recieved for patient : " + req.getResult().toString());
+            public void getResult(Patient patient) {
+                Log.d(TAG, "req received for patient : " + patient);
 
-                    try {
-                        JSONObject pateintJSON = req.getResultJSON();
+                if (patient != null) {
+                    patientDetails.firstName = patient.getFirstName();
 
-                        patientDetails.firstName = pateintJSON.getString("firstName");
-                        Log.d(TAG, "info first name : " + pateintJSON.getString("firstName"));
-                    } catch (JSONException e) {
-                        Log.e(TAG, "could not recieve doctor info : ", e);
-                    }
+                    Log.d(TAG, "info first name : " + patient.getFirstName());
                 } else {
-                    Log.d(TAG, "Can't get patient info.");
+                    Log.e(TAG, "could not receive patient info : ");
                 }
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "failed to get patient : " + msg, e);
                 Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
 
-        ServerAPI.getMedication(currentUser.getUid(), new ServerRequestListener() {
+        FirestoreAPI.getInstance().getMedicalInfo(currentUser.getUid(), new FirestoreListener<MedicalInfo>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
-                try {
-                    JSONObject res = req.getResultJSON();
-                    patientDetails.heartRate = res.getInt("heartRate");
-                    patientDetails.bloodPressure = res.getString("bloodPressure");
-                    patientDetails.heightIN = res.getInt("heightIN");
-                    patientDetails.weight = res.getInt("weight");
+            public void getResult(MedicalInfo medInfo) {
+                Log.d(TAG, "req received for medication : " + medInfo);
+
+                if (medInfo != null) {
+                    patientDetails.heartRate = medInfo.getHeartRate();
+                    patientDetails.bloodPressure = medInfo.getBloodPressure();
+                    patientDetails.heightIN = medInfo.getHeightIN();
+                    patientDetails.weight = medInfo.getWeight();
 
                     RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
                     setUpPatientInfo();
@@ -163,13 +168,14 @@ public class PatientDashboardActivity extends AppCompatActivity{
                     PatientDashboardRecyclerViewAdapter adapter = new PatientDashboardRecyclerViewAdapter(thisObj, patientData);
                     recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
-                } catch (JSONException e) {
-                    Log.e(TAG, "Could not get JSON from request : ", e);
+                } else {
+                    Log.e(TAG, "could not receive patient info : ");
                 }
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "failed to get medInfo : " + msg, e);
                 Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
@@ -322,36 +328,27 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
     private void getPatientFirstName(String puid) {
 
-        ServerAPI.getPatient(puid, new ServerRequestListener() {
+        FirestoreAPI.getInstance().getPatient(puid, new FirestoreListener<Patient>() {
             @Override
-            public void receiveCompletedRequest (ServerRequest req){
-                if (req != null && !req.getResultString().equals("")) {
-                    Log.d(TAG, "req received for patient : " + req.getResult().toString());
+            public void getResult(Patient patient) {
+                Log.d(TAG, "req received for patient : " + puid);
 
-                    try {
-                        JSONObject patientJSON = req.getResultJSON();
-
-                        patientDetails.firstName = patientJSON.getString("firstName");
+                patientDetails.firstName = patient.getFirstName();
 
 
-                        if (patientDetails.firstName == "" || patientDetails.firstName == null) {
-                            Name = "";
-                        } else {
-                            Name = patientDetails.firstName;
-                        }
-
-                        Log.d(TAG, "info first name : " + patientJSON.getString("firstName"));
-                    } catch (JSONException e) {
-                        Log.e(TAG, "could not receive patient info : ", e);
-                    }
+                if (patientDetails.firstName == "" || patientDetails.firstName == null) {
+                    Name = "";
                 } else {
-                    Log.d(TAG, "Can't get patient info.");
+                    Name = patientDetails.firstName;
                 }
+
+                Log.d(TAG, "info first name : " + patient.getFirstName());
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
-               Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "Failed to get patient:\n\t" + msg, e);
+                Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
     }
@@ -363,142 +360,101 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
 
     private void getPatientVitals(String puid) {
-        ServerAPI.getVitals(puid, new ServerRequestListener() {
+        FirestoreAPI.getInstance().getVitals(puid, new FirestoreListener<List<Vital>>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
-                try {
-                    JSONArray res = req.getResultJSONList();
+            public void getResult(List<Vital> vitals) {
+                String heartRate;
+                String respiratoryRate;
+                String temperature;
+                String bloodPressure;
+                String source;
+                String date;
 
-                    String heartRate;
-                    String respiratoryRate;
-                    String temperature;
-                    String puid;
-                    String bloodPressure;
-                    String source;
-                    String date;
+                for (Vital vital : vitals) {
+                    heartRate = String.valueOf(vital.getHeartRate());
+                    respiratoryRate = String.valueOf(vital.getRespiratoryRate());
+                    temperature = String.valueOf(vital.getTemperature());
+                    bloodPressure = String.valueOf(vital.getBloodPressure());
+                    source = vital.getSource();
+                    date = vital.getDate().toString();
 
-                    for(int i = 0; i < res.length(); i++) {
+                    PatientVitals.patientData
+                            .add(new PatientVitals.VitalsInfo(date,source, heartRate, bloodPressure,respiratoryRate,temperature));
 
-                        JSONObject object = res.getJSONObject(i);
+                    Log.v(TAG, "object: " + vitals.toString());
 
-                        heartRate = object.getString("heartRate");
-                        respiratoryRate = object.getString("respiratoryRate");
-                        temperature = object.getString("temperature");
-                        puid = object.getString("patientID");
-                        bloodPressure = object.getString("bloodPressure");
-                        source = object.getString("source");
-                        date = object.getString("date");
-
-                        PatientVitals.patientData.add(new PatientVitals.VitalsInfo(date,source, heartRate, bloodPressure,respiratoryRate,temperature));
-
-                        Log.v(TAG, "object: " + object.toString());
-
-                    }
-                    Log.v(TAG, "patient data index 0: " + PatientVitals.patientData.get(0).getSource());
-//                    Log.v(TAG, "patient data index 1: " + PatientVitals.patientData.get(1).getSource());
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "Could not get JSON from request : ", e);
                 }
+                Log.v(TAG, "patient data index 0: " + PatientVitals.patientData.get(0).getSource());
+//                    Log.v(TAG, "patient data index 1: " + PatientVitals.patientData.get(1).getSource());
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "Failed to get vitals for patient:\n\t" + msg, e);
                 Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
-
-
-
         });
     }
 
 
 
     private void getPatientNotes(String puid) {
-        ServerAPI.getNotes(puid, new ServerRequestListener() {
+        FirestoreAPI.getInstance().getNotes(puid, new FirestoreListener<List<Note>>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
-                try {
-                    JSONArray res = req.getResultJSONList();
-
-                    String title;
-                    String date;
-                    String visibility;
-                    String details;
+            public void getResult(List<Note> notes) {
+                String title;
+                String date;
+                String visibility;
+                String details;
 
 
-                    for(int i = 0; i < res.length(); i++) {
+                for(Note note : notes) {
+                    title = note.getTitle();
+                    date = note.getDateCreated().toString();
+                    visibility = note.getVisibility();
+                    details = note.getContent();
 
-                        JSONObject object = res.getJSONObject(i);
+                    PatientNotesActivity.notesData
+                            .add(new PatientNotesActivity.NotesInfo(title,date,visibility,details));
 
-                        title = object.getString("title");
-                        date = object.getString("dateCreated");
-                        visibility = object.getString("visibility");
-                        details = object.getString("content");
-
-                        PatientNotesActivity.notesData.add(new PatientNotesActivity.NotesInfo(title,date,visibility,details));
-
-                    }
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "Could not get JSON from request : ", e);
                 }
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "Failed to get notes for patient:\n\t" + msg, e);
                 Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
-
-
-
         });
     }
 
 
 
     private void getPatientMedications(String puid) {
-        ServerAPI.getMedications(puid, new ServerRequestListener() {
+        FirestoreAPI.getInstance().getMedications(puid, new FirestoreListener<List<Medication>>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
-                try {
-                    JSONArray res = req.getResultJSONList();
+            public void getResult(List<Medication> medications) {
+                String name;
+                String datePrescribed;
+                String dosage;
+                String prescriber;
 
-                    String name;
-                    String datePrescribed;
-                    String dosage;
-                    String prescriber;
+                for(Medication med : medications) {
+                    name = med.getName();
+                    datePrescribed = med.getDatePrescribed().toString();
+                    dosage = med.getDosage();
+                    prescriber = med.getPrescriber();
 
-                    for(int i = 0; i < res.length(); i++) {
-
-                        JSONObject object = res.getJSONObject(i);
-
-
-                        name = object.getString("name");
-                        datePrescribed = object.getString("datePrescribed");
-                        dosage = object.getString("dosage");
-                        prescriber = object.getString("prescriber");
-
-
-
-                        PatientMedicationActivity.medicationData.add(new PatientMedicationActivity.MedicationInfo(name,datePrescribed,dosage,prescriber));
-                    }
-
-
-
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "Could not get JSON from request : ", e);
+                    PatientMedicationActivity.medicationData
+                            .add(new PatientMedicationActivity.MedicationInfo(name,datePrescribed,dosage,prescriber));
                 }
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "Failed to get medications for patient:\n\t" + msg, e);
                 Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
-
-
-
         });
     }
 

@@ -13,9 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.protego.web.ServerAPI;
+import com.example.protego.util.RandomGenerator;
+import com.example.protego.web.FirestoreAPI;
+import com.example.protego.web.FirestoreListener;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
+import com.example.protego.web.schemas.Doctor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,6 +41,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.provider.FirebaseInitProvider;
+
+import java.util.List;
 
 public class SignupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     public static final String TAG = "SignupActivity";
@@ -147,65 +152,67 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                             Log.d(TAG, "Successfully created user " + uid);
                                             Intent i = new Intent(SignupActivity.this, LoginActivity.class);
                                             Toast.makeText(SignupActivity.this, "Check your email for a verification link.", Toast.LENGTH_LONG);
+                                            List<String> randomDoctors = RandomGenerator.randomApprovedDoctors();
+                                            RandomGenerator.randomApprovedDoctors = randomDoctors;
 
                                             firebaseUser.sendEmailVerification();
 
                                             if (last_name_input == null) {
 
-
-                                                ServerAPI.generateMedData(uid, new ServerRequestListener() {
+                                                FirestoreAPI.getInstance().generateMedData(uid, new FirestoreListener() {
                                                     @Override
-                                                    public void receiveCompletedRequest(ServerRequest req) {
-                                                        // do nothing, just generate data
+                                                    public void getResult(Object object) {
+                                                        // Do nothing
                                                     }
 
                                                     @Override
-                                                    public void receiveError(Exception e, String msg) {
+                                                    public void getError(Exception e, String msg) {
+                                                        Log.e(TAG, "Failed to generate medical information data:\n\t" + msg, e);
                                                         Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
                                                     }
                                                 });
 
-
-//                                                generate random vital information
-                                                ServerAPI.generateVitalData(uid, new ServerRequestListener() {
+                                                // generate random vital information
+                                                FirestoreAPI.getInstance().generateVitalData(uid, new FirestoreListener<Task>() {
                                                     @Override
-                                                    public void receiveCompletedRequest(ServerRequest req) {
+                                                    public void getResult(Task object) {
                                                         // do nothing, just generate data
                                                     }
 
                                                     @Override
-                                                    public void receiveError(Exception e, String msg) {
+                                                    public void getError(Exception e, String msg) {
+                                                        Log.e(TAG, "Failed to generate vital data:\n\t" + msg, e);
                                                         Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
                                                     }
                                                 });
 
                                                 //generate random Note information
-                                                ServerAPI.generateNoteData(uid, new ServerRequestListener() {
+                                                FirestoreAPI.getInstance().generateNoteData(uid, randomDoctors, new FirestoreListener<Task>() {
                                                     @Override
-                                                    public void receiveCompletedRequest(ServerRequest req) {
-                                                        // do nothing, just generate data
+                                                    public void getResult(Task object) {
+                                                        // Do nothing
                                                     }
 
                                                     @Override
-                                                    public void receiveError(Exception e, String msg) {
+                                                    public void getError(Exception e, String msg) {
+                                                        Log.e(TAG, "Failed to generate note data:\n\t" + msg, e);
                                                         Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
                                                     }
                                                 });
 
                                                 //generate random Medication information
-                                                ServerAPI.generateMedicationData(uid, new ServerRequestListener() {
+                                                FirestoreAPI.getInstance().generateMedicationData(uid, randomDoctors, new FirestoreListener() {
                                                     @Override
-                                                    public void receiveCompletedRequest(ServerRequest req) {
-                                                        // do nothing, just generate data
+                                                    public void getResult(Object object) {
+                                                        // Do nothing
                                                     }
 
                                                     @Override
-                                                    public void receiveError(Exception e, String msg) {
+                                                    public void getError(Exception e, String msg) {
+                                                        Log.e(TAG, "Failed to generate medication data:\n\t" + msg, e);
                                                         Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
                                                     }
                                                 });
-
-
                                             }
                                             finish();
                                         }

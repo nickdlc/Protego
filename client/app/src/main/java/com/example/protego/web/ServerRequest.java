@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
+@Deprecated
 public class ServerRequest {
     public static final String TAG = "ServerRequest";
 
