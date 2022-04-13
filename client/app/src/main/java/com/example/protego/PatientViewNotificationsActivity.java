@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.protego.web.FirestoreAPI;
+import com.example.protego.web.FirestoreListener;
 import com.example.protego.web.schemas.NotificationType;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -60,25 +62,28 @@ public class PatientViewNotificationsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Create an active AssignedTo document for the patient and
                 // doctor denoted by patient and doctor
-                Map<String, Object> assignedTo = new HashMap<>();
-                assignedTo.put("active", true);
-                assignedTo.put("doctor", duid);
-                assignedTo.put("patient", puid);
-
-                db.collection("AssignedTo")
-                    .add(assignedTo)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
+                FirestoreAPI.getInstance().createConnection(puid, duid, new FirestoreListener<Task>() {
+                    @Override
+                    public void getResult(Task object) {
+                        if (object.isSuccessful()) {
+                            // Deactivate corresponding Notification(s) and ConnectionRequest
+                            // once the AssignedTo connection is created
                             deactivateNotification(puid, duid);
                             deactivateConnectionRequest(puid, duid);
-                            Log.d(TAG, "Successfully added assignment to Firestore with id "
-                                    + documentReference.getId());
+
+                            Log.d(TAG, "Successfully created an AssignedTo connection between puid = " +
+                                    puid + " and duid = " + duid);
                             Toast.makeText(PatientViewNotificationsActivity.this,
                                     "The connection has been approved and created.",
                                     Toast.LENGTH_LONG).show();
                         }
-                    });
+                    }
+
+                    @Override
+                    public void getError(Exception e, String msg) {
+                        Log.e(TAG, msg, e);
+                    }
+                });
 
                 Intent i = new Intent(getApplicationContext(), PatientDashboardActivity.class);
                 startActivity(i);
@@ -92,7 +97,7 @@ public class PatientViewNotificationsActivity extends AppCompatActivity {
                 deactivateNotification(puid, duid);
                 deactivateConnectionRequest(puid, duid);
                 Toast.makeText(PatientViewNotificationsActivity.this,
-                        "The connection will not be created.",
+                        "The connection was not created.",
                         Toast.LENGTH_LONG).show();
                 Intent i = new Intent(getApplicationContext(), PatientDashboardActivity.class);
                 startActivity(i);
@@ -108,34 +113,18 @@ public class PatientViewNotificationsActivity extends AppCompatActivity {
      * Deactivates all active ConnectionRequest notifications with puid and duid
      */
     private void deactivateNotification(String puid, String duid) {
-        db.collection("Notification")
-                .whereEqualTo("puid", puid)
-                .whereEqualTo("duid", duid)
-                .whereEqualTo("type", NotificationType.CONNECTIONREQUEST.getType())
-                .whereEqualTo("active", true)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            WriteBatch batch = db.batch();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                DocumentReference dr = db.collection("Notification")
-                                        .document(document.getId());
+        FirestoreAPI.getInstance().deactivateNotification(puid, duid, new FirestoreListener<Task>() {
+            @Override
+            public void getResult(Task object) {
+                Log.d(TAG, "Successfully deactivated Notification(s) between puid = " + puid +
+                        " and duid = " + duid);
+            }
 
-                                batch.update(dr, "active", false);
-
-                                Log.d(TAG, "Added to batch: " + document.getId());
-                            }
-                            batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Log.d(TAG, "Committed batch to deactivate notifications");
-                                }
-                            });
-                        }
-                    }
-                });
+            @Override
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, msg, e);
+            }
+        });
     }
 
     /**
@@ -145,32 +134,19 @@ public class PatientViewNotificationsActivity extends AppCompatActivity {
      * Deactivates all active ConnectionRequests with puid and duid
      */
     private void deactivateConnectionRequest(String puid, String duid) {
-        db.collection("ConnectionRequest")
-                .whereEqualTo("puid", puid)
-                .whereEqualTo("duid", duid)
-                .whereEqualTo("active", true)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            WriteBatch batch = db.batch();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                DocumentReference dr = db.collection("ConnectionRequest")
-                                        .document(document.getId());
+        FirestoreAPI.getInstance().deactivateConnectionRequest(puid, duid, new FirestoreListener<Task>() {
+            @Override
+            public void getResult(Task object) {
+                if (object.isSuccessful()) {
+                    Log.d(TAG, "Successfully deactivated ConnectionRequest between puid = " + puid +
+                            " and duid = " + duid);
+                }
+            }
 
-                                batch.update(dr, "active", false);
-
-                                Log.d(TAG, "Added to batch: " + document.getId());
-                            }
-                            batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Log.d(TAG, "Committed batch to deactivate connection requests");
-                                }
-                            });
-                        }
-                    }
-                });
+            @Override
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, msg, e);
+            }
+        });
     }
 }

@@ -228,42 +228,26 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
     private void getNotifications() {
         String puid = mAuth.getCurrentUser().getUid();
-        notifications = new ArrayList<>();
 
-        // TODO: translate this to FirestoreAPI equivalents
         // TODO: limit this to the x most recent notifications
-        db.collection("Notification")
-                .whereEqualTo("puid", puid)
-                .whereEqualTo("active", true)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, "Creating Notification " + document.getData());
-                                Map<String, Object> data = document.getData();
-                                notifications.add(new Notification(
-                                        (String) data.get("puid"),
-                                        (String) data.get("duid"),
-                                        (String) data.get("msg"),
-                                        (Boolean) data.get("active"),
-                                        ((Timestamp) data.get("timestamp")).toDate(),
-                                        NotificationType.CONNECTIONREQUEST.getType()
-                                ));
-                            }
-                            Collections.sort(notifications, Collections.reverseOrder());
-                            setRecyclerView();
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+        // Get the active notifications sorted by creation date for patient puid
+        FirestoreAPI.getInstance().getNotifications(puid, true, new FirestoreListener<ArrayList<Notification>>() {
+            @Override
+            public void getResult(ArrayList<Notification> object) {
+                notifications = object;
+                Collections.sort(notifications, Collections.reverseOrder());
+                setRecyclerView();
+            }
+
+            @Override
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, msg, e);
+            }
+        });
     }
 
     private void setRecyclerView() {
-        Log.d(TAG, "Notifications: " + notifications.toString());
-
+        // Set the onClick listener for each element in the RecyclerView
         setOnClickListener();
 
         NotificationListAdapter adapter = new NotificationListAdapter(notifications, listener);
