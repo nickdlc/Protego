@@ -25,7 +25,7 @@ public class DoctorViewPatientSelections extends AppCompatActivity {
         connectButtonToActivity(R.id.vitalsButton, DoctorViewPatientVitals.class);
         Bundle extras = getIntent().getExtras();
         patientName = extras.getString("patientFirst");
-        patientName += extras.get("patientLast");
+        //patientName += extras.get("patientLast");
 
         tvPatientName = findViewById(R.id.selectionsPatientFullNameInput);
         tvPatientName.setText(patientName);
