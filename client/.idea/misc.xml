@@ -89,8 +89,10 @@
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/fragment_patient_signup.xml" value="0.176" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.19010416666666666" />
+        <entry key="app/src/main/res/layout/list_notifications.xml" value="0.12708333333333333" />
         <entry key="app/src/main/res/layout/notifications_bottom_sheet.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/patient_dashboard.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/patient_view_doctors.xml" value="0.12708333333333333" />
         <entry key="app/src/main/res/layout/patient_view_notifications_activity.xml" value="0.3938374837239582" />
         <entry key="app/src/main/res/layout/patient_vitals_row.xml" value="0.3314447592067989" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/splash_fg.xml" value="0.15885416666666666" />
