@@ -45,7 +45,7 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
 
         //Connects the button to return from the View Patients Activity to the Doctor Dashboard activity
         connectButtonToActivity(R.id.DoctorViewPatientsReturnButton, DoctorDashboardActivity.class);
-        connectButtonToActivity(R.id.testButton, DoctorViewPatientSelections.class);
+        //connectButtonToActivity(R.id.testButton, DoctorViewPatientSelections.class);
 
         mAuth = FirebaseAuth.getInstance();
         DoctorViewPatientsActivity thisObj = this;

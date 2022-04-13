@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class DoctorViewPatientSelections extends AppCompatActivity {
     // input fields here
     private Button button;
+    private TextView tvPatientName;
+    public String patientName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +23,12 @@ public class DoctorViewPatientSelections extends AppCompatActivity {
         connectButtonToActivity(R.id.medicationButton, DoctorViewPatientMedication.class);
         connectButtonToActivity(R.id.notesButton, DoctorViewPatientNotes.class);
         connectButtonToActivity(R.id.vitalsButton, DoctorViewPatientVitals.class);
+        Bundle extras = getIntent().getExtras();
+        patientName = extras.getString("patientFirst");
+        patientName += extras.get("patientLast");
 
+        tvPatientName = findViewById(R.id.selectionsPatientFullNameInput);
+        tvPatientName.setText(patientName);
     }
 
 
@@ -32,6 +40,7 @@ public class DoctorViewPatientSelections extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
+                i.putExtra("patientFullName", patientName);
                 startActivity(i);
                 finish();
             }

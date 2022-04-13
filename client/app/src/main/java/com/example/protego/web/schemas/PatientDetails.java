@@ -14,6 +14,7 @@ public class PatientDetails {
 
     public String firstName;
     public String lastName;
+    public String id;
     public String lastUpdated;
     public String healthInsuranceNumber;
     public String sex;
@@ -33,6 +34,7 @@ public class PatientDetails {
 
     public PatientDetails(Patient patient) {
         firstName = patient.getFirstName();
+        id = patient.getPatientID();
     }
 
     public static List<PatientDetails> constructPatients (JSONArray patientsArray) throws JSONException {

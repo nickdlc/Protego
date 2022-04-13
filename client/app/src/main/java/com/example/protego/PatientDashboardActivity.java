@@ -432,18 +432,18 @@ public class PatientDashboardActivity extends AppCompatActivity{
             @Override
             public void getResult(List<Medication> medications) {
                 String name;
-                String datePrescribed;
+                Date datePrescribed;
                 String dosage;
                 String prescriber;
 
                 for(Medication med : medications) {
                     name = med.getName();
-                    datePrescribed = med.getDatePrescribed().toString();
+                    datePrescribed = med.getDatePrescribed();
                     dosage = med.getDosage();
                     prescriber = med.getPrescriber();
 
                     PatientMedicationActivity.medicationData
-                            .add(new PatientMedicationActivity.MedicationInfo(name,datePrescribed,dosage,prescriber));
+                            .add(new Medication(name,datePrescribed,dosage,prescriber));
                 }
             }
 

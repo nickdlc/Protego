@@ -30,48 +30,11 @@ import java.util.Date;
 import java.util.List;
 
 public class PatientMedicationActivity extends AppCompatActivity {
-    public static ArrayList<MedicationInfo> medicationData = new ArrayList<>();
+    public static List<Medication> medicationData;
 //    public static ArrayList<MedicationInfo> medicationFormatted = new ArrayList<>();
     public static final String TAG = "PatientMedicationActivity";
     private FirebaseAuth mAuth;
 
-
-    public static class MedicationInfo {
-        private final String name,date,dosage,prescribedBy;
-
-        public MedicationInfo(String name, String date, String dosage, String prescribedBy) {
-            this.name = name;
-            this.date = date;
-            this.dosage = dosage;
-            this.prescribedBy = prescribedBy;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public String getDosage() {
-            return dosage;
-        }
-
-        public String getPrescribedBy() {
-            return prescribedBy;
-        }
-
-    }
-
-
-    private void setUpMedicationInfo() {
-        medicationData.add(new MedicationInfo("Jay","1/01/2022","A lot","Dr. M"));
-        medicationData.add(new MedicationInfo("Jay","1/01/2022","A lot","Dr. M"));
-        medicationData.add(new MedicationInfo("Jay","1/01/2022","A lot","Dr. M"));
-        medicationData.add(new MedicationInfo("Jay","1/01/2022","A lot","Dr. M"));
-        medicationData.add(new MedicationInfo("Jay","1/01/2022","A lot","Dr. M"));
-    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,8 +43,7 @@ public class PatientMedicationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         RecyclerView recyclerView = findViewById(R.id.patientMedicationRecyclerView);
 
-        //setUpMedicationInfo();
-
+        medicationData = new ArrayList<>();
         PatientMedicationRecyclerViewAdapter adapter = new PatientMedicationRecyclerViewAdapter(this,medicationData);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -107,23 +69,23 @@ public class PatientMedicationActivity extends AppCompatActivity {
             @Override
             public void getResult(List<Medication> medications) {
                 String name;
-                String datePrescribed;
+                Date datePrescribed;
                 String dosage;
                 String prescriber;
 
 
                 for(Medication med : medications) {
                     name = med.getName();
-                    datePrescribed = med.getDatePrescribed().toString();
+                    datePrescribed = med.getDatePrescribed();
                     dosage = med.getDosage();
                     prescriber = med.getPrescriber();
 
                     medicationData
-                            .add(new PatientMedicationActivity.MedicationInfo(name,datePrescribed,dosage,prescriber));
+                            .add(new Medication(name,datePrescribed,dosage,prescriber));
                     Log.v(TAG, "object: " + med.toString());
                 }
 
-                Log.v(TAG, "medicationData: " + medicationData.get(0).name);
+                //Log.v(TAG, "medicationData: " + medicationData.get(0).name);
             }
 
             @Override
