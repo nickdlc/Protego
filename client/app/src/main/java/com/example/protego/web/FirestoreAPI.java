@@ -21,16 +21,21 @@ import com.example.protego.web.schemas.AssignedTo;
 import com.example.protego.web.schemas.Doctor;
 import com.example.protego.web.schemas.Medication;
 import com.example.protego.web.schemas.Note;
+import com.example.protego.web.schemas.Notification;
+import com.example.protego.web.schemas.NotificationType;
 import com.example.protego.web.schemas.Patient;
 import com.example.protego.web.schemas.Vital;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 
 
 public class FirestoreAPI {
@@ -243,6 +248,205 @@ public class FirestoreAPI {
                                     }).collect(Collectors.toList());
                         } else {
                             Log.e(TAG, "Failed to get AssignedTo collection for doctor uid " + duid, task.getException());
+                        }
+                    }
+                });
+    }
+
+    /**
+     *
+     * @param puid
+     * @param duid
+     * @param active
+     * @param listener
+     * @return
+     *
+     * Creates an AssignedTo object from Firestore with puid, duid, and active. The AssignedTo
+     * object is null if the connection does not exist.
+     */
+    public Task<QuerySnapshot> getConnection(String puid,
+                                             String duid,
+                                             Boolean active,
+                                             FirestoreListener<AssignedTo> listener) {
+        return db.collection("AssignedTo")
+                .whereEqualTo("patient", puid)
+                .whereEqualTo("doctor", duid)
+                .whereEqualTo("active", active)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<DocumentSnapshot> docs = task.getResult().getDocuments();
+                            AssignedTo connection;
+                            if (docs.isEmpty()) {
+                                // Need a null connection when checking for existing active requests
+                                // when creating a ConnectionRequest
+                                connection = null;
+                            } else {
+                                // Get the first document; there should only be one active connection
+                                // between a given patient and doctor
+                                connection = docs.get(0).toObject(AssignedTo.class);
+                            }
+                            listener.getResult(connection);
+                        } else {
+                            listener.getError(task.getException(),
+                                    "Failed to get AssignedTo connection with puid = " +
+                                    puid + ", duid = " + duid);
+                        }
+                    }
+                });
+    }
+
+    public Task<DocumentReference> createConnection(String puid,
+                                                    String duid,
+                                                    FirestoreListener<Task> listener) {
+        // Create an active AssignedTo connection for the patient puid and doctor duid
+        Map<String, Object> params = new HashMap<>();
+        params.put("active", true);
+        params.put("patient", puid);
+        params.put("doctor", duid);
+
+        return db.collection("AssignedTo")
+                .add(params)
+                .addOnCompleteListener(getListenerForCreation(listener,
+                        "Failed to created AssignedTo connection..."));
+    }
+
+    public Task<DocumentReference> createConnectionRequest(String puid,
+                                                           String duid,
+                                                           FieldValue timestamp,
+                                                           FirestoreListener<Task> listener) {
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("duid", duid);
+        params.put("puid", puid);
+        params.put("active", true);
+        params.put("timeCreated", timestamp);
+        return db.collection("ConnectionRequest")
+                .add(params)
+                .addOnCompleteListener(getListenerForCreation(listener,
+                        "Failed to create ConnectionRequest..."));
+    }
+
+    public void deactivateConnectionRequest(String puid,
+                                            String duid,
+                                            FirestoreListener<Task> listener) {
+        db.collection("ConnectionRequest")
+                .whereEqualTo("puid", puid)
+                .whereEqualTo("duid", duid)
+                .whereEqualTo("active", true)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            WriteBatch batch = db.batch();
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                DocumentReference dr = db.collection("ConnectionRequest")
+                                        .document(document.getId());
+
+                                batch.update(dr, "active", false);
+
+                                Log.d(TAG, "Added to batch: " + document.getId());
+                            }
+
+                            batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d(TAG, "Committed batch to deactivate connection requests");
+                                }
+                            });
+                        }
+                    }
+                });
+    }
+
+    public Task<DocumentReference> createNotification(String puid,
+                                                      String duid,
+                                                      String drLastName,
+                                                      FieldValue timestamp,
+                                                      FirestoreListener<Task> listener) {
+        // Generate a ConnectionRequest Notification for patient puid from doctor duid at timestamp
+        Map<String, Object> params = new HashMap<>();
+        String msg = "You received a connection request from Dr. " + drLastName;
+        params.put("puid", puid);
+        params.put("duid", duid);
+        params.put("msg", msg);
+        params.put("timestamp", timestamp);
+        params.put("active", true);
+        params.put("type", NotificationType.CONNECTIONREQUEST.getType());
+
+        return db.collection("Notification")
+                .add(params)
+                .addOnCompleteListener(getListenerForCreation(listener,
+                        "Failed to create Notification..."));
+    }
+
+    public void getNotifications(String puid,
+                                 Boolean active,
+                                 FirestoreListener<ArrayList<Notification>> listener) {
+        db.collection("Notification")
+                .whereEqualTo("puid", puid)
+                .whereEqualTo("active", active)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Notification> notifications = new ArrayList<>();
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, "Creating Notification " + document.getData());
+                                Map<String, Object> data = document.getData();
+                                notifications.add(new Notification(
+                                        (String) data.get("puid"),
+                                        (String) data.get("duid"),
+                                        (String) data.get("msg"),
+                                        (Boolean) data.get("active"),
+                                        ((Timestamp) data.get("timestamp")).toDate(),
+                                        NotificationType.CONNECTIONREQUEST.getType()
+                                ));
+                            }
+
+                            listener.getResult(notifications);
+                        } else {
+                            listener.getError(task.getException(), "Failed to get notifications for puid = " + puid);
+                        }
+                    }
+                });
+    }
+
+    public void deactivateNotification(String puid,
+                                            String duid,
+                                            FirestoreListener<Task> listener) {
+        db.collection("Notification")
+                .whereEqualTo("puid", puid)
+                .whereEqualTo("duid", duid)
+                .whereEqualTo("active", true)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            WriteBatch batch = db.batch();
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                DocumentReference dr = db.collection("Notification")
+                                        .document(document.getId());
+
+                                batch.update(dr, "active", false);
+
+                                Log.d(TAG, "Added to batch: " + document.getId());
+                            }
+
+                            batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d(TAG, "Committed batch to deactivate Notifications");
+                                }
+                            });
                         }
                     }
                 });
