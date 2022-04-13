@@ -12,7 +12,8 @@ public class DoctorViewPatientSelections extends AppCompatActivity {
     // input fields here
     private Button button;
     private TextView tvPatientName;
-    public String patientName;
+    private String patientName;
+    private String pid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class DoctorViewPatientSelections extends AppCompatActivity {
         connectButtonToActivity(R.id.vitalsButton, DoctorViewPatientVitals.class);
         Bundle extras = getIntent().getExtras();
         patientName = extras.getString("patientFirst");
+        pid = extras.getString("patientId");
         //patientName += extras.get("patientLast");
 
         tvPatientName = findViewById(R.id.selectionsPatientFullNameInput);
@@ -41,6 +43,7 @@ public class DoctorViewPatientSelections extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
                 i.putExtra("patientFullName", patientName);
+                i.putExtra("pid", pid);
                 startActivity(i);
                 finish();
             }

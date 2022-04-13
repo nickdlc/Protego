@@ -29,6 +29,7 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
     public static final String TAG = "DoctorViewPatientMedication";
     private FirebaseAuth mAuth;
     TextView tvFullName;
+    private String pid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +39,14 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         DoctorViewPatientMedication thisObj = this;
         Bundle extras = getIntent().getExtras();
-
+        pid = extras.getString("pid");
+        //System.out.println("Passing through " + pid);
+        
         medicationData = new ArrayList<>();
 
         //setUpMedicationInfo();
 
-        FirestoreAPI.getInstance().getMedications(extras.getString("id"), new FirestoreListener<List<Medication>>() {
+        FirestoreAPI.getInstance().getMedications(pid, new FirestoreListener<List<Medication>>() {
             @Override
             public void getResult(List<Medication> mList) {
                 System.out.println("Medication List : " + mList);
