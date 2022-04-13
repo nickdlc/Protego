@@ -17,19 +17,19 @@ public class AssignedTo {
         this.doctor = doctor;
     }
 
-    public String getpatient() {
+    public String getPatient() {
         return patient;
     }
 
-    public void setpatient(String patient) {
+    public void setPatient(String patient) {
         this.patient = patient;
     }
 
-    public String getdoctor() {
+    public String getDoctor() {
         return doctor;
     }
 
-    public void setdoctor(String doctor) {
+    public void setDoctor(String doctor) {
         this.doctor = doctor;
     }
 
