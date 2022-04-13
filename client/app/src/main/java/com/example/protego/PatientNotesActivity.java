@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -80,6 +81,8 @@ public class PatientNotesActivity extends AppCompatActivity {
 
         //setUpPatientNotes();
 
+
+
         PatientNotesRecyclerViewAdapter adapter = new PatientNotesRecyclerViewAdapter(this,notesData);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -87,15 +90,19 @@ public class PatientNotesActivity extends AppCompatActivity {
         findViewById(R.id.patientNotesBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createNote(mAuth.getUid());
-                notesData.clear();
-                recreate();
-                Intent i = new Intent(v.getContext(), PatientDashboardActivity.class);
-                startActivity(i);
-
-                finish();
+                addNotes();
+//                createNote(mAuth.getUid());
+//                notesData.clear();
+//                recreate();
+//                Intent i = new Intent(v.getContext(), PatientDashboardActivity.class);
+//                startActivity(i);
+//
+//                finish();
             }
         });
+
+
+
     }
 
 
@@ -155,6 +162,12 @@ public class PatientNotesActivity extends AppCompatActivity {
 
 
         });
+    }
+
+
+    private void addNotes(){
+        DialogFragment fragment = new NewNoteFragment();
+        fragment.show(getSupportFragmentManager(), "addNotes");
     }
 
 }
