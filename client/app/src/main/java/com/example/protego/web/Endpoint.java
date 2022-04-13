@@ -1,5 +1,6 @@
 package com.example.protego.web;
 
+@Deprecated
 public enum Endpoint {
     GET_PATIENT("patient"), GET_DOCTOR("doctor"),
     GET_QR_CODE("qrcode"), GET_MEDICALINFO("medicalInfo"),

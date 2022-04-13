@@ -11,9 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.protego.web.FirestoreAPI;
+import com.example.protego.web.FirestoreListener;
+import com.example.protego.web.FirestoreListenerStream;
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
+import com.example.protego.web.schemas.Patient;
 import com.example.protego.web.schemas.PatientDetails;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -49,30 +53,27 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
         patients = new ArrayList<>();
 
         //getPatients();
-        ServerAPI.getDoctorAssignedPatients(mAuth.getCurrentUser().getUid(), new ServerRequestListener() {
+
+        FirestoreAPI.getInstance().getDoctorAssignedPatients(mAuth.getCurrentUser().getUid(), new FirestoreListener<List<Patient>>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
+            public void getResult(List<Patient> pList) {
+                System.out.println("Patient List : " + pList);
+
+                RecyclerView rvPatients = findViewById(R.id.rvPatients);
+                patients.addAll(PatientDetails.constructPatients(pList));
+
+                // create adapter
+                final PatientsListAdapter patientsAdapter = new PatientsListAdapter(thisObj,  patients);
+                // Set the adapter on recyclerview
+                rvPatients.setAdapter(patientsAdapter);
+                // set a layout manager on RV
+                rvPatients.setLayoutManager(new LinearLayoutManager(thisObj));
                 Log.d(TAG, "Received request for doctor's patients");
-                try {
-                    JSONArray res = req.getResultJSONList();
-                    System.out.println("Patient List : " + res.toString() + res.length());
-
-                    RecyclerView rvPatients = findViewById(R.id.rvPatients);
-                    patients.addAll(PatientDetails.constructPatients(res));
-
-                    // create adapter
-                    final PatientsListAdapter patientsAdapter = new PatientsListAdapter(thisObj,  patients);
-                    // Set the adapter on recyclerview
-                    rvPatients.setAdapter(patientsAdapter);
-                    // set a layout manager on RV
-                    rvPatients.setLayoutManager(new LinearLayoutManager(thisObj));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "Failed to get doctor assigned patients:\n\t" + msg, e);
                 Toast.makeText(DoctorViewPatientsActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
