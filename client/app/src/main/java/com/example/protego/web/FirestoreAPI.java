@@ -213,6 +213,7 @@ public class FirestoreAPI {
         // Asynchronously retrieve multiple documents
         db.collection("AssignedTo")
                 .whereEqualTo("doctor", duid)
+                .whereEqualTo("active", true)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -248,6 +249,51 @@ public class FirestoreAPI {
                                     }).collect(Collectors.toList());
                         } else {
                             Log.e(TAG, "Failed to get AssignedTo collection for doctor uid " + duid, task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void getPatientsDoctors(String puid,
+                                   FirestoreListener<List<Doctor>> listener) {
+        db.collection("AssignedTo")
+                .whereEqualTo("patient", puid)
+                .whereEqualTo("active", true)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            // Get the AssignedTo list, then get the doctors
+                            List<DocumentSnapshot> documents = task.getResult().getDocuments();
+
+                            int totalDoctors = documents.size();
+                            ArrayList<Doctor> doctors = new ArrayList<>();
+                            documents.stream()
+                                    .map(qds ->
+                                            qds.toObject(AssignedTo.class).getDoctor()).collect(Collectors.toList()).stream()
+                                    .map(duid -> {
+                                        return db.collection("users")
+                                                .document(duid.toString())
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Doctor d = task.getResult().toObject(Doctor.class);
+                                                            doctors.add(d);
+                                                            if (doctors.size() >= totalDoctors) {
+                                                                listener.getResult(doctors);
+                                                            }
+                                                            Log.d(TAG, "Got doctor " + d.toString());
+                                                        } else {
+                                                            Log.e(TAG, "Failed to get information for doctor", task.getException());
+                                                        }
+                                                    }
+                                                });
+                                    }).collect(Collectors.toList());
+                        } else {
+                            Log.e(TAG, "Failed to get AssignedTo collection for patient uid " + puid, task.getException());
                         }
                     }
                 });
