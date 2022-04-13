@@ -25,6 +25,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 // Our manager to make requests to the server
+@Deprecated
 public class RequestManager {
     public static final boolean ACTIVE = false;
 
