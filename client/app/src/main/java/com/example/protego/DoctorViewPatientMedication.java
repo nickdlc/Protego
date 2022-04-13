@@ -41,7 +41,7 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         pid = extras.getString("pid");
         //System.out.println("Passing through " + pid);
-        
+
         medicationData = new ArrayList<>();
 
         //setUpMedicationInfo();
@@ -54,7 +54,7 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
                 RecyclerView rvMedicationsForDoctors = findViewById(R.id.doctorViewPatientMedicationRecyclerView);
 
                 tvFullName = findViewById(R.id.medicationPatientFullNameInput);
-                tvFullName.setText(extras.getString("patientFirst"));
+                tvFullName.setText(extras.getString("patientFullName"));
 
                 for(Medication medication : mList){
                     medicationData.add(new Medication(medication.getName(), medication.getDatePrescribed(), medication.getDosage(), medication.getPrescriber()));
