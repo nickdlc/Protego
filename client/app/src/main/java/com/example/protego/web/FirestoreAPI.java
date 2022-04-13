@@ -21,12 +21,14 @@ import com.example.protego.web.schemas.AssignedTo;
 import com.example.protego.web.schemas.Doctor;
 import com.example.protego.web.schemas.Medication;
 import com.example.protego.web.schemas.Note;
+import com.example.protego.web.schemas.NotificationType;
 import com.example.protego.web.schemas.Patient;
 import com.example.protego.web.schemas.Vital;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -246,6 +248,88 @@ public class FirestoreAPI {
                         }
                     }
                 });
+    }
+
+    /**
+     *
+     * @param puid
+     * @param duid
+     * @param active
+     * @param listener
+     * @return
+     *
+     * Creates an AssignedTo object from Firestore with puid, duid, and active. The AssignedTo
+     * object is null if the connection does not exist.
+     */
+    public Task<QuerySnapshot> getConnection(String puid,
+                                             String duid,
+                                             Boolean active,
+                                             FirestoreListener<AssignedTo> listener) {
+        return db.collection("AssignedTo")
+                .whereEqualTo("patient", puid)
+                .whereEqualTo("doctor", duid)
+                .whereEqualTo("active", active)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<DocumentSnapshot> docs = task.getResult().getDocuments();
+                            AssignedTo connection;
+                            if (docs.isEmpty()) {
+                                // Need a null connection when checking for existing active requests
+                                // when creating a ConnectionRequest
+                                connection = null;
+                            } else {
+                                // Get the first document; there should only be one active connection
+                                // between a given patient and doctor
+                                connection = docs.get(0).toObject(AssignedTo.class);
+                            }
+                            listener.getResult(connection);
+                        } else {
+                            listener.getError(task.getException(),
+                                    "Failed to get AssignedTo connection with puid = " +
+                                    puid + ", duid = " + duid);
+                        }
+                    }
+                });
+    }
+
+    public Task<DocumentReference> createConnectionRequest(String puid,
+                                                           String duid,
+                                                           FieldValue timestamp,
+                                                           FirestoreListener<Task> listener) {
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("duid", duid);
+        params.put("puid", puid);
+        params.put("active", true);
+        params.put("timeCreated", timestamp);
+        return db.collection("ConnectionRequest")
+                .add(params)
+                .addOnCompleteListener(getListenerForCreation(listener,
+                        "Failed to create ConnectionRequest..."));
+    }
+
+    public Task<DocumentReference> createNotification(String puid,
+                                                      String duid,
+                                                      String drLastName,
+                                                      FieldValue timestamp,
+                                                      FirestoreListener<Task> listener) {
+        // Generate a ConnectionRequest Notification for patient puid from doctor duid at timestamp
+        Map<String, Object> params = new HashMap<>();
+        String msg = "You received a connection request from Dr. " + drLastName;
+        params.put("puid", puid);
+        params.put("duid", duid);
+        params.put("msg", msg);
+        params.put("timestamp", timestamp);
+        params.put("active", true);
+        params.put("type", NotificationType.CONNECTIONREQUEST.getType());
+
+        return db.collection("Notification")
+                .add(params)
+                .addOnCompleteListener(getListenerForCreation(listener,
+                        "Failed to create Notification..."));
     }
 
 
