@@ -25,6 +25,7 @@ public class PatientQRCodeDisplay extends AppCompatActivity {
     private ImageLoader imageLoader;
 
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_qr_code_display);
 

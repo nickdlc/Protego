@@ -18,9 +18,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.protego.web.FirestoreAPI;
+import com.example.protego.web.FirestoreListener;
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
+import com.example.protego.web.schemas.Doctor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -56,35 +59,28 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        ServerAPI.getDoctor(currentUser.getUid(), new ServerRequestListener() {
+        FirestoreAPI.getInstance().getDoctor(currentUser.getUid(), new FirestoreListener<Doctor>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
-                if (req != null && !req.getResultString().equals("")) {
-                    Log.d(TAG, "req received for doctor : " + req.getResult().toString());
+            public void getResult(Doctor doctor) {
+                Log.d(TAG, "req received for doctor : " + doctor);
 
-                    try {
-                        JSONObject doctorJSON = req.getResultJSON();
+                if (doctor != null) {
+                    DoctorDashboardActivity.lastName = doctor.getLastName();
 
-                        DoctorDashboardActivity.lastName = doctorJSON.getString("lastName");
+                    //to update the last name of the doctor on their navbar
+                    updateNavbarName(view);
 
-                        //to update the last name of the doctor on their navbar
-                        updateNavbarName(view);
-
-                        Log.d(TAG, "info last name : " + doctorJSON.getString("lastName"));
-                    } catch (JSONException e) {
-                        Log.e(TAG, "could not receive doctor info : ", e);
-                    }
+                    Log.d(TAG, "info last name : " + doctor.getLastName());
                 } else {
-                    Log.d(TAG, "failed to get doctor : " + req.toString());
+                    Log.e(TAG, "could not receive doctor info : ");
                 }
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
-
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "failed to get doctor : " + msg, e);
             }
         });
-
 
         //the spinner component
         spinner = view.findViewById(R.id.doctorNavbarSpinner);

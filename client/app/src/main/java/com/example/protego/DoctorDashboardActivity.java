@@ -16,9 +16,9 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.protego.web.ServerAPI;
-import com.example.protego.web.ServerRequest;
-import com.example.protego.web.ServerRequestListener;
+import com.example.protego.web.FirestoreAPI;
+import com.example.protego.web.FirestoreListener;
+import com.example.protego.web.schemas.Doctor;
 import com.example.protego.web.schemas.DoctorDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -204,36 +204,29 @@ public class DoctorDashboardActivity extends AppCompatActivity{
     }
 
     private void getDoctorLastName(String duid) {
-        ServerAPI.getDoctor(duid, new ServerRequestListener() {
+        FirestoreAPI.getInstance().getDoctor(duid, new FirestoreListener<Doctor>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
-                if (req != null && !req.getResultString().equals("")) {
-                    Log.d(TAG, "req received for doctor : " + req.getResult().toString());
+            public void getResult(Doctor doctor) {
+                Log.d(TAG, "req received for doctor : " + doctor);
 
-                    try {
-                        JSONObject doctorJSON = req.getResultJSON();
+                if (doctor != null) {
+                    doctorInfo.lastName = doctor.getLastName();
 
-                        doctorInfo.lastName = doctorJSON.getString("lastName");
-
-                        if(doctorInfo.lastName == "" || doctorInfo.lastName == null){
-                            lastName = "";
-                        }
-                        else{
-                            lastName = doctorInfo.lastName;
-                        }
-
-
-                        Log.d(TAG, "info last name : " + doctorJSON.getString("lastName"));
-                    } catch (JSONException e) {
-                        Log.e(TAG, "could not receive doctor info : ", e);
+                    if (doctorInfo.lastName == null) {
+                        lastName = "";
+                    } else {
+                        lastName = doctorInfo.lastName;
                     }
+
+                    Log.d(TAG, "info last name : " + doctor.getLastName());
                 } else {
-                    Log.d(TAG, "failed to get doctor : " + req.toString());
+                    Log.e(TAG, "could not receive doctor info : ");
                 }
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "failed to get doctor : " + msg, e);
                 Toast.makeText(DoctorDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
@@ -241,28 +234,25 @@ public class DoctorDashboardActivity extends AppCompatActivity{
 
 
     private void getDoctorInfo(String duid) {
-        ServerAPI.getDoctor(duid, new ServerRequestListener() {
+        FirestoreAPI.getInstance().getDoctor(duid, new FirestoreListener<Doctor>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
-                if (req != null && !req.getResultString().equals("")) {
-                    Log.d(TAG, "req received for doctor : " + req.getResult().toString());
+            public void getResult(Doctor doctor) {
+                Log.d(TAG, "req received for doctor : " + doctor);
 
-                    try {
-                        JSONObject doctorJSON = req.getResultJSON();
+                if (doctor != null) {
+                    doctorInfo.firstName = doctor.getFirstName();
+                    doctorInfo.lastName = doctor.getLastName();
 
-                        doctorInfo.firstName = doctorJSON.getString("firstName");
-                        doctorInfo.lastName = doctorJSON.getString("lastName");
-                        Log.d(TAG, "info first name : " + doctorJSON.getString("firstName"));
-                    } catch (JSONException e) {
-                        Log.e(TAG, "could not receive doctor info : ", e);
-                    }
+                    Log.d(TAG, "info first name : " + doctor.getFirstName());
+                    Log.d(TAG, "info last name : " + doctor.getLastName());
                 } else {
-                    Log.d(TAG, "failed to get doctor : " + req.toString());
+                    Log.e(TAG, "could not receive doctor info : ");
                 }
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "failed to get doctor : " + msg, e);
                 Toast.makeText(DoctorDashboardActivity.this, msg, Toast.LENGTH_LONG);
             }
         });

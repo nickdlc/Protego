@@ -26,6 +26,8 @@ import java.util.Map;
 
 // Our manager to make requests to the server
 public class RequestManager {
+    public static final boolean ACTIVE = false;
+
     private static final String TAG = "RequestManager";
     public static final String prefixURL = "10.0.2.2:8000";
 

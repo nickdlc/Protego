@@ -10,9 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.protego.util.RandomGenerator;
+import com.example.protego.web.FirestoreAPI;
+import com.example.protego.web.FirestoreListener;
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
+import com.example.protego.web.schemas.Medication;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
@@ -23,6 +27,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class PatientMedicationActivity extends AppCompatActivity {
     public static ArrayList<MedicationInfo> medicationData = new ArrayList<>();
@@ -98,61 +103,46 @@ public class PatientMedicationActivity extends AppCompatActivity {
 
 
     private void getPatientMedications(String puid) {
-        ServerAPI.getMedications(puid, new ServerRequestListener() {
+        FirestoreAPI.getInstance().getMedications(puid, new FirestoreListener<List<Medication>>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
-                try {
-                    JSONArray res = req.getResultJSONList();
-
-                    String name;
-                    String datePrescribed;
-                    String dosage;
-                    String prescriber;
+            public void getResult(List<Medication> medications) {
+                String name;
+                String datePrescribed;
+                String dosage;
+                String prescriber;
 
 
-                    for(int i = 0; i < res.length(); i++) {
+                for(Medication med : medications) {
+                    name = med.getName();
+                    datePrescribed = med.getDatePrescribed().toString();
+                    dosage = med.getDosage();
+                    prescriber = med.getPrescriber();
 
-                        JSONObject object = res.getJSONObject(i);
-
-                        name = object.getString("name");
-                        datePrescribed = object.getString("datePrescribed");
-                        dosage = object.getString("dosage");
-                        prescriber = object.getString("prescriber");
-
-
-                        medicationData.add(new MedicationInfo(name,datePrescribed,dosage,prescriber));
-                        Log.v(TAG, "object: " + object.toString());
-
-                    }
-
-                    Log.v(TAG, "medicationData: " + medicationData.get(0).name);
-
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "Could not get JSON from request : ", e);
+                    medicationData
+                            .add(new PatientMedicationActivity.MedicationInfo(name,datePrescribed,dosage,prescriber));
+                    Log.v(TAG, "object: " + med.toString());
                 }
+
+                Log.v(TAG, "medicationData: " + medicationData.get(0).name);
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "Failed to get medications for patient:\n\t" + msg, e);
                 Toast.makeText(PatientMedicationActivity.this, msg, Toast.LENGTH_LONG);
             }
-
-
-
         });
     }
 
     private void createMedication(String uid) {
-
-        ServerAPI.generateMedicationData(uid, new ServerRequestListener() {
+        FirestoreAPI.getInstance().generateMedicationData(uid, RandomGenerator.randomApprovedDoctors, new FirestoreListener() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
+            public void getResult(Object object) {
                 // do nothing, just generate data
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
                 Toast.makeText(PatientMedicationActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
