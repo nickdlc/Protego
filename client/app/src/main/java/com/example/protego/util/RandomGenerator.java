@@ -84,7 +84,7 @@ public class RandomGenerator {
             visibility = "Public";
         }
         else{
-            visibility = "public static";
+            visibility = "Private";
         }
 
         return visibility;

@@ -93,7 +93,6 @@ public class PatientMedicationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 medicationData.clear();
                 createMedication(mAuth.getUid());
-                recreate();
                 Intent i = new Intent(v.getContext(), PatientDashboardActivity.class);
                 startActivity(i);
                 finish();
@@ -135,7 +134,7 @@ public class PatientMedicationActivity extends AppCompatActivity {
     }
 
     private void createMedication(String uid) {
-        FirestoreAPI.getInstance().generateMedicationData(uid, RandomGenerator.randomApprovedDoctors, new FirestoreListener() {
+        FirestoreAPI.getInstance().generateMedicationData(uid, RandomGenerator.randomApprovedDoctors(), new FirestoreListener() {
             @Override
             public void getResult(Object object) {
                 // do nothing, just generate data

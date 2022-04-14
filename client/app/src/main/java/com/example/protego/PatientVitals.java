@@ -144,7 +144,6 @@ public class PatientVitals extends AppCompatActivity {
             public void onClick(View v) {
                 createVital(mAuth.getUid());
                 patientData.clear();
-                recreate();
                 Intent i = new Intent(v.getContext(), PatientDashboardActivity.class);
                 startActivity(i);
 
