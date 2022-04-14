@@ -25,13 +25,13 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/patientFirstNameTextInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:singleLine="true"
                 android:hint="First Name *" />
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="15dp"
                 android:layout_weight="1" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -39,15 +39,15 @@
                 android:layout_height="match_parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/patientEmailTextInput"
+                    android:id="@+id/patientLastNameTextInput"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:singleLine="true"
-                    android:hint="Email *" />
+                    android:hint="Last Name *" />
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="15dp"
                     android:layout_weight="1" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -55,16 +55,15 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/patientPasswordTextInput"
+                        android:id="@+id/patientEmailTextInput"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:singleLine="true"
-                        android:hint="Password *"
-                        android:password="true" />
+                        android:hint="Email *" />
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="15dp"
                         android:layout_weight="1" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -72,17 +71,35 @@
                         android:layout_height="match_parent">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/patientConfirmPasswordTextInput"
+                            android:id="@+id/patientPasswordTextInput"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:singleLine="true"
-                            android:hint="Confirm Password *"
+                            android:hint="Password *"
                             android:password="true" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="15dp"
+                            android:layout_weight="1" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/patientConfirmPasswordTextInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="Confirm Password *"
+                                android:singleLine="true"
+                                android:password="true" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </com.google.android.material.textfield.TextInputLayout>
                 </com.google.android.material.textfield.TextInputLayout>
             </com.google.android.material.textfield.TextInputLayout>
-
         </com.google.android.material.textfield.TextInputLayout>
 
     </TableRow>
