@@ -360,26 +360,25 @@ public class PatientDashboardActivity extends AppCompatActivity{
         FirestoreAPI.getInstance().getVitals(puid, new FirestoreListener<List<Vital>>() {
             @Override
             public void getResult(List<Vital> vitals) {
-                String heartRate;
-                String respiratoryRate;
-                String temperature;
+                int heartRate;
+                int respiratoryRate;
+                double temperature;
+                String puid;
                 String bloodPressure;
                 String source;
-                String date;
+                Date date;
 
                 for (Vital vital : vitals) {
-                    heartRate = String.valueOf(vital.getHeartRate());
-                    respiratoryRate = String.valueOf(vital.getRespiratoryRate());
-                    temperature = String.valueOf(vital.getTemperature());
-                    bloodPressure = String.valueOf(vital.getBloodPressure());
+                    heartRate = vital.getHeartRate();
+                    respiratoryRate = vital.getRespiratoryRate();
+                    temperature = vital.getTemperature();
+                    bloodPressure = vital.getBloodPressure();
                     source = vital.getSource();
-                    date = vital.getDate().toString();
+                    date = vital.getDate();
 
                     PatientVitals.patientData
-                            .add(new PatientVitals.VitalsInfo(date,source, heartRate, bloodPressure,respiratoryRate,temperature));
-
+                            .add(new Vital(heartRate, respiratoryRate, temperature, date, bloodPressure, source));
                     Log.v(TAG, "object: " + vitals.toString());
-
                 }
                 Log.v(TAG, "patient data index 0: " + PatientVitals.patientData.get(0).getSource());
 //                    Log.v(TAG, "patient data index 1: " + PatientVitals.patientData.get(1).getSource());

@@ -59,7 +59,6 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
                     Log.d(TAG, "info : " + note.getVisibility());
                     Log.d(TAG, "info : " + note.getContent());
                 }
-                //medicationData.addAll(Medication.constructMedications(mList));
 
                 // create adapter
                 final PatientNotesRecyclerViewAdapter adapter = new PatientNotesRecyclerViewAdapter(thisObj, notesData);
