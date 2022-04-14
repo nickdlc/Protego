@@ -28,7 +28,7 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
     public static List<Medication> medicationData;
     public static final String TAG = "DoctorViewPatientMedication";
     private FirebaseAuth mAuth;
-    TextView tvFullName;
+    private TextView tvFullName;
     private String pid;
 
     @Override

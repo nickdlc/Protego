@@ -400,19 +400,19 @@ public class PatientDashboardActivity extends AppCompatActivity{
             @Override
             public void getResult(List<Note> notes) {
                 String title;
-                String date;
+                Date date;
                 String visibility;
                 String details;
 
 
                 for(Note note : notes) {
                     title = note.getTitle();
-                    date = note.getDateCreated().toString();
+                    date = note.getDateCreated();
                     visibility = note.getVisibility();
                     details = note.getContent();
 
                     PatientNotesActivity.notesData
-                            .add(new PatientNotesActivity.NotesInfo(title,date,visibility,details));
+                            .add(new Note(title,date,visibility,details));
 
                 }
             }

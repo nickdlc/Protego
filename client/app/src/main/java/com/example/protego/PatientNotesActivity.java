@@ -25,68 +25,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PatientNotesActivity extends AppCompatActivity {
-    public static ArrayList<NotesInfo> notesData = new ArrayList<>();
+    public static List<Note> notesData;
     public static final String TAG = "PatientNotesActivity";
     private FirebaseAuth mAuth;
 
 
-    public static class NotesInfo {
-        private final String title;
-        private final String date;
-        //private final boolean visibility;
-        private final String visibility;
-        private final String details;
-
-
-        public NotesInfo(String title, String date, String visibility, String details) {
-            this.title = title;
-            this.date = date;
-            this.visibility = visibility;
-            this.details = details;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public String getVisibility() {
-//            if(visibility) return "visibility: public";
-//            else return "visibility: private";
-            return this.visibility;
-        }
-
-        public String getDetails() {
-            return details;
-        }
-    }
-
-
-    private void setUpPatientNotes(){
-        notesData.add(new NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-    }
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_notes);
-
+        notesData = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
         RecyclerView recyclerView = findViewById(R.id.patientMedicationRecyclerView);
 
         //setUpPatientNotes();
 
-        PatientNotesRecyclerViewAdapter adapter = new PatientNotesRecyclerViewAdapter(this,notesData);
+        PatientNotesRecyclerViewAdapter adapter = new PatientNotesRecyclerViewAdapter(this, notesData);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -126,18 +83,18 @@ public class PatientNotesActivity extends AppCompatActivity {
             @Override
             public void getResult(List<Note> notes) {
                 String title;
-                String date;
+                Date date;
                 String visibility;
                 String details;
 
 
                 for(Note note : notes) {
                     title = note.getTitle();
-                    date = note.getDateCreated().toString();
+                    date = note.getDateCreated();
                     visibility = note.getVisibility();
                     details = note.getContent();
 
-                    notesData.add(new NotesInfo(title,date,visibility,details));
+                    notesData.add(new Note(title,date,visibility,details));
 
                 }
             }
