@@ -17,9 +17,11 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
     public static final String TAG = "DoctorsListAdapter";
 
     private ArrayList<Doctor> doctors;
+    private RecyclerViewClickListener listener;
 
-    public DoctorsListAdapter(ArrayList<Doctor> doctors) {
+    public DoctorsListAdapter(ArrayList<Doctor> doctors, RecyclerViewClickListener listener) {
         this.doctors = doctors;
+        this.listener = listener;
     }
 
     @NonNull
@@ -42,13 +44,23 @@ public class DoctorsListAdapter extends RecyclerView.Adapter<DoctorsListAdapter.
         return doctors.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvDoctorName;
 
         public ViewHolder(@NonNull View view) {
             super(view);
             Log.d("DoctorsListAdapter.ViewHolder", "constructor");
             tvDoctorName = view.findViewById(R.id.tvDoctorName);
+            view.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            listener.onClick(view, getAdapterPosition());
+        }
+    }
+
+    public interface RecyclerViewClickListener {
+        void onClick(View view, int position);
     }
 }

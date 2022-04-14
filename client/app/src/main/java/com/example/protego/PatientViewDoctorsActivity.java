@@ -25,6 +25,7 @@ public class PatientViewDoctorsActivity extends AppCompatActivity {
     private Button btnReturn;
     private ArrayList<Doctor> doctors;
     private RecyclerView rvDoctors;
+    private DoctorsListAdapter.RecyclerViewClickListener listener;
     private FirebaseAuth mAuth;
 
     @Override
@@ -63,10 +64,26 @@ public class PatientViewDoctorsActivity extends AppCompatActivity {
 
     private void setRecyclerView() {
         rvDoctors = findViewById(R.id.rvDoctors);
-        DoctorsListAdapter adapter = new DoctorsListAdapter(doctors);
+
+        // Set the onClick listener for each element in the RecyclerView
+        setOnClickListener();
+
+        DoctorsListAdapter adapter = new DoctorsListAdapter(doctors, listener);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvDoctors.setLayoutManager(layoutManager);
         rvDoctors.setItemAnimator(new DefaultItemAnimator());
         rvDoctors.setAdapter(adapter);
+    }
+
+    private void setOnClickListener() {
+        listener = new DoctorsListAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent i = new Intent(getApplicationContext(), PatientViewDoctorProfile.class);
+                i.putExtra("firstName", doctors.get(position).getFirstName());
+                i.putExtra("lastName", doctors.get(position).getLastName());
+                startActivity(i);
+            }
+        };
     }
 }
