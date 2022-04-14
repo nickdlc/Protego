@@ -7,8 +7,11 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class PatientOnboardingActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +21,7 @@ public class PatientOnboardingActivity extends AppCompatActivity {
         PatientDashboardActivity.firstTime = false;
 
         setContentView(R.layout.patient_onboarding);
+        connectButtonToActivity(R.id.skipForNowBtn,PatientDashboardActivity.class);
     }
 
     private void connectButtonToActivity(Integer buttonId, Class nextActivityClass) {
