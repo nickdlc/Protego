@@ -2,18 +2,26 @@ package com.example.protego;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
@@ -22,10 +30,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class PatientNotesActivity extends AppCompatActivity {
+public class PatientNotesActivity extends FragmentActivity
+        implements NewNoteFragment.NoticeDialogListener {
     public static ArrayList<NotesInfo> notesData = new ArrayList<>();
     public static final String TAG = "PatientNotesActivity";
     private FirebaseAuth mAuth;
+    private LinearLayout layout;
+
 
 
     public static class NotesInfo {
@@ -168,6 +179,36 @@ public class PatientNotesActivity extends AppCompatActivity {
     private void addNotes(){
         DialogFragment fragment = new NewNoteFragment();
         fragment.show(getSupportFragmentManager(), "addNotes");
+    }
+
+    //allows the activity to create a new note when the user selects the "add" button on the dialog
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        String title = NewNoteFragment.note_title;
+        String content = NewNoteFragment.note_content;
+        String visibility = "Public";
+
+        if(NewNoteFragment.visibility == true){ //add the public note
+             visibility = "Public";
+        }
+
+        else if(NewNoteFragment.visibility == false) { //add a private note
+             visibility = "Private";
+
+        }
+
+        if(title != null && content != null) {
+            notesData.add(new NotesInfo(title, "01/01/22", visibility, content));
+            dialog.dismiss();
+            recreate();
+        } else {
+            addNotes(); //creates a new note when a user does not complete the note title and content fields
+        }
+
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
     }
 
 }

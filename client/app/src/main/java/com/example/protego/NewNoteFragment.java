@@ -2,55 +2,98 @@ package com.example.protego;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class NewNoteFragment extends DialogFragment {
-//public class OnboardingFragment extends DialogFragment implements AdapterView.OnItemSelectedListener {
+public class NewNoteFragment extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
-    public boolean visibility = true; //true if public note, 0 if a private note
+    public static boolean visibility = true; //true if public note, 0 if a private note
     private Spinner spinner;
+    private static String[] visibility_array = {"Select Note Visibility", "Public", "Private"};
+    public static String note_title;
+    public static String note_content;
 
+
+    //this interface is helpful to connect an event from the dialog to the host activity
+    public interface NoticeDialogListener {
+        public void onDialogPositiveClick(DialogFragment dialog);
+        public void onDialogNegativeClick(DialogFragment dialog);
+    }
+    NoticeDialogListener listener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (NoticeDialogListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement NoticeDialogListener");
+        }
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
+        View view = inflater.inflate(R.layout.fragment_new_note, null);
+
         //the spinner component
-//        spinner = (Spinner) this.getDialog().findViewById(R.id.noteVisibilitySpinner);
-//        //ArrayAdapter
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.note_visibility_navbar_options_array, android.R.layout.simple_spinner_item);
-//        //specify layout
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        //apply adapter to spinner
-//        spinner.setAdapter(adapter);
-//        spinner.setOnItemSelectedListener(this);
+        spinner = view.findViewById(R.id.noteVisibilitySpinner);
+        //ArrayAdapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, visibility_array);
+        //specify layout
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //apply adapter to spinner
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
-
-        builder.setView(inflater.inflate(R.layout.fragment_new_note, null))
+        builder.setView(view)
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                       //read the fields for note name and content
+                        //to read the fields for note name and content
+                        EditText title_view = (EditText) view.findViewById(R.id.noteTitle);
+                        EditText content_view = (EditText) view.findViewById(R.id.noteContent);
 
-//                        if(visibility == true){ //add the public note
-//
-//                        }
-//                        else if(visibility ==false) { //add a private note
-//
-//                        }
+                        if(title_view.getText().toString().isEmpty() && content_view.getText().toString().isEmpty()){ //title and content are empty
+                            Toast.makeText(getActivity(), "Please complete the Title and Content fields", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (title_view.getText().toString().isEmpty()){ //title is empty
+                            Toast.makeText(getActivity(), "Please complete the Title field", Toast.LENGTH_SHORT).show();
+                        }
 
+                        else if(content_view.getText().toString().isEmpty()){ //content is empty
+                            Toast.makeText(getActivity(), "Please complete the Content field", Toast.LENGTH_SHORT).show();
+                        }
+                        else{ //neither content or title are empty
+                            note_title = title_view.getText().toString();
+                            note_content = content_view.getText().toString();
+                        }
+
+                        listener.onDialogPositiveClick(NewNoteFragment.this);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+//                        listener.onDialogNegativeClick(NewNoteFragment.this);
                         NewNoteFragment.this.getDialog().cancel();
                     }
                 });
@@ -58,30 +101,27 @@ public class NewNoteFragment extends DialogFragment {
     }
 
 
-//    @Override
-//    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-//
-//        String userType = (String) parent.getItemAtPosition(pos);
-//        Resources resource = getResources();
-//        String[] userTypeOptions = resource.getStringArray(R.array.note_visibility_navbar_options_array);
-//
-//        if(userType.equals(userTypeOptions[0])){
-//            visibility = true; //By default a note is public if the user does not specify
-//        }
-//
-//        else if(userType.equals(userTypeOptions[1])){ //the user selected public notes
-//            visibility = true;
-//        }
-//        else if(userType.equals(userTypeOptions[2])) { //the user selected private notes
-//            visibility = false;
-//        }
-//
-//    }
-//
-//    @Override
-//    public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//    }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+        String userType = (String) parent.getItemAtPosition(pos);
+        Resources resource = getResources();
+        String[] userTypeOptions = resource.getStringArray(R.array.note_visibility_navbar_options_array);
+
+        if(userType.equals(userTypeOptions[1])){ //the user selected public notes
+            visibility = true;
+        }
+        else if(userType.equals(userTypeOptions[2])) { //the user selected private notes
+            visibility = false;
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+
+    }
 
 
 }

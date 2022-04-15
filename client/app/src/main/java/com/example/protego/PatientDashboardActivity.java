@@ -112,7 +112,10 @@ public class PatientDashboardActivity extends AppCompatActivity{
         //to get and set the user's vitals for their vitals page
         getPatientVitals(mAuth.getCurrentUser().getUid());
 
-        PatientNotesActivity.notesData.clear();
+        //TODO: uncomment this, was commented to test passing data from a dialog to the notes activity
+        //PatientNotesActivity.notesData.clear();
+
+
         //to get and set the user's vitals for their notes page
         getPatientNotes(mAuth.getCurrentUser().getUid());
 

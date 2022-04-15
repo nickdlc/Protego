@@ -37,7 +37,10 @@
         android:id="@+id/noteVisibilitySpinner"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:contentDescription='public/public' />
+        android:contextClickable="true"
+        android:spinnerMode="dropdown"
+        android:visibility="visible"
+        tools:visibility="visible" />
 
     <Space
         android:layout_width="match_parent"
