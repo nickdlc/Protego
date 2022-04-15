@@ -8,16 +8,18 @@ public class Notification implements Comparable<Notification> {
     private String msg;
     private Boolean active;
     private Date date;
+    private String type;
 
     public Notification() {
     }
 
-    public Notification(String puid, String duid, String msg, Boolean active, Date date) {
+    public Notification(String puid, String duid, String msg, Boolean active, Date date, String type) {
         this.puid = puid;
         this.duid = duid;
         this.msg = msg;
         this.active = active;
         this.date = date;
+        this.type = type;
     }
 
     public String getPuid() {
@@ -60,6 +62,14 @@ public class Notification implements Comparable<Notification> {
         this.date = date;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Notification{" +
@@ -68,6 +78,7 @@ public class Notification implements Comparable<Notification> {
                 ", msg='" + msg + '\'' +
                 ", active=" + active +
                 ", date=" + date +
+                ", type='" + type + '\'' +
                 '}';
     }
 

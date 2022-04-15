@@ -18,10 +18,15 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.protego.util.RandomGenerator;
+import com.example.protego.web.FirestoreAPI;
+import com.example.protego.web.FirestoreListener;
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.example.protego.web.schemas.Note;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
@@ -29,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PatientNotesActivity extends FragmentActivity
         implements NewNoteFragment.NoticeDialogListener {
@@ -118,60 +124,47 @@ public class PatientNotesActivity extends FragmentActivity
 
 
     private void createNote(String uid){
-
-        ServerAPI.generateNoteData(uid, new ServerRequestListener() {
+        FirestoreAPI.getInstance().generateNoteData(uid, RandomGenerator.randomApprovedDoctors(), new FirestoreListener<Task>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
+            public void getResult(Task object) {
                 // do nothing, just generate data
             }
+
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
                 Toast.makeText(PatientNotesActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
-
     }
 
 
 
     private void getPatientNotes(String puid) {
-        ServerAPI.getNotes(puid, new ServerRequestListener() {
+        FirestoreAPI.getInstance().getNotes(puid, new FirestoreListener<List<Note>>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
-                try {
-                    JSONArray res = req.getResultJSONList();
-
-                    String title;
-                    String date;
-                    String visibility;
-                    String details;
+            public void getResult(List<Note> notes) {
+                String title;
+                String date;
+                String visibility;
+                String details;
 
 
-                    for(int i = 0; i < res.length(); i++) {
+                for(Note note : notes) {
+                    title = note.getTitle();
+                    date = note.getDateCreated().toString();
+                    visibility = note.getVisibility();
+                    details = note.getContent();
 
-                        JSONObject object = res.getJSONObject(i);
+                    notesData.add(new NotesInfo(title,date,visibility,details));
 
-                        title = object.getString("title");
-                        date = object.getString("dateCreated");
-                        visibility = object.getString("visibility");
-                        details = object.getString("content");
-
-                        notesData.add(new NotesInfo(title,date,visibility,details));
-
-                    }
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "Could not get JSON from request : ", e);
                 }
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "Failed to get vitals for patient:\n\t" + msg, e);
                 Toast.makeText(PatientNotesActivity.this, msg, Toast.LENGTH_LONG);
             }
-
-
-
         });
     }
 

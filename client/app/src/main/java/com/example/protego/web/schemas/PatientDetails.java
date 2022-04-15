@@ -29,6 +29,12 @@ public class PatientDetails {
 
     public PatientDetails(JSONObject jsonObject) throws JSONException {
         firstName = jsonObject.getString("firstName");
+        lastName = jsonObject.getString("lastName");
+    }
+
+    public PatientDetails(Patient patient) {
+        firstName = patient.getFirstName();
+        lastName = patient.getLastName();
     }
 
     public static List<PatientDetails> constructPatients (JSONArray patientsArray) throws JSONException {
@@ -38,5 +44,14 @@ public class PatientDetails {
             Log.d(TAG, "info first name : " + patients.get(i).firstName);
         }
         return patients;
+    }
+
+    public static List<PatientDetails> constructPatients (List<Patient> patients) {
+        List<PatientDetails> patientDetails = new ArrayList<>();
+        for(Patient patient : patients){
+            patientDetails.add(new PatientDetails(patient));
+            Log.d(TAG, "info first name : " + patient.getFirstName());
+        }
+        return patientDetails;
     }
 }

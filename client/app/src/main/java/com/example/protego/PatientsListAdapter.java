@@ -66,7 +66,7 @@ public class PatientsListAdapter extends RecyclerView.Adapter<PatientsListAdapte
         }
 
         public void bind(final PatientDetails patient) {
-            tvPatientName.setText(patient.firstName);
+            tvPatientName.setText(patient.firstName + " " + patient.lastName);
             System.out.println("testing2" + patient.firstName);
 
             // register click listener on the whole row

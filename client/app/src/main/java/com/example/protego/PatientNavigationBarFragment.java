@@ -16,10 +16,14 @@ package com.example.protego;
         import android.widget.Button;
         import android.widget.Spinner;
         import android.widget.TextView;
+        import android.widget.Toast;
 
+        import com.example.protego.web.FirestoreAPI;
+        import com.example.protego.web.FirestoreListener;
         import com.example.protego.web.ServerAPI;
         import com.example.protego.web.ServerRequest;
         import com.example.protego.web.ServerRequestListener;
+        import com.example.protego.web.schemas.Patient;
         import com.google.firebase.auth.FirebaseAuth;
         import com.google.firebase.auth.FirebaseUser;
 
@@ -58,33 +62,28 @@ public class PatientNavigationBarFragment extends Fragment implements AdapterVie
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        ServerAPI.getPatient(currentUser.getUid(), new ServerRequestListener() {
+        FirestoreAPI.getInstance().getPatient(currentUser.getUid(), new FirestoreListener<Patient>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
-                if (req != null && !req.getResultString().equals("")) {
-                    Log.d(TAG, "req received for patient : " + req.getResult().toString());
+            public void getResult(Patient patient) {
+                Log.d(TAG, "req received for patient : " + patient);
 
-                    try {
-                        JSONObject patientJSON = req.getResultJSON();
+                if (patient != null) {
+                    PatientDashboardActivity.Name = patient.getFirstName();
 
-
-                        PatientDashboardActivity.Name = patientJSON.getString("firstName");
-                        //to update the first name of the patient on their navbar
-                        updateNavbarName(view);
+                    Log.d(TAG, "info first name : " + patient.getFirstName());
+                    //to update the first name of the patient on their navbar
+                    updateNavbarName(view);
 
 
-                        Log.d(TAG, "info first name : " + patientJSON.getString("firstName"));
-                    } catch (JSONException e) {
-                        Log.e(TAG, "could not receive doctor info : ", e);
-                    }
+                    Log.d(TAG, "info first name : " + patient.getFirstName());
                 } else {
-                    Log.d(TAG, "Can't get patient info.");
+                    Log.e(TAG, "could not receive patient info : ");
                 }
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
-
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "failed to get patient : " + msg, e);
             }
         });
 

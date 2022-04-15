@@ -53,7 +53,10 @@ public class LoginActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        RequestManager.getInstance(this);
+        // Set up Volley if external API calls are enabled
+        if (RequestManager.ACTIVE)
+            RequestManager.getInstance(this);
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();

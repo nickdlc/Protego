@@ -13,9 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.protego.web.ServerAPI;
+import com.example.protego.util.RandomGenerator;
+import com.example.protego.web.FirestoreAPI;
+import com.example.protego.web.FirestoreListener;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
+import com.example.protego.web.schemas.Doctor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,6 +41,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.provider.FirebaseInitProvider;
+
+import java.util.List;
 
 public class SignupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     public static final String TAG = "SignupActivity";
@@ -128,14 +133,21 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
                         ProtegoUser protegoUser = new ProtegoUser();
                         protegoUser.setFirstName(first_name_input.getText().toString());
+                        protegoUser.setLastName(last_name_input.getText().toString());
 
-                        if (last_name_input != null) {
-                            // is a doctor, set last name
-                            protegoUser.setLastName(last_name_input.getText().toString());
-                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.DOCTOR);
-                        } else {
-                            // is a patient
+//                        if (last_name_input != null) {
+//                            // is a doctor, set last name
+//                            protegoUser.setLastName(last_name_input.getText().toString());
+//                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.DOCTOR);
+//                        } else {
+//                            // is a patient
+//                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.PATIENT);
+//                        }
+
+                        if (spinner.getSelectedItem().toString().equals("Patient")) {
                             protegoUser.setUserType(ProtegoUser.ProtegoUserType.PATIENT);
+                        } else {
+                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.DOCTOR);
                         }
 
                         String uid = firebaseUser.getUid();
@@ -147,65 +159,67 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                             Log.d(TAG, "Successfully created user " + uid);
                                             Intent i = new Intent(SignupActivity.this, LoginActivity.class);
                                             Toast.makeText(SignupActivity.this, "Check your email for a verification link.", Toast.LENGTH_LONG);
+                                            List<String> randomDoctors = RandomGenerator.randomApprovedDoctors();
+                                            RandomGenerator.randomApprovedDoctors = randomDoctors;
 
                                             firebaseUser.sendEmailVerification();
 
-                                            if (last_name_input == null) {
+                                            if (spinner.getSelectedItem().toString().equals("Patient")) {
 
-
-                                                ServerAPI.generateMedData(uid, new ServerRequestListener() {
+                                                FirestoreAPI.getInstance().generateMedData(uid, new FirestoreListener() {
                                                     @Override
-                                                    public void receiveCompletedRequest(ServerRequest req) {
-                                                        // do nothing, just generate data
+                                                    public void getResult(Object object) {
+                                                        // Do nothing
                                                     }
 
                                                     @Override
-                                                    public void receiveError(Exception e, String msg) {
+                                                    public void getError(Exception e, String msg) {
+                                                        Log.e(TAG, "Failed to generate medical information data:\n\t" + msg, e);
                                                         Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
                                                     }
                                                 });
 
-
-//                                                generate random vital information
-                                                ServerAPI.generateVitalData(uid, new ServerRequestListener() {
+                                                // generate random vital information
+                                                FirestoreAPI.getInstance().generateVitalData(uid, new FirestoreListener<Task>() {
                                                     @Override
-                                                    public void receiveCompletedRequest(ServerRequest req) {
+                                                    public void getResult(Task object) {
                                                         // do nothing, just generate data
                                                     }
 
                                                     @Override
-                                                    public void receiveError(Exception e, String msg) {
+                                                    public void getError(Exception e, String msg) {
+                                                        Log.e(TAG, "Failed to generate vital data:\n\t" + msg, e);
                                                         Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
                                                     }
                                                 });
 
                                                 //generate random Note information
-                                                ServerAPI.generateNoteData(uid, new ServerRequestListener() {
+                                                FirestoreAPI.getInstance().generateNoteData(uid, randomDoctors, new FirestoreListener<Task>() {
                                                     @Override
-                                                    public void receiveCompletedRequest(ServerRequest req) {
-                                                        // do nothing, just generate data
+                                                    public void getResult(Task object) {
+                                                        // Do nothing
                                                     }
 
                                                     @Override
-                                                    public void receiveError(Exception e, String msg) {
+                                                    public void getError(Exception e, String msg) {
+                                                        Log.e(TAG, "Failed to generate note data:\n\t" + msg, e);
                                                         Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
                                                     }
                                                 });
 
                                                 //generate random Medication information
-                                                ServerAPI.generateMedicationData(uid, new ServerRequestListener() {
+                                                FirestoreAPI.getInstance().generateMedicationData(uid, randomDoctors, new FirestoreListener() {
                                                     @Override
-                                                    public void receiveCompletedRequest(ServerRequest req) {
-                                                        // do nothing, just generate data
+                                                    public void getResult(Object object) {
+                                                        // Do nothing
                                                     }
 
                                                     @Override
-                                                    public void receiveError(Exception e, String msg) {
+                                                    public void getError(Exception e, String msg) {
+                                                        Log.e(TAG, "Failed to generate medication data:\n\t" + msg, e);
                                                         Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
                                                     }
                                                 });
-
-
                                             }
                                             finish();
                                         }
@@ -285,6 +299,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     public void patient_Dashboard_Screen(View view){
         Intent intent = new Intent(this, MainActivity.class);
         first_name_input = (TextInputEditText) findViewById(R.id.patientFirstNameTextInput);
+        last_name_input = (TextInputEditText) findViewById(R.id.patientLastNameTextInput);
         email_input = (TextInputEditText) findViewById(R.id.patientEmailTextInput);
         password_input = (TextInputEditText) findViewById(R.id.patientPasswordTextInput);
         confirm_password_input = (TextInputEditText) findViewById(R.id.patientConfirmPasswordTextInput);
@@ -292,6 +307,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         //To do: Add constraints to make sure the Patient completed all sign-up fields
 
         String first_name = first_name_input.getText().toString();
+        String last_name = last_name_input.getText().toString();
         String email = email_input.getText().toString();
         String password = password_input.getText().toString();
         String confirm_password = confirm_password_input.getText().toString();
@@ -300,6 +316,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
         Bundle signup_bundle = new Bundle();
         signup_bundle.putString(first_name, first_name);
+        signup_bundle.putString(last_name, last_name);
         signup_bundle.putString(email, email);
         signup_bundle.putString(password, password);
         signup_bundle.putString(confirm_password, confirm_password);
@@ -308,7 +325,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
         if(isAuth)
             startActivity(intent); //starts an instance of the patient dashboard
-        }
+    }
 
     public void doctor_Dashboard_Screen(View view){
         Intent intent = new Intent(this, DoctorDashboardActivity.class);

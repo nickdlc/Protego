@@ -18,11 +18,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.209" />
 
-    <com.android.volley.toolbox.NetworkImageView
+    <ImageView
         android:id="@+id/qrCode"
         android:layout_width="346dp"
         android:layout_height="374dp"
         android:scaleType="fitCenter"
+        android:contentDescription="qrcode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"

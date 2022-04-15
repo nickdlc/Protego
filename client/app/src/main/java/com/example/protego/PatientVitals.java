@@ -12,10 +12,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.protego.util.RandomGenerator;
+import com.example.protego.web.FirestoreAPI;
+import com.example.protego.web.FirestoreListener;
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
 
+import com.example.protego.web.schemas.Vital;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
@@ -25,7 +30,7 @@ import org.json.JSONObject;
 import java.util.AbstractCollection;
 import java.util.Date;
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class PatientVitals extends AppCompatActivity {
@@ -139,7 +144,6 @@ public class PatientVitals extends AppCompatActivity {
             public void onClick(View v) {
                 createVital(mAuth.getUid());
                 patientData.clear();
-                recreate();
                 Intent i = new Intent(v.getContext(), PatientDashboardActivity.class);
                 startActivity(i);
 
@@ -149,50 +153,36 @@ public class PatientVitals extends AppCompatActivity {
     }
 
     private void getPatientVitals(String puid) {
-        ServerAPI.getVitals(puid, new ServerRequestListener() {
+        FirestoreAPI.getInstance().getVitals(puid, new FirestoreListener<List<Vital>>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
-                try {
-                    JSONArray res = req.getResultJSONList();
+            public void getResult(List<Vital> vitals) {
+                String heartRate;
+                String respiratoryRate;
+                String temperature;
+                String puid;
+                String bloodPressure;
+                String source;
+                String date;
 
-                    String heartRate;
-                    String respiratoryRate;
-                    String temperature;
-                    String puid;
-                    String bloodPressure;
-                    String source;
-                    String date;
+                for (Vital vital : vitals) {
+                    heartRate = String.valueOf(vital.getHeartRate());
+                    respiratoryRate = String.valueOf(vital.getRespiratoryRate());
+                    temperature = String.valueOf(vital.getTemperature());
+                    bloodPressure = String.valueOf(vital.getBloodPressure());
+                    source = vital.getSource();
+                    date = vital.getDate().toString();
 
+                    patientData.add(new PatientVitals.VitalsInfo(date,source, heartRate, bloodPressure,respiratoryRate,temperature));
+                    Log.v(TAG, "object: " + vitals.toString());
 
-                    for(int i = 0; i < res.length(); i++) {
-
-                        JSONObject object = res.getJSONObject(i);
-
-                        heartRate = object.getString("heartRate");
-                        respiratoryRate = object.getString("respiratoryRate");
-                        temperature = object.getString("temperature");
-                        puid = object.getString("patientID");
-                        bloodPressure = object.getString("bloodPressure");
-                        source = object.getString("source");
-                        date = object.getString("date");
-                        patientData.add(new PatientVitals.VitalsInfo(date,source, heartRate, bloodPressure,respiratoryRate,temperature));
-
-                        Log.v(TAG, "object: " + object.toString());
-
-                    }
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "Could not get JSON from request : ", e);
                 }
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "Failed to get vitals for patient:\n\t" + msg, e);
                 Toast.makeText(PatientVitals.this, msg, Toast.LENGTH_LONG);
             }
-
-
-
         });
     }
 
@@ -213,19 +203,17 @@ public class PatientVitals extends AppCompatActivity {
 
 
     private void createVital(String uid){
-
-        ServerAPI.generateVitalData(uid, new ServerRequestListener() {
+        FirestoreAPI.getInstance().generateVitalData(uid, new FirestoreListener<Task>() {
             @Override
-            public void receiveCompletedRequest(ServerRequest req) {
+            public void getResult(Task object) {
                 // do nothing, just generate data
             }
 
             @Override
-            public void receiveError(Exception e, String msg) {
+            public void getError(Exception e, String msg) {
                 Toast.makeText(PatientVitals.this, msg, Toast.LENGTH_LONG);
             }
         });
-
     }
 }
 
