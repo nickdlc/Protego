@@ -128,7 +128,6 @@ public class PatientNavigationBarFragment extends Fragment implements AdapterVie
         }
 
         else if (userNavbarSelection.equals(navbar_options_array[2])) { //the user selects the profile option which will take them to their profile
-            //TODO: add the patient profile activity
             createIntent(PatientProfileActivity.class);
         }
 

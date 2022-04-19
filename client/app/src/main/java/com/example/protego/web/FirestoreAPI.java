@@ -26,8 +26,11 @@ import com.example.protego.web.schemas.NotificationType;
 import com.example.protego.web.schemas.Patient;
 import com.example.protego.web.schemas.Vital;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -79,29 +82,75 @@ public class FirestoreAPI {
                 });
     }
 
-    public Task<DocumentReference> createNote(String creator,
+    public Task<DocumentReference> createNote(String puid,
                                               List<String> approvedDoctors,
+                                              String title,
                                               String content,
+                                              String visibility,
                                               FirestoreListener<Task> listener) {
-        // Convert the current date to format `yyyy-MM-dd'T'HH:mm'Z'`
-        String date = getCurrentFormmatedDate();
+        Note note = new Note();
+        note.setCreator(puid);
+        note.setTitle(title);
+        Date date = new Date();
+        note.setDateCreated(date);
+        note.setContent(content);
+        note.setVisibility(visibility);
+        note.setApprovedDoctors(approvedDoctors);
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("creator", creator);
-        params.put("dateCreated", date);
-        params.put("approvedDoctors", approvedDoctors);
-        params.put("content", content);
+
 
         return db.collection("users")
-                .document(creator).collection("Notes")
-                .add(params)
+                .document(puid).collection("Notes")
+                .add(note)
                 .addOnCompleteListener(getListenerForCreation(listener, "Failed to create note..."));
     }
 
-    public Task<DocumentReference> createNote(String creator,
-                                              List<String> approvedDoctors,
-                                              String content) {
-        return createNote(creator, approvedDoctors, content, null);
+
+    public Task<Void> deleteNote(String puid, String note_id, FirestoreListener<Task> listener) {
+
+
+         Task<Void> task = db.collection("users")
+                .document(puid).collection("Notes")
+                .document(note_id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Document successfully deleted");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error in deleting the document", e);
+                    }
+                });
+
+        return task;
+    }
+
+    public Task<QuerySnapshot> queryNote(String puid, String note_id, FirestoreListener<Task> listener) {
+
+
+
+        CollectionReference collection = db.collection("users")
+                .document(puid).collection("Notes");
+        Query query = collection.whereEqualTo("noteID", note_id).limit(1);
+
+        Task task_result = query.get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.v(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.v(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+        return task_result;
+
     }
 
     public Task<DocumentReference> createMedicalInfo(String puid,

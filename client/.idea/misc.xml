@@ -19,6 +19,7 @@
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_vitals_row.xml" value="0.33" />
         <entry key="..\:/Users/chels/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_item.xml" value="0.1308876811594203" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/drawable/circle.xml" value="0.146" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/drawable/ic_illustration.xml" value="0.117" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/drawable/ic_launcher_background.xml" value="0.146" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/drawable/patient_circle.xml" value="0.1275" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/activity_doctor_dashboard.xml" value="0.1308876811594203" />
@@ -41,6 +42,7 @@
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/circle.xml" value="0.2" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_doctor_navigation_bar.xml" value="0.4" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_doctor_signup.xml" value="0.2" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_new_note.xml" value="0.264" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_patient_navigation_bar.xml" value="0.1" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_patient_notification_selections.xml" value="0.152" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_patient_signup.xml" value="0.1" />
@@ -70,13 +72,11 @@
         <entry key="app/src/main/res/layout/activity_doctor_edit_profile.xml" value="0.176" />
         <entry key="app/src/main/res/layout/activity_doctor_profile.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_doctor_scan_qrcode.xml" value="0.176" />
-        <entry key="app/src/main/res/layout/activity_doctor_view_patient_profile.xml" value="0.10199025472005208" />
         <entry key="app/src/main/res/layout/activity_doctor_view_patients.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.29913232421875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/activity_paint_vitals.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_patient_dashboard.xml" value="0.10989583333333333" />
-        <entry key="app/src/main/res/layout/activity_patient_view_doctor_profile.xml" value="0.48398576512455516" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.176" />
         <entry key="app/src/main/res/layout/circle.xml" value="0.1" />
@@ -89,12 +89,10 @@
         <entry key="app/src/main/res/layout/fragment_doctor_navigation_bar.xml" value="0.176" />
         <entry key="app/src/main/res/layout/fragment_doctor_signup.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.19010416666666666" />
-        <entry key="app/src/main/res/layout/fragment_patient_signup.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_patient_signup.xml" value="0.176" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.19010416666666666" />
-        <entry key="app/src/main/res/layout/list_notifications.xml" value="0.12708333333333333" />
         <entry key="app/src/main/res/layout/notifications_bottom_sheet.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/patient_dashboard.xml" value="0.14166666666666666" />
-        <entry key="app/src/main/res/layout/patient_view_doctors.xml" value="0.12708333333333333" />
         <entry key="app/src/main/res/layout/patient_view_notifications_activity.xml" value="0.3938374837239582" />
         <entry key="app/src/main/res/layout/patient_vitals_row.xml" value="0.3314447592067989" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/splash_fg.xml" value="0.15885416666666666" />
