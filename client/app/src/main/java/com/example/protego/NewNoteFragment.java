@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.opengl.Visibility;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 public class NewNoteFragment extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
     public static boolean visibility = true; //true if public note, 0 if a private note
+    public static boolean isVisibilitySelected = false; //true if Note Visibility was selected on the dialog
     private Spinner spinner;
     private static String[] visibility_array = {"Select Note Visibility", "Public", "Private"};
     public static String note_title;
@@ -73,17 +75,34 @@ public class NewNoteFragment extends DialogFragment implements AdapterView.OnIte
                         EditText title_view = (EditText) view.findViewById(R.id.noteTitle);
                         EditText content_view = (EditText) view.findViewById(R.id.noteContent);
 
-                        if(title_view.getText().toString().isEmpty() && content_view.getText().toString().isEmpty()){ //title and content are empty
+                        if(title_view.getText().toString().isEmpty() && content_view.getText().toString().isEmpty() && isVisibilitySelected == false){ //title and content are empty
+                            Toast.makeText(getActivity(), "Please complete the Title, Visibility, Content fields", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (title_view.getText().toString().isEmpty() && content_view.getText().toString().isEmpty()){ //title and content is empty
                             Toast.makeText(getActivity(), "Please complete the Title and Content fields", Toast.LENGTH_SHORT).show();
                         }
+
+                        else if (title_view.getText().toString().isEmpty() && isVisibilitySelected == false){ //title and visibility is empty
+                            Toast.makeText(getActivity(), "Please complete the Title and Visibility fields", Toast.LENGTH_SHORT).show();
+                        }
+
+                        else if (content_view.getText().toString().isEmpty() && isVisibilitySelected == false){ //content and visibility is empty
+                            Toast.makeText(getActivity(), "Please complete the Content and Visibility fields", Toast.LENGTH_SHORT).show();
+                        }
+
                         else if (title_view.getText().toString().isEmpty()){ //title is empty
                             Toast.makeText(getActivity(), "Please complete the Title field", Toast.LENGTH_SHORT).show();
+                        }
+
+                        else if (isVisibilitySelected == false){ //visibility is empty
+                            Toast.makeText(getActivity(), "Please complete the Visibility field", Toast.LENGTH_SHORT).show();
                         }
 
                         else if(content_view.getText().toString().isEmpty()){ //content is empty
                             Toast.makeText(getActivity(), "Please complete the Content field", Toast.LENGTH_SHORT).show();
                         }
-                        else{ //neither content or title are empty
+
+                        else{ //content, title, and visibility fields are all completed
                             note_title = title_view.getText().toString();
                             note_content = content_view.getText().toString();
                         }
@@ -93,7 +112,6 @@ public class NewNoteFragment extends DialogFragment implements AdapterView.OnIte
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-//                        listener.onDialogNegativeClick(NewNoteFragment.this);
                         NewNoteFragment.this.getDialog().cancel();
                     }
                 });
@@ -108,11 +126,17 @@ public class NewNoteFragment extends DialogFragment implements AdapterView.OnIte
         Resources resource = getResources();
         String[] userTypeOptions = resource.getStringArray(R.array.note_visibility_navbar_options_array);
 
-        if(userType.equals(userTypeOptions[1])){ //the user selected public notes
+        if(userType.equals(userTypeOptions[0])){
+            isVisibilitySelected = false; //is false when the user does not specify visibility
+        }
+        else if(userType.equals(userTypeOptions[1])){ //the user selected public notes
             visibility = true;
+            isVisibilitySelected = true;
         }
         else if(userType.equals(userTypeOptions[2])) { //the user selected private notes
             visibility = false;
+            isVisibilitySelected = true;
+
         }
 
     }

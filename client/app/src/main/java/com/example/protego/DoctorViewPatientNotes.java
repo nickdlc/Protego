@@ -37,12 +37,12 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
 
     private void setUpPatientNotes(){
         notesData.clear();
-        notesData.add(new PatientNotesActivity.NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new PatientNotesActivity.NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new PatientNotesActivity.NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new PatientNotesActivity.NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new PatientNotesActivity.NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new PatientNotesActivity.NotesInfo("test 1","2/24/2022","Public","This is a test note"));
+        notesData.add(new PatientNotesActivity.NotesInfo("1", "test 1","2/24/2022","Public","This is a test note"));
+        notesData.add(new PatientNotesActivity.NotesInfo("1", "test 1","2/24/2022","Public","This is a test note"));
+        notesData.add(new PatientNotesActivity.NotesInfo("1", "test 1","2/24/2022","Public","This is a test note"));
+        notesData.add(new PatientNotesActivity.NotesInfo("1", "test 1","2/24/2022","Public","This is a test note"));
+        notesData.add(new PatientNotesActivity.NotesInfo("1", "test 1","2/24/2022","Public","This is a test note"));
+        notesData.add(new PatientNotesActivity.NotesInfo("1", "test 1","2/24/2022","Public","This is a test note"));
     }
 
 

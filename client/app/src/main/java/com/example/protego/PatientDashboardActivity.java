@@ -122,8 +122,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
         //to get and set the user's vitals for their vitals page
         getPatientVitals(mAuth.getCurrentUser().getUid());
 
-        //TODO: uncomment this, was commented to test passing data from a dialog to the notes activity
-        //PatientNotesActivity.notesData.clear();
+        PatientNotesActivity.notesData.clear();
 
 
         //to get and set the user's vitals for their notes page
@@ -217,11 +216,11 @@ public class PatientDashboardActivity extends AppCompatActivity{
         // Populate RecyclerView with patient's notifications
         getNotifications();
 
-        //TODO: update this connection to the Medication Activity once it is created
+        //connects the medication button to the medication activity
         connectLayoutToActivity(R.id.medicationSelectionLayout, PatientMedicationActivity.class,  bottomSheetDialog);
         //connects the notification notes button to the Notes activity
         connectLayoutToActivity(R.id.notesSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
-        //TODO: update this connection to the Vitals Activity once it is created
+        //connects the notification View vitals button to the vitals activity
         connectLayoutToActivity(R.id.VitalsSelectionLayout, PatientVitals.class,  bottomSheetDialog);
         //connects the notification View QR Code button to the View QR Code activity
         connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientQRCodeDisplay.class,  bottomSheetDialog);
@@ -393,6 +392,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
                 String date;
                 String visibility;
                 String details;
+                String note_id;
+
 
 
                 for(Note note : notes) {
@@ -400,9 +401,10 @@ public class PatientDashboardActivity extends AppCompatActivity{
                     date = note.getDateCreated().toString();
                     visibility = note.getVisibility();
                     details = note.getContent();
+                    note_id = note.getNoteID();
 
                     PatientNotesActivity.notesData
-                            .add(new PatientNotesActivity.NotesInfo(title,date,visibility,details));
+                            .add(new PatientNotesActivity.NotesInfo(note_id, title,date,visibility,details));
 
                 }
             }

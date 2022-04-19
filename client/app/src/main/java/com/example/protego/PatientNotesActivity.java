@@ -2,6 +2,7 @@ package com.example.protego;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Layout;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.example.protego.web.schemas.Note;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Source;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,10 +46,13 @@ public class PatientNotesActivity extends FragmentActivity
     public static final String TAG = "PatientNotesActivity";
     private FirebaseAuth mAuth;
     private LinearLayout layout;
+    public static String userID;
+    String visibility = "Public";
 
 
 
     public static class NotesInfo {
+        private final String note_id;
         private final String title;
         private final String date;
         //private final boolean visibility;
@@ -53,7 +60,8 @@ public class PatientNotesActivity extends FragmentActivity
         private final String details;
 
 
-        public NotesInfo(String title, String date, String visibility, String details) {
+        public NotesInfo(String note_id, String title, String date, String visibility, String details) {
+            this.note_id = note_id;
             this.title = title;
             this.date = date;
             this.visibility = visibility;
@@ -69,24 +77,26 @@ public class PatientNotesActivity extends FragmentActivity
         }
 
         public String getVisibility() {
-//            if(visibility) return "visibility: public";
-//            else return "visibility: private";
             return this.visibility;
         }
 
         public String getDetails() {
-            return details;
+            return this.details;
+        }
+
+        public String getId() {
+            return this.note_id;
         }
     }
 
 
     private void setUpPatientNotes(){
-        notesData.add(new NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new NotesInfo("test 1","2/24/2022","Public","This is a test note"));
-        notesData.add(new NotesInfo("test 1","2/24/2022","Public","This is a test note"));
+        notesData.add(new NotesInfo("1", "test 1","2/24/2022","Public","This is a test note"));
+        notesData.add(new NotesInfo("2", "test 1","2/24/2022","Public","This is a test note"));
+        notesData.add(new NotesInfo("3", "test 1","2/24/2022","Public","This is a test note"));
+        notesData.add(new NotesInfo("4", "test 1","2/24/2022","Public","This is a test note"));
+        notesData.add(new NotesInfo("5", "test 1","2/24/2022","Public","This is a test note"));
+        notesData.add(new NotesInfo("6", "test 1","2/24/2022","Public","This is a test note"));
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,11 +104,10 @@ public class PatientNotesActivity extends FragmentActivity
         setContentView(R.layout.patient_notes);
 
         mAuth = FirebaseAuth.getInstance();
+
+        userID = mAuth.getCurrentUser().getUid();
+
         RecyclerView recyclerView = findViewById(R.id.patientMedicationRecyclerView);
-
-        //setUpPatientNotes();
-
-
 
         PatientNotesRecyclerViewAdapter adapter = new PatientNotesRecyclerViewAdapter(this,notesData);
         recyclerView.setAdapter(adapter);
@@ -108,13 +117,6 @@ public class PatientNotesActivity extends FragmentActivity
             @Override
             public void onClick(View v) {
                 addNotes();
-//                createNote(mAuth.getUid());
-//                notesData.clear();
-//                recreate();
-//                Intent i = new Intent(v.getContext(), PatientDashboardActivity.class);
-//                startActivity(i);
-//
-//                finish();
             }
         });
 
@@ -122,12 +124,15 @@ public class PatientNotesActivity extends FragmentActivity
 
     }
 
+    private void createNote(String uid, String title, String content, String visibility){
+        FirestoreAPI.getInstance().createNote(uid, RandomGenerator.randomApprovedDoctors(), title, content, visibility, new FirestoreListener<Task>() {
 
-    private void createNote(String uid){
-        FirestoreAPI.getInstance().generateNoteData(uid, RandomGenerator.randomApprovedDoctors(), new FirestoreListener<Task>() {
             @Override
             public void getResult(Task object) {
                 // do nothing, just generate data
+                DocumentReference result = (DocumentReference) object.getResult();
+                String ID = result.getId();
+                result.update("noteID", ID); //will update the document's ID field
             }
 
             @Override
@@ -135,14 +140,15 @@ public class PatientNotesActivity extends FragmentActivity
                 Toast.makeText(PatientNotesActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
-    }
 
+    }
 
 
     private void getPatientNotes(String puid) {
         FirestoreAPI.getInstance().getNotes(puid, new FirestoreListener<List<Note>>() {
             @Override
             public void getResult(List<Note> notes) {
+                String note_id;
                 String title;
                 String date;
                 String visibility;
@@ -150,12 +156,13 @@ public class PatientNotesActivity extends FragmentActivity
 
 
                 for(Note note : notes) {
+                    note_id = note.getNoteID();
                     title = note.getTitle();
                     date = note.getDateCreated().toString();
                     visibility = note.getVisibility();
                     details = note.getContent();
 
-                    notesData.add(new NotesInfo(title,date,visibility,details));
+                    notesData.add(new NotesInfo(note_id, title,date,visibility,details));
 
                 }
             }
@@ -179,23 +186,25 @@ public class PatientNotesActivity extends FragmentActivity
     public void onDialogPositiveClick(DialogFragment dialog) {
         String title = NewNoteFragment.note_title;
         String content = NewNoteFragment.note_content;
-        String visibility = "Public";
 
-        if(NewNoteFragment.visibility == true){ //add the public note
+        if(NewNoteFragment.visibility == true && NewNoteFragment.isVisibilitySelected){ //add the public note
              visibility = "Public";
         }
 
-        else if(NewNoteFragment.visibility == false) { //add a private note
+        else if(NewNoteFragment.visibility == false && NewNoteFragment.isVisibilitySelected) { //add a private note
              visibility = "Private";
 
         }
 
-        if(title != null && content != null) {
-            notesData.add(new NotesInfo(title, "01/01/22", visibility, content));
+        if(title != null && content != null && NewNoteFragment.isVisibilitySelected) {
+            createNote(userID, title, content, visibility);
             dialog.dismiss();
-            recreate();
+
+            Intent i = new Intent(this, PatientDashboardActivity.class);
+            startActivity(i);
+
         } else {
-            addNotes(); //creates a new note when a user does not complete the note title and content fields
+            addNotes(); //creates a new note dialog when a user does not complete the note title and content fields
         }
 
     }
