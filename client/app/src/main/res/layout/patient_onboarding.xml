@@ -74,9 +74,10 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/DOB_EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="hint"
+                        android:hint="MM/DD/YYYY"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -100,9 +101,10 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/Email_EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="hint"
+                        android:hint="Enter Email"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -126,9 +128,10 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phoneNumber_EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="hint"
+                        android:hint="XXX-XXX-XXXX"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -159,9 +162,10 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emergency_contact_fullName_EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="hint"
+                        android:hint="Enter Full Name"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -185,9 +189,10 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emergency_contact_number_EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="hint"
+                        android:hint="Enter Number"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -211,9 +216,10 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emergency_contact_email_EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="hint"
+                        android:hint="Enter Email"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -239,6 +245,17 @@
                     android:text="Height: "
                     android:textSize="20sp" />
 
+                <Spinner
+                    android:id="@+id/height_feet_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Spinner
+                    android:id="@+id/height_inches_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -246,7 +263,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="hint"
+                        android:hint="Enter in Inches"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -264,6 +281,12 @@
                     android:text="Allergies"
                     android:textSize="20sp" />
 
+                <Button
+                    android:id="@+id/addAllergyButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Allergy Information" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -271,7 +294,6 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="hint"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -288,6 +310,12 @@
                     android:layout_height="wrap_content"
                     android:text="Past Surgeries?"
                     android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/addSurgeryButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Surgery Information" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -315,6 +343,12 @@
                     android:text="Previously Diagnosed With Cancer?"
                     android:textSize="20sp" />
 
+                <Button
+                    android:id="@+id/addCancerInformationButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Cancer Information" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -339,6 +373,13 @@
                     android:layout_height="wrap_content"
                     android:text="Previously Diagnosed With Diabetes?"
                     android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/addDiabetesInformationButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add Diabetes Information" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -365,6 +406,12 @@
                     android:layout_height="wrap_content"
                     android:text="Other Medical Conditions:"
                     android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/addMedicalConditionsButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Other Medical Information" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
