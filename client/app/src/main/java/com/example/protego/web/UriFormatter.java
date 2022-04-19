@@ -3,6 +3,7 @@ package com.example.protego.web;
 import android.net.Uri;
 import java.util.Map;
 
+@Deprecated
 public class UriFormatter {
     private static String urlScheme = "http";
 

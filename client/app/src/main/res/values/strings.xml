@@ -26,6 +26,12 @@
         <item>Log out</item>
     </string-array>
 
+    <string-array name="note_visibility_navbar_options_array">
+        <item>Add Visibility</item>
+        <item>Public</item>
+        <item>Private</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_doctor_profile">DoctorProfileActivity</string>

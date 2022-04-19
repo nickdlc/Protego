@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/* USE FirestoreAPI INSTEAD */
+@Deprecated
 public class ServerAPI {
     public static void getPatient(String puid, ServerRequestListener serverRequestListener) {
         Map<String, String> urlParams = new HashMap<>();
@@ -23,9 +24,9 @@ public class ServerAPI {
     }
 
     public static void createNote(String creator,
-                           List<String> approvedDoctors,
-                           String content,
-                           ServerRequestListener serverRequestListener) {
+                                  List<String> approvedDoctors,
+                                  String content,
+                                  ServerRequestListener serverRequestListener) {
         // Convert the current date to format `yyyy-MM-dd'T'HH:mm'Z'`
         String date = getCurrentFormmatedDate();
 
@@ -41,14 +42,14 @@ public class ServerAPI {
     }
 
     public static void createMedicalInfo(String puid,
-                                  String healthInsuranceNumber,
-                                  String sex,
-                                  String bloodType,
-                                  int heightIN,
-                                  int weight,
-                                  int heartRate,
-                                  String bloodPressure,
-                                  ServerRequestListener serverRequestListener) {
+                                         String healthInsuranceNumber,
+                                         String sex,
+                                         String bloodType,
+                                         int heightIN,
+                                         int weight,
+                                         int heartRate,
+                                         String bloodPressure,
+                                         ServerRequestListener serverRequestListener) {
         // Convert the current date to format `yyyy-MM-dd'T'HH:mm'Z'`
         String date = getCurrentFormmatedDate();
 
@@ -70,9 +71,9 @@ public class ServerAPI {
 
 
     public static void createMedication(String prescribee,
-                                 Map<String, String> dosage,
-                                 String prescriber,
-                                 ServerRequestListener serverRequestListener) {
+                                        Map<String, String> dosage,
+                                        String prescriber,
+                                        ServerRequestListener serverRequestListener) {
         // Convert the current date to format `yyyy-MM-dd'T'HH:mm'Z'`
         String date = getCurrentFormmatedDate();
 
