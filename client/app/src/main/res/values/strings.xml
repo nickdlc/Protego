@@ -13,6 +13,8 @@
     <string name="title_activity_signup">activity_signup</string>
     <string name="splash_activity">activity_splash</string>
 
+    <string name="cancel_connection">Cancel Connection</string>
+
     <string-array name="type_of_user_array">
         <item>Select Option</item>
         <item>Patient</item>

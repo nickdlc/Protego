@@ -262,6 +262,7 @@ public class FirestoreAPI {
         // Asynchronously retrieve multiple documents
         db.collection("AssignedTo")
                 .whereEqualTo("doctor", duid)
+                .whereEqualTo("active", true)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -297,6 +298,52 @@ public class FirestoreAPI {
                                     }).collect(Collectors.toList());
                         } else {
                             Log.e(TAG, "Failed to get AssignedTo collection for doctor uid " + duid, task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void getPatientsDoctors(String puid,
+                                   FirestoreListener<List<Doctor>> listener) {
+        db.collection("AssignedTo")
+                .whereEqualTo("patient", puid)
+                .whereEqualTo("active", true)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            // Get the AssignedTo list, then get the doctors
+                            List<DocumentSnapshot> documents = task.getResult().getDocuments();
+
+                            int totalDoctors = documents.size();
+                            ArrayList<Doctor> doctors = new ArrayList<>();
+                            documents.stream()
+                                    .map(qds ->
+                                            qds.toObject(AssignedTo.class).getDoctor()).collect(Collectors.toList()).stream()
+                                    .map(duid -> {
+                                        return db.collection("users")
+                                                .document(duid.toString())
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Doctor d = task.getResult().toObject(Doctor.class);
+                                                            d.setDoctorID(task.getResult().getId());
+                                                            doctors.add(d);
+                                                            if (doctors.size() >= totalDoctors) {
+                                                                listener.getResult(doctors);
+                                                            }
+                                                            Log.d(TAG, "Got doctor " + d.toString());
+                                                        } else {
+                                                            Log.e(TAG, "Failed to get information for doctor", task.getException());
+                                                        }
+                                                    }
+                                                });
+                                    }).collect(Collectors.toList());
+                        } else {
+                            Log.e(TAG, "Failed to get AssignedTo collection for patient uid " + puid, task.getException());
                         }
                     }
                 });
@@ -360,6 +407,40 @@ public class FirestoreAPI {
                 .add(params)
                 .addOnCompleteListener(getListenerForCreation(listener,
                         "Failed to created AssignedTo connection..."));
+    }
+
+    public void cancelConnection(String puid,
+                                 String duid,
+                                 FirestoreListener<Task> listener) {
+        db.collection("AssignedTo")
+                .whereEqualTo("patient", puid)
+                .whereEqualTo("doctor", duid)
+                .whereEqualTo("active", true)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            WriteBatch batch = db.batch();
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                DocumentReference dr = db.collection("AssignedTo")
+                                        .document(document.getId());
+
+                                batch.update(dr, "active", false);
+
+                                Log.d(TAG, "Added to batch: " + document.getId());
+                            }
+
+                            batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.d(TAG, "Committed batch to cancel connection");
+                                }
+                            });
+                        }
+                    }
+                });
     }
 
     public Task<DocumentReference> createConnectionRequest(String puid,
