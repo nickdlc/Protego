@@ -13,7 +13,18 @@
     <string name="title_activity_signup">activity_signup</string>
     <string name="splash_activity">activity_splash</string>
 
+    <!-- BUTTON STRINGS -->
+    <string name="return_button">Return</string>
+    <string name="edit">Edit</string>
     <string name="cancel_connection">Cancel Connection</string>
+
+    <!-- PROFILE STRINGS -->
+    <string name="profile">Profile</string>
+    <string name="full_name">Full Name:</string>
+    <string name="email">Email:</string>
+    <string name="workplace_name">Workplace:</string>
+    <string name="workplace_address">Address:</string>
+    <string name="doctor_specialty">Specialty:</string>
 
     <string-array name="type_of_user_array">
         <item>Select Option</item>
