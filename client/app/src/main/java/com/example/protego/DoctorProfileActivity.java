@@ -29,7 +29,9 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
     // input fields here
     private Button button;
-    private TextView tvDoctorFullName;
+    private Button btnEditProfile;
+    private TextView tvDoctorFirstName;
+    private TextView tvDoctorLastName;
     private TextView tvDoctorEmail;
     private TextView tvDoctorWorkplaceName;
     private TextView tvDoctorWorkplaceAddress;
@@ -43,12 +45,11 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        //Connects the Edit Profile Code button to the Edit Profile activity
-        connectButtonToActivity(R.id.DoctorProfileEditButton, DoctorEditProfileActivity.class);
         //Connects the Return from Profile button to the Doctor Dashboard Activity
         connectButtonToActivity(R.id.DoctorProfileReturnButton, DoctorDashboardActivity.class);
 
-        tvDoctorFullName = findViewById(R.id.tvDoctorProfileFullName);
+        tvDoctorFirstName = findViewById(R.id.tvDoctorProfileFirstName);
+        tvDoctorLastName = findViewById(R.id.tvDoctorProfileLastName);
         tvDoctorEmail = findViewById(R.id.tvDoctorProfileEmail);
         tvDoctorWorkplaceName = findViewById(R.id.tvDoctorProfileWorkplaceName);
         tvDoctorWorkplaceAddress = findViewById(R.id.tvDoctorProfileAddress);
@@ -59,7 +60,8 @@ public class DoctorProfileActivity extends AppCompatActivity {
         FirestoreAPI.getInstance().getDoctor(duid, new FirestoreListener<Doctor>() {
             @Override
             public void getResult(Doctor object) {
-                tvDoctorFullName.setText(object.getFirstName() + " " + object.getLastName());
+                tvDoctorFirstName.setText(object.getFirstName());
+                tvDoctorLastName.setText(object.getLastName());
                 tvDoctorEmail.setText(object.getEmail());
                 tvDoctorWorkplaceName.setText(object.getWorkplaceName());
                 tvDoctorWorkplaceAddress.setText(object.getAddress());
@@ -69,6 +71,26 @@ public class DoctorProfileActivity extends AppCompatActivity {
             @Override
             public void getError(Exception e, String msg) {
                 Log.e(TAG, "Failed to get doctor...\n\t" + msg, e);
+            }
+        });
+
+        btnEditProfile = findViewById(R.id.DoctorProfileEditButton);
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), DoctorEditProfileActivity.class);
+
+                // Put extras to avoid extra Firestore calls in the edit profile activity
+                i.putExtra("firstName", tvDoctorFirstName.getText().toString());
+                i.putExtra("lastName", tvDoctorLastName.getText().toString());
+                i.putExtra("email", tvDoctorEmail.getText().toString());
+                i.putExtra("workplaceName", tvDoctorWorkplaceName.getText().toString());
+                i.putExtra("address", tvDoctorWorkplaceAddress.getText().toString());
+                i.putExtra("specialty", tvDoctorSpecialty.getText().toString());
+                Log.d(TAG, "Sending extras via intent");
+
+                startActivity(i);
+                finish();
             }
         });
 
