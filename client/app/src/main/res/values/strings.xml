@@ -25,6 +25,7 @@
     <string name="workplace_name">Workplace:</string>
     <string name="workplace_address">Address:</string>
     <string name="doctor_specialty">Specialty:</string>
+    <string name="home_address">Address:</string>
 
     <string-array name="type_of_user_array">
         <item>Select Option</item>
