@@ -19,6 +19,7 @@ import com.example.protego.web.FirestoreListener;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
 import com.example.protego.web.schemas.Doctor;
+import com.example.protego.web.schemas.ProtegoUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -134,15 +135,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                         ProtegoUser protegoUser = new ProtegoUser();
                         protegoUser.setFirstName(first_name_input.getText().toString());
                         protegoUser.setLastName(last_name_input.getText().toString());
-
-//                        if (last_name_input != null) {
-//                            // is a doctor, set last name
-//                            protegoUser.setLastName(last_name_input.getText().toString());
-//                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.DOCTOR);
-//                        } else {
-//                            // is a patient
-//                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.PATIENT);
-//                        }
+                        protegoUser.setEmail(email_input.getText().toString());
 
                         if (spinner.getSelectedItem().toString().equals("Patient")) {
                             protegoUser.setUserType(ProtegoUser.ProtegoUserType.PATIENT);

@@ -49,14 +49,9 @@ public class DoctorProfileActivity extends AppCompatActivity {
         connectButtonToActivity(R.id.DoctorProfileReturnButton, DoctorDashboardActivity.class);
 
         tvDoctorFullName = findViewById(R.id.tvDoctorProfileFullName);
-
         tvDoctorEmail = findViewById(R.id.tvDoctorProfileEmail);
-        tvDoctorEmail.setText(mAuth.getCurrentUser().getEmail());
-
         tvDoctorWorkplaceName = findViewById(R.id.tvDoctorProfileWorkplaceName);
-
         tvDoctorWorkplaceAddress = findViewById(R.id.tvDoctorProfileAddress);
-
         tvDoctorSpecialty = findViewById(R.id.tvDoctorProfileSpecialty);
 
         String duid = mAuth.getCurrentUser().getUid();
@@ -65,6 +60,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
             @Override
             public void getResult(Doctor object) {
                 tvDoctorFullName.setText(object.getFirstName() + " " + object.getLastName());
+                tvDoctorEmail.setText(object.getEmail());
                 tvDoctorWorkplaceName.setText(object.getWorkplaceName());
                 tvDoctorWorkplaceAddress.setText(object.getAddress());
                 tvDoctorSpecialty.setText(object.getSpecialty());

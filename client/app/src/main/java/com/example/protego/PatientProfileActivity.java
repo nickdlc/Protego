@@ -40,10 +40,7 @@ public class PatientProfileActivity extends AppCompatActivity {
         connectButtonToActivity(R.id.PatientProfileReturnButton, PatientDashboardActivity.class);
 
         tvPatientFullName = findViewById(R.id.tvPatientProfileFullName);
-
         tvPatientEmail = findViewById(R.id.tvPatientProfileEmail);
-        tvPatientEmail.setText(mAuth.getCurrentUser().getEmail());
-
         tvPatientAddress = findViewById(R.id.tvPatientProfileAddress);
 
         String puid = mAuth.getCurrentUser().getUid();
@@ -52,6 +49,7 @@ public class PatientProfileActivity extends AppCompatActivity {
             @Override
             public void getResult(Patient object) {
                 tvPatientFullName.setText(object.getFirstName() + " " + object.getLastName());
+                tvPatientEmail.setText(object.getEmail());
                 // TODO: Add home address to patients?
                 // tvPatientAddress.setText(object.getAddress());
             }
