@@ -11,8 +11,8 @@
     android:id="@+id/DoctorEditProfileTextView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Edit Profile"
-    android:textSize="40dp"
+    android:text="@string/edit_profile"
+    android:textSize="40sp"
     app:layout_constraintBottom_toTopOf="@+id/tableLayout"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.09"
@@ -37,11 +37,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
+                    android:id="@+id/etDoctorProfileEditFirstName"
                     android:layout_width="407dp"
                     android:layout_height="match_parent"
-                    android:editable="false"
-                    android:hint="Name *" />
+                    android:hint="@string/edit_first_name"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </TableRow>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etDoctorProfileEditLastName"
+                    android:layout_width="407dp"
+                    android:layout_height="match_parent"
+                    android:hint="@string/edit_last_name"
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -60,12 +84,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/DoctorProfileEditEmailTextView"
+                <EditText
+                    android:id="@+id/etDoctorProfileEditEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:editable="false"
-                    android:hint="Email *" />
+                    android:hint="@string/edit_email"
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </TableRow>
@@ -83,12 +107,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/DoctorProfileEditAddressTextView"
+                <EditText
+                    android:id="@+id/etDoctorProfileEditWorkplaceName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:editable="true"
-                    android:hint="Address *" />
+                    android:hint="@string/edit_workplace_name"
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </TableRow>
@@ -106,12 +130,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/DoctorProfileEditSpecialtyTextView"
+                <EditText
+                    android:id="@+id/etDoctorProfileEditAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:editable="false"
-                    android:hint="Specialty *" />
+                    android:hint="@string/edit_address"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </TableRow>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="25dp" />
+
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etDoctorProfileEditSpecialty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/edit_specialty"
+                    android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </TableRow>
@@ -144,10 +191,16 @@
     app:layout_constraintVertical_bias="0.7">
 
     <Button
-        android:id="@+id/DoctorCancelProfileEditButton"
+        android:id="@+id/DoctorEditProfileUpdateButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancel" />
+        android:text="@string/update" />
+
+    <Button
+        android:id="@+id/DoctorEditProfileReturnButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/return_button" />
 
 </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
