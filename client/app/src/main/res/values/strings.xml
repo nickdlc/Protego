@@ -37,6 +37,7 @@
     <string name="edit_workplace_name">Office *</string>
     <string name="edit_address">Address *</string>
     <string name="edit_specialty">Specialty *</string>
+    <string name="general_information">General Information</string>
 
     <string-array name="type_of_user_array">
         <item>Select Option</item>
