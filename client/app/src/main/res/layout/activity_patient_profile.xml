@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/first_name"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <Space
                 android:layout_width="30dp"
@@ -48,7 +48,7 @@
                 android:id="@+id/tvPatientProfileFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
         </TableRow>
 
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/last_name"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <Space
                 android:layout_width="30dp"
@@ -76,7 +76,7 @@
                 android:id="@+id/tvPatientProfileLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
         </TableRow>
 
@@ -93,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/email"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
                 android:id="@+id/tvPatientProfileEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
         </TableRow>
 
         <Space
@@ -120,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/home_address"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -130,7 +130,7 @@
                 android:id="@+id/tvPatientProfileAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
         </TableRow>
 
         <Space
