@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -78,6 +79,24 @@ public class FirestoreAPI {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         simpleLinkTaskToListener(task, Doctor.class, listener, "Failed to get doctor...");
+                    }
+                });
+    }
+
+    public void updateUser(FirebaseUser user,
+                           Map<String, Object> data,
+                           FirestoreListener<Task> listener) {
+        db.collection("users")
+                .document(user.getUid())
+                .update(data)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Successfully updated user " + user.getUid());
+                        } else {
+                            Log.e(TAG, "Unable to update user " + user.getUid());
+                        }
                     }
                 });
     }
@@ -163,7 +182,7 @@ public class FirestoreAPI {
                                       String bloodPressure,
                                       FirestoreListener<Task> listener) {
         // Convert the current date to format `yyyy-MM-dd'T'HH:mm'Z'`
-        String date = getCurrentFormmatedDate();
+        String date = getCurrentFormattedDate();
 
         Map<String, Object> params = new HashMap<>();
         params.put("infoID", getRandomUid());
@@ -200,7 +219,7 @@ public class FirestoreAPI {
                                  String prescriber,
                                  FirestoreListener<Task> listener) {
         // Convert the current date to format `yyyy-MM-dd'T'HH:mm'Z'`
-        String date = getCurrentFormmatedDate();
+        String date = getCurrentFormattedDate();
 
         Map<String, Object> params = new HashMap<>();
         params.put("medID", getRandomUid());
@@ -723,7 +742,7 @@ public class FirestoreAPI {
 
 
 
-    public static String getCurrentFormmatedDate() {
+    public static String getCurrentFormattedDate() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
         Date currentDate = new Date(System.currentTimeMillis());
         return formatter.format(currentDate);
