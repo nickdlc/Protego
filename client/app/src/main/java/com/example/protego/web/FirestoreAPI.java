@@ -214,30 +214,27 @@ public class FirestoreAPI {
 
 
 
-    public Task<DocumentReference> createMedication(String prescribee,
-                                 Map<String, String> dosage,
+    public Task<DocumentReference> createMedication(String prescribee, List<String> approvedDoctors,
+                                 String name,
+                                 String dosage,
                                  String prescriber,
                                  FirestoreListener<Task> listener) {
         // Convert the current date to format `yyyy-MM-dd'T'HH:mm'Z'`
-        String date = getCurrentFormattedDate();
+        //String date = getCurrentFormattedDate();
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("medID", getRandomUid());
-        params.put("precribee", prescribee);
-        params.put("datePrescribed", date);
-        params.put("dosage", dosage);
-        params.put("prescriber", prescriber);
+        Medication med = new Medication();
+        med.setPrescribee(prescribee);
+        med.setName(name);
+        Date date = new Date();
+        med.setDatePrescribed(date);
+        med.setDosage(dosage);
+        med.setPrescriber(prescriber);
+        med.setApprovedDoctors(approvedDoctors);
 
         return db.collection("users")
-                .document(prescribee).collection("Medication")
-                .add(params)
+                .document(prescribee).collection("Medications")
+                .add(med)
                 .addOnCompleteListener(getListenerForCreation(listener, "Failed to create medical info..."));
-    }
-
-    public Task<DocumentReference> createMedication(String prescribee,
-                                                    Map<String, String> dosage,
-                                                    String prescriber) {
-        return createMedication(prescribee, dosage, prescriber, null);
     }
 
     public Task<QuerySnapshot> getMedicalInfo(String puid, FirestoreListener<MedicalInfo> listener) {

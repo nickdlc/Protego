@@ -51,11 +51,11 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
     private void setUpMedicationInfo() {
         medicationData.clear();
 
-        medicationData.add(new PatientMedicationActivity.MedicationInfo("Medication 1","1/01/2022","x mg","Dr. A"));
-        medicationData.add(new PatientMedicationActivity.MedicationInfo("Medication 2","1/01/2022","x mg","Dr. B"));
-        medicationData.add(new PatientMedicationActivity.MedicationInfo("Medication 3","1/01/2022","x mg","Dr. C"));
-        medicationData.add(new PatientMedicationActivity.MedicationInfo("Medication 4","1/01/2022","x mg","Dr. D"));
-        medicationData.add(new PatientMedicationActivity.MedicationInfo("Medication 5","1/01/2022","x mg","Dr. E"));
+        medicationData.add(new PatientMedicationActivity.MedicationInfo("1","Medication 1","1/01/2022","x mg","Dr. A"));
+        medicationData.add(new PatientMedicationActivity.MedicationInfo("2","Medication 2","1/01/2022","x mg","Dr. B"));
+        medicationData.add(new PatientMedicationActivity.MedicationInfo("3","Medication 3","1/01/2022","x mg","Dr. C"));
+        medicationData.add(new PatientMedicationActivity.MedicationInfo("4","Medication 4","1/01/2022","x mg","Dr. D"));
+        medicationData.add(new PatientMedicationActivity.MedicationInfo("5","Medication 5","1/01/2022","x mg","Dr. E"));
     }
 
 
