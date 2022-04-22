@@ -279,7 +279,7 @@
                         android:id="@+id/emergency_contact_number_EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Enter Number"
+                        android:hint="XXX-XXX-XXXX"
                         android:singleLine="true"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
