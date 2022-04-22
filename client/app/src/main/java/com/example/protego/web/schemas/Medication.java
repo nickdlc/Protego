@@ -1,6 +1,7 @@
 package com.example.protego.web.schemas;
 
 import java.util.Date;
+import java.util.List;
 
 public class Medication {
     private String medID;
@@ -8,6 +9,7 @@ public class Medication {
     private String prescribee; // a patient
     private Date datePrescribed;
 //    private Map<String, String> dosage;
+    private List<String> approvedDoctors;
 
     private String dosage;
     private String prescriber; // a doctor
@@ -58,6 +60,14 @@ public class Medication {
 
     public void setPrescriber(String prescriber) {
         this.prescriber = prescriber;
+    }
+
+    public List<String> getApprovedDoctors() {
+        return approvedDoctors;
+    }
+
+    public void setApprovedDoctors(List<String> approvedDoctors) {
+        this.approvedDoctors = approvedDoctors;
     }
 
     @Override
