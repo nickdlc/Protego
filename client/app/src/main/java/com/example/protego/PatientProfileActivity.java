@@ -54,8 +54,7 @@ public class PatientProfileActivity extends AppCompatActivity {
                 tvPatientFirstName.setText(object.getFirstName());
                 tvPatientLastName.setText(object.getLastName());
                 tvPatientEmail.setText(object.getEmail());
-                // TODO: Add home address to patients?
-                // tvPatientAddress.setText(object.getAddress());
+                tvPatientAddress.setText(object.getHomeAddress());
             }
 
             @Override
@@ -73,7 +72,7 @@ public class PatientProfileActivity extends AppCompatActivity {
                 i.putExtra("firstName", tvPatientFirstName.getText().toString());
                 i.putExtra("lastName", tvPatientLastName.getText().toString());
                 i.putExtra("email", tvPatientEmail.getText().toString());
-                // i.putExtra("address", tvPatientAddress.getText().toString());
+                i.putExtra("address", tvPatientAddress.getText().toString());
                 startActivity(i);
                 finish();
             }
