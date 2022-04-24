@@ -8,14 +8,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.protego.web.FirestoreAPI;
 import com.example.protego.web.FirestoreListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class PatientViewDoctorProfile extends AppCompatActivity {
+public class PatientViewDoctorProfile
+        extends FragmentActivity
+        implements ConfirmCancellationFragment.NoticeDialogListener {
     public static final String TAG = "PatientViewDoctorProfile";
 
     private Button btnReturn;
@@ -54,29 +57,37 @@ public class PatientViewDoctorProfile extends AppCompatActivity {
         btnCancelConnection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cancelConnection(mAuth.getCurrentUser().getUid(), extras.getString("duid"));
-
-                // The activity is recreated to give the Firestore update enough time to be reflected
-                // on the page. If this is not there, the update is not immediately seen in the
-                // doctors list.
-                // TODO: Find an alternative solution to this?
-                Intent i = new Intent(getApplicationContext(), PatientViewDoctorsActivity.class);
-                recreate();
-                startActivity(i);
-                finish();
+                DialogFragment fragment = new ConfirmCancellationFragment();
+                fragment.show(getSupportFragmentManager(), "btnCancelConnection");
             }
         });
     }
 
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        cancelConnection(mAuth.getCurrentUser().getUid(), getIntent().getExtras().getString("duid"));
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        // Use the default set in ConfirmCancellationFragment
+    }
+
     private void cancelConnection(String puid, String duid) {
+        Bundle extras = getIntent().getExtras();
+        String fullName = extras.getString("firstName") + " " + extras.getString("lastName");
+
         FirestoreAPI.getInstance().cancelConnection(puid, duid, new FirestoreListener<Task>() {
             @Override
             public void getResult(Task object) {
                 if (object.isSuccessful()) {
+                    Intent i = new Intent(getApplicationContext(), PatientViewDoctorsActivity.class);
+                    startActivity(i);
                     Log.d(TAG, "Successfully cancelled connection with doctor " + duid);
                     Toast.makeText(
                             getApplicationContext(),
-                            "Successfully cancelled connection with this doctor",
+                            "Successfully cancelled connection with Dr. " + fullName,
                             Toast.LENGTH_LONG
                     ).show();
                 }

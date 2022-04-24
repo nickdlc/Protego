@@ -435,6 +435,12 @@ public class FirestoreAPI {
                                     Log.d(TAG, "Committed batch to cancel connection");
                                 }
                             });
+                            listener.getResult(task);
+                        } else {
+                            listener.getError(
+                                    task.getException(),
+                                    "Failed to cancel connection..."
+                            );
                         }
                     }
                 });

@@ -14,6 +14,7 @@
     <string name="splash_activity">activity_splash</string>
 
     <string name="cancel_connection">Cancel Connection</string>
+    <string name="cancel_confirmation">Are you sure you want to cancel this connection?</string>
 
     <string-array name="type_of_user_array">
         <item>Select Option</item>
