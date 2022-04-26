@@ -113,6 +113,11 @@
             android:name=".PatientVitals"
             android:exported="false" />
         <activity
+            android:name=".PatientOnboardingActivity"
+            android:exported="false">
+        </activity>
+
+        <activity
             android:name=".LoginActivity"
             android:exported="false"
             android:label="@string/title_activity_login"
