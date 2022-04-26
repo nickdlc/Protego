@@ -3,6 +3,7 @@ package com.example.protego.web.schemas;
 public class ProtegoUser {
     private String firstName;
     private String lastName;
+    private String email;
     private String userType;
 
     public enum ProtegoUserType {
@@ -25,6 +26,14 @@ public class ProtegoUser {
         this.lastName = lastName;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public ProtegoUserType getUserType() {
         return ProtegoUserType.valueOf(this.userType);
     }
@@ -38,7 +47,8 @@ public class ProtegoUser {
         return "ProtegoUser{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", type='" + userType + '\'' +
+                ", email='" + email + '\'' +
+                ", userType='" + userType + '\'' +
                 '}';
     }
 }

@@ -24,6 +24,8 @@ public class PatientViewDoctorProfile
     private Button btnReturn;
     private Button btnCancelConnection;
     private TextView tvDoctorFullName;
+    private TextView tvDoctorWorkplaceName;
+    private TextView tvDoctorAddress;
     private FirebaseAuth mAuth;
 
     @Override
@@ -33,15 +35,18 @@ public class PatientViewDoctorProfile
 
         mAuth = FirebaseAuth.getInstance();
 
-        tvDoctorFullName = findViewById(R.id.tvDoctorFullName);
-
         Bundle extras = getIntent().getExtras();
         String doctorFullName = "test";
         if (extras != null) {
             doctorFullName = "Dr. " + extras.getString("firstName") + " " + extras.getString("lastName");
         }
 
+        tvDoctorFullName = findViewById(R.id.tvPatientViewDoctorProfileFullName);
         tvDoctorFullName.setText(doctorFullName);
+        tvDoctorWorkplaceName = findViewById(R.id.tvPatientViewDoctorProfileWorkplaceName);
+        tvDoctorWorkplaceName.setText(extras.getString("workplaceName"));
+        tvDoctorAddress = findViewById(R.id.tvPatientViewDoctorProfileAddress);
+        tvDoctorAddress.setText(extras.getString("address"));
 
         btnReturn = findViewById(R.id.returnFromPatientViewDoctorProfile);
         btnReturn.setOnClickListener(new View.OnClickListener() {

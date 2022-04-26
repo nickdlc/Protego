@@ -82,6 +82,8 @@ public class PatientViewDoctorsActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), PatientViewDoctorProfile.class);
                 i.putExtra("firstName", doctors.get(position).getFirstName());
                 i.putExtra("lastName", doctors.get(position).getLastName());
+                i.putExtra("workplaceName", doctors.get(position).getWorkplaceName());
+                i.putExtra("address", doctors.get(position).getAddress());
                 i.putExtra("duid", doctors.get(position).getDoctorID());
                 startActivity(i);
                 finish();
