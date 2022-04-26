@@ -41,6 +41,7 @@
                     android:id="@+id/etPatientEditProfileFirstName"
                     android:layout_width="407dp"
                     android:layout_height="match_parent"
+                    android:singleLine="true"
                     android:hint="@string/edit_first_name" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,6 +64,7 @@
                     android:id="@+id/etPatientEditProfileLastName"
                     android:layout_width="407dp"
                     android:layout_height="match_parent"
+                    android:singleLine="true"
                     android:hint="@string/edit_last_name" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,6 +87,7 @@
                     android:id="@+id/etPatientEditProfileEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:hint="@string/edit_email" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,6 +110,7 @@
                     android:id="@+id/etPatientEditProfileAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:hint="@string/edit_address" />
             </com.google.android.material.textfield.TextInputLayout>
 
