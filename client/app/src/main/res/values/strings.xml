@@ -17,6 +17,7 @@
     <string name="return_button">Return</string>
     <string name="edit">Edit</string>
     <string name="cancel_connection">Cancel Connection</string>
+    <string name="cancel_confirmation">Are you sure you want to cancel this connection?</string>
     <string name="cancel">Cancel</string>
     <string name="update">Update</string>
 
