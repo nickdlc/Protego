@@ -2,6 +2,7 @@ package com.example.protego.web.schemas;
 
 public class Doctor extends ProtegoUser {
     private String doctorID;
+    private String workplaceName;
     private String address;
     private String specialty;
 
@@ -11,6 +12,14 @@ public class Doctor extends ProtegoUser {
 
     public String getDoctorID() {
         return this.doctorID;
+    }
+
+    public String getWorkplaceName() {
+        return workplaceName;
+    }
+
+    public void setWorkplaceName(String workplaceName) {
+        this.workplaceName = workplaceName;
     }
 
     public void setAddress(String address) {
@@ -33,6 +42,7 @@ public class Doctor extends ProtegoUser {
     public String toString() {
         return "Doctor{" +
                 "doctorID='" + doctorID + '\'' +
+                ", workplaceName='" + workplaceName + '\'' +
                 ", address='" + address + '\'' +
                 ", specialty='" + specialty + '\'' +
                 '}';

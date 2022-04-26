@@ -68,7 +68,7 @@
         <entry key="app/src/main/res/drawable/splash_fg_background.xml" value="0.15885416666666666" />
         <entry key="app/src/main/res/drawable/splash_screen_background.xml" value="0.18425925925925926" />
         <entry key="app/src/main/res/layout/activity_doctor_dashboard.xml" value="0.152" />
-        <entry key="app/src/main/res/layout/activity_doctor_edit_profile.xml" value="0.176" />
+        <entry key="app/src/main/res/layout/activity_doctor_edit_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_doctor_profile.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_doctor_scan_qrcode.xml" value="0.176" />
         <entry key="app/src/main/res/layout/activity_doctor_view_patient_medication.xml" value="0.22735507246376813" />
@@ -80,6 +80,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/activity_paint_vitals.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_patient_dashboard.xml" value="0.10989583333333333" />
+        <entry key="app/src/main/res/layout/activity_patient_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_patient_view_doctor_profile.xml" value="0.48398576512455516" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.176" />
         <entry key="app/src/main/res/layout/circle.xml" value="0.1" />
