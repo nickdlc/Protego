@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PatientMedicationRecyclerViewAdapter extends RecyclerView.Adapter<PatientMedicationRecyclerViewAdapter.MyViewHolder> {
     Context context;
@@ -42,6 +43,18 @@ public class PatientMedicationRecyclerViewAdapter extends RecyclerView.Adapter<P
     @Override
     public int getItemCount() {
         return patientMedication.size();
+    }
+
+    // Clean all elements of the recycler
+    public void clear() {
+        patientMedication.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(ArrayList<PatientMedicationActivity.MedicationInfo> medicationList) {
+        patientMedication.addAll(medicationList);
+        notifyDataSetChanged();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{

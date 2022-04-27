@@ -18,6 +18,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.protego.util.RandomGenerator;
 import com.example.protego.web.FirestoreAPI;
@@ -48,8 +49,8 @@ public class PatientNotesActivity extends FragmentActivity
     private LinearLayout layout;
     public static String userID;
     String visibility = "Public";
-
-
+    private SwipeRefreshLayout swipeContainer;
+    private PatientNotesRecyclerViewAdapter adapter;
 
     public static class NotesInfo {
         private final String note_id;
@@ -109,9 +110,26 @@ public class PatientNotesActivity extends FragmentActivity
 
         RecyclerView recyclerView = findViewById(R.id.patientMedicationRecyclerView);
 
-        PatientNotesRecyclerViewAdapter adapter = new PatientNotesRecyclerViewAdapter(this,notesData);
+        adapter = new PatientNotesRecyclerViewAdapter(this,notesData);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Lookup the swipe container view
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPatientNotes(userID);;
+            }
+        });
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         findViewById(R.id.patientNotesBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +163,7 @@ public class PatientNotesActivity extends FragmentActivity
 
 
     private void getPatientNotes(String puid) {
+        adapter.clear();
         FirestoreAPI.getInstance().getNotes(puid, new FirestoreListener<List<Note>>() {
             @Override
             public void getResult(List<Note> notes) {
@@ -163,8 +182,9 @@ public class PatientNotesActivity extends FragmentActivity
                     details = note.getContent();
 
                     notesData.add(new NotesInfo(note_id, title,date,visibility,details));
-
                 }
+                adapter.addAll(notesData);
+                swipeContainer.setRefreshing(false);
             }
 
             @Override
@@ -199,9 +219,6 @@ public class PatientNotesActivity extends FragmentActivity
         if(title != null && content != null && NewNoteFragment.isVisibilitySelected) {
             createNote(userID, title, content, visibility);
             dialog.dismiss();
-
-            Intent i = new Intent(this, PatientDashboardActivity.class);
-            startActivity(i);
 
         } else {
             addNotes(); //creates a new note dialog when a user does not complete the note title and content fields

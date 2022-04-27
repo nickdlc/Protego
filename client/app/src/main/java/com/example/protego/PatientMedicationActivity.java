@@ -11,6 +11,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.protego.util.RandomGenerator;
 import com.example.protego.web.FirestoreAPI;
@@ -40,7 +41,8 @@ public class PatientMedicationActivity extends FragmentActivity
     public static final String TAG = "PatientMedicationActivity";
     private FirebaseAuth mAuth;
     public static String userID;
-
+    private SwipeRefreshLayout swipeContainer;
+    private PatientMedicationRecyclerViewAdapter adapter;
 
 
     public static class MedicationInfo {
@@ -96,10 +98,26 @@ public class PatientMedicationActivity extends FragmentActivity
 
         //setUpMedicationInfo();
 
-        PatientMedicationRecyclerViewAdapter adapter = new PatientMedicationRecyclerViewAdapter(this,medicationData);
+        adapter = new PatientMedicationRecyclerViewAdapter(this,medicationData);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // Lookup the swipe container view
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPatientMedications(userID);;
+            }
+        });
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
 
         findViewById(R.id.add_medication).setOnClickListener(new View.OnClickListener() {
@@ -108,10 +126,11 @@ public class PatientMedicationActivity extends FragmentActivity
                 addMedications();
             }
         });
+
     }
 
-
     private void getPatientMedications(String puid) {
+        adapter.clear();
         FirestoreAPI.getInstance().getMedications(puid, new FirestoreListener<List<Medication>>() {
             @Override
             public void getResult(List<Medication> medications) {
@@ -130,11 +149,13 @@ public class PatientMedicationActivity extends FragmentActivity
                     prescriber = med.getPrescriber();
 
                     medicationData
-                            .add(new PatientMedicationActivity.MedicationInfo(med_id,name,datePrescribed,dosage,prescriber));
+                            .add(new MedicationInfo(med_id,name,datePrescribed,dosage,prescriber));
                     Log.v(TAG, "object: " + med.toString());
                 }
 
                 Log.v(TAG, "medicationData: " + medicationData.get(0).name);
+                adapter.addAll(medicationData);
+                swipeContainer.setRefreshing(false);
             }
 
             @Override
@@ -179,11 +200,11 @@ public class PatientMedicationActivity extends FragmentActivity
             createMedication(userID, name, dosage, prescriber);
             dialog.dismiss();
 
-            Intent i = new Intent(this, PatientDashboardActivity.class);
-            startActivity(i);
+            //Intent i = new Intent(this, PatientDashboardActivity.class);
+            //startActivity(i);
 
         } else {
-            addMedications(); //creates a new note dialog when a user does not complete the note title and content fields
+            addMedications(); //creates a new medication dialog when a user does not complete all the fields
         }
 
     }

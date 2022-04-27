@@ -92,6 +92,18 @@ public class PatientNotesRecyclerViewAdapter extends RecyclerView.Adapter<Patien
         return patientNotes.size();
     }
 
+    // Clean all elements of the recycler
+    public void clear() {
+        patientNotes.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(ArrayList<PatientNotesActivity.NotesInfo> notesList) {
+        patientNotes.addAll(notesList);
+        notifyDataSetChanged();
+    }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tvTitle, tvDate, tvVisibility, tvDetails;
         Button editButton, deleteButton;
