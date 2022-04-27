@@ -335,6 +335,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:orientation="vertical">
 
                 <Space
@@ -352,24 +353,66 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
-                <Spinner
-                    android:id="@+id/height_feet_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:layout_weight="1"
+                        android:minWidth="100dp"
+                        android:text="Feet:"
+                        android:textSize="20dp" />
+
+                    <Spinner
+                        android:id="@+id/height_feet_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="50dp" />
+
+                </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
-                <Spinner
-                    android:id="@+id/height_inches_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"
-                    android:layout_weight="1" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minWidth="100dp"
+                        android:text="Inches:"
+                        android:textSize="20dp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/InchesEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:hint="Enter Inches"
+                            android:minWidth="150dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -380,7 +423,8 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+                    android:layout_height="15dp" />
+
 
                 <TextView
                     android:id="@+id/textView19"
@@ -388,6 +432,50 @@
                     android:layout_height="wrap_content"
                     android:text="Allergies?"
                     android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/allergyHeading"
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <TextView
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Allergy Name"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Date Diagnosed"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Doctor"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"
@@ -427,6 +515,50 @@
                     android:layout_height="wrap_content"
                     android:text="Past Surgeries?"
                     android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/surgeryHeading"
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <TextView
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Surgery Name"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Date Performed"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Surgeon"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"
@@ -468,6 +600,50 @@
                     android:text="Previously Diagnosed With Cancer?"
                     android:textSize="20sp" />
 
+                <LinearLayout
+                    android:id="@+id/cancerHeading"
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <TextView
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Cancer Type"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Date Diagnosed"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Doctor"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
@@ -507,6 +683,49 @@
                     android:text="Previously Diagnosed With Diabetes?"
                     android:textSize="20sp" />
 
+                <LinearLayout
+                    android:id="@+id/diabetesHeading"
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <TextView
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Diabetes Name"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Date Diagnosed"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Doctor"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
@@ -547,6 +766,50 @@
                     android:layout_height="wrap_content"
                     android:text="Other Medical Conditions?"
                     android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/otherConditionHeading"
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <TextView
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Condition Name"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Date Diagnosed"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/protego_color"
+                        android:text="Doctor"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"
