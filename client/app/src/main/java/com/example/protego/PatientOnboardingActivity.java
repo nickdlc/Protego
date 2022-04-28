@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -24,11 +25,18 @@ public class PatientOnboardingActivity extends AppCompatActivity implements Noti
 
     DialogFragment fragment;
     public static PatientAllergiesRecyclerViewAdapter allergy_adapter;
+    public static PatientSurgeryRecyclerViewAdapter surgery_adapter;
+    public static PatientCancerRecyclerViewAdapter cancer_adapter;
+    public static PatientDiabetesRecyclerViewAdapter diabetes_adapter;
+    public static PatientOtherConditionsRecyclerViewAdapter other_conditions_adapter;
+//
+
     public static View allergyView;
     public static View surgeryView;
     public static View cancerView;
     public static View diabetesView;
     public static View otherConditionView;
+    private String Height_Inches, Height_Feet;
     private static String[] feetArray = {"Select Feet", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
     @Override
@@ -56,9 +64,7 @@ public class PatientOnboardingActivity extends AppCompatActivity implements Noti
         feetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-
-           //String userType = (String) parent.getItemAtPosition(pos);
-
+                Height_Feet = (String) parent.getItemAtPosition(pos);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView){
@@ -105,17 +111,75 @@ public class PatientOnboardingActivity extends AppCompatActivity implements Noti
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.allergiesRecyclerView);
+        //setting the recycler views with corresponding data arrays
+        RecyclerView allergyRecyclerView = findViewById(R.id.allergiesRecyclerView);
         allergy_adapter = new PatientAllergiesRecyclerViewAdapter(this,NewAllergyFragment.allergyData);
-        recyclerView.setAdapter(allergy_adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        allergyRecyclerView.setAdapter(allergy_adapter);
+        allergyRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        RecyclerView surgeryRecyclerView = findViewById(R.id.surgeriesRecyclerView);
+        surgery_adapter = new PatientSurgeryRecyclerViewAdapter(this,NewSurgeryFragment.SurgeryData);
+        surgeryRecyclerView.setAdapter(surgery_adapter);
+        surgeryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        RecyclerView cancerRecyclerView = findViewById(R.id.cancerRecyclerView);
+        cancer_adapter = new PatientCancerRecyclerViewAdapter(this,NewCancerFragment.CancerData);
+        cancerRecyclerView.setAdapter(cancer_adapter);
+        cancerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        RecyclerView diabetesRecyclerView = findViewById(R.id.diabetesRecyclerView);
+        diabetes_adapter = new PatientDiabetesRecyclerViewAdapter(this,NewDiabetesFragment.DiabetesData);
+        diabetesRecyclerView.setAdapter(diabetes_adapter);
+        diabetesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        RecyclerView otherConditionsRecyclerView = findViewById(R.id.otherConditionsRecyclerView);
+        other_conditions_adapter = new PatientOtherConditionsRecyclerViewAdapter(this,NewOtherMedicalConditionsFragment.OtherConditionsData);
+        otherConditionsRecyclerView.setAdapter(other_conditions_adapter);
+        otherConditionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //headings which will appear above recycler views
         allergyView = (LinearLayout) findViewById(R.id.allergyHeading);
         surgeryView = (LinearLayout) findViewById(R.id.surgeryHeading);
         diabetesView = (LinearLayout) findViewById(R.id.diabetesHeading);
         cancerView = (LinearLayout) findViewById(R.id.cancerHeading);
         otherConditionView = (LinearLayout) findViewById(R.id.otherConditionHeading);
 
+        //all other onboarding fields
+
+        //fields from the General Section
+        EditText DOB_edit = (EditText) findViewById(R.id.DOB_EditText);
+        EditText Email_edit = (EditText) findViewById(R.id.Email_EditText);
+        EditText Phone_edit = (EditText) findViewById(R.id.phoneNumber_EditText);
+        EditText Home_Address_edit = (EditText) findViewById(R.id.home_Address_EditText);
+
+        String DOB = DOB_edit.getText().toString();
+        String Email = Email_edit.getText().toString();
+        String Phone = Phone_edit.getText().toString();
+        String Home_Address = Home_Address_edit.getText().toString();
+
+        //fields from the Emergency section
+        EditText Emergency_Name_edit = (EditText) findViewById(R.id.emergency_contact_fullName_EditText);
+        EditText Emergency_Number_edit = (EditText) findViewById(R.id.emergency_contact_number_EditText);
+        EditText Emergency_Email_edit = (EditText) findViewById(R.id.emergency_contact_email_EditText);
+
+        String Emergency_Name = Emergency_Name_edit.getText().toString();
+        String Emergency_Number = Emergency_Number_edit.getText().toString();
+        String Emergency_Email = Emergency_Email_edit.getText().toString();
+
+        //field from medical - the height of a user inches component
+        EditText Height_Inches_edit = (EditText) findViewById(R.id.InchesEditText);
+        Height_Inches = Height_Inches_edit.getText().toString();
+        String Height = Height_Feet + "'" + Height_Inches + "Feet";
+
+
+        //Submit button
+        Button button = findViewById(R.id.submitButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: connect all fields to firestore
+            }
+        });
     }
 
     private void connectButtonToActivity(Integer buttonId, Class nextActivityClass) {
@@ -159,13 +223,12 @@ public class PatientOnboardingActivity extends AppCompatActivity implements Noti
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
 
+        //when the dialog is not completed correctly show a new dialog
         if(dialog.getTag() == "surgery"){
             addSurgery();
-
         }
         else if (dialog.getTag() == "allergy"){
             addAllergy();
-
         }
         else if (dialog.getTag() == "cancer") {
             addCancer();

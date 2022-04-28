@@ -15,10 +15,45 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class NewSurgeryFragment extends DialogFragment implements AdapterView.OnItemSelectedListener {
+import java.util.ArrayList;
+
+public class NewSurgeryFragment extends DialogFragment {
 
     NoticeDialogListener listener;
+    public static String Name;
+    public static String Date;
+    public static String Doctor;
+
+    public static ArrayList<NewSurgeryFragment.SurgeryInfo> SurgeryData = new ArrayList<>();
+
+    public static class SurgeryInfo {
+        private final String name;
+        private final String date;
+        private final String doctor;
+
+        public SurgeryInfo(String name, String date, String doctor) {
+            this.name = name;
+            this.date = date;
+            this.doctor = doctor;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getDoctor() {
+            return doctor;
+        }
+
+
+    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -45,10 +80,34 @@ public class NewSurgeryFragment extends DialogFragment implements AdapterView.On
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         //to read the fields for note name and content
-//                        EditText title_view = (EditText) view.findViewById(R.id.noteTitle);
-//                        EditText content_view = (EditText) view.findViewById(R.id.noteContent);
 
-                        listener.onDialogPositiveClick(NewSurgeryFragment.this);
+                        EditText name_edit = (EditText) view.findViewById(R.id.surgeryNameEditText);
+                        EditText date_edit = (EditText) view.findViewById(R.id.surgeryDiagnosisDateEditText);
+                        EditText doctor_edit = (EditText) view.findViewById(R.id.surgeryDoctorEditText);
+
+                        String name = name_edit.getText().toString();
+                        String date = date_edit.getText().toString();
+                        String doctor = doctor_edit.getText().toString();
+
+                        if (name.isEmpty() || date.isEmpty() || doctor.isEmpty()) { //title and content are empty
+                            Toast.makeText(getActivity(), "Please complete all fields", Toast.LENGTH_SHORT).show();
+                            listener.onDialogPositiveClick(NewSurgeryFragment.this);
+
+                        } else if(!checkDate(date)){
+                            Toast.makeText(getActivity(), "Please complete the date in the correct format", Toast.LENGTH_SHORT).show();
+                            listener.onDialogPositiveClick(NewSurgeryFragment.this);
+
+                        }
+                        else{
+                            Toast.makeText(getActivity(), "Surgery added", Toast.LENGTH_SHORT).show();
+                            Name = name;
+                            Date = date;
+                            Doctor = doctor;
+                            SurgeryData.add(new SurgeryInfo(name, date, doctor));
+                            PatientOnboardingActivity.surgeryView.setVisibility(View.VISIBLE);
+                            PatientOnboardingActivity.surgery_adapter.notifyDataSetChanged();
+                        }
+
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -59,16 +118,13 @@ public class NewSurgeryFragment extends DialogFragment implements AdapterView.On
         return builder.create();
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-
-        String userType = (String) parent.getItemAtPosition(pos);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
 
 
+    public boolean checkDate(String date){
+        if(date.toCharArray()[2] != '/' || date.toCharArray()[5] != '/' || date.toCharArray().length != 10){
+            return false;
+        }
+        return true;
     }
 
 

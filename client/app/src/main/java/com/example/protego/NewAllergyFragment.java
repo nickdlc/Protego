@@ -24,7 +24,6 @@ public class NewAllergyFragment extends DialogFragment {
     public static String Name;
     public static String Date;
     public static String Doctor;
-    public static boolean validInputs = true;
 
     public static ArrayList<NewAllergyFragment.AllergyInfo> allergyData = new ArrayList<>();
 
@@ -54,9 +53,6 @@ public class NewAllergyFragment extends DialogFragment {
 
     }
 
-    private void addAllergyInfo(String Name, String Date, String Doctor){
-        allergyData.add(new AllergyInfo(Name, Date, Doctor));
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -95,8 +91,12 @@ public class NewAllergyFragment extends DialogFragment {
 
                         if (name.isEmpty() || date.isEmpty() || doctor.isEmpty()) { //title and content are empty
                             Toast.makeText(getActivity(), "Please complete all fields", Toast.LENGTH_SHORT).show();
-                        } else if(!checkDate(date)){
+                            listener.onDialogPositiveClick(NewAllergyFragment.this);
+
+                        }
+                        else if(!checkDate(date)){
                             Toast.makeText(getActivity(), "Please complete the date in the correct format", Toast.LENGTH_SHORT).show();
+                            listener.onDialogPositiveClick(NewAllergyFragment.this);
 
                         }
                         else{
@@ -104,7 +104,6 @@ public class NewAllergyFragment extends DialogFragment {
                             Name = name;
                             Date = date;
                             Doctor = doctor;
-                            validInputs = true;
                             allergyData.add(new AllergyInfo(name, date, doctor));
                             PatientOnboardingActivity.allergyView.setVisibility(View.VISIBLE);
                             PatientOnboardingActivity.allergy_adapter.notifyDataSetChanged();

@@ -15,10 +15,48 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.protego.web.schemas.Onboarding.Cancer;
+
+import java.util.ArrayList;
 
 
-    public class NewCancerFragment extends DialogFragment implements AdapterView.OnItemSelectedListener {
+public class NewCancerFragment extends DialogFragment {
         NoticeDialogListener listener;
+        public static String Name;
+        public static String Date;
+        public static String Doctor;
+
+
+
+    public static ArrayList<NewCancerFragment.CancerInfo> CancerData = new ArrayList<>();
+
+    public static class CancerInfo {
+        private final String name;
+        private final String date;
+        private final String doctor;
+
+        public CancerInfo(String name, String date, String doctor) {
+            this.name = name;
+            this.date = date;
+            this.doctor = doctor;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getDoctor() {
+            return doctor;
+        }
+
+
+    }
 
         @Override
         public void onAttach(Context context) {
@@ -45,11 +83,35 @@ import android.widget.EditText;
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             //to read the fields for note name and content
-//                            EditText title_view = (EditText) view.findViewById(R.id.noteTitle);
-//                            EditText content_view = (EditText) view.findViewById(R.id.noteContent);
-//
+                        EditText name_edit = (EditText) view.findViewById(R.id.cancerTypeEditText);
+                        EditText date_edit = (EditText) view.findViewById(R.id.cancerDiagnosisDateEditText);
+                        EditText doctor_edit = (EditText) view.findViewById(R.id.cancerDoctorEditText);
+
+                        String name = name_edit.getText().toString();
+                        String date = date_edit.getText().toString();
+                        String doctor = doctor_edit.getText().toString();
+
+                        if (name.isEmpty() || date.isEmpty() || doctor.isEmpty()) { //title and content are empty
+                            Toast.makeText(getActivity(), "Please complete all fields correctly", Toast.LENGTH_SHORT).show();
                             listener.onDialogPositiveClick(NewCancerFragment.this);
+
                         }
+                        else if(!checkDate(date)){
+                            Toast.makeText(getActivity(), "Please complete the date in the correct format", Toast.LENGTH_SHORT).show();
+                            listener.onDialogPositiveClick(NewCancerFragment.this);
+
+                        }
+                        else{
+                            Toast.makeText(getActivity(), "Cancer Information added", Toast.LENGTH_SHORT).show();
+                            Name = name;
+                            Date = date;
+                            Doctor = doctor;
+                            CancerData.add(new CancerInfo(name, date, doctor));
+                            PatientOnboardingActivity.cancerView.setVisibility(View.VISIBLE);
+                            PatientOnboardingActivity.cancer_adapter.notifyDataSetChanged();
+                        }
+                    }
+
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -59,16 +121,11 @@ import android.widget.EditText;
             return builder.create();
         }
 
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-
-            String userType = (String) parent.getItemAtPosition(pos);
-
+    public boolean checkDate(String date){
+        if(date.toCharArray()[2] != '/' || date.toCharArray()[5] != '/' || date.toCharArray().length != 10){
+            return false;
         }
+        return true;
+    }
 
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-
-        }
 }

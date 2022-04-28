@@ -17,15 +17,49 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 public class NewDiabetesFragment extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
     private static String[] Type_Diabetes_Array = {"Select Diabetes Type","Type 1", "Type 2"};
+    NoticeDialogListener listener;
+    public static String Name;
+    public static String Date;
+    public static String Doctor;
 
-        NoticeDialogListener listener;
 
-        @Override
+    public static ArrayList<NewDiabetesFragment.DiabetesInfo> DiabetesData = new ArrayList<>();
+
+    public static class DiabetesInfo {
+            private final String name;
+            private final String date;
+            private final String doctor;
+
+            public DiabetesInfo(String name, String date, String doctor) {
+                this.name = name;
+                this.date = date;
+                this.doctor = doctor;
+            }
+
+            public String getDate() {
+                return date;
+            }
+
+            public String getName() {
+            return name;
+        }
+
+        public String getDoctor() {
+            return doctor;
+        }
+
+
+    }
+
+    @Override
         public void onAttach(Context context) {
             super.onAttach(context);
             try {
@@ -59,10 +93,30 @@ public class NewDiabetesFragment extends DialogFragment implements AdapterView.O
                     .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            //to read the fields for note name and content
-//                            EditText title_view = (EditText) view.findViewById(R.id.noteTitle);
-//                            EditText content_view = (EditText) view.findViewById(R.id.noteContent);
-                            listener.onDialogPositiveClick(NewDiabetesFragment.this);
+                            EditText date_edit = (EditText) view.findViewById(R.id.diabetesDiagnosisDateEditText);
+                            EditText doctor_edit = (EditText) view.findViewById(R.id.diabetesDoctorEditText);
+
+
+                            String date = date_edit.getText().toString();
+                            String doctor = doctor_edit.getText().toString();
+
+                            if (Name.equals(Type_Diabetes_Array[0]) || date.isEmpty() || doctor.isEmpty()) { //title and content are empty
+                                Toast.makeText(getActivity(), "Please complete all fields correctly", Toast.LENGTH_SHORT).show();
+                                listener.onDialogPositiveClick(NewDiabetesFragment.this);
+
+                            } else if(!checkDate(date)){
+                                Toast.makeText(getActivity(), "Please complete the date in the correct format", Toast.LENGTH_SHORT).show();
+                                listener.onDialogPositiveClick(NewDiabetesFragment.this);
+
+                            }
+                            else{
+                                Toast.makeText(getActivity(), "Diabetes Information added", Toast.LENGTH_SHORT).show();
+                                Date = date;
+                                Doctor = doctor;
+                                DiabetesData.add(new DiabetesInfo(Name, Date, Doctor));
+                                PatientOnboardingActivity.diabetesView.setVisibility(View.VISIBLE);
+                                PatientOnboardingActivity.diabetes_adapter.notifyDataSetChanged();
+                            }
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -75,15 +129,23 @@ public class NewDiabetesFragment extends DialogFragment implements AdapterView.O
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-
-            String userType = (String) parent.getItemAtPosition(pos);
+            Name = (String) parent.getItemAtPosition(pos);
 
         }
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
 
-
         }
+
+        public boolean checkDate(String date){
+            if(date.toCharArray()[2] != '/' || date.toCharArray()[5] != '/' || date.toCharArray().length != 10){
+                return false;
+            }
+            return true;
+        }
+
+
+
 
 }
