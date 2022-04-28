@@ -26,8 +26,8 @@ public class Diabetes {
         return this.dateDiagnosed;
     }
 
-    public void setDateDiagnosed(String month, String day, String year) {
-        this.dateDiagnosed = month + "/" + day + "/" + year;
+    public void setDateDiagnosed(String date) {
+        this.dateDiagnosed = date;
     }
 
     public String getDoctorName() {
@@ -47,4 +47,6 @@ public class Diabetes {
                 '\'' +
                 '}';
     }
+
+
 }

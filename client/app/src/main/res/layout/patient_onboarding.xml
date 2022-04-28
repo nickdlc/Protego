@@ -152,17 +152,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
+
+
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/phoneNumber_EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="XXX-XXX-XXXX"
                         android:singleLine="true"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:layout_editor_absoluteX="25dp"
+                        tools:layout_editor_absoluteY="95dp" />
+
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -358,6 +363,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:minHeight="50dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -366,6 +372,7 @@
                         android:layout_height="24dp"
                         android:layout_weight="1"
                         android:minWidth="100dp"
+                        android:minHeight="50dp"
                         android:text="Feet:"
                         android:textSize="20dp" />
 
@@ -374,7 +381,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="50dp"
-                        android:layout_marginRight="50dp" />
+                        android:layout_marginRight="50dp"
+                        android:minHeight="50dp" />
 
                 </LinearLayout>
 
@@ -387,6 +395,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:minHeight="50dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -395,6 +404,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:minWidth="100dp"
+                        android:minHeight="50dp"
                         android:text="Inches:"
                         android:textSize="20dp" />
 
@@ -405,11 +415,14 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/InchesEditText"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:autoText="true"
                             android:gravity="center"
-                            android:hint="Enter Inches"
-                            android:minWidth="150dp" />
+                            android:hint="Enter Inches (0-11)"
+                            android:minWidth="200dp"
+                            android:minHeight="50dp"
+                            android:textSize="18dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -874,5 +887,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.98" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

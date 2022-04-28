@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.stream.Collectors;
 
+import com.example.protego.PatientOnboardingActivity;
 import com.example.protego.web.schemas.MedicalInfo;
 import com.example.protego.util.RandomGenerator;
 import com.example.protego.web.schemas.AssignedTo;
@@ -23,6 +24,12 @@ import com.example.protego.web.schemas.Medication;
 import com.example.protego.web.schemas.Note;
 import com.example.protego.web.schemas.Notification;
 import com.example.protego.web.schemas.NotificationType;
+import com.example.protego.web.schemas.Onboarding.Allergy;
+import com.example.protego.web.schemas.Onboarding.Cancer;
+import com.example.protego.web.schemas.Onboarding.Diabetes;
+import com.example.protego.web.schemas.Onboarding.OnboardingInfo;
+import com.example.protego.web.schemas.Onboarding.OtherMedicalCondition;
+import com.example.protego.web.schemas.Onboarding.Surgery;
 import com.example.protego.web.schemas.Patient;
 import com.example.protego.web.schemas.Vital;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -777,4 +784,17 @@ public class FirestoreAPI {
             }
         };
     }
+
+    public Task<DocumentReference> createOnboarding(OnboardingInfo onboardingInfo,
+                                                    FirestoreListener<Task> listener) {
+        Date date = new Date();
+        PatientOnboardingActivity.onboardingInfo.setDateCreated(date);
+
+        return db.collection("users")
+                .document(PatientOnboardingActivity.onboardingInfo.getUserID()).collection("Onboarding")
+                .add(PatientOnboardingActivity.onboardingInfo)
+                .addOnCompleteListener(getListenerForCreation(listener, "Failed to create note..."));
+    }
+
 }
+

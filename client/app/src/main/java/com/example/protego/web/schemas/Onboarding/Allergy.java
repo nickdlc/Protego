@@ -8,6 +8,7 @@ public class Allergy {
     private String allergyID;
     private String allergyName;
     private String dateDiagnosed;
+    private String doctorDiagnosed;
 
 
     public String getAllergyID() {
@@ -28,8 +29,16 @@ public class Allergy {
         return this.dateDiagnosed;
     }
 
-    public void setDateDiagnosed(String month, String day, String year) {
-        this.dateDiagnosed = month + "/" + day + "/" + year;
+    public void setDateDiagnosed(String date) {
+        this.dateDiagnosed = date;
+    }
+
+    public String getDoctorDiagnosed() {
+        return this.doctorDiagnosed;
+    }
+
+    public void setDoctorDiagnosed(String doctor) {
+        this.doctorDiagnosed = doctorDiagnosed;
     }
 
 

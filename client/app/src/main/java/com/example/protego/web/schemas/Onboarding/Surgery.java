@@ -26,8 +26,8 @@ public class Surgery {
         return this.datePerformed;
     }
 
-    public void setDatePerformed(String month, String day, String year) {
-        this.datePerformed = month + "/" + day + "/" + year;
+    public void setDatePerformed(String date) {
+        this.datePerformed = date;
     }
 
     public String getDoctorName() {
@@ -48,8 +48,6 @@ public class Surgery {
                 '\'' +
                 '}';
     }
-
-
 
 
 
