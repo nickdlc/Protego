@@ -42,8 +42,8 @@ public class DoctorViewPatientSelections extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
-                i.putExtra("patientFullName", patientName);
-                i.putExtra("pid", pid);
+                i.putExtra("patientFirst", patientName);
+                i.putExtra("patientId", pid);
                 startActivity(i);
                 finish();
             }

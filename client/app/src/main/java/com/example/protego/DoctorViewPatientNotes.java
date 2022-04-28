@@ -27,6 +27,7 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
     public static final String TAG = "DoctorViewPatientNotes";
     private TextView tvFullName;
     private String pid;
+    private String patientName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,8 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
         connectButtonToActivity(R.id.returnFromNotes, DoctorViewPatientSelections.class);
         DoctorViewPatientNotes thisObj = this;
         Bundle extras = getIntent().getExtras();
-        pid = extras.getString("pid");
+        patientName = extras.getString("patientFirst");
+        pid = extras.getString("patientId");
         //System.out.println("Passing through " + pid);
 
         notesData = new ArrayList<>();
@@ -50,7 +52,7 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
                 RecyclerView rvNotesForDoctors = findViewById(R.id.doctorViewPatientNotesRecyclerView);
 
                 tvFullName = findViewById(R.id.notesPatientFullNameInput);
-                tvFullName.setText(extras.getString("patientFullName"));
+                tvFullName.setText(extras.getString("patientFirst"));
 
                 for(Note note : nList){
                     notesData.add(new Note(note.getTitle(), note.getDateCreated(), note.getVisibility(), note.getContent()));
@@ -85,6 +87,8 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
+                i.putExtra("patientFirst", patientName);
+                i.putExtra("patientId", pid);
                 startActivity(i);
                 finish();
             }

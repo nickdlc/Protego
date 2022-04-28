@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.protego.web.schemas.PatientDetails;
 
@@ -18,6 +19,9 @@ public class DoctorViewPatientProfile extends AppCompatActivity {
     private PatientDetails patientDetails;
     //input fields
     private Button button;
+    private TextView tvPatientName;
+    private String patientName;
+    private String pid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +37,12 @@ public class DoctorViewPatientProfile extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        Bundle extras = getIntent().getExtras();
+        patientName = extras.getString("patientFirst");
+        pid = extras.getString("patientId");
 
-
+        tvPatientName = findViewById(R.id.generalPatientFullNameInput);
+        tvPatientName.setText(patientName);
     }
 
     ArrayList<PatientDashboardActivity.PatientInfo> patientData = new ArrayList<>();
@@ -57,6 +65,8 @@ public class DoctorViewPatientProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
+                i.putExtra("patientFirst", patientName);
+                i.putExtra("patientId", pid);
                 startActivity(i);
                 finish();
             }

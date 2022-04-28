@@ -30,6 +30,7 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextView tvFullName;
     private String pid;
+    private String patientName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,9 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         DoctorViewPatientMedication thisObj = this;
         Bundle extras = getIntent().getExtras();
-        pid = extras.getString("pid");
+        patientName = extras.getString("patientFirst");
+        pid = extras.getString("patientId");
+
         //System.out.println("Passing through " + pid);
 
         medicationData = new ArrayList<>();
@@ -54,7 +57,7 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
                 RecyclerView rvMedicationsForDoctors = findViewById(R.id.doctorViewPatientMedicationRecyclerView);
 
                 tvFullName = findViewById(R.id.medicationPatientFullNameInput);
-                tvFullName.setText(extras.getString("patientFullName"));
+                tvFullName.setText(extras.getString("patientFirst"));
 
                 for(Medication medication : mList){
                     medicationData.add(new Medication(medication.getName(), medication.getDatePrescribed(), medication.getDosage(), medication.getPrescriber()));
@@ -93,6 +96,8 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
+                i.putExtra("patientFirst", patientName);
+                i.putExtra("patientId", pid);
                 startActivity(i);
                 finish();
             }

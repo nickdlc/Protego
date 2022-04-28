@@ -56,7 +56,7 @@ public class PatientNotesActivity extends AppCompatActivity {
                 Intent i = new Intent(v.getContext(), PatientDashboardActivity.class);
                 startActivity(i);
 
-                finish();
+                //finish();
             }
         });
     }

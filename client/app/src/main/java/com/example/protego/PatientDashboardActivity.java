@@ -117,15 +117,15 @@ public class PatientDashboardActivity extends AppCompatActivity{
         //updates the navbar to show the patient's first name
         getPatientFirstName(currentUser.getUid());
 
-        PatientVitals.patientData.clear();
+        //PatientVitals.patientData.clear();
         //to get and set the user's vitals for their vitals page
         getPatientVitals(mAuth.getCurrentUser().getUid());
 
-        PatientNotesActivity.notesData.clear();
+        //PatientNotesActivity.notesData.clear();
         //to get and set the user's vitals for their notes page
         getPatientNotes(mAuth.getCurrentUser().getUid());
 
-        PatientMedicationActivity.medicationData.clear();
+        //PatientMedicationActivity.medicationData.clear();
         //to get and set the user's medication for their medications page
         getPatientMedications(mAuth.getCurrentUser().getUid());
 

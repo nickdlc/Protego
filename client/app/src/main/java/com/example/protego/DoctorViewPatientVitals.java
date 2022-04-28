@@ -27,6 +27,7 @@ public class DoctorViewPatientVitals extends AppCompatActivity {
     public static final String TAG = "DoctorViewPatientVitals";
     private TextView tvFullName;
     private String pid;
+    private String patientName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,8 @@ public class DoctorViewPatientVitals extends AppCompatActivity {
 
         DoctorViewPatientVitals thisObj = this;
         Bundle extras = getIntent().getExtras();
-        pid = extras.getString("pid");
+        patientName = extras.getString("patientFirst");
+        pid = extras.getString("patientId");
         //System.out.println("Passing through " + pid);
 
         vitalsData = new ArrayList<>();
@@ -51,7 +53,7 @@ public class DoctorViewPatientVitals extends AppCompatActivity {
                 RecyclerView rvVitalsForDoctors = findViewById(R.id.DoctorViewPatientVitalsRecyclerView);
 
                 tvFullName = findViewById(R.id.vitalsPatientFullNameInput);
-                tvFullName.setText(extras.getString("patientFullName"));
+                tvFullName.setText(extras.getString("patientFirst"));
 
                 for(Vital vital : vList){
                     vitalsData.add(new Vital(vital.getHeartRate(), vital.getRespiratoryRate(), vital.getTemperature(), vital.getDate(), vital.getBloodPressure(), vital.getSource()));
@@ -82,6 +84,8 @@ public class DoctorViewPatientVitals extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
+                i.putExtra("patientFirst", patientName);
+                i.putExtra("patientId", pid);
                 startActivity(i);
                 finish();
             }
