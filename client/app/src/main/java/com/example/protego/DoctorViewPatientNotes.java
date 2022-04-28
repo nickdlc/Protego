@@ -23,7 +23,7 @@ import java.util.List;
 public class DoctorViewPatientNotes extends AppCompatActivity {
 
     private Button button;
-    public static List<Note> notesData;
+    public static List<PatientNotesActivity.NotesInfo> notesData;
     public static final String TAG = "DoctorViewPatientNotes";
     private TextView tvFullName;
     private String pid;
@@ -47,6 +47,12 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
         FirestoreAPI.getInstance().getNotes(pid, new FirestoreListener<List<Note>>() {
             @Override
             public void getResult(List<Note> nList) {
+                String note_id;
+                String title;
+                String date;
+                String visibility;
+                String details;
+
                 System.out.println("Notes List : " + nList);
 
                 RecyclerView rvNotesForDoctors = findViewById(R.id.doctorViewPatientNotesRecyclerView);
@@ -55,7 +61,13 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
                 tvFullName.setText(extras.getString("patientFirst"));
 
                 for(Note note : nList){
-                    notesData.add(new Note(note.getTitle(), note.getDateCreated(), note.getVisibility(), note.getContent()));
+                    note_id = note.getNoteID();
+                    title = note.getTitle();
+                    date = note.getDateCreated().toString();
+                    visibility = note.getVisibility();
+                    details = note.getContent();
+
+                    notesData.add(new PatientNotesActivity.NotesInfo(note_id, title, date, visibility, details));
                     Log.d(TAG, "info : " + note.getTitle());
                     Log.d(TAG, "info : " + note.getDateCreated().toString());
                     Log.d(TAG, "info : " + note.getVisibility());

@@ -18,28 +18,30 @@ import java.util.List;
 
 public class PatientVitalsRecyclerViewAdapter extends RecyclerView.Adapter<PatientVitalsRecyclerViewAdapter.ViewHolder> {
     Context context;
-    List<Vital> patientVitals;
+    List<PatientVitals.VitalsInfo> patientVitals;
 
-    public PatientVitalsRecyclerViewAdapter(Context context, List<Vital> patientVitals){
+    public PatientVitalsRecyclerViewAdapter(Context context, List<PatientVitals.VitalsInfo> patientVitals){
         this.context = context;
         this.patientVitals = patientVitals;
     }
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PatientVitalsRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.patient_vitals_row,parent,false);
-        return new ViewHolder(view);
+        return new PatientVitalsRecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PatientVitalsRecyclerViewAdapter.ViewHolder holder, int position) {
         Log.d("PatientVitalsAdapter", "onBindViewHolder " + position);
 
-        // get the movie at the position
-        Vital vital = patientVitals.get(position);
-        // bind the movie data into the VH
-        holder.bind(vital);
+        holder.tvDate.setText(patientVitals.get(position).getDate());
+        holder.tvSource.setText(patientVitals.get(position).getSource());
+        holder.tvHeartRate.setText(Integer.toString(patientVitals.get(position).getHeartRate()));
+        holder.tvBloodPressure.setText(patientVitals.get(position).getBloodPressure());
+        holder.tvRespiratoryRate.setText(Integer.toString(patientVitals.get(position).getRespiratoryRate()));
+        holder.tvTemperature.setText(Double.toString(patientVitals.get(position).getTemperature()));
     }
 
     @Override
@@ -58,14 +60,6 @@ public class PatientVitalsRecyclerViewAdapter extends RecyclerView.Adapter<Patie
             tvBloodPressure = itemView.findViewById(R.id.tvBloodPressure);
             tvRespiratoryRate = itemView.findViewById(R.id.tvRespiratoryRate);
             tvTemperature = itemView.findViewById(R.id.tvTemperature);
-        }
-        public void bind(final Vital vital) {
-            tvDate.setText(vital.getDate().toString());
-            tvSource.setText(vital.getSource());
-            tvHeartRate.setText(Integer.toString(vital.getHeartRate()));
-            tvBloodPressure.setText(vital.getBloodPressure());
-            tvRespiratoryRate.setText(Integer.toString(vital.getRespiratoryRate()));
-            tvTemperature.setText(Double.toString(vital.getTemperature()));
         }
     }
 }

@@ -27,10 +27,10 @@ import java.util.List;
 public class PatientNotesRecyclerViewAdapter extends RecyclerView.Adapter<PatientNotesRecyclerViewAdapter.MyViewHolder> {
     Context context;
 
-    ArrayList<PatientNotesActivity.NotesInfo> patientNotes;
+    List<PatientNotesActivity.NotesInfo> patientNotes;
     public static final String TAG = "PatientNotesRecyclerViewAdapter";
 
-    public PatientNotesRecyclerViewAdapter(Context context, ArrayList<PatientNotesActivity.NotesInfo> patientNotes) {
+    public PatientNotesRecyclerViewAdapter(Context context, List<PatientNotesActivity.NotesInfo> patientNotes) {
         Log.d("PatientNotesAdapter", "patientNotesAdapter");
         this.context = context;
         this.patientNotes = patientNotes;
@@ -105,7 +105,7 @@ public class PatientNotesRecyclerViewAdapter extends RecyclerView.Adapter<Patien
     }
 
     // Add a list of items -- change to type used
-    public void addAll(ArrayList<PatientNotesActivity.NotesInfo> notesList) {
+    public void addAll(List<PatientNotesActivity.NotesInfo> notesList) {
         patientNotes.addAll(notesList);
         notifyDataSetChanged();
     }

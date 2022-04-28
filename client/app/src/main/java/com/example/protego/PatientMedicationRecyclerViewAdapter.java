@@ -59,7 +59,7 @@ public class PatientMedicationRecyclerViewAdapter extends RecyclerView.Adapter<P
     }
 
     // Add a list of items -- change to type used
-    public void addAll(ArrayList<PatientMedicationActivity.MedicationInfo> medicationList) {
+    public void addAll(List<PatientMedicationActivity.MedicationInfo> medicationList) {
         patientMedication.addAll(medicationList);
         notifyDataSetChanged();
     }

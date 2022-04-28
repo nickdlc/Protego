@@ -44,14 +44,13 @@ import java.util.List;
 
 public class PatientNotesActivity extends FragmentActivity
         implements NewNoteFragment.NoticeDialogListener {
-    public static ArrayList<NotesInfo> notesData = new ArrayList<>();
+    public static List<NotesInfo> notesData;
     public static final String TAG = "PatientNotesActivity";
     private FirebaseAuth mAuth;
     private LinearLayout layout;
     public static String userID;
     String visibility = "Public";
     private SwipeRefreshLayout swipeContainer;
-    private PatientNotesRecyclerViewAdapter adapter;
 
     public static class NotesInfo {
         private final String note_id;
@@ -97,15 +96,44 @@ public class PatientNotesActivity extends FragmentActivity
         setContentView(R.layout.patient_notes);
         notesData = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
+        PatientNotesActivity thisObj = this;
+        final PatientNotesRecyclerViewAdapter adapter = new PatientNotesRecyclerViewAdapter(thisObj,notesData);
 
         userID = mAuth.getCurrentUser().getUid();
 
-        PatientNotesRecyclerViewAdapter adapter = new PatientNotesRecyclerViewAdapter(this, notesData);
-        RecyclerView recyclerView = findViewById(R.id.patientMedicationRecyclerView);
+        //adapter.clear();
+        FirestoreAPI.getInstance().getNotes(userID, new FirestoreListener<List<Note>>() {
+            @Override
+            public void getResult(List<Note> notes) {
+                String note_id;
+                String title;
+                String date;
+                String visibility;
+                String details;
 
-        adapter = new PatientNotesRecyclerViewAdapter(this,notesData);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                RecyclerView recyclerView = findViewById(R.id.patientMedicationRecyclerView);
+
+                for(Note note : notes) {
+                    note_id = note.getNoteID();
+                    title = note.getTitle();
+                    date = note.getDateCreated().toString();
+                    visibility = note.getVisibility();
+                    details = note.getContent();
+
+                    notesData.add(new NotesInfo(note_id, title,date,visibility,details));
+                }
+
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+
+            }
+
+            @Override
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "Failed to get vitals for patient:\n\t" + msg, e);
+                Toast.makeText(PatientNotesActivity.this, msg, Toast.LENGTH_LONG);
+            }
+        });
 
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
@@ -114,7 +142,42 @@ public class PatientNotesActivity extends FragmentActivity
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getPatientNotes(userID);;
+                //getPatientNotes(userID);
+                adapter.clear();
+                FirestoreAPI.getInstance().getNotes(userID, new FirestoreListener<List<Note>>() {
+                    @Override
+                    public void getResult(List<Note> notes) {
+                        String note_id;
+                        String title;
+                        String date;
+                        String visibility;
+                        String details;
+
+                        RecyclerView recyclerView = findViewById(R.id.patientMedicationRecyclerView);
+
+                        for(Note note : notes) {
+                            note_id = note.getNoteID();
+                            title = note.getTitle();
+                            date = note.getDateCreated().toString();
+                            visibility = note.getVisibility();
+                            details = note.getContent();
+
+                            notesData.add(new NotesInfo(note_id, title,date,visibility,details));
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+
+                        //adapter.addAll(notesData);
+                        swipeContainer.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void getError(Exception e, String msg) {
+                        Log.e(TAG, "Failed to get vitals for patient:\n\t" + msg, e);
+                        Toast.makeText(PatientNotesActivity.this, msg, Toast.LENGTH_LONG);
+                    }
+                });
             }
         });
 
@@ -154,39 +217,10 @@ public class PatientNotesActivity extends FragmentActivity
 
     }
 
-
+/*
     private void getPatientNotes(String puid) {
-        adapter.clear();
-        FirestoreAPI.getInstance().getNotes(puid, new FirestoreListener<List<Note>>() {
-            @Override
-            public void getResult(List<Note> notes) {
-                String note_id;
-                String title;
-                String date;
-                String visibility;
-                String details;
 
-
-                for(Note note : notes) {
-                    note_id = note.getNoteID();
-                    title = note.getTitle();
-                    date = note.getDateCreated().toString();
-                    visibility = note.getVisibility();
-                    details = note.getContent();
-
-                    notesData.add(new NotesInfo(note_id, title,date,visibility,details));
-                }
-                adapter.addAll(notesData);
-                swipeContainer.setRefreshing(false);
-            }
-
-            @Override
-            public void getError(Exception e, String msg) {
-                Log.e(TAG, "Failed to get vitals for patient:\n\t" + msg, e);
-                Toast.makeText(PatientNotesActivity.this, msg, Toast.LENGTH_LONG);
-            }
-        });
-    }
+    }*/
 
 
     private void addNotes(){

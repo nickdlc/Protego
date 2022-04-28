@@ -22,7 +22,7 @@ import java.util.List;
 
 public class DoctorViewPatientVitals extends AppCompatActivity {
 
-    public static List<Vital> vitalsData;
+    public static List<PatientVitals.VitalsInfo> vitalsData;
     private Button button;
     public static final String TAG = "DoctorViewPatientVitals";
     private TextView tvFullName;
@@ -50,13 +50,28 @@ public class DoctorViewPatientVitals extends AppCompatActivity {
             public void getResult(List<Vital> vList) {
                 System.out.println("Vitals List : " + vList);
 
+                int heartRate;
+                int respiratoryRate;
+                double temperature;
+                String puid;
+                String bloodPressure;
+                String source;
+                String date;
+
                 RecyclerView rvVitalsForDoctors = findViewById(R.id.DoctorViewPatientVitalsRecyclerView);
 
                 tvFullName = findViewById(R.id.vitalsPatientFullNameInput);
                 tvFullName.setText(extras.getString("patientFirst"));
 
                 for(Vital vital : vList){
-                    vitalsData.add(new Vital(vital.getHeartRate(), vital.getRespiratoryRate(), vital.getTemperature(), vital.getDate(), vital.getBloodPressure(), vital.getSource()));
+                    heartRate = vital.getHeartRate();
+                    respiratoryRate = vital.getRespiratoryRate();
+                    temperature = vital.getTemperature();
+                    bloodPressure = vital.getBloodPressure();
+                    source = vital.getSource();
+                    date = vital.getDate().toString();
+
+                    vitalsData.add(new PatientVitals.VitalsInfo(date, source, heartRate, bloodPressure, respiratoryRate, temperature));
                 }
 
                 // create adapter

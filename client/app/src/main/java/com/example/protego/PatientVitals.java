@@ -37,8 +37,51 @@ public class PatientVitals extends AppCompatActivity {
     private Button button;
     private FirebaseAuth mAuth;
     public static final String TAG = "PatientVitalsActivity";
-    public static List<Vital> patientData;
+    public static String userID;
+    public static List<VitalsInfo> patientData;
     //public static PatientVitalsRecyclerViewAdapter adapter;
+
+    public static class  VitalsInfo {
+        private final String date;
+        private final String source;
+        private final int heartRate;
+        private final String bloodPressure;
+        private final int respiratoryRate;
+        private final double temperature;
+
+        public VitalsInfo(String date, String source, int heartRate, String bloodPressure, int respiratoryRate, double temperature) {
+            this.date = date;
+            this.source = source;
+            this.heartRate = heartRate;
+            this.bloodPressure = bloodPressure;
+            this.respiratoryRate = respiratoryRate;
+            this.temperature = temperature;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public String getSource() {
+            return source;
+        }
+
+        public int getHeartRate() {
+            return heartRate;
+        }
+
+        public String getBloodPressure() {
+            return bloodPressure;
+        }
+
+        public int getRespiratoryRate() {
+            return respiratoryRate;
+        }
+
+        public double getTemperature() {
+            return temperature;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +90,46 @@ public class PatientVitals extends AppCompatActivity {
 
         patientData = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
 
-        RecyclerView recyclerView = findViewById(R.id.patientVitalsRecyclerView);
+        PatientVitals thisObj = this;
 
-        PatientVitalsRecyclerViewAdapter adapter = new PatientVitalsRecyclerViewAdapter(this,patientData);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        FirestoreAPI.getInstance().getVitals(userID, new FirestoreListener<List<Vital>>() {
+            @Override
+            public void getResult(List<Vital> vitals) {
+                int heartRate;
+                int respiratoryRate;
+                double temperature;
+                String puid;
+                String bloodPressure;
+                String source;
+                String date;
+
+                RecyclerView recyclerView = findViewById(R.id.patientVitalsRecyclerView);
+
+                for (Vital vital : vitals) {
+                    heartRate = vital.getHeartRate();
+                    respiratoryRate = vital.getRespiratoryRate();
+                    temperature = vital.getTemperature();
+                    bloodPressure = vital.getBloodPressure();
+                    source = vital.getSource();
+                    date = vital.getDate().toString();
+
+                    patientData.add(new VitalsInfo(date,source, heartRate, bloodPressure, respiratoryRate, temperature));
+                }
+
+                final PatientVitalsRecyclerViewAdapter adapter = new PatientVitalsRecyclerViewAdapter(thisObj,patientData);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+            }
+
+            @Override
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "Failed to get vitals for patient:\n\t" + msg, e);
+                Toast.makeText(PatientVitals.this, msg, Toast.LENGTH_LONG);
+            }
+        });
+
 
         //Connects the Edit Profile Code button to the Edit Profile activity
         connectButtonToActivity(R.id.btnReturn, PatientDashboardActivity.class);
@@ -71,39 +148,10 @@ public class PatientVitals extends AppCompatActivity {
         });
     }
 
+    /*
     private void getPatientVitals(String puid) {
-        FirestoreAPI.getInstance().getVitals(puid, new FirestoreListener<List<Vital>>() {
-            @Override
-            public void getResult(List<Vital> vitals) {
-                int heartRate;
-                int respiratoryRate;
-                double temperature;
-                String puid;
-                String bloodPressure;
-                String source;
-                Date date;
 
-                for (Vital vital : vitals) {
-                    heartRate = vital.getHeartRate();
-                    respiratoryRate = vital.getRespiratoryRate();
-                    temperature = vital.getTemperature();
-                    bloodPressure = vital.getBloodPressure();
-                    source = vital.getSource();
-                    date = vital.getDate();
-
-                    patientData.add(new Vital(heartRate,respiratoryRate, temperature, date, bloodPressure, source));
-                    Log.v(TAG, "object: " + vitals.toString());
-
-                }
-            }
-
-            @Override
-            public void getError(Exception e, String msg) {
-                Log.e(TAG, "Failed to get vitals for patient:\n\t" + msg, e);
-                Toast.makeText(PatientVitals.this, msg, Toast.LENGTH_LONG);
-            }
-        });
-    }
+    }*/
 
 
     private void connectButtonToActivity(Integer buttonId, Class nextActivityClass) {

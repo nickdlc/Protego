@@ -127,18 +127,17 @@ public class PatientDashboardActivity extends AppCompatActivity{
         //updates the navbar to show the patient's first name
         getPatientFirstName(currentUser.getUid());
 
-        PatientVitals.patientData.clear();
+        //PatientVitals.patientData.clear();
         //to get and set the user's vitals for their vitals page
-        getPatientVitals(mAuth.getCurrentUser().getUid());
+        //getPatientVitals(mAuth.getCurrentUser().getUid());
 
-        PatientNotesActivity.notesData.clear();
-
-        //to get and set the user's vitals for their notes page
-        getPatientNotes(mAuth.getCurrentUser().getUid());
-
-        PatientMedicationActivity.medicationData.clear();
+        //PatientMedicationActivity.medicationData.clear();
         //to get and set the user's medication for their medications page
-        getPatientMedications(mAuth.getCurrentUser().getUid());
+        //getPatientMedications(currentUser.getUid());
+
+        //PatientNotesActivity.notesData.clear();
+        //to get and set the user's notes for their notes page
+        //getPatientNotes(currentUser.getUid());
 
         FirestoreAPI.getInstance().getPatient(currentUser.getUid(), new FirestoreListener<Patient>() {
             @Override
@@ -366,7 +365,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
                 String puid;
                 String bloodPressure;
                 String source;
-                Date date;
+                String date;
 
                 for (Vital vital : vitals) {
                     heartRate = vital.getHeartRate();
@@ -374,13 +373,13 @@ public class PatientDashboardActivity extends AppCompatActivity{
                     temperature = vital.getTemperature();
                     bloodPressure = vital.getBloodPressure();
                     source = vital.getSource();
-                    date = vital.getDate();
+                    date = vital.getDate().toString();
 
                     PatientVitals.patientData
-                            .add(new Vital(heartRate, respiratoryRate, temperature, date, bloodPressure, source));
+                            .add(new PatientVitals.VitalsInfo(date,source, heartRate, bloodPressure, respiratoryRate, temperature));
                     Log.v(TAG, "object: " + vitals.toString());
                 }
-                Log.v(TAG, "patient data index 0: " + PatientVitals.patientData.get(0).getSource());
+                //Log.v(TAG, "patient data index 0: " + PatientVitals.patientData.get(0).getSource());
 //                    Log.v(TAG, "patient data index 1: " + PatientVitals.patientData.get(1).getSource());
             }
 
