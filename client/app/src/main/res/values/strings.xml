@@ -13,6 +13,33 @@
     <string name="title_activity_signup">activity_signup</string>
     <string name="splash_activity">activity_splash</string>
 
+    <!-- BUTTON STRINGS -->
+    <string name="return_button">Return</string>
+    <string name="edit">Edit</string>
+    <string name="cancel_connection">Cancel Connection</string>
+    <string name="cancel_confirmation">Are you sure you want to cancel this connection?</string>
+    <string name="cancel">Cancel</string>
+    <string name="update">Update</string>
+
+    <!-- PROFILE STRINGS -->
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="full_name">Full Name:</string>
+    <string name="first_name">First Name:</string>
+    <string name="last_name">Last Name:</string>
+    <string name="email">Email:</string>
+    <string name="workplace_name">Office:</string>
+    <string name="workplace_address">Address:</string>
+    <string name="doctor_specialty">Specialty:</string>
+    <string name="home_address">Address:</string>
+    <string name="edit_first_name">First Name *</string>
+    <string name="edit_last_name">Last Name *</string>
+    <string name="edit_email">Email *</string>
+    <string name="edit_workplace_name">Office *</string>
+    <string name="edit_address">Address *</string>
+    <string name="edit_specialty">Specialty *</string>
+    <string name="general_information">General Information</string>
+
     <string-array name="type_of_user_array">
         <item>Select Option</item>
         <item>Patient</item>
@@ -24,6 +51,12 @@
         <item>Home</item>
         <item>Profile</item>
         <item>Log out</item>
+    </string-array>
+
+    <string-array name="note_visibility_navbar_options_array">
+        <item>Add Visibility</item>
+        <item>Public</item>
+        <item>Private</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -17,45 +17,57 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientMedicationRecyclerViewAdapter extends RecyclerView.Adapter<PatientMedicationRecyclerViewAdapter.ViewHolder> {
+public class PatientMedicationRecyclerViewAdapter extends RecyclerView.Adapter<PatientMedicationRecyclerViewAdapter.MyViewHolder> {
     Context context;
-    List<Medication> medications;
+    List<PatientMedicationActivity.MedicationInfo> patientMedication;
 
 
-    public PatientMedicationRecyclerViewAdapter(Context context, List<Medication> medications) {
+    public PatientMedicationRecyclerViewAdapter(Context context, List<PatientMedicationActivity.MedicationInfo> medications) {
         Log.d("PatientMedicationAdapter", "patientMedicationAdapter");
         this.context = context;
-        this.medications = medications;
+        this.patientMedication = medications;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PatientMedicationRecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d("PatientMedicationAdapter", "onCreateViewHolder");
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.patient_medications_medication_container,parent,false);
 
-        return new ViewHolder(view);
+        return new PatientMedicationRecyclerViewAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PatientMedicationRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PatientMedicationRecyclerViewAdapter.MyViewHolder holder, int position) {
         Log.d("PatientMedicationAdapter", "onBindViewHolder " + position);
-
-        // get the movie at the position
-        Medication medication = medications.get(position);
-        // bind the movie data into the VH
-        holder.bind(medication);
+        holder.tvName.setText(patientMedication.get(position).getName());
+        holder.tvDate.setText(patientMedication.get(position).getDate());
+        holder.tvDosage.setText(patientMedication.get(position).getDosage());
+        holder.tvPrescribedBy.setText(patientMedication.get(position).getPrescribedBy());
     }
 
     @Override
     public int getItemCount() {
-        return medications.size();
+        return patientMedication.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    // Clean all elements of the recycler
+    public void clear() {
+        patientMedication.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(ArrayList<PatientMedicationActivity.MedicationInfo> medicationList) {
+        patientMedication.addAll(medicationList);
+        notifyDataSetChanged();
+    }
+
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tvName, tvDate, tvDosage, tvPrescribedBy;
-        public ViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvName = itemView.findViewById(R.id.patientMedicationNameText);
@@ -63,12 +75,5 @@ public class PatientMedicationRecyclerViewAdapter extends RecyclerView.Adapter<P
             tvDosage = itemView.findViewById(R.id.patientMedicationDosageText);
             tvPrescribedBy = itemView.findViewById(R.id.patientMedicationPrescribedByText);
         }
-        public void bind(final Medication medication) {
-            tvName.setText(medication.getName());
-            tvDate.setText(medication.getDatePrescribed().toString());
-            tvDosage.setText(medication.getDosage());
-            tvPrescribedBy.setText(medication.getPrescriber());
-        }
-
     }
 }

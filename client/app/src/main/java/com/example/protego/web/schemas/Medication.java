@@ -14,6 +14,7 @@ public class Medication {
     private String prescribee; // a patient
     private Date datePrescribed;
 //    private Map<String, String> dosage;
+    private List<String> approvedDoctors;
 
     private String dosage;
     private String prescriber; // a doctor
@@ -74,6 +75,14 @@ public class Medication {
         datePrescribed = date;
         this.dosage = dosage;
         prescriber = prescribedBy;
+    }
+
+    public List<String> getApprovedDoctors() {
+        return approvedDoctors;
+    }
+
+    public void setApprovedDoctors(List<String> approvedDoctors) {
+        this.approvedDoctors = approvedDoctors;
     }
 
     @Override

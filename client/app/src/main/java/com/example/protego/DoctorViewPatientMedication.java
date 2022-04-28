@@ -25,7 +25,7 @@ import java.util.List;
 public class DoctorViewPatientMedication extends AppCompatActivity {
 
     private Button button;
-    public static List<Medication> medicationData;
+    public static List<PatientMedicationActivity.MedicationInfo> medicationData;
     public static final String TAG = "DoctorViewPatientMedication";
     private FirebaseAuth mAuth;
     private TextView tvFullName;
@@ -52,6 +52,12 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
         FirestoreAPI.getInstance().getMedications(pid, new FirestoreListener<List<Medication>>() {
             @Override
             public void getResult(List<Medication> mList) {
+                String med_id;
+                String name;
+                String datePrescribed;
+                String dosage;
+                String prescriber;
+
                 System.out.println("Medication List : " + mList);
 
                 RecyclerView rvMedicationsForDoctors = findViewById(R.id.doctorViewPatientMedicationRecyclerView);
@@ -59,12 +65,18 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
                 tvFullName = findViewById(R.id.medicationPatientFullNameInput);
                 tvFullName.setText(extras.getString("patientFirst"));
 
-                for(Medication medication : mList){
-                    medicationData.add(new Medication(medication.getName(), medication.getDatePrescribed(), medication.getDosage(), medication.getPrescriber()));
-                    Log.d(TAG, "info : " + medication.getName());
-                    Log.d(TAG, "info : " + medication.getDatePrescribed().toString());
-                    Log.d(TAG, "info : " + medication.getDosage());
-                    Log.d(TAG, "info : " + medication.getPrescriber());
+                for(Medication med : mList){
+                    med_id = med.getMedID();
+                    name = med.getName();
+                    datePrescribed = med.getDatePrescribed().toString();
+                    dosage = med.getDosage();
+                    prescriber = med.getPrescriber();
+
+                    medicationData.add(new PatientMedicationActivity.MedicationInfo(med_id, name, datePrescribed, dosage, prescriber));
+                    Log.d(TAG, "info : " + med.getName());
+                    Log.d(TAG, "info : " + med.getDatePrescribed().toString());
+                    Log.d(TAG, "info : " + med.getDosage());
+                    Log.d(TAG, "info : " + med.getPrescriber());
                 }
                 //medicationData.addAll(Medication.constructMedications(mList));
 
@@ -103,7 +115,5 @@ public class DoctorViewPatientMedication extends AppCompatActivity {
             }
         });
     }
-
-
 
 }

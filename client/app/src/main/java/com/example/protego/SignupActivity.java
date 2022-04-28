@@ -19,6 +19,7 @@ import com.example.protego.web.FirestoreListener;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
 import com.example.protego.web.schemas.Doctor;
+import com.example.protego.web.schemas.ProtegoUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -133,14 +134,13 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
                         ProtegoUser protegoUser = new ProtegoUser();
                         protegoUser.setFirstName(first_name_input.getText().toString());
+                        protegoUser.setLastName(last_name_input.getText().toString());
+                        protegoUser.setEmail(email_input.getText().toString());
 
-                        if (last_name_input != null) {
-                            // is a doctor, set last name
-                            protegoUser.setLastName(last_name_input.getText().toString());
-                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.DOCTOR);
-                        } else {
-                            // is a patient
+                        if (spinner.getSelectedItem().toString().equals("Patient")) {
                             protegoUser.setUserType(ProtegoUser.ProtegoUserType.PATIENT);
+                        } else {
+                            protegoUser.setUserType(ProtegoUser.ProtegoUserType.DOCTOR);
                         }
 
                         String uid = firebaseUser.getUid();
@@ -157,7 +157,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
                                             firebaseUser.sendEmailVerification();
 
-                                            if (last_name_input == null) {
+                                            if (spinner.getSelectedItem().toString().equals("Patient")) {
 
                                                 FirestoreAPI.getInstance().generateMedData(uid, new FirestoreListener() {
                                                     @Override
@@ -292,6 +292,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
     public void patient_Dashboard_Screen(View view){
         Intent intent = new Intent(this, MainActivity.class);
         first_name_input = (TextInputEditText) findViewById(R.id.patientFirstNameTextInput);
+        last_name_input = (TextInputEditText) findViewById(R.id.patientLastNameTextInput);
         email_input = (TextInputEditText) findViewById(R.id.patientEmailTextInput);
         password_input = (TextInputEditText) findViewById(R.id.patientPasswordTextInput);
         confirm_password_input = (TextInputEditText) findViewById(R.id.patientConfirmPasswordTextInput);
@@ -299,6 +300,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         //To do: Add constraints to make sure the Patient completed all sign-up fields
 
         String first_name = first_name_input.getText().toString();
+        String last_name = last_name_input.getText().toString();
         String email = email_input.getText().toString();
         String password = password_input.getText().toString();
         String confirm_password = confirm_password_input.getText().toString();
@@ -307,6 +309,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
         Bundle signup_bundle = new Bundle();
         signup_bundle.putString(first_name, first_name);
+        signup_bundle.putString(last_name, last_name);
         signup_bundle.putString(email, email);
         signup_bundle.putString(password, password);
         signup_bundle.putString(confirm_password, confirm_password);
@@ -315,7 +318,7 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
 
         if(isAuth)
             startActivity(intent); //starts an instance of the patient dashboard
-        }
+    }
 
     public void doctor_Dashboard_Screen(View view){
         Intent intent = new Intent(this, DoctorDashboardActivity.class);

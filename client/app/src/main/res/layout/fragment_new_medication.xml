@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="350dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".NewNoteFragment">
+
+    <TextView
+        android:id="@+id/addMedTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Add Medication"
+        android:textSize="40sp" />
+
+    <EditText
+        android:id="@+id/medName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="Medication Name"
+        android:inputType="textAutoCorrect"
+        android:minHeight="48dp" />
+
+
+    <EditText
+        android:id="@+id/medDosage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif"
+        android:hint="Dosage"
+        android:inputType="text"
+        android:minHeight="100dp" />
+
+    <EditText
+        android:id="@+id/medPrescriber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif"
+        android:hint="Prescriber"
+        android:inputType="text"
+        android:minHeight="100dp" />
+</LinearLayout>

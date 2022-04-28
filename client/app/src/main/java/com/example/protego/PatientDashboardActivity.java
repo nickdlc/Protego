@@ -22,6 +22,7 @@ import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
 import com.example.protego.web.schemas.Notification;
+import com.example.protego.web.schemas.NotificationType;
 import com.example.protego.web.schemas.PatientDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -59,6 +60,10 @@ import java.util.List;
 
 public class PatientDashboardActivity extends AppCompatActivity{
     public static final String TAG = "PatientDashboardActivity";
+
+    // Static variable in charge of deciding if user should go to onboarding instead of dashboard
+    public static boolean firstTime = true;
+
     //input fields
     private Button button;
     private LinearLayout layout;
@@ -72,7 +77,6 @@ public class PatientDashboardActivity extends AppCompatActivity{
     private ArrayList<Notification> notifications;
     private NotificationListAdapter.RecyclerViewClickListener listener;
     public static String Name;
-
 
     public static class PatientInfo {
         private final String title;
@@ -102,6 +106,12 @@ public class PatientDashboardActivity extends AppCompatActivity{
         patientData.add( new PatientInfo("Weight (lbs.)", patientDetails.weight.toString()));
     }
 
+    // Function that handles going to onboarding if user is new
+    private void goToOnboarding() {
+        Intent i = new Intent(this, PatientOnboardingActivity.class);
+        startActivity(i);
+        finish();
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_dashboard);
@@ -117,15 +127,16 @@ public class PatientDashboardActivity extends AppCompatActivity{
         //updates the navbar to show the patient's first name
         getPatientFirstName(currentUser.getUid());
 
-        //PatientVitals.patientData.clear();
+        PatientVitals.patientData.clear();
         //to get and set the user's vitals for their vitals page
         getPatientVitals(mAuth.getCurrentUser().getUid());
 
-        //PatientNotesActivity.notesData.clear();
+        PatientNotesActivity.notesData.clear();
+
         //to get and set the user's vitals for their notes page
         getPatientNotes(mAuth.getCurrentUser().getUid());
 
-        //PatientMedicationActivity.medicationData.clear();
+        PatientMedicationActivity.medicationData.clear();
         //to get and set the user's medication for their medications page
         getPatientMedications(mAuth.getCurrentUser().getUid());
 
@@ -198,7 +209,10 @@ public class PatientDashboardActivity extends AppCompatActivity{
         connectButtonToActivity(R.id.viewDoctorsButton, PatientViewDoctorsActivity.class);
         connectButtonToActivity(R.id.updateDataButton, PatientUpdateDataActivity.class);
         connectImageButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
+        connectButtonToActivity(R.id.onBoardingButton, PatientOnboardingActivity.class);
 
+        // If this is user's first time, then takes them to onboarding page
+        if(firstTime)goToOnboarding();
     }
 
     public void showBottomSheetDialog() {
@@ -213,11 +227,11 @@ public class PatientDashboardActivity extends AppCompatActivity{
         // Populate RecyclerView with patient's notifications
         getNotifications();
 
-        //TODO: update this connection to the Medication Activity once it is created
+        //connects the medication button to the medication activity
         connectLayoutToActivity(R.id.medicationSelectionLayout, PatientMedicationActivity.class,  bottomSheetDialog);
         //connects the notification notes button to the Notes activity
         connectLayoutToActivity(R.id.notesSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
-        //TODO: update this connection to the Vitals Activity once it is created
+        //connects the notification View vitals button to the vitals activity
         connectLayoutToActivity(R.id.VitalsSelectionLayout, PatientVitals.class,  bottomSheetDialog);
         //connects the notification View QR Code button to the View QR Code activity
         connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientQRCodeDisplay.class,  bottomSheetDialog);
@@ -227,40 +241,26 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
     private void getNotifications() {
         String puid = mAuth.getCurrentUser().getUid();
-        notifications = new ArrayList<>();
 
-        // TODO: translate this to FirestoreAPI equivalents
         // TODO: limit this to the x most recent notifications
-        db.collection("Notification")
-                .whereEqualTo("puid", puid)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, "Creating Notification " + document.getData());
-                                Map<String, Object> data = document.getData();
-                                notifications.add(new Notification(
-                                        (String) data.get("puid"),
-                                        (String) data.get("duid"),
-                                        (String) data.get("msg"),
-                                        (Boolean) data.get("active"),
-                                        ((Timestamp) data.get("timestamp")).toDate()
-                                ));
-                            }
-                            Collections.sort(notifications, Collections.reverseOrder());
-                            setRecyclerView();
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+        // Get the active notifications sorted by creation date for patient puid
+        FirestoreAPI.getInstance().getNotifications(puid, true, new FirestoreListener<ArrayList<Notification>>() {
+            @Override
+            public void getResult(ArrayList<Notification> object) {
+                notifications = object;
+                Collections.sort(notifications, Collections.reverseOrder());
+                setRecyclerView();
+            }
+
+            @Override
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, msg, e);
+            }
+        });
     }
 
     private void setRecyclerView() {
-        Log.d(TAG, "Notifications: " + notifications.toString());
-
+        // Set the onClick listener for each element in the RecyclerView
         setOnClickListener();
 
         NotificationListAdapter adapter = new NotificationListAdapter(notifications, listener);
@@ -399,20 +399,22 @@ public class PatientDashboardActivity extends AppCompatActivity{
             @Override
             public void getResult(List<Note> notes) {
                 String title;
-                Date date;
+                String date;
                 String visibility;
                 String details;
+                String note_id;
+
 
 
                 for(Note note : notes) {
                     title = note.getTitle();
-                    date = note.getDateCreated();
+                    date = note.getDateCreated().toString();
                     visibility = note.getVisibility();
                     details = note.getContent();
+                    note_id = note.getNoteID();
 
                     PatientNotesActivity.notesData
-                            .add(new Note(title,date,visibility,details));
-
+                            .add(new PatientNotesActivity.NotesInfo(note_id, title,date,visibility,details));
                 }
             }
 
@@ -431,18 +433,20 @@ public class PatientDashboardActivity extends AppCompatActivity{
             @Override
             public void getResult(List<Medication> medications) {
                 String name;
-                Date datePrescribed;
+                String datePrescribed;
                 String dosage;
                 String prescriber;
+                String med_id;
 
                 for(Medication med : medications) {
                     name = med.getName();
-                    datePrescribed = med.getDatePrescribed();
+                    datePrescribed = med.getDatePrescribed().toString();
                     dosage = med.getDosage();
                     prescriber = med.getPrescriber();
+                    med_id = med.getMedID();
 
                     PatientMedicationActivity.medicationData
-                            .add(new Medication(name,datePrescribed,dosage,prescriber));
+                            .add(new PatientMedicationActivity.MedicationInfo(med_id,name,datePrescribed,dosage,prescriber));
                 }
             }
 

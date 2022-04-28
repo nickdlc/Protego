@@ -30,11 +30,13 @@ public class PatientDetails {
 
     public PatientDetails(JSONObject jsonObject) throws JSONException {
         firstName = jsonObject.getString("firstName");
+        lastName = jsonObject.getString("lastName");
     }
 
     public PatientDetails(Patient patient) {
         firstName = patient.getFirstName();
         id = patient.getPatientID();
+        lastName = patient.getLastName();
     }
 
     public static List<PatientDetails> constructPatients (JSONArray patientsArray) throws JSONException {

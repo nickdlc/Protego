@@ -8,15 +8,24 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.protego.web.FirestoreAPI;
+import com.example.protego.web.FirestoreListener;
+import com.example.protego.web.schemas.NotificationType;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PatientViewNotificationsActivity extends AppCompatActivity {
@@ -45,30 +54,36 @@ public class PatientViewNotificationsActivity extends AppCompatActivity {
 
         notificationText.setText(notificationMsg);
 
+        String duid = extras.getString("duid");
+        String puid = extras.getString("puid");
+
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Create an active AssignedTo document for the patient and
                 // doctor denoted by patient and doctor
-                String duid = extras.getString("duid");
-                String puid = extras.getString("puid");
-                Map<String, Object> assignedTo = new HashMap<>();
-                assignedTo.put("active", true);
-                assignedTo.put("doctor", duid);
-                assignedTo.put("patient", puid);
+                FirestoreAPI.getInstance().createConnection(puid, duid, new FirestoreListener<Task>() {
+                    @Override
+                    public void getResult(Task object) {
+                        if (object.isSuccessful()) {
+                            // Deactivate corresponding Notification(s) and ConnectionRequest
+                            // once the AssignedTo connection is created
+                            deactivateNotification(puid, duid);
+                            deactivateConnectionRequest(puid, duid);
 
-                db.collection("AssignedTo")
-                    .add(assignedTo)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d(TAG, "Successfully added assignment to Firestore with id "
-                                    + documentReference.getId());
+                            Log.d(TAG, "Successfully created an AssignedTo connection between puid = " +
+                                    puid + " and duid = " + duid);
                             Toast.makeText(PatientViewNotificationsActivity.this,
                                     "The connection has been approved and created.",
                                     Toast.LENGTH_LONG).show();
                         }
-                    });
+                    }
+
+                    @Override
+                    public void getError(Exception e, String msg) {
+                        Log.e(TAG, msg, e);
+                    }
+                });
 
                 Intent i = new Intent(getApplicationContext(), PatientDashboardActivity.class);
                 startActivity(i);
@@ -79,12 +94,58 @@ public class PatientViewNotificationsActivity extends AppCompatActivity {
         btnDecline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                deactivateNotification(puid, duid);
+                deactivateConnectionRequest(puid, duid);
                 Toast.makeText(PatientViewNotificationsActivity.this,
-                        "The connection will not be created.",
+                        "The connection was not created.",
                         Toast.LENGTH_LONG).show();
                 Intent i = new Intent(getApplicationContext(), PatientDashboardActivity.class);
                 startActivity(i);
                 finish();
+            }
+        });
+    }
+
+    /**
+     * @param puid
+     * @param duid
+     *
+     * Deactivates all active ConnectionRequest notifications with puid and duid
+     */
+    private void deactivateNotification(String puid, String duid) {
+        FirestoreAPI.getInstance().deactivateNotification(puid, duid, new FirestoreListener<Task>() {
+            @Override
+            public void getResult(Task object) {
+                Log.d(TAG, "Successfully deactivated Notification(s) between puid = " + puid +
+                        " and duid = " + duid);
+            }
+
+            @Override
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, msg, e);
+            }
+        });
+    }
+
+    /**
+     * @param puid
+     * @param duid
+     *
+     * Deactivates all active ConnectionRequests with puid and duid
+     */
+    private void deactivateConnectionRequest(String puid, String duid) {
+        FirestoreAPI.getInstance().deactivateConnectionRequest(puid, duid, new FirestoreListener<Task>() {
+            @Override
+            public void getResult(Task object) {
+                if (object.isSuccessful()) {
+                    Log.d(TAG, "Successfully deactivated ConnectionRequest between puid = " + puid +
+                            " and duid = " + duid);
+                }
+            }
+
+            @Override
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, msg, e);
             }
         });
     }
