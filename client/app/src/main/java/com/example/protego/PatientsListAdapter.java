@@ -70,16 +70,18 @@ public class PatientsListAdapter extends RecyclerView.Adapter<PatientsListAdapte
             System.out.println("testing2" + patient.firstName);
 
             // register click listener on the whole row
-            /*
+
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // navigate to a new activity on tap
-                    //Intent i = new Intent(context, PatientDetailActivity.class);
-                    //i.putExtra("movie", Parcels.wrap(movie));
-                    //context.startActivity(i);
+                    Intent i = new Intent(context, DoctorViewPatientSelections.class);
+                    i.putExtra("patientFirst", patient.firstName);
+                    i.putExtra("patientLast", patient.lastName);
+                    i.putExtra("patientId", patient.id);
+                    context.startActivity(i);
                 }
-            });*/
+            });
 
 
         }

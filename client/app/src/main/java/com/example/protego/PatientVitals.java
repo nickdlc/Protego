@@ -37,17 +37,19 @@ public class PatientVitals extends AppCompatActivity {
     private Button button;
     private FirebaseAuth mAuth;
     public static final String TAG = "PatientVitalsActivity";
-    public static ArrayList<VitalsInfo> patientData = new ArrayList<>();
+    public static String userID;
+    public static List<VitalsInfo> patientData;
     //public static PatientVitalsRecyclerViewAdapter adapter;
 
     public static class  VitalsInfo {
         private final String date;
         private final String source;
-        private final String heartRate;
+        private final int heartRate;
         private final String bloodPressure;
-        private final String respiratoryRate;
-        private final String temperature;
-        public VitalsInfo(String date, String source, String heartRate, String bloodPressure, String respiratoryRate, String temperature) {
+        private final int respiratoryRate;
+        private final double temperature;
+
+        public VitalsInfo(String date, String source, int heartRate, String bloodPressure, int respiratoryRate, double temperature) {
             this.date = date;
             this.source = source;
             this.heartRate = heartRate;
@@ -64,7 +66,7 @@ public class PatientVitals extends AppCompatActivity {
             return source;
         }
 
-        public String getHeartRate() {
+        public int getHeartRate() {
             return heartRate;
         }
 
@@ -72,54 +74,13 @@ public class PatientVitals extends AppCompatActivity {
             return bloodPressure;
         }
 
-        public String getRespiratoryRate() {
+        public int getRespiratoryRate() {
             return respiratoryRate;
         }
 
-        public String getTemperature() {
+        public double getTemperature() {
             return temperature;
         }
-
-    }
-
-
-    private void setUpPatientInfo(){
-
-
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-        patientData.add(new VitalsInfo("01/01/2022","Dr. Seuss","99","99","99","99"));
-
     }
 
     @Override
@@ -127,13 +88,48 @@ public class PatientVitals extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_vitals);
 
+        patientData = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
 
-        RecyclerView recyclerView = findViewById(R.id.patientVitalsRecyclerView);
+        PatientVitals thisObj = this;
 
-        PatientVitalsRecyclerViewAdapter adapter = new PatientVitalsRecyclerViewAdapter(this,patientData);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        FirestoreAPI.getInstance().getVitals(userID, new FirestoreListener<List<Vital>>() {
+            @Override
+            public void getResult(List<Vital> vitals) {
+                int heartRate;
+                int respiratoryRate;
+                double temperature;
+                String puid;
+                String bloodPressure;
+                String source;
+                String date;
+
+                RecyclerView recyclerView = findViewById(R.id.patientVitalsRecyclerView);
+
+                for (Vital vital : vitals) {
+                    heartRate = vital.getHeartRate();
+                    respiratoryRate = vital.getRespiratoryRate();
+                    temperature = vital.getTemperature();
+                    bloodPressure = vital.getBloodPressure();
+                    source = vital.getSource();
+                    date = vital.getDate().toString();
+
+                    patientData.add(new VitalsInfo(date,source, heartRate, bloodPressure, respiratoryRate, temperature));
+                }
+
+                final PatientVitalsRecyclerViewAdapter adapter = new PatientVitalsRecyclerViewAdapter(thisObj,patientData);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+            }
+
+            @Override
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, "Failed to get vitals for patient:\n\t" + msg, e);
+                Toast.makeText(PatientVitals.this, msg, Toast.LENGTH_LONG);
+            }
+        });
+
 
         //Connects the Edit Profile Code button to the Edit Profile activity
         connectButtonToActivity(R.id.btnReturn, PatientDashboardActivity.class);
@@ -152,39 +148,10 @@ public class PatientVitals extends AppCompatActivity {
         });
     }
 
+    /*
     private void getPatientVitals(String puid) {
-        FirestoreAPI.getInstance().getVitals(puid, new FirestoreListener<List<Vital>>() {
-            @Override
-            public void getResult(List<Vital> vitals) {
-                String heartRate;
-                String respiratoryRate;
-                String temperature;
-                String puid;
-                String bloodPressure;
-                String source;
-                String date;
 
-                for (Vital vital : vitals) {
-                    heartRate = String.valueOf(vital.getHeartRate());
-                    respiratoryRate = String.valueOf(vital.getRespiratoryRate());
-                    temperature = String.valueOf(vital.getTemperature());
-                    bloodPressure = String.valueOf(vital.getBloodPressure());
-                    source = vital.getSource();
-                    date = vital.getDate().toString();
-
-                    patientData.add(new PatientVitals.VitalsInfo(date,source, heartRate, bloodPressure,respiratoryRate,temperature));
-                    Log.v(TAG, "object: " + vitals.toString());
-
-                }
-            }
-
-            @Override
-            public void getError(Exception e, String msg) {
-                Log.e(TAG, "Failed to get vitals for patient:\n\t" + msg, e);
-                Toast.makeText(PatientVitals.this, msg, Toast.LENGTH_LONG);
-            }
-        });
-    }
+    }*/
 
 
     private void connectButtonToActivity(Integer buttonId, Class nextActivityClass) {

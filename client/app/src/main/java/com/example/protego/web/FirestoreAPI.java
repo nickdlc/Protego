@@ -301,10 +301,12 @@ public class FirestoreAPI {
                                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                             if (task.isSuccessful()) {
                                                                 Patient p = task.getResult().toObject(Patient.class);
+                                                                p.setPatientID(puid);
                                                                 patients.add(p);
                                                                 if (patients.size() >= totalPatients) {
                                                                     listener.getResult(patients);
                                                                 }
+                                                                Log.d(TAG, "got puid " + p.getPatientID());
                                                                 Log.d(TAG, "got pat " + p.getFirstName());
                                                             } else {
                                                                 Log.e(TAG, "Failed to get information for patient for doctor", task.getException());

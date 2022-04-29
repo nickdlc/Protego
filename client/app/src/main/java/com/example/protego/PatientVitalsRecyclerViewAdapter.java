@@ -1,50 +1,57 @@
 package com.example.protego;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.protego.web.schemas.Note;
+import com.example.protego.web.schemas.Vital;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class PatientVitalsRecyclerViewAdapter extends RecyclerView.Adapter<PatientVitalsRecyclerViewAdapter.MyViewHolder> {
+public class PatientVitalsRecyclerViewAdapter extends RecyclerView.Adapter<PatientVitalsRecyclerViewAdapter.ViewHolder> {
     Context context;
-    ArrayList<PatientVitals.VitalsInfo> patientData;
+    List<PatientVitals.VitalsInfo> patientVitals;
 
-    public PatientVitalsRecyclerViewAdapter(Context context, ArrayList<PatientVitals.VitalsInfo> patientData){
+    public PatientVitalsRecyclerViewAdapter(Context context, List<PatientVitals.VitalsInfo> patientVitals){
         this.context = context;
-        this.patientData = patientData;
+        this.patientVitals = patientVitals;
     }
     @NonNull
     @Override
-    public PatientVitalsRecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PatientVitalsRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.patient_vitals_row,parent,false);
-        return new PatientVitalsRecyclerViewAdapter.MyViewHolder(view);
+        return new PatientVitalsRecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PatientVitalsRecyclerViewAdapter.MyViewHolder holder, int position) {
-        holder.tvDate.setText(patientData.get(position).getDate());
-        holder.tvSource.setText(patientData.get(position).getSource());
-        holder.tvHeartRate.setText(patientData.get(position).getHeartRate());
-        holder.tvBloodPressure.setText(patientData.get(position).getBloodPressure());
-        holder.tvRespiratoryRate.setText(patientData.get(position).getRespiratoryRate());
-        holder.tvTemperature.setText(patientData.get(position).getTemperature());
+    public void onBindViewHolder(@NonNull PatientVitalsRecyclerViewAdapter.ViewHolder holder, int position) {
+        Log.d("PatientVitalsAdapter", "onBindViewHolder " + position);
+
+        holder.tvDate.setText(patientVitals.get(position).getDate());
+        holder.tvSource.setText(patientVitals.get(position).getSource());
+        holder.tvHeartRate.setText(Integer.toString(patientVitals.get(position).getHeartRate()));
+        holder.tvBloodPressure.setText(patientVitals.get(position).getBloodPressure());
+        holder.tvRespiratoryRate.setText(Integer.toString(patientVitals.get(position).getRespiratoryRate()));
+        holder.tvTemperature.setText(Double.toString(patientVitals.get(position).getTemperature()));
     }
 
     @Override
     public int getItemCount() {
-        return patientData.size();
+        return patientVitals.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvDate,tvSource, tvHeartRate, tvBloodPressure, tvRespiratoryRate, tvTemperature;
-        public MyViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvDate = itemView.findViewById(R.id.tvVitalsDate);

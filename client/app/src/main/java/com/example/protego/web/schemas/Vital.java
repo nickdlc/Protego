@@ -12,6 +12,18 @@ public class Vital {
     private double temperature;
     private String bloodPressure;
 
+    public Vital(){
+
+    }
+
+    public Vital(int heartRate, int respiratoryRate, double temperature, Date date, String bloodPressure, String source) {
+        this.heartRate = heartRate;
+        this.respiratoryRate = respiratoryRate;
+        this.temperature = temperature;
+        this.date = date;
+        this.bloodPressure = bloodPressure;
+        this.source = source;
+    }
 
     public String getVitalID() {
         return vitalID;

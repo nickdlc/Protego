@@ -1,9 +1,14 @@
 package com.example.protego.web.schemas;
 
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Medication {
+    public static final String TAG = "Medication";
+
     private String medID;
     private String name;
     private String prescribee; // a patient
@@ -60,6 +65,16 @@ public class Medication {
 
     public void setPrescriber(String prescriber) {
         this.prescriber = prescriber;
+    }
+
+    public Medication(){
+
+    }
+    public Medication(String name, Date date, String dosage, String prescribedBy) {
+        this.name = name;
+        datePrescribed = date;
+        this.dosage = dosage;
+        prescriber = prescribedBy;
     }
 
     public List<String> getApprovedDoctors() {
