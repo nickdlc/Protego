@@ -12,7 +12,9 @@ public class DoctorViewPatientSelections extends AppCompatActivity {
     // input fields here
     private Button button;
     private TextView tvPatientName;
-    private String patientName;
+    private String patientFirst;
+    private String patientLast;
+    private String name;
     private String pid;
 
     @Override
@@ -25,12 +27,14 @@ public class DoctorViewPatientSelections extends AppCompatActivity {
         connectButtonToActivity(R.id.notesButton, DoctorViewPatientNotes.class);
         connectButtonToActivity(R.id.vitalsButton, DoctorViewPatientVitals.class);
         Bundle extras = getIntent().getExtras();
-        patientName = extras.getString("patientFirst");
+        patientFirst = extras.getString("patientFirst");
+        patientLast = extras.getString("patientLast");
+        name = patientFirst + " " + patientLast;
         pid = extras.getString("patientId");
         //patientName += extras.get("patientLast");
 
         tvPatientName = findViewById(R.id.selectionsPatientFullNameInput);
-        tvPatientName.setText(patientName);
+        tvPatientName.setText(name);
     }
 
 
@@ -42,7 +46,8 @@ public class DoctorViewPatientSelections extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
-                i.putExtra("patientFirst", patientName);
+                i.putExtra("patientFirst", patientFirst);
+                i.putExtra("patientLast", patientLast);
                 i.putExtra("patientId", pid);
                 startActivity(i);
                 finish();

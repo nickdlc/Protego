@@ -20,7 +20,9 @@ public class DoctorViewPatientProfile extends AppCompatActivity {
     //input fields
     private Button button;
     private TextView tvPatientName;
-    private String patientName;
+    private String patientFirst;
+    private String patientLast;
+    private String name;
     private String pid;
 
     @Override
@@ -38,11 +40,13 @@ public class DoctorViewPatientProfile extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Bundle extras = getIntent().getExtras();
-        patientName = extras.getString("patientFirst");
+        patientFirst = extras.getString("patientFirst");
+        patientLast = extras.getString("patientLast");
+        name = patientFirst + " " + patientLast;
         pid = extras.getString("patientId");
 
         tvPatientName = findViewById(R.id.generalPatientFullNameInput);
-        tvPatientName.setText(patientName);
+        tvPatientName.setText(name);
     }
 
     ArrayList<PatientDashboardActivity.PatientInfo> patientData = new ArrayList<>();
@@ -65,7 +69,8 @@ public class DoctorViewPatientProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
-                i.putExtra("patientFirst", patientName);
+                i.putExtra("patientFirst", patientFirst);
+                i.putExtra("patientLast", patientLast);
                 i.putExtra("patientId", pid);
                 startActivity(i);
                 finish();

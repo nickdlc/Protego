@@ -27,7 +27,10 @@ public class DoctorViewPatientVitals extends AppCompatActivity {
     public static final String TAG = "DoctorViewPatientVitals";
     private TextView tvFullName;
     private String pid;
-    private String patientName;
+    private String patientFirst;
+    private String patientLast;
+    private String name;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +40,17 @@ public class DoctorViewPatientVitals extends AppCompatActivity {
 
         DoctorViewPatientVitals thisObj = this;
         Bundle extras = getIntent().getExtras();
-        patientName = extras.getString("patientFirst");
+        patientFirst = extras.getString("patientFirst");
+        patientLast = extras.getString("patientLast");
+        name = patientFirst + " " + patientLast;
         pid = extras.getString("patientId");
         //System.out.println("Passing through " + pid);
 
         vitalsData = new ArrayList<>();
 
+
+        tvFullName = findViewById(R.id.vitalsPatientFullNameInput);
+        tvFullName.setText(name);
         //setUpPatientInfo();
 
         FirestoreAPI.getInstance().getVitals(pid, new FirestoreListener<List<Vital>>() {
@@ -59,9 +67,6 @@ public class DoctorViewPatientVitals extends AppCompatActivity {
                 String date;
 
                 RecyclerView rvVitalsForDoctors = findViewById(R.id.DoctorViewPatientVitalsRecyclerView);
-
-                tvFullName = findViewById(R.id.vitalsPatientFullNameInput);
-                tvFullName.setText(extras.getString("patientFirst"));
 
                 for(Vital vital : vList){
                     heartRate = vital.getHeartRate();
@@ -99,7 +104,8 @@ public class DoctorViewPatientVitals extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
-                i.putExtra("patientFirst", patientName);
+                i.putExtra("patientFirst", patientFirst);
+                i.putExtra("patientLast", patientLast);
                 i.putExtra("patientId", pid);
                 startActivity(i);
                 finish();

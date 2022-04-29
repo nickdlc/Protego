@@ -27,7 +27,9 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
     public static final String TAG = "DoctorViewPatientNotes";
     private TextView tvFullName;
     private String pid;
-    private String patientName;
+    private String patientFirst;
+    private String patientLast;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,14 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
         connectButtonToActivity(R.id.returnFromNotes, DoctorViewPatientSelections.class);
         DoctorViewPatientNotes thisObj = this;
         Bundle extras = getIntent().getExtras();
-        patientName = extras.getString("patientFirst");
+        patientFirst = extras.getString("patientFirst");
+        patientLast = extras.getString("patientLast");
+        name = patientFirst + " " + patientLast;
         pid = extras.getString("patientId");
         //System.out.println("Passing through " + pid);
+
+        tvFullName = findViewById(R.id.notesPatientFullNameInput);
+        tvFullName.setText(name);
 
         notesData = new ArrayList<>();
 
@@ -56,9 +63,6 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
                 System.out.println("Notes List : " + nList);
 
                 RecyclerView rvNotesForDoctors = findViewById(R.id.doctorViewPatientNotesRecyclerView);
-
-                tvFullName = findViewById(R.id.notesPatientFullNameInput);
-                tvFullName.setText(extras.getString("patientFirst"));
 
                 for(Note note : nList){
                     note_id = note.getNoteID();
@@ -99,7 +103,8 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
-                i.putExtra("patientFirst", patientName);
+                i.putExtra("patientFirst", patientFirst);
+                i.putExtra("patientLast", patientLast);
                 i.putExtra("patientId", pid);
                 startActivity(i);
                 finish();
