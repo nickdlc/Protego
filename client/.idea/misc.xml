@@ -71,7 +71,7 @@
         <entry key="app/src/main/res/layout/activity_doctor_profile.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_doctor_scan_qrcode.xml" value="0.176" />
         <entry key="app/src/main/res/layout/activity_doctor_view_patient_medication.xml" value="0.22735507246376813" />
-        <entry key="app/src/main/res/layout/activity_doctor_view_patient_notes.xml" value="0.159375" />
+        <entry key="app/src/main/res/layout/activity_doctor_view_patient_notes.xml" value="0.28910369873046876" />
         <entry key="app/src/main/res/layout/activity_doctor_view_patient_profile.xml" value="0.10416666666666667" />
         <entry key="app/src/main/res/layout/activity_doctor_view_patient_selections.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/activity_doctor_view_patient_vitals.xml" value="0.159375" />
@@ -87,6 +87,7 @@
         <entry key="app/src/main/res/layout/content_activity_login.xml" value="0.23239909026564376" />
         <entry key="app/src/main/res/layout/content_doctor_profile.xml" value="0.264" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.23596014492753623" />
+        <entry key="app/src/main/res/layout/doctor_view_patient_notes.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/fragment_doctor_dropdown_selection.xml" value="0.1408514492753623" />
         <entry key="app/src/main/res/layout/fragment_doctor_header.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_doctor_navbar_options.xml" value="0.1" />
@@ -100,6 +101,7 @@
         <entry key="app/src/main/res/layout/patient_dashboard.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/layout/patient_medication.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/patient_medications_medication_container.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/patient_notes.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/patient_notes_note_container.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/patient_view_notifications_activity.xml" value="0.3938374837239582" />
         <entry key="app/src/main/res/layout/patient_vitals_row.xml" value="0.3314447592067989" />

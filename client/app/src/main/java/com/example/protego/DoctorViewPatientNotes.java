@@ -75,7 +75,7 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
                 }
 
                 // create adapter
-                final PatientNotesRecyclerViewAdapter adapter = new PatientNotesRecyclerViewAdapter(thisObj, notesData);
+                final DoctorViewPatientNotesAdapter adapter = new DoctorViewPatientNotesAdapter(thisObj, notesData);
                 // Set the adapter on recyclerview
                 rvNotesForDoctors.setAdapter(adapter);
                 // set a layout manager on RV
