@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/medication"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/doctorViewPatientMedicationRecyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/doctorViewMedicationSwipeContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:layout_height="81dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/doctorViewPatientMedicationRecyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/doctorViewMedicationSwipeContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DoctorViewMedicationsTextView">
@@ -47,23 +47,32 @@
             android:textSize="27sp" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/doctorViewPatientMedicationRecyclerView"
-        android:layout_width="409dp"
-        android:layout_height="450dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/doctorViewMedicationSwipeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="220dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/doctorViewPatientMedicationRecyclerView"
+            android:layout_width="409dp"
+            android:layout_height="450dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.68" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <Button
         android:id="@+id/prescribe_medication"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/prescribe"
-        app:layout_constraintBottom_toTopOf="@+id/doctorViewPatientMedicationRecyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/doctorViewMedicationSwipeContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.89"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/doctorViewPatientMedicationRecyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/doctorViewMedicationSwipeContainer"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

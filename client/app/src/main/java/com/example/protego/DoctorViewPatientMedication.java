@@ -5,6 +5,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class DoctorViewPatientMedication
     private String patientFirst;
     private String patientLast;
     private String name;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +120,65 @@ public class DoctorViewPatientMedication
                 Toast.makeText(DoctorViewPatientMedication.this, msg, Toast.LENGTH_LONG);
             }
         });
+
+        final PatientMedicationRecyclerViewAdapter adapter = new PatientMedicationRecyclerViewAdapter(thisObj,medicationData);
+
+        // Lookup the swipe container view
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.doctorViewMedicationSwipeContainer);
+
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //getPatientMedications(userID);
+                adapter.clear();
+                FirestoreAPI.getInstance().getMedications(pid, new FirestoreListener<List<Medication>>() {
+                    @Override
+                    public void getResult(List<Medication> medications) {
+                        String med_id;
+                        String name;
+                        String datePrescribed;
+                        String dosage;
+                        String prescriber;
+                        String frequency;
+
+                        RecyclerView recyclerView = findViewById(R.id.doctorViewPatientMedicationRecyclerView);
+
+                        for(Medication med : medications) {
+                            med_id = med.getMedID();
+                            name = med.getName();
+                            datePrescribed = med.getDatePrescribed().toString();
+                            dosage = med.getDosage();
+                            prescriber = med.getPrescriber();
+                            frequency = med.getFrequency();
+
+                            medicationData
+                                    .add(new PatientMedicationActivity.MedicationInfo(med_id, name, datePrescribed, dosage, prescriber, frequency));
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+
+                        //adapter.addAll(medicationData);
+                        swipeContainer.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void getError(Exception e, String msg) {
+                        Log.e(TAG, "Failed to get medications for patient:\n\t" + msg, e);
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
+                    }
+                });
+            }
+        });
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light
+        );
     }
 
     private void prescribeMedication() {
@@ -140,6 +201,11 @@ public class DoctorViewPatientMedication
                     String drName = "Dr. " + object.getLastName();
                     createMedication(pid, name, dosage, frequency, drName);
                     dialog.dismiss();
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Medication successfully prescribed. Please swipe up to refresh.",
+                            Toast.LENGTH_LONG
+                    ).show();
                 }
 
                 @Override
@@ -149,7 +215,7 @@ public class DoctorViewPatientMedication
                             getApplicationContext(),
                             "Something went wrong when trying to prescribe " + name + ". Please try again!",
                             Toast.LENGTH_LONG
-                    );
+                    ).show();
                 }
             });
         } else {
