@@ -44,6 +44,7 @@ public class PatientMedicationRecyclerViewAdapter extends RecyclerView.Adapter<P
         holder.tvName.setText(patientMedication.get(position).getName());
         holder.tvDate.setText(patientMedication.get(position).getDate());
         holder.tvDosage.setText(patientMedication.get(position).getDosage());
+        holder.tvFrequency.setText(patientMedication.get(position).getFrequency());
         holder.tvPrescribedBy.setText(patientMedication.get(position).getPrescribedBy());
     }
 
@@ -66,7 +67,7 @@ public class PatientMedicationRecyclerViewAdapter extends RecyclerView.Adapter<P
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView tvName, tvDate, tvDosage, tvPrescribedBy;
+        TextView tvName, tvDate, tvDosage, tvPrescribedBy, tvFrequency;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -74,6 +75,7 @@ public class PatientMedicationRecyclerViewAdapter extends RecyclerView.Adapter<P
             tvDate = itemView.findViewById(R.id.patientMedicationDateText);
             tvDosage = itemView.findViewById(R.id.patientMedicationDosageText);
             tvPrescribedBy = itemView.findViewById(R.id.patientMedicationPrescribedByText);
+            tvFrequency = itemView.findViewById(R.id.patientMedicationFrequencyText);
         }
     }
 }

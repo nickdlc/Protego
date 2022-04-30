@@ -45,14 +45,15 @@ public class PatientMedicationActivity extends FragmentActivity
 
 
     public static class MedicationInfo {
-        private final String med_id,name,date,dosage,prescribedBy;
+        private final String med_id, name, date, dosage, prescribedBy, frequency;
 
-        public MedicationInfo(String med_id, String name, String date, String dosage, String prescribedBy) {
+        public MedicationInfo(String med_id, String name, String date, String dosage, String prescribedBy, String frequency) {
             this.med_id = med_id;
             this.name = name;
             this.date = date;
             this.dosage = dosage;
             this.prescribedBy = prescribedBy;
+            this.frequency = frequency;
         }
 
         public String getName() {
@@ -74,6 +75,8 @@ public class PatientMedicationActivity extends FragmentActivity
         public String getId() {
             return this.med_id;
         }
+
+        public String getFrequency() { return this.frequency; }
 
     }
 
@@ -97,6 +100,7 @@ public class PatientMedicationActivity extends FragmentActivity
                 String datePrescribed;
                 String dosage;
                 String prescriber;
+                String frequency;
 
                 RecyclerView recyclerView = findViewById(R.id.patientMedicationRecyclerView);
 
@@ -106,9 +110,10 @@ public class PatientMedicationActivity extends FragmentActivity
                     datePrescribed = med.getDatePrescribed().toString();
                     dosage = med.getDosage();
                     prescriber = med.getPrescriber();
+                    frequency = med.getFrequency();
 
                     medicationData
-                            .add(new MedicationInfo(med_id,name,datePrescribed,dosage,prescriber));
+                            .add(new MedicationInfo(med_id, name, datePrescribed, dosage, prescriber, frequency));
                 }
 
                 recyclerView.setAdapter(adapter);
@@ -139,6 +144,7 @@ public class PatientMedicationActivity extends FragmentActivity
                         String datePrescribed;
                         String dosage;
                         String prescriber;
+                        String frequency;
 
                         RecyclerView recyclerView = findViewById(R.id.patientMedicationRecyclerView);
 
@@ -148,9 +154,10 @@ public class PatientMedicationActivity extends FragmentActivity
                             datePrescribed = med.getDatePrescribed().toString();
                             dosage = med.getDosage();
                             prescriber = med.getPrescriber();
+                            frequency = med.getFrequency();
 
                             medicationData
-                                    .add(new MedicationInfo(med_id,name,datePrescribed,dosage,prescriber));
+                                    .add(new MedicationInfo(med_id, name, datePrescribed, dosage, prescriber, frequency));
                         }
 
                         recyclerView.setAdapter(adapter);
@@ -189,8 +196,8 @@ public class PatientMedicationActivity extends FragmentActivity
 
     }*/
 
-    private void createMedication(String prescribee, String name, String dosage, String prescriber) {
-        FirestoreAPI.getInstance().createMedication(prescribee, RandomGenerator.randomApprovedDoctors(), name, dosage, prescriber, new FirestoreListener<Task>() {
+    private void createMedication(String prescribee, String name, String dosage, String prescriber, String frequency) {
+        FirestoreAPI.getInstance().createMedication(prescribee, RandomGenerator.randomApprovedDoctors(), name, dosage, prescriber, frequency, new FirestoreListener<Task>() {
             @Override
             public void getResult(Task object) {
                 // do nothing, just generate data
@@ -218,9 +225,10 @@ public class PatientMedicationActivity extends FragmentActivity
         String name = NewMedicationFragment.med_name;
         String dosage = NewMedicationFragment.med_dosage;
         String prescriber = NewMedicationFragment.med_prescriber;
+        String frequency = NewMedicationFragment.med_frequency;
 
         if(name != null && dosage != null && prescriber != null) {
-            createMedication(userID, name, dosage, prescriber);
+            createMedication(userID, name, dosage, prescriber, frequency);
             dialog.dismiss();
 
             //Intent i = new Intent(this, PatientDashboardActivity.class);

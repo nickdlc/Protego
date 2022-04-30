@@ -19,7 +19,7 @@ public class NewMedicationFragment extends DialogFragment {
     public static String med_name;
     public static String med_dosage;
     public static String med_prescriber;
-
+    public static String med_frequency;
 
     //this interface is helpful to connect an event from the dialog to the host activity
     public interface NoticeDialogListener {
@@ -56,15 +56,16 @@ public class NewMedicationFragment extends DialogFragment {
                         EditText name_view = (EditText) view.findViewById(R.id.medName);
                         EditText dosage_view = (EditText) view.findViewById(R.id.medDosage);
                         EditText prescriber_view = (EditText) view.findViewById(R.id.medPrescriber);
+                        EditText frequency_view = (EditText) view.findViewById(R.id.medFrequency);
 
-
-                        if(name_view.getText().toString().isEmpty() || dosage_view.getText().toString().isEmpty() || prescriber_view.getText().toString().isEmpty()){
+                        if(name_view.getText().toString().isEmpty() || dosage_view.getText().toString().isEmpty() || prescriber_view.getText().toString().isEmpty() || frequency_view.getText().toString().isEmpty()){
                             Toast.makeText(getActivity(), "Please complete all fields", Toast.LENGTH_SHORT).show();
                         }
                         else{
                             med_name = name_view.getText().toString();
                             med_dosage = dosage_view.getText().toString();
                             med_prescriber = prescriber_view.getText().toString();
+                            med_frequency = frequency_view.getText().toString();
                         }
 
                         listener.onDialogPositiveClick(NewMedicationFragment.this);

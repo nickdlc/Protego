@@ -41,7 +41,20 @@
         android:fontFamily="sans-serif"
         android:hint="Dosage"
         android:inputType="text"
-        android:minHeight="100dp" />
+        android:minHeight="40dp" />
+
+    <EditText
+        android:id="@+id/medFrequency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif"
+        android:hint="Frequency"
+        android:inputType="text"
+        android:minHeight="40dp" />
 
     <EditText
         android:id="@+id/medPrescriber"
@@ -54,5 +67,5 @@
         android:fontFamily="sans-serif"
         android:hint="Prescriber"
         android:inputType="text"
-        android:minHeight="100dp" />
+        android:minHeight="40dp" />
 </LinearLayout>
