@@ -61,8 +61,6 @@ import java.util.List;
 public class PatientDashboardActivity extends AppCompatActivity{
     public static final String TAG = "PatientDashboardActivity";
 
-    // Static variable in charge of deciding if user should go to onboarding instead of dashboard
-    public static boolean firstTime = true;
 
     //input fields
     private Button button;
@@ -77,6 +75,21 @@ public class PatientDashboardActivity extends AppCompatActivity{
     private ArrayList<Notification> notifications;
     private NotificationListAdapter.RecyclerViewClickListener listener;
     public static String Name;
+    public static String flagData;
+    public final static String[] phoneData = new String[1];
+    public final static String[] heightData = new String[1];
+    public final static String[] emergencyPhoneData = new String[1];
+    public final static String[] emergencyNameData = new String[1];
+    public final static String[] emergencyEmailData = new String[1];
+    public final static String[] addressData = new String[1];
+    public ArrayList<NewAllergyFragment.AllergyInfo> allergiesList = new ArrayList<>();
+    public ArrayList<NewCancerFragment.CancerInfo> cancerList = new ArrayList<>();
+    public ArrayList<NewDiabetesFragment.DiabetesInfo> diabetesList = new ArrayList<>();
+    public ArrayList<NewSurgeryFragment.SurgeryInfo> surgeryList = new ArrayList<>();
+    public ArrayList<NewOtherMedicalConditionsFragment.OtherConditionsInfo> otherConditionsList = new ArrayList<>();
+
+
+
 
     public static class PatientInfo {
         private final String title;
@@ -106,11 +119,36 @@ public class PatientDashboardActivity extends AppCompatActivity{
         patientData.add( new PatientInfo("Weight (lbs.)", patientDetails.weight.toString()));
     }
 
+    private void getOnboardingFlag(String id) {
+        FirestoreAPI.getInstance().getOnboardingFlag(id, new FirestoreListener<DocumentSnapshot>() {
+            @Override
+            public void getResult(DocumentSnapshot object) {
+                flagData = object.get("Onboarding Completed").toString();
+                Log.v(TAG, "flag: " + flagData);
+                goToOnboarding(id);
+
+            }
+
+            @Override
+            public void getError(Exception e, String msg) {
+
+            }
+        });
+    }
+
+
+
+
     // Function that handles going to onboarding if user is new
-    private void goToOnboarding() {
-        Intent i = new Intent(this, PatientOnboardingActivity.class);
-        startActivity(i);
-        finish();
+    private void goToOnboarding(String uid) {
+
+        Log.v(TAG, "onboarding flag: "+ flagData);
+
+        if(PatientOnboardingActivity.flag == "true") {
+            layout.setClickable(true);
+            Button button = (Button) findViewById(R.id.onBoardingButton);
+            button.setVisibility(View.GONE);
+        }
     }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +161,9 @@ public class PatientDashboardActivity extends AppCompatActivity{
         PatientDashboardActivity thisObj = this;
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        getOnboardingFlag(currentUser.getUid()); //the goToOnboarding is included in this function to determine whether to show onboarding form
+
 
         //updates the navbar to show the patient's first name
         getPatientFirstName(currentUser.getUid());
@@ -202,18 +243,19 @@ public class PatientDashboardActivity extends AppCompatActivity{
         RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
 
         // update the user's name based on their profile information
-        //TODO: update this name according to the database to get the patient's first name
         Name = "Example";
 
 
-        //TODO : update the connection, the View Doctors button is connected to the View Notes Activity to test it.
         connectButtonToActivity(R.id.viewDoctorsButton, PatientViewDoctorsActivity.class);
         connectButtonToActivity(R.id.updateDataButton, PatientUpdateDataActivity.class);
         connectImageButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
         connectButtonToActivity(R.id.onBoardingButton, PatientOnboardingActivity.class);
 
-        // If this is user's first time, then takes them to onboarding page
-        if(firstTime)goToOnboarding();
+        //to get the user's onboarding detail if the form has been completed
+        if(PatientOnboardingActivity.flag == "true"){
+            getOnboardingDetails(currentUser.getUid());
+        }
+
     }
 
     public void showBottomSheetDialog() {
@@ -234,8 +276,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
         connectLayoutToActivity(R.id.notesSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
         //connects the notification View vitals button to the vitals activity
         connectLayoutToActivity(R.id.VitalsSelectionLayout, PatientVitals.class,  bottomSheetDialog);
-        //connects the notification View QR Code button to the View QR Code activity
-        connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientQRCodeDisplay.class,  bottomSheetDialog);
+        //connects the notification View geneeral Information button to the View QR Code activity
+        connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientGeneralInfoActivity.class,  bottomSheetDialog);
 
         bottomSheetDialog.show();
     }
@@ -383,7 +425,6 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
                 }
                 Log.v(TAG, "patient data index 0: " + PatientVitals.patientData.get(0).getSource());
-//                    Log.v(TAG, "patient data index 1: " + PatientVitals.patientData.get(1).getSource());
             }
 
             @Override
@@ -461,5 +502,90 @@ public class PatientDashboardActivity extends AppCompatActivity{
         });
     }
 
+    //to retrieve the onboarding fields from the dashboard to display immediately on the general health Info page
+    private void getOnboardingDetails(String id){
+
+        FirestoreAPI.getInstance().getOnboardingDetails(id, new FirestoreListener<DocumentSnapshot>() {
+            @Override
+            public void getResult(DocumentSnapshot object) {
+
+                phoneData[0] = object.get("phone").toString();
+                heightData[0] = object.get("height").toString();
+                emergencyPhoneData[0] = object.get("emergencyPhoneNumber").toString();
+                emergencyNameData[0] = object.get("emergencyName").toString();
+                emergencyEmailData[0] = object.get("emergencyEmail").toString();
+                addressData[0] = object.get("homeAddress").toString();
+
+
+                String allergies = object.get("allergyData").toString();
+
+
+                Log.v(TAG, "Allergies: "+ allergies);
+
+
+                //will retrieve the allergies from firestore
+                getFirestoreLists(object, "allergyData", allergiesList);
+                //will retrieve the cancer data from firestore
+                getFirestoreLists(object, "cancerData", cancerList);
+                //will retrieve the surgeries from firestore
+                getFirestoreLists(object, "surgeryData", surgeryList);
+                //will retrieve the other conditions from firestore
+                getFirestoreLists(object, "otherConditionsData", otherConditionsList);
+                //will retrieve the diabetes data from firestore
+                getFirestoreLists(object, "diabetesData", diabetesList);
+
+                //to check the length of the lists
+                Log.v(TAG, "AllergyList Length = " + allergiesList.size());
+                Log.v(TAG, "CancerList Length = " + cancerList.size());
+                Log.v(TAG, "SurgeryList Length = " + surgeryList.size());
+                Log.v(TAG, "DiabetesList Length = " + diabetesList.size());
+                Log.v(TAG, "OtherConditionsList Length = " + otherConditionsList.size());
+            }
+
+            @Override
+            public void getError(Exception e, String msg) {
+
+            }
+        });
+    }
+
+
+    private void getFirestoreLists(DocumentSnapshot object, String firestoreName, ArrayList objectList) {
+
+        List<Map<String, Object>> data = (List<Map<String, Object>>) object.get(firestoreName);
+        for (Map<String, Object> dataItem : data) {
+            String name = dataItem.get("name").toString();
+            String doctor = dataItem.get("doctor").toString();
+            String date = dataItem.get("date").toString();
+
+            if(firestoreName == "allergyData"){
+                NewAllergyFragment.AllergyInfo allergyItem = new NewAllergyFragment.AllergyInfo(name, date, doctor);
+                objectList.add(allergyItem);
+                Log.v(TAG, "Allergies item: name = " + allergyItem.getName() + " date = " + allergyItem.getDate() + " doctor = " + allergyItem.getDoctor());
+            }
+            else if(firestoreName == "cancerData"){
+                NewCancerFragment.CancerInfo cancerItem = new NewCancerFragment.CancerInfo(name, date, doctor);
+                objectList.add(cancerItem);
+                Log.v(TAG, "Cancer item: name = " + cancerItem.getName() + " date = " + cancerItem.getDate() + " doctor = " + cancerItem.getDoctor());
+            }
+            else if(firestoreName == "surgeryData"){
+                NewSurgeryFragment.SurgeryInfo surgeryItem = new NewSurgeryFragment.SurgeryInfo(name, date, doctor);
+                objectList.add(surgeryItem);
+                Log.v(TAG, "Surgery item: name = " + surgeryItem.getName() + " date = " + surgeryItem.getDate() + " doctor = " + surgeryItem.getDoctor());
+            }
+            else if(firestoreName == "diabetesData"){
+                NewDiabetesFragment.DiabetesInfo diabetesItem = new NewDiabetesFragment.DiabetesInfo(name, date, doctor);
+                objectList.add(diabetesItem);
+                Log.v(TAG, "Diabetes item: name = " + diabetesItem.getName() + " date = " + diabetesItem.getDate() + " doctor = " + diabetesItem.getDoctor());
+            }
+
+            else if(firestoreName == "otherConditionsData"){
+                NewOtherMedicalConditionsFragment.OtherConditionsInfo otherConditionItem = new NewOtherMedicalConditionsFragment.OtherConditionsInfo(name, date, doctor);
+                objectList.add(otherConditionItem);
+                Log.v(TAG, "Cancer item: name = " + otherConditionItem.getName() + " date = " + otherConditionItem.getDate() + " doctor = " + otherConditionItem.getDoctor());
+            }
+
+        }
+    }
 
 }

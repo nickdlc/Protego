@@ -8,7 +8,6 @@ import com.example.protego.NewSurgeryFragment;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class OnboardingInfo {
 
@@ -53,6 +52,37 @@ public class OnboardingInfo {
         this.diabetesData = diabetesData;
         this.otherConditionsData = otherConditionsData;
 
+    }
+
+    public OnboardingInfo() {
+        this.userID = null;
+        this.DOB = null;
+        this.Email = null;
+        this.PhoneNumber = null;
+        this.Home_Address = null;
+        this.Emergency_Name = null;
+        this.Emergency_PhoneNumber = null;
+        this.Emergency_Email = null;
+        this.Height = null;
+
+
+    }
+
+    public OnboardingInfo(OnboardingInfo item){
+        this.userID = item.userID;
+        this.DOB = item.DOB;
+        this.Email = item.Email;
+        this.PhoneNumber = item.PhoneNumber;
+        this.Home_Address = item.Home_Address;
+        this.Emergency_Name = item.Emergency_Name;
+        this.Emergency_PhoneNumber = item.Emergency_PhoneNumber;
+        this.Emergency_Email = item.Emergency_Email;
+        this.Height = item.Height;
+        this.allergyData = item.allergyData;
+        this.surgeryData = item.surgeryData;
+        this.cancerData = item.cancerData;
+        this.diabetesData = item.diabetesData;
+        this.otherConditionsData = item.otherConditionsData;
     }
 
     public String getUserID() {

@@ -1,7 +1,6 @@
 package com.example.protego;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,27 +12,20 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.protego.util.RandomGenerator;
 import com.example.protego.web.FirestoreAPI;
 import com.example.protego.web.FirestoreListener;
-import com.example.protego.web.schemas.Doctor;
 import com.example.protego.web.schemas.Onboarding.OnboardingInfo;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 
-import java.util.ArrayList;
-import java.util.Date;
-
-public class PatientOnboardingActivity extends AppCompatActivity implements NoticeDialogListener {
+public class PatientOnboardingActivity<flag> extends AppCompatActivity implements NoticeDialogListener {
 
     DialogFragment fragment;
     public static PatientAllergiesRecyclerViewAdapter allergy_adapter;
@@ -54,17 +46,15 @@ public class PatientOnboardingActivity extends AppCompatActivity implements Noti
     private String Height_Inches, Height_Feet;
     private static String[] feetArray = {"Select Feet", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
+    public static String flag;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Sets first time in dashboard to false so
-        // user doesn't get taken back to onboarding when going to dashboard
-        PatientDashboardActivity.firstTime = false;
-
         setContentView(R.layout.patient_onboarding);
+
         connectButtonToActivity(R.id.skipForNowBtn, PatientDashboardActivity.class);
 
         mAuth = FirebaseAuth.getInstance();
@@ -199,7 +189,7 @@ public class PatientOnboardingActivity extends AppCompatActivity implements Noti
                 //field from medical - the height of a user inches component
                 EditText Height_Inches_edit = (EditText) findViewById(R.id.InchesEditText);
                 Height_Inches = Height_Inches_edit.getText().toString();
-                String Height = Height_Feet + "'" + Height_Inches + "Feet";
+                String Height = Height_Feet + "'" + Height_Inches + " feet";
 
                 if (emptyFields(DOB, Email, Phone, Home_Address, Emergency_Name,
                         Emergency_Number, Emergency_Email, Height_Feet, Height_Inches)) {
@@ -231,7 +221,9 @@ public class PatientOnboardingActivity extends AppCompatActivity implements Noti
 
                     //connect to Firestore
                     createOnboarding(onboardingInfo);
-
+                    updateOnboardingFlag(userID); //update onboarding flag
+                    Button button = (Button) findViewById(R.id.onBoardingButton);
+                    button.setVisibility(View.GONE);
                     Intent i = new Intent(PatientOnboardingActivity.this, PatientDashboardActivity.class);
                     startActivity(i);
                 }
@@ -311,6 +303,26 @@ public class PatientOnboardingActivity extends AppCompatActivity implements Noti
                 DocumentReference result = (DocumentReference) object.getResult();
                 String ID = result.getId();
                 result.update("onboardingID", ID); //will update the document's ID field
+
+            }
+
+            @Override
+            public void getError(Exception e, String msg) {
+                Toast.makeText(PatientOnboardingActivity.this, msg, Toast.LENGTH_LONG);
+            }
+        });
+    }
+
+    private void updateOnboardingFlag(String id) {
+        FirestoreAPI.getInstance().updateOnboardingFlag(id, new FirestoreListener<Task>() {
+            @Override
+            public void getResult(Task object) {
+                // do nothing, just generate data
+                flag = object.getResult().toString();
+                Log.v(TAG, "flag value: " + flag);
+
+
+
             }
 
             @Override
@@ -320,6 +332,8 @@ public class PatientOnboardingActivity extends AppCompatActivity implements Noti
         });
 
     }
+
+
 
     private boolean emptyFields(String DOB, String Email, String Phone, String Home_Address, String Emergency_Name,
                                 String Emergency_Number, String Emergency_Email, String HeightFeet, String HeightInches) {
