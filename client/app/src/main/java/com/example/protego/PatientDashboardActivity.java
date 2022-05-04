@@ -436,6 +436,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
                 String dosage;
                 String prescriber;
                 String med_id;
+                String frequency;
 
                 for(Medication med : medications) {
                     name = med.getName();
@@ -443,9 +444,12 @@ public class PatientDashboardActivity extends AppCompatActivity{
                     dosage = med.getDosage();
                     prescriber = med.getPrescriber();
                     med_id = med.getMedID();
+                    frequency = med.getFrequency();
 
                     PatientMedicationActivity.medicationData
-                            .add(new PatientMedicationActivity.MedicationInfo(med_id,name,datePrescribed,dosage,prescriber));
+                            .add(new PatientMedicationActivity.MedicationInfo(
+                                    med_id, name, datePrescribed, dosage, prescriber, frequency
+                            ));
                 }
             }
 

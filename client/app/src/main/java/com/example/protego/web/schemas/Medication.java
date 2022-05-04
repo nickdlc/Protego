@@ -13,11 +13,10 @@ public class Medication {
     private String name;
     private String prescribee; // a patient
     private Date datePrescribed;
-//    private Map<String, String> dosage;
     private List<String> approvedDoctors;
-
     private String dosage;
     private String prescriber; // a doctor
+    private String frequency;
 
     public String getMedID() {
         return medID;
@@ -67,6 +66,14 @@ public class Medication {
         this.prescriber = prescriber;
     }
 
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
+    }
+
     public Medication(){
 
     }
@@ -89,11 +96,13 @@ public class Medication {
     public String toString() {
         return "Medication{" +
                 "medID='" + medID + '\'' +
-                ", name=" + name +
-                ", prescribee=" + prescribee +
+                ", name='" + name + '\'' +
+                ", prescribee='" + prescribee + '\'' +
                 ", datePrescribed=" + datePrescribed +
+                ", approvedDoctors=" + approvedDoctors +
                 ", dosage='" + dosage + '\'' +
-                ", prescriber=" + prescriber +
+                ", prescriber='" + prescriber + '\'' +
+                ", frequency='" + frequency + '\'' +
                 '}';
     }
 }

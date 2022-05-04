@@ -212,13 +212,13 @@ public class FirestoreAPI {
         return createMedicalInfo(puid, healthInsuranceNumber, sex, bloodType, heightIN, weight, heartRate, bloodPressure, null);
     }
 
-
-
-    public Task<DocumentReference> createMedication(String prescribee, List<String> approvedDoctors,
-                                 String name,
-                                 String dosage,
-                                 String prescriber,
-                                 FirestoreListener<Task> listener) {
+    public Task<DocumentReference> createMedication(String prescribee,
+                                                    List<String> approvedDoctors,
+                                                    String name,
+                                                    String dosage,
+                                                    String prescriber,
+                                                    String frequency,
+                                                    FirestoreListener<Task> listener) {
         // Convert the current date to format `yyyy-MM-dd'T'HH:mm'Z'`
         //String date = getCurrentFormattedDate();
 
@@ -230,6 +230,7 @@ public class FirestoreAPI {
         med.setDosage(dosage);
         med.setPrescriber(prescriber);
         med.setApprovedDoctors(approvedDoctors);
+        med.setFrequency(frequency);
 
         return db.collection("users")
                 .document(prescribee).collection("Medications")
@@ -271,7 +272,6 @@ public class FirestoreAPI {
                 .add(medInfo)
                 .addOnCompleteListener(getListenerForCreation(listener, "Failed to generate med data..."));
     }
-
 
     public void getDoctorAssignedPatients(String duid,
                                           FirestoreListener<List<Patient>> listener) {

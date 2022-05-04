@@ -7,31 +7,31 @@
     android:layout_height="350dp"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".NewNoteFragment">
+    tools:context=".PrescribeMedicationFragment">
 
     <TextView
         android:id="@+id/addMedTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Add Medication"
-        android:textSize="40sp" />
+        android:text="@string/prescribe_medication"
+        android:textSize="35sp" />
 
     <EditText
-        android:id="@+id/medName"
+        android:id="@+id/etMedName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Medication Name"
+        android:hint="@string/med_name_hint"
         android:inputType="textAutoCorrect"
         android:minHeight="48dp" />
 
 
     <EditText
-        android:id="@+id/medDosage"
+        android:id="@+id/etMedDosage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
@@ -39,12 +39,12 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:hint="Dosage"
+        android:hint="@string/med_dosage_hint"
         android:inputType="text"
         android:minHeight="40dp" />
 
     <EditText
-        android:id="@+id/medFrequency"
+        android:id="@+id/etMedFrequency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
@@ -52,20 +52,7 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:hint="Frequency"
-        android:inputType="text"
-        android:minHeight="40dp" />
-
-    <EditText
-        android:id="@+id/medPrescriber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="sans-serif"
-        android:hint="Prescriber"
+        android:hint="@string/med_frequency_hint"
         android:inputType="text"
         android:minHeight="40dp" />
 </LinearLayout>

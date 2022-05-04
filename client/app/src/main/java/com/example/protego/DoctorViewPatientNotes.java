@@ -3,6 +3,7 @@ package com.example.protego;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
     private String patientFirst;
     private String patientLast;
     private String name;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,62 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
                 Toast.makeText(DoctorViewPatientNotes.this, msg, Toast.LENGTH_LONG);
             }
         });
+
+        final DoctorViewPatientNotesAdapter adapter = new DoctorViewPatientNotesAdapter(thisObj, notesData);
+
+        // Lookup the swipe container view
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.doctorViewNoteSwipeContainer);
+
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //getPatientNotes(userID);
+                adapter.clear();
+                FirestoreAPI.getInstance().getNotes(pid, new FirestoreListener<List<Note>>() {
+                    @Override
+                    public void getResult(List<Note> notes) {
+                        String note_id;
+                        String title;
+                        String date;
+                        String visibility;
+                        String details;
+
+                        RecyclerView recyclerView = findViewById(R.id.doctorViewPatientNotesRecyclerView);
+
+                        for(Note note : notes) {
+                            note_id = note.getNoteID();
+                            title = note.getTitle();
+                            date = note.getDateCreated().toString();
+                            visibility = note.getVisibility();
+                            details = note.getContent();
+
+                            notesData.add(new PatientNotesActivity.NotesInfo(note_id, title,date,visibility,details));
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+
+                        //adapter.addAll(notesData);
+                        swipeContainer.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void getError(Exception e, String msg) {
+                        Log.e(TAG, "Failed to get vitals for patient:\n\t" + msg, e);
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
+                    }
+                });
+            }
+        });
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light
+        );
     }
 
     // navigate to next activity

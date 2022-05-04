@@ -20,6 +20,7 @@
     <string name="cancel_confirmation">Are you sure you want to cancel this connection?</string>
     <string name="cancel">Cancel</string>
     <string name="update">Update</string>
+    <string name="prescribe">Prescribe</string>
 
     <!-- PROFILE STRINGS -->
     <string name="profile">Profile</string>
@@ -39,6 +40,13 @@
     <string name="edit_address">Address *</string>
     <string name="edit_specialty">Specialty *</string>
     <string name="general_information">General Information</string>
+
+    <!-- MEDICATION STRINGS -->
+    <string name="medication">Medication</string>
+    <string name="prescribe_medication">Prescribe Medication</string>
+    <string name="med_name_hint">Medication Name</string>
+    <string name="med_dosage_hint">Dosage</string>
+    <string name="med_frequency_hint">Frequency</string>
 
     <string-array name="type_of_user_array">
         <item>Select Option</item>
