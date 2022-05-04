@@ -145,7 +145,6 @@ public class PatientDashboardActivity extends AppCompatActivity{
         Log.v(TAG, "onboarding flag: "+ flagData);
 
         if(PatientOnboardingActivity.flag == "true") {
-            layout.setClickable(true);
             Button button = (Button) findViewById(R.id.onBoardingButton);
             button.setVisibility(View.GONE);
         }
