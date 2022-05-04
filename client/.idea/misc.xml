@@ -3,16 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/drawable/background_1.xml" value="0.167" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/drawable/background_2.xml" value="0.167" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/drawable/background_3.xml" value="0.167" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/drawable/circle.xml" value="0.2085" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/drawable/gradient_list.xml" value="0.167" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_doctor_dashboard.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_paint_vitals.xml" value="0.22" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_signup.xml" value="0.1933876811594203" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/content_patient_vitals.xml" value="0.22" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_doctor_navigation_bar.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_patient_navigation_bar.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_dashboard.xml" value="0.22" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_medication.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_medications_medication_container.xml" value="0.18" />
-        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_notes.xml" value="0.1" />
-        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_notes_note_container.xml" value="0.1" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_notes.xml" value="0.2" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_notes_note_container.xml" value="0.22" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_onboarding.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_qr_code_display.xml" value="0.1" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_update_data.xml" value="0.18" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_view_doctors.xml" value="0.20416666666666666" />

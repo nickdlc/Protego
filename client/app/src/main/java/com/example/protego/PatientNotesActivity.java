@@ -124,7 +124,7 @@ public class PatientNotesActivity extends FragmentActivity
                 }
 
                 recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+                recyclerView.setLayoutManager(new LinearLayoutManager(PatientNotesActivity.this, LinearLayoutManager.HORIZONTAL, false));
 
             }
 
@@ -166,7 +166,7 @@ public class PatientNotesActivity extends FragmentActivity
                         }
 
                         recyclerView.setAdapter(adapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+                        recyclerView.setLayoutManager(new LinearLayoutManager(PatientNotesActivity.this, LinearLayoutManager.HORIZONTAL, false));
 
                         //adapter.addAll(notesData);
                         swipeContainer.setRefreshing(false);
