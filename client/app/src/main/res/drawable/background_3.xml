@@ -5,7 +5,8 @@
             <gradient
                 android:angle="225"
                 android:startColor="@color/protego_color"
-                android:endColor="@color/white"/>
+                android:centerColor="@color/button_color"
+                android:endColor="#F44336"/>
         </shape>
     </item>
 </selector>
