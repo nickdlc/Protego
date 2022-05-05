@@ -262,6 +262,11 @@ public class PatientVitals
             createVital(bloodPressure, Integer.parseInt(heartRate), Integer.parseInt(respiratoryRate), sourceDoctor, Double.parseDouble(temperature));
             dialog.dismiss();
         } else {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Please complete all fields.",
+                    Toast.LENGTH_LONG
+            ).show();
             addVital();
         }
     }
