@@ -12,6 +12,16 @@ public class Note {
     private String content;
     private String visibility;
 
+    public Note(){
+
+    }
+
+    public Note(String title, Date dateCreated, String visibility, String content){
+        this.title = title;
+        this.dateCreated = dateCreated;
+        this.visibility = visibility;
+        this.content = content;
+    }
     public String getNoteID() {
         return noteID;
     }

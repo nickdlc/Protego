@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.protego.web.schemas.Medication;
+import com.example.protego.web.schemas.Note;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.protego.web.FirestoreAPI;
@@ -19,13 +22,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PatientNotesRecyclerViewAdapter extends RecyclerView.Adapter<PatientNotesRecyclerViewAdapter.MyViewHolder> {
     Context context;
-    ArrayList<PatientNotesActivity.NotesInfo> patientNotes;
+
+    List<PatientNotesActivity.NotesInfo> patientNotes;
     public static final String TAG = "PatientNotesRecyclerViewAdapter";
 
-    public PatientNotesRecyclerViewAdapter(Context context, ArrayList<PatientNotesActivity.NotesInfo> patientNotes) {
+    public PatientNotesRecyclerViewAdapter(Context context, List<PatientNotesActivity.NotesInfo> patientNotes) {
+        Log.d("PatientNotesAdapter", "patientNotesAdapter");
         this.context = context;
         this.patientNotes = patientNotes;
     }
@@ -33,13 +39,13 @@ public class PatientNotesRecyclerViewAdapter extends RecyclerView.Adapter<Patien
     @NonNull
     @Override
     public PatientNotesRecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.d("PatientNotesAdapter", "onCreateViewHolder");
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.patient_notes_note_container,parent,false);
 
         return new PatientNotesRecyclerViewAdapter.MyViewHolder(view);
     }
 
-    @Override
     public void onBindViewHolder(@NonNull PatientNotesRecyclerViewAdapter.MyViewHolder holder, int position) {
         holder.tvTitle.setText(patientNotes.get(position).getTitle());
         holder.tvDate.setText(patientNotes.get(position).getDate());
@@ -91,6 +97,19 @@ public class PatientNotesRecyclerViewAdapter extends RecyclerView.Adapter<Patien
     public int getItemCount() {
         return patientNotes.size();
     }
+
+    // Clean all elements of the recycler
+    public void clear() {
+        patientNotes.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(List<PatientNotesActivity.NotesInfo> notesList) {
+        patientNotes.addAll(notesList);
+        notifyDataSetChanged();
+    }
+
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tvTitle, tvDate, tvVisibility, tvDetails;

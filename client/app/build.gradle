@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
     implementation 'androidx.activity:activity:1.4.0'
     implementation 'androidx.fragment:fragment:1.4.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation group: 'com.google.zxing', name: 'core', version: '3.4.1'
     implementation group: 'com.google.zxing', name: 'javase', version: '3.4.1'
 }

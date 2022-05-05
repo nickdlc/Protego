@@ -11,6 +11,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.protego.util.RandomGenerator;
 import com.example.protego.web.FirestoreAPI;
@@ -35,23 +36,24 @@ import java.util.List;
 
 public class PatientMedicationActivity extends FragmentActivity
         implements NewMedicationFragment.NoticeDialogListener {
-    public static ArrayList<MedicationInfo> medicationData = new ArrayList<>();
+    public static List<MedicationInfo> medicationData;
 //    public static ArrayList<MedicationInfo> medicationFormatted = new ArrayList<>();
     public static final String TAG = "PatientMedicationActivity";
     private FirebaseAuth mAuth;
     public static String userID;
-
+    private SwipeRefreshLayout swipeContainer;
 
 
     public static class MedicationInfo {
-        private final String med_id,name,date,dosage,prescribedBy;
+        private final String med_id, name, date, dosage, prescribedBy, frequency;
 
-        public MedicationInfo(String med_id, String name, String date, String dosage, String prescribedBy) {
+        public MedicationInfo(String med_id, String name, String date, String dosage, String prescribedBy, String frequency) {
             this.med_id = med_id;
             this.name = name;
             this.date = date;
             this.dosage = dosage;
             this.prescribedBy = prescribedBy;
+            this.frequency = frequency;
         }
 
         public String getName() {
@@ -74,45 +76,23 @@ public class PatientMedicationActivity extends FragmentActivity
             return this.med_id;
         }
 
+        public String getFrequency() { return this.frequency; }
+
     }
 
-
-    private void setUpMedicationInfo() {
-        medicationData.add(new MedicationInfo("1","Jay","1/01/2022","A lot","Dr. M"));
-        medicationData.add(new MedicationInfo("2","Jay","1/01/2022","A lot","Dr. M"));
-        medicationData.add(new MedicationInfo("3","Jay","1/01/2022","A lot","Dr. M"));
-        medicationData.add(new MedicationInfo("4","Jay","1/01/2022","A lot","Dr. M"));
-        medicationData.add(new MedicationInfo("5","Jay","1/01/2022","A lot","Dr. M"));
-    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_medication);
 
+        medicationData = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
         userID = mAuth.getCurrentUser().getUid();
 
-        RecyclerView recyclerView = findViewById(R.id.patientMedicationRecyclerView);
+        PatientMedicationActivity thisObj = this;
+        final PatientMedicationRecyclerViewAdapter adapter = new PatientMedicationRecyclerViewAdapter(thisObj,medicationData);
 
-        //setUpMedicationInfo();
-
-        PatientMedicationRecyclerViewAdapter adapter = new PatientMedicationRecyclerViewAdapter(this,medicationData);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
-        findViewById(R.id.add_medication).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addMedications();
-            }
-        });
-    }
-
-
-    private void getPatientMedications(String puid) {
-        FirestoreAPI.getInstance().getMedications(puid, new FirestoreListener<List<Medication>>() {
+        FirestoreAPI.getInstance().getMedications(userID, new FirestoreListener<List<Medication>>() {
             @Override
             public void getResult(List<Medication> medications) {
                 String med_id;
@@ -120,7 +100,9 @@ public class PatientMedicationActivity extends FragmentActivity
                 String datePrescribed;
                 String dosage;
                 String prescriber;
+                String frequency;
 
+                RecyclerView recyclerView = findViewById(R.id.patientMedicationRecyclerView);
 
                 for(Medication med : medications) {
                     med_id = med.getMedID();
@@ -128,13 +110,14 @@ public class PatientMedicationActivity extends FragmentActivity
                     datePrescribed = med.getDatePrescribed().toString();
                     dosage = med.getDosage();
                     prescriber = med.getPrescriber();
+                    frequency = med.getFrequency();
 
                     medicationData
-                            .add(new PatientMedicationActivity.MedicationInfo(med_id,name,datePrescribed,dosage,prescriber));
-                    Log.v(TAG, "object: " + med.toString());
+                            .add(new MedicationInfo(med_id, name, datePrescribed, dosage, prescriber, frequency));
                 }
 
-                Log.v(TAG, "medicationData: " + medicationData.get(0).name);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
             }
 
             @Override
@@ -143,10 +126,78 @@ public class PatientMedicationActivity extends FragmentActivity
                 Toast.makeText(PatientMedicationActivity.this, msg, Toast.LENGTH_LONG);
             }
         });
+
+        // Lookup the swipe container view
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //getPatientMedications(userID);
+                adapter.clear();
+                FirestoreAPI.getInstance().getMedications(userID, new FirestoreListener<List<Medication>>() {
+                    @Override
+                    public void getResult(List<Medication> medications) {
+                        String med_id;
+                        String name;
+                        String datePrescribed;
+                        String dosage;
+                        String prescriber;
+                        String frequency;
+
+                        RecyclerView recyclerView = findViewById(R.id.patientMedicationRecyclerView);
+
+                        for(Medication med : medications) {
+                            med_id = med.getMedID();
+                            name = med.getName();
+                            datePrescribed = med.getDatePrescribed().toString();
+                            dosage = med.getDosage();
+                            prescriber = med.getPrescriber();
+                            frequency = med.getFrequency();
+
+                            medicationData
+                                    .add(new MedicationInfo(med_id, name, datePrescribed, dosage, prescriber, frequency));
+                        }
+
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+
+                        //adapter.addAll(medicationData);
+                        swipeContainer.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void getError(Exception e, String msg) {
+                        Log.e(TAG, "Failed to get medications for patient:\n\t" + msg, e);
+                        Toast.makeText(PatientMedicationActivity.this, msg, Toast.LENGTH_LONG);
+                    }
+                });
+            }
+        });
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
+        findViewById(R.id.add_medication).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addMedications();
+            }
+        });
+
     }
 
-    private void createMedication(String prescribee, String name, String dosage, String prescriber) {
-        FirestoreAPI.getInstance().createMedication(prescribee, RandomGenerator.randomApprovedDoctors(), name, dosage, prescriber, new FirestoreListener<Task>() {
+    /*private void getPatientMedications(String puid) {
+
+    }*/
+
+    private void createMedication(String prescribee, String name, String dosage, String prescriber, String frequency) {
+        FirestoreAPI.getInstance().createMedication(prescribee, RandomGenerator.randomApprovedDoctors(), name, dosage, prescriber, frequency, new FirestoreListener<Task>() {
             @Override
             public void getResult(Task object) {
                 // do nothing, just generate data
@@ -174,16 +225,17 @@ public class PatientMedicationActivity extends FragmentActivity
         String name = NewMedicationFragment.med_name;
         String dosage = NewMedicationFragment.med_dosage;
         String prescriber = NewMedicationFragment.med_prescriber;
+        String frequency = NewMedicationFragment.med_frequency;
 
         if(name != null && dosage != null && prescriber != null) {
-            createMedication(userID, name, dosage, prescriber);
+            createMedication(userID, name, dosage, prescriber, frequency);
             dialog.dismiss();
 
-            Intent i = new Intent(this, PatientDashboardActivity.class);
-            startActivity(i);
+            //Intent i = new Intent(this, PatientDashboardActivity.class);
+            //startActivity(i);
 
         } else {
-            addMedications(); //creates a new note dialog when a user does not complete the note title and content fields
+            addMedications(); //creates a new medication dialog when a user does not complete all the fields
         }
 
     }

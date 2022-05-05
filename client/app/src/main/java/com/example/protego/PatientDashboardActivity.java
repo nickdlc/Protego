@@ -151,19 +151,17 @@ public class PatientDashboardActivity extends AppCompatActivity{
         //updates the navbar to show the patient's first name
         getPatientFirstName(currentUser.getUid());
 
-        PatientVitals.patientData.clear();
+        //PatientVitals.patientData.clear();
         //to get and set the user's vitals for their vitals page
-        getPatientVitals(mAuth.getCurrentUser().getUid());
+        //getPatientVitals(mAuth.getCurrentUser().getUid());
 
-        PatientNotesActivity.notesData.clear();
-
-
-        //to get and set the user's vitals for their notes page
-        getPatientNotes(mAuth.getCurrentUser().getUid());
-
-        PatientMedicationActivity.medicationData.clear();
+        //PatientMedicationActivity.medicationData.clear();
         //to get and set the user's medication for their medications page
-        getPatientMedications(mAuth.getCurrentUser().getUid());
+        //getPatientMedications(currentUser.getUid());
+
+        //PatientNotesActivity.notesData.clear();
+        //to get and set the user's notes for their notes page
+        //getPatientNotes(currentUser.getUid());
 
         FirestoreAPI.getInstance().getPatient(currentUser.getUid(), new FirestoreListener<Patient>() {
             @Override
@@ -386,28 +384,28 @@ public class PatientDashboardActivity extends AppCompatActivity{
         FirestoreAPI.getInstance().getVitals(puid, new FirestoreListener<List<Vital>>() {
             @Override
             public void getResult(List<Vital> vitals) {
-                String heartRate;
-                String respiratoryRate;
-                String temperature;
+                int heartRate;
+                int respiratoryRate;
+                double temperature;
+                String puid;
                 String bloodPressure;
                 String source;
                 String date;
 
                 for (Vital vital : vitals) {
-                    heartRate = String.valueOf(vital.getHeartRate());
-                    respiratoryRate = String.valueOf(vital.getRespiratoryRate());
-                    temperature = String.valueOf(vital.getTemperature());
-                    bloodPressure = String.valueOf(vital.getBloodPressure());
+                    heartRate = vital.getHeartRate();
+                    respiratoryRate = vital.getRespiratoryRate();
+                    temperature = vital.getTemperature();
+                    bloodPressure = vital.getBloodPressure();
                     source = vital.getSource();
                     date = vital.getDate().toString();
 
                     PatientVitals.patientData
-                            .add(new PatientVitals.VitalsInfo(date,source, heartRate, bloodPressure,respiratoryRate,temperature));
-
+                            .add(new PatientVitals.VitalsInfo(date,source, heartRate, bloodPressure, respiratoryRate, temperature));
                     Log.v(TAG, "object: " + vitals.toString());
-
                 }
-                Log.v(TAG, "patient data index 0: " + PatientVitals.patientData.get(0).getSource());
+                //Log.v(TAG, "patient data index 0: " + PatientVitals.patientData.get(0).getSource());
+//                    Log.v(TAG, "patient data index 1: " + PatientVitals.patientData.get(1).getSource());
             }
 
             @Override
@@ -441,7 +439,6 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
                     PatientNotesActivity.notesData
                             .add(new PatientNotesActivity.NotesInfo(note_id, title,date,visibility,details));
-
                 }
             }
 
@@ -464,6 +461,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
                 String dosage;
                 String prescriber;
                 String med_id;
+                String frequency;
 
                 for(Medication med : medications) {
                     name = med.getName();
@@ -471,9 +469,12 @@ public class PatientDashboardActivity extends AppCompatActivity{
                     dosage = med.getDosage();
                     prescriber = med.getPrescriber();
                     med_id = med.getMedID();
+                    frequency = med.getFrequency();
 
                     PatientMedicationActivity.medicationData
-                            .add(new PatientMedicationActivity.MedicationInfo(med_id,name,datePrescribed,dosage,prescriber));
+                            .add(new PatientMedicationActivity.MedicationInfo(
+                                    med_id, name, datePrescribed, dosage, prescriber, frequency
+                            ));
                 }
             }
 
