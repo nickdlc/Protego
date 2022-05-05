@@ -606,6 +606,29 @@ public class FirestoreAPI {
                 });
     }
 
+    public Task<DocumentReference> createVital(String puid,
+                                               int heartRate,
+                                               int respiratoryRate,
+                                               double temperature,
+                                               FieldValue timestamp,
+                                               String bloodPressure,
+                                               String source,
+                                               FirestoreListener<Task> listener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("heartRate", heartRate);
+        params.put("respiratoryRate", respiratoryRate);
+        params.put("temperature", temperature);
+        params.put("date", timestamp);
+        params.put("bloodPressure", bloodPressure);
+        params.put("source", source);
+
+        return db.collection("users")
+                .document(puid)
+                .collection("Vitals")
+                .add(params)
+                .addOnCompleteListener(getListenerForCreation(listener, "Failed to create vital entry..."));
+    }
+
 
 //GENERATE REQUESTS
 

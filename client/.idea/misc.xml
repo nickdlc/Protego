@@ -95,6 +95,7 @@
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/fragment_new_medication.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_new_note.xml" value="0.22604166666666667" />
+        <entry key="app/src/main/res/layout/fragment_patient_new_vital.xml" value="0.19701086956521738" />
         <entry key="app/src/main/res/layout/fragment_patient_signup.xml" value="0.176" />
         <entry key="app/src/main/res/layout/fragment_prescribe_medication.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.19010416666666666" />
