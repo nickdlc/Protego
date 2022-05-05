@@ -76,7 +76,7 @@
                     android:id="@+id/textView14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Date of Birth"
+                    android:text="* Date of Birth (Required)"
                     android:textSize="20sp" />
 
                 <Space
@@ -111,7 +111,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Phone Number:"
+                    android:text="* Phone Number (Required)"
                     android:textSize="20sp" />
 
                 <Space
@@ -150,7 +150,7 @@
                     android:id="@+id/addressTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Home Address:"
+                    android:text="* Home Address (Required)"
                     android:textSize="20sp" />
 
                 <Space
@@ -199,7 +199,7 @@
                     android:id="@+id/textView12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Contact Name:"
+                    android:text="* Contact Name (Required)"
                     android:textSize="20sp" />
 
                 <Space
@@ -235,7 +235,7 @@
                     android:id="@+id/textView16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Contact Number:"
+                    android:text="* Contact Number (Required)"
                     android:textSize="20sp" />
 
                 <Space
@@ -270,7 +270,7 @@
                     android:id="@+id/textView17"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Contact Email:"
+                    android:text="* Contact Email (Required)"
                     android:textSize="20sp" />
 
                 <Space
@@ -317,7 +317,7 @@
                     android:id="@+id/textView18"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Height: "
+                    android:text="* Height (Required)"
                     android:textSize="20sp" />
 
                 <Space
@@ -406,7 +406,7 @@
                     android:id="@+id/weightTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Weight:"
+                    android:text="* Weight (Required)"
                     android:textSize="20sp" />
 
                 <com.google.android.material.textfield.TextInputLayout

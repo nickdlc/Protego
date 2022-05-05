@@ -41,8 +41,8 @@
         android:id="@+id/scrollView2"
         android:layout_width="380dp"
         android:layout_height="540dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
@@ -89,7 +89,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="General"
-                            android:textSize="25sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
 
@@ -119,6 +119,9 @@
                             android:id="@+id/addressEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="none"
+                            android:singleLine="false"
                             android:textSize="16sp" />
                     </TableRow>
 
@@ -147,6 +150,7 @@
                             android:id="@+id/phoneNumberEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text=""
                             android:textSize="16sp" />
 
@@ -179,6 +183,7 @@
                             android:id="@+id/heightEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text=""
                             android:textSize="16sp" />
 
@@ -209,6 +214,7 @@
                             android:id="@+id/weightEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text=""
                             android:textSize="16sp" />
 
@@ -229,7 +235,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Emergency Contact"
-                            android:textSize="25sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
                     </TableRow>
 
@@ -258,6 +264,7 @@
                             android:id="@+id/EmergencyNameEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text=""
                             android:textSize="16sp" />
 
@@ -289,6 +296,7 @@
                             android:id="@+id/EmergencyEmailEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text=""
                             android:textSize="16sp" />
 
@@ -319,6 +327,7 @@
                             android:id="@+id/EmergencyPhoneNumberEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text=""
                             android:textSize="16sp" />
 
@@ -338,7 +347,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Medical"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <Space

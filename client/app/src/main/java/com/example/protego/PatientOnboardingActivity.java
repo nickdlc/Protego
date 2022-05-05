@@ -190,7 +190,7 @@ public class PatientOnboardingActivity<flag> extends AppCompatActivity implement
 
                 Height_Inches = Height_Inches_edit.getText().toString();
                 Weight = Weight_edit.getText().toString();
-                String Height = Height_Feet + "'" + Height_Inches + " feet";
+                String Height = Height_Feet + " feet " + Height_Inches + " inches";
                 String WeightUnits = Weight + " lbs";
 
                 if (emptyFields(DOB, Phone, Home_Address, Emergency_Name,
