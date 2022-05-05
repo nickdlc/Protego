@@ -78,15 +78,16 @@ public class PatientDashboardActivity extends AppCompatActivity{
     public static String flagData;
     public final static String[] phoneData = new String[1];
     public final static String[] heightData = new String[1];
+    public final static String[] weightData = new String[1];
     public final static String[] emergencyPhoneData = new String[1];
     public final static String[] emergencyNameData = new String[1];
     public final static String[] emergencyEmailData = new String[1];
     public final static String[] addressData = new String[1];
-    public ArrayList<NewAllergyFragment.AllergyInfo> allergiesList = new ArrayList<>();
-    public ArrayList<NewCancerFragment.CancerInfo> cancerList = new ArrayList<>();
-    public ArrayList<NewDiabetesFragment.DiabetesInfo> diabetesList = new ArrayList<>();
-    public ArrayList<NewSurgeryFragment.SurgeryInfo> surgeryList = new ArrayList<>();
-    public ArrayList<NewOtherMedicalConditionsFragment.OtherConditionsInfo> otherConditionsList = new ArrayList<>();
+    public static ArrayList<NewAllergyFragment.AllergyInfo> allergiesList = new ArrayList<>();
+    public static ArrayList<NewCancerFragment.CancerInfo> cancerList = new ArrayList<>();
+    public static ArrayList<NewDiabetesFragment.DiabetesInfo> diabetesList = new ArrayList<>();
+    public static ArrayList<NewSurgeryFragment.SurgeryInfo> surgeryList = new ArrayList<>();
+    public static ArrayList<NewOtherMedicalConditionsFragment.OtherConditionsInfo> otherConditionsList = new ArrayList<>();
 
 
 
@@ -119,34 +120,15 @@ public class PatientDashboardActivity extends AppCompatActivity{
         patientData.add( new PatientInfo("Weight (lbs.)", patientDetails.weight.toString()));
     }
 
-    private void getOnboardingFlag(String id) {
-        FirestoreAPI.getInstance().getOnboardingFlag(id, new FirestoreListener<DocumentSnapshot>() {
-            @Override
-            public void getResult(DocumentSnapshot object) {
-                flagData = object.get("Onboarding Completed").toString();
-                Log.v(TAG, "flag: " + flagData);
-                goToOnboarding(id);
-
-            }
-
-            @Override
-            public void getError(Exception e, String msg) {
-
-            }
-        });
-    }
-
-
-
-
     // Function that handles going to onboarding if user is new
     private void goToOnboarding(String uid) {
 
         Log.v(TAG, "onboarding flag: "+ flagData);
 
-        if(PatientOnboardingActivity.flag == "true") {
+        if(PatientOnboardingActivity.flag.equals("false")) {
+            Log.v(TAG, "patient onboarding flag: "+ PatientOnboardingActivity.flag);
             Button button = (Button) findViewById(R.id.onBoardingButton);
-            button.setVisibility(View.GONE);
+            button.setVisibility(View.VISIBLE);
         }
     }
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +143,9 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        getOnboardingFlag(currentUser.getUid()); //the goToOnboarding is included in this function to determine whether to show onboarding form
+        goToOnboarding(currentUser.getUid()); //checks the flag set during onboarding to determine if the onboarding button should be visible
+
+        //getOnboardingFlag(currentUser.getUid()); //the goToOnboarding is included in this function to determine whether to show onboarding form
 
 
         //updates the navbar to show the patient's first name
@@ -251,7 +235,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
         connectButtonToActivity(R.id.onBoardingButton, PatientOnboardingActivity.class);
 
         //to get the user's onboarding detail if the form has been completed
-        if(PatientOnboardingActivity.flag == "true"){
+        if(PatientOnboardingActivity.flag.equals("true")){
             getOnboardingDetails(currentUser.getUid());
         }
 
@@ -375,7 +359,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
                 patientDetails.firstName = patient.getFirstName();
 
 
-                if (patientDetails.firstName == "" || patientDetails.firstName == null) {
+                if (patientDetails.firstName.equals("") || patientDetails.firstName == null) {
                     Name = "";
                 } else {
                     Name = patientDetails.firstName;
@@ -510,6 +494,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
                 phoneData[0] = object.get("phone").toString();
                 heightData[0] = object.get("height").toString();
+                weightData[0] = object.get("weight").toString();
                 emergencyPhoneData[0] = object.get("emergencyPhoneNumber").toString();
                 emergencyNameData[0] = object.get("emergencyName").toString();
                 emergencyEmailData[0] = object.get("emergencyEmail").toString();
@@ -551,34 +536,36 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
     private void getFirestoreLists(DocumentSnapshot object, String firestoreName, ArrayList objectList) {
 
+        objectList.clear();
+
         List<Map<String, Object>> data = (List<Map<String, Object>>) object.get(firestoreName);
         for (Map<String, Object> dataItem : data) {
             String name = dataItem.get("name").toString();
             String doctor = dataItem.get("doctor").toString();
             String date = dataItem.get("date").toString();
 
-            if(firestoreName == "allergyData"){
+            if(firestoreName.equals("allergyData")){
                 NewAllergyFragment.AllergyInfo allergyItem = new NewAllergyFragment.AllergyInfo(name, date, doctor);
                 objectList.add(allergyItem);
                 Log.v(TAG, "Allergies item: name = " + allergyItem.getName() + " date = " + allergyItem.getDate() + " doctor = " + allergyItem.getDoctor());
             }
-            else if(firestoreName == "cancerData"){
+            else if(firestoreName.equals("cancerData")){
                 NewCancerFragment.CancerInfo cancerItem = new NewCancerFragment.CancerInfo(name, date, doctor);
                 objectList.add(cancerItem);
                 Log.v(TAG, "Cancer item: name = " + cancerItem.getName() + " date = " + cancerItem.getDate() + " doctor = " + cancerItem.getDoctor());
             }
-            else if(firestoreName == "surgeryData"){
+            else if(firestoreName.equals("surgeryData")){
                 NewSurgeryFragment.SurgeryInfo surgeryItem = new NewSurgeryFragment.SurgeryInfo(name, date, doctor);
                 objectList.add(surgeryItem);
                 Log.v(TAG, "Surgery item: name = " + surgeryItem.getName() + " date = " + surgeryItem.getDate() + " doctor = " + surgeryItem.getDoctor());
             }
-            else if(firestoreName == "diabetesData"){
+            else if(firestoreName.equals("diabetesData")){
                 NewDiabetesFragment.DiabetesInfo diabetesItem = new NewDiabetesFragment.DiabetesInfo(name, date, doctor);
                 objectList.add(diabetesItem);
                 Log.v(TAG, "Diabetes item: name = " + diabetesItem.getName() + " date = " + diabetesItem.getDate() + " doctor = " + diabetesItem.getDoctor());
             }
 
-            else if(firestoreName == "otherConditionsData"){
+            else if(firestoreName.equals("otherConditionsData")){
                 NewOtherMedicalConditionsFragment.OtherConditionsInfo otherConditionItem = new NewOtherMedicalConditionsFragment.OtherConditionsInfo(name, date, doctor);
                 objectList.add(otherConditionItem);
                 Log.v(TAG, "Cancer item: name = " + otherConditionItem.getName() + " date = " + otherConditionItem.getDate() + " doctor = " + otherConditionItem.getDoctor());

@@ -22,10 +22,27 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.08" />
 
+    <TextView
+        android:id="@+id/noInformationLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:lineSpacingExtra="14sp"
+        android:text="No Information has been provided. Your information will be updated once you complete onboarding"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="380dp"
         android:layout_height="540dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
@@ -34,6 +51,7 @@
         app:layout_constraintVertical_bias="0.57">
 
         <LinearLayout
+            android:id="@+id/informationLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -71,7 +89,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="General"
-                            android:textSize="20dp"
+                            android:textSize="25sp"
                             android:textStyle="bold" />
 
 
@@ -101,7 +119,7 @@
                             android:id="@+id/addressEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="15sp" />
+                            android:textSize="16sp" />
                     </TableRow>
 
                     <Space
@@ -118,7 +136,7 @@
                             android:id="@+id/phoneNumber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Phone Number"
+                            android:text="Phone Number:"
                             android:textSize="16sp" />
 
                         <Space
@@ -129,7 +147,8 @@
                             android:id="@+id/phoneNumberEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="" />
+                            android:text=""
+                            android:textSize="16sp" />
 
 
                     </TableRow>
@@ -160,7 +179,8 @@
                             android:id="@+id/heightEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="" />
+                            android:text=""
+                            android:textSize="16sp" />
 
 
                     </TableRow>
@@ -189,7 +209,8 @@
                             android:id="@+id/weightEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="" />
+                            android:text=""
+                            android:textSize="16sp" />
 
 
                     </TableRow>
@@ -208,7 +229,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Emergency Contact"
-                            android:textSize="20dp"
+                            android:textSize="25sp"
                             android:textStyle="bold" />
                     </TableRow>
 
@@ -226,7 +247,7 @@
                             android:id="@+id/EmergencyName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Name"
+                            android:text="Name:"
                             android:textSize="16sp" />
 
                         <Space
@@ -237,7 +258,8 @@
                             android:id="@+id/EmergencyNameEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="" />
+                            android:text=""
+                            android:textSize="16sp" />
 
 
                     </TableRow>
@@ -256,7 +278,7 @@
                             android:id="@+id/EmergencyEmail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Email"
+                            android:text="Email:"
                             android:textSize="16sp" />
 
                         <Space
@@ -267,7 +289,8 @@
                             android:id="@+id/EmergencyEmailEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="" />
+                            android:text=""
+                            android:textSize="16sp" />
 
 
                     </TableRow>
@@ -296,7 +319,8 @@
                             android:id="@+id/EmergencyPhoneNumberEnter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="" />
+                            android:text=""
+                            android:textSize="16sp" />
 
 
                     </TableRow>
@@ -306,16 +330,40 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="15dp" />
+                    android:layout_height="25dp" />
 
 
                 <TextView
-                    android:id="@+id/textView19"
+                    android:id="@+id/medicalTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medical"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp" />
+
+                <TextView
+                    android:id="@+id/noMedicalInformation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No Medical Information provided"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/allergiesTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Allergies"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:id="@+id/allergyHeading"
@@ -361,6 +409,15 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/noAllergiesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="No Allergy Data"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
@@ -392,15 +449,19 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+                    android:layout_height="15dp" />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/surgeriesTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Past Surgeries"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:id="@+id/surgeryHeading"
@@ -450,6 +511,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
+                <TextView
+                    android:id="@+id/noSurgeriesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="No Surgery Data"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/generalInfosurgeriesRecyclerView"
                     android:layout_width="match_parent"
@@ -478,15 +552,19 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+                    android:layout_height="15dp" />
 
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/CancerTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Previously Diagnosed With Cancer"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:id="@+id/cancerHeading"
@@ -532,6 +610,15 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/noCancerText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="No Cancer Data"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
@@ -563,15 +650,19 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+                    android:layout_height="15dp" />
 
                 <TextView
-                    android:id="@+id/textView22"
+                    android:id="@+id/diabetesTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Previously Diagnosed With Diabetes"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:id="@+id/diabetesHeading"
@@ -621,6 +712,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
+                <TextView
+                    android:id="@+id/noDiabetesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="No Diabetes Data"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/generalInfoDiabetesRecyclerView"
                     android:layout_width="match_parent"
@@ -650,15 +754,19 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+                    android:layout_height="15dp" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/otherConditionsTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Other Medical Conditions"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:id="@+id/otherConditionHeading"
@@ -703,6 +811,15 @@
                         android:textSize="11sp" />
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/noOtherConditionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="No Other Medical Conditions"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
 
                 <Space
                     android:layout_width="match_parent"

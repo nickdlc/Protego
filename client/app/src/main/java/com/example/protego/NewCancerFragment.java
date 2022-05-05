@@ -17,7 +17,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.protego.web.schemas.Onboarding.Cancer;
 
 import java.util.ArrayList;
 

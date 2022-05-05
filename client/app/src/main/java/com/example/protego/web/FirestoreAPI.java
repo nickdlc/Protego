@@ -808,7 +808,7 @@ public class FirestoreAPI {
                     }
                 });
     }
-    
+
 
     public void getOnboardingDetails(String uid,
                                      FirestoreListener<DocumentSnapshot> listener) {

@@ -46,7 +46,7 @@ public class PatientProfileActivity extends AppCompatActivity {
         tvPatientFirstName = findViewById(R.id.tvPatientProfileFirstName);
         tvPatientLastName = findViewById(R.id.tvPatientProfileLastName);
         tvPatientEmail = findViewById(R.id.tvPatientProfileEmail);
-        tvPatientAddress = findViewById(R.id.addressEnter);
+        tvPatientAddress = findViewById(R.id.tvPatientProfileAddress);
 
         String puid = mAuth.getCurrentUser().getUid();
 

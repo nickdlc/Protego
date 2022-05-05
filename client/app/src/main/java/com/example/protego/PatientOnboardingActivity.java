@@ -43,7 +43,7 @@ public class PatientOnboardingActivity<flag> extends AppCompatActivity implement
     public static View cancerView;
     public static View diabetesView;
     public static View otherConditionView;
-    private String Height_Inches, Height_Feet;
+    private String Height_Inches, Height_Feet, Weight;
     private static String[] feetArray = {"Select Feet", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
     public static String flag;
@@ -165,7 +165,6 @@ public class PatientOnboardingActivity<flag> extends AppCompatActivity implement
 
                 //fields from the General Section
                 EditText DOB_edit = (EditText) findViewById(R.id.DOB_EditText);
-                EditText Email_edit = (EditText) findViewById(R.id.Email_EditText);
                 EditText Phone_edit = (EditText) findViewById(R.id.phoneNumber_EditText);
                 EditText Home_Address_edit = (EditText) findViewById(R.id.home_Address_EditText);
 
@@ -173,7 +172,6 @@ public class PatientOnboardingActivity<flag> extends AppCompatActivity implement
 
                 Log.v(TAG, "DOB String" + DOB);
 
-                String Email = Email_edit.getText().toString();
                 String Phone = Phone_edit.getText().toString();
                 String Home_Address = Home_Address_edit.getText().toString();
 
@@ -188,12 +186,20 @@ public class PatientOnboardingActivity<flag> extends AppCompatActivity implement
 
                 //field from medical - the height of a user inches component
                 EditText Height_Inches_edit = (EditText) findViewById(R.id.InchesEditText);
-                Height_Inches = Height_Inches_edit.getText().toString();
-                String Height = Height_Feet + "'" + Height_Inches + " feet";
+                EditText Weight_edit = (EditText) findViewById(R.id.weightInput);
 
-                if (emptyFields(DOB, Email, Phone, Home_Address, Emergency_Name,
+                Height_Inches = Height_Inches_edit.getText().toString();
+                Weight = Weight_edit.getText().toString();
+                String Height = Height_Feet + "'" + Height_Inches + " feet";
+                String WeightUnits = Weight + " lbs";
+
+                if (emptyFields(DOB, Phone, Home_Address, Emergency_Name,
                         Emergency_Number, Emergency_Email, Height_Feet, Height_Inches)) {
                     Toast.makeText(PatientOnboardingActivity.this, "Please complete all fields", Toast.LENGTH_SHORT).show();
+                }
+                else if(notWeightFormat(Weight)){
+                    Toast.makeText(PatientOnboardingActivity.this, "Please complete the weight field correctly", Toast.LENGTH_SHORT).show();
+
                 }
                 else if(notInchesFormat(Height_Inches)){
                     Toast.makeText(PatientOnboardingActivity.this, "Please complete the Height Inches field correctly", Toast.LENGTH_SHORT).show();
@@ -205,14 +211,14 @@ public class PatientOnboardingActivity<flag> extends AppCompatActivity implement
                 else if (notPhoneNumberFormat(Phone, Emergency_Number)) {
                     Toast.makeText(PatientOnboardingActivity.this, "Please complete the phone number fields correctly", Toast.LENGTH_SHORT).show();
                 }
-                else if (notEmailFormat(Email, Emergency_Email)) {
+                else if (notEmailFormat(Emergency_Email)) {
                     Toast.makeText(PatientOnboardingActivity.this, "Please complete the email field correctly", Toast.LENGTH_SHORT).show();
                 }
 
                 else {
 
-                    onboardingInfo = new OnboardingInfo(userID, DOB, Email, Phone, Home_Address, Emergency_Name,
-                            Emergency_Number, Emergency_Email, Height,
+                    onboardingInfo = new OnboardingInfo(userID, DOB, Phone, Home_Address, Emergency_Name,
+                            Emergency_Number, Emergency_Email, Height, WeightUnits,
                             NewAllergyFragment.allergyData,
                             NewSurgeryFragment.SurgeryData,
                             NewCancerFragment.CancerData,
@@ -221,9 +227,8 @@ public class PatientOnboardingActivity<flag> extends AppCompatActivity implement
 
                     //connect to Firestore
                     createOnboarding(onboardingInfo);
-                    updateOnboardingFlag(userID); //update onboarding flag
-                    Button button = (Button) findViewById(R.id.onBoardingButton);
-                    button.setVisibility(View.GONE);
+                    flag = "true"; //to quickly set the flag until it is read from firestore, in order to show the onboarding details on general Information page and to change the onboarding visibility
+                    updateOnboardingFlag(userID); //update onboarding flag from firestore
                     Intent i = new Intent(PatientOnboardingActivity.this, PatientDashboardActivity.class);
                     startActivity(i);
                 }
@@ -323,6 +328,7 @@ public class PatientOnboardingActivity<flag> extends AppCompatActivity implement
 
 
 
+
             }
 
             @Override
@@ -335,14 +341,14 @@ public class PatientOnboardingActivity<flag> extends AppCompatActivity implement
 
 
 
-    private boolean emptyFields(String DOB, String Email, String Phone, String Home_Address, String Emergency_Name,
+    private boolean emptyFields(String DOB, String Phone, String Home_Address, String Emergency_Name,
                                 String Emergency_Number, String Emergency_Email, String HeightFeet, String HeightInches) {
 
 
         boolean fieldsIncorrect = true;
 
 
-        if (!DOB.isEmpty() && !Email.isEmpty() && !Phone.isEmpty() && !Home_Address.isEmpty()
+        if (!DOB.isEmpty() && !Phone.isEmpty() && !Home_Address.isEmpty()
         && !Emergency_Name.isEmpty() && !Emergency_Number.isEmpty() && !Emergency_Email.isEmpty() && !HeightFeet.equals(feetArray[0])
         ){
             fieldsIncorrect =  false; //the fields are in the correct format
@@ -387,6 +393,48 @@ public class PatientOnboardingActivity<flag> extends AppCompatActivity implement
         return inchesFieldsIncorrect;
     }
 
+    //returns true if not in the correct format, false if in the correct format
+    private boolean notWeightFormat(String Weight){
+        boolean weightFieldIncorrect = true;
+        char[] weightArray = Weight.toCharArray();
+
+        Log.v(TAG, "Weight length" + weightArray.length);
+        Log.v(TAG, "Weight Array" + weightArray);
+
+
+
+        if(weightArray.length == 1 ){
+            if(checkDigit(weightArray[0])){
+                weightFieldIncorrect = true; //incorrect format
+            }
+        }
+        else if (weightArray.length == 2) {
+            Log.v(TAG, "Inches Array [0]" + weightArray[0]);
+            Log.v(TAG, "Inches Array [1]" + weightArray[1]);
+            if (checkDigit(weightArray[0]) && checkDigit(weightArray[1])) {
+                Log.v(TAG, "Inches [0] test" + weightArray[0]);
+                Log.v(TAG, "Inches [1] test" + weightArray[1]);
+                weightFieldIncorrect = false; //correct format
+
+            }
+        } else if (weightArray.length == 3){
+            Log.v(TAG, "Inches Array [0]" + weightArray[0]);
+            Log.v(TAG, "Inches Array [1]" + weightArray[1]);
+            Log.v(TAG, "Inches Array [3]" + weightArray[2]);
+            if (checkDigit(weightArray[0]) && checkDigit(weightArray[1]) && checkDigit(weightArray[2])) {
+                Log.v(TAG, "Inches [0] test" + weightArray[0]);
+                Log.v(TAG, "Inches [1] test" + weightArray[1]);
+                Log.v(TAG, "Inches [2] test" + weightArray[2]);
+                weightFieldIncorrect = false; //correct format
+            }
+        }
+        else{ //all other formats are incorrect
+            weightFieldIncorrect = true;
+        }
+
+        return weightFieldIncorrect;
+    }
+
     private boolean notDateFormat(String DOB) {
 
         char[] DOBArray =  DOB.toCharArray();
@@ -429,9 +477,9 @@ public class PatientOnboardingActivity<flag> extends AppCompatActivity implement
 
     }
 
-    private boolean notEmailFormat(String Email, String Emergency_Email) {
+    private boolean notEmailFormat(String Emergency_Email) {
 
-        if(Email.contains("@") && Emergency_Email.contains("@")){
+        if(Emergency_Email.contains("@")){
             return false; //the fields are in the correct format
         }
         return true; //the fields are not in the correct format

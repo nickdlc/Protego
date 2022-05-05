@@ -107,41 +107,6 @@
                     android:layout_height="10dp" />
 
                 <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Email:"
-                    android:textSize="20sp" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/Email_EditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter Email"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <TextView
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -363,26 +328,29 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:minWidth="100dp"
                     android:minHeight="50dp"
                     android:orientation="horizontal">
+
 
                     <TextView
                         android:id="@+id/textView"
                         android:layout_width="wrap_content"
-                        android:layout_height="24dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:minWidth="100dp"
                         android:minHeight="50dp"
                         android:text="Feet:"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                     <Spinner
                         android:id="@+id/height_feet_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginRight="50dp"
+                        android:minWidth="200dp"
                         android:minHeight="50dp" />
+
 
                 </LinearLayout>
 
@@ -395,6 +363,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:minWidth="100dp"
                     android:minHeight="50dp"
                     android:orientation="horizontal">
 
@@ -403,10 +372,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:minWidth="100dp"
                         android:minHeight="50dp"
                         android:text="Inches:"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -415,17 +385,44 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/InchesEditText"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:autoText="true"
                             android:gravity="center"
                             android:hint="Enter Inches (0-11)"
                             android:minWidth="200dp"
-                            android:minHeight="50dp"
-                            android:textSize="18dp" />
+                            android:minHeight="60dp"
+                            android:textSize="18sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <TextView
+                    android:id="@+id/weightTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Weight:"
+                    android:textSize="20sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/weightInput"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:hint="Enter Weight in lbs "
+                        android:minWidth="200dp"
+                        android:minHeight="50dp"
+                        android:textSize="18sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
@@ -440,7 +437,7 @@
 
 
                 <TextView
-                    android:id="@+id/textView19"
+                    android:id="@+id/allergiesTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Allergies?"
@@ -523,7 +520,7 @@
                     android:layout_height="10dp" />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/surgeriesTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Past Surgeries?"
@@ -607,7 +604,7 @@
                     android:layout_height="10dp" />
 
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/CancerTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Previously Diagnosed With Cancer?"
@@ -690,7 +687,7 @@
                     android:layout_height="10dp" />
 
                 <TextView
-                    android:id="@+id/textView22"
+                    android:id="@+id/diabetesTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Previously Diagnosed With Diabetes?"
@@ -774,7 +771,7 @@
                     android:layout_height="10dp" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/otherConditionsTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Other Medical Conditions?"
@@ -846,6 +843,7 @@
                     android:text="Add Other Medical Information" />
 
             </LinearLayout>
+
 
         </LinearLayout>
     </ScrollView>

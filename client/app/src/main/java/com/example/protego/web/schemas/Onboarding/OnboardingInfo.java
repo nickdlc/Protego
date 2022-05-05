@@ -14,13 +14,13 @@ public class OnboardingInfo {
     private Date dateCreated;
     private String userID;
     private final String DOB;
-    private final String Email;
     private final String PhoneNumber;
     private final String Home_Address;
     private final String Emergency_Name;
     private final String Emergency_PhoneNumber;
     private final String Emergency_Email;
     private final String Height;
+    private final String Weight;
     private ArrayList<NewAllergyFragment.AllergyInfo> allergyData = new ArrayList<>();
     private ArrayList<NewSurgeryFragment.SurgeryInfo> surgeryData = new ArrayList<>();
     private ArrayList<NewCancerFragment.CancerInfo> cancerData = new ArrayList<>();
@@ -28,8 +28,8 @@ public class OnboardingInfo {
     private ArrayList<NewOtherMedicalConditionsFragment.OtherConditionsInfo> otherConditionsData = new ArrayList<>();
 
 
-    public OnboardingInfo(String userID, String DOB, String Email, String PhoneNumber, String Home_Address, String Emergency_Name,
-                          String Emergency_PhoneNumber, String Emergency_Email, String Height,
+    public OnboardingInfo(String userID, String DOB, String PhoneNumber, String Home_Address, String Emergency_Name,
+                          String Emergency_PhoneNumber, String Emergency_Email, String Height, String Weight,
                           ArrayList<NewAllergyFragment.AllergyInfo> allergyData,
                           ArrayList<NewSurgeryFragment.SurgeryInfo> surgeryData,
                           ArrayList<NewCancerFragment.CancerInfo> cancerData,
@@ -39,13 +39,13 @@ public class OnboardingInfo {
     ) {
         this.userID = userID;
         this.DOB = DOB;
-        this.Email = Email;
         this.PhoneNumber = PhoneNumber;
         this.Home_Address = Home_Address;
         this.Emergency_Name = Emergency_Name;
         this.Emergency_PhoneNumber = Emergency_PhoneNumber;
         this.Emergency_Email = Emergency_Email;
         this.Height = Height;
+        this.Weight = Weight;
         this.allergyData = allergyData;
         this.surgeryData = surgeryData;
         this.cancerData = cancerData;
@@ -57,13 +57,13 @@ public class OnboardingInfo {
     public OnboardingInfo() {
         this.userID = null;
         this.DOB = null;
-        this.Email = null;
         this.PhoneNumber = null;
         this.Home_Address = null;
         this.Emergency_Name = null;
         this.Emergency_PhoneNumber = null;
         this.Emergency_Email = null;
         this.Height = null;
+        this.Weight = null;
 
 
     }
@@ -71,13 +71,13 @@ public class OnboardingInfo {
     public OnboardingInfo(OnboardingInfo item){
         this.userID = item.userID;
         this.DOB = item.DOB;
-        this.Email = item.Email;
         this.PhoneNumber = item.PhoneNumber;
         this.Home_Address = item.Home_Address;
         this.Emergency_Name = item.Emergency_Name;
         this.Emergency_PhoneNumber = item.Emergency_PhoneNumber;
         this.Emergency_Email = item.Emergency_Email;
         this.Height = item.Height;
+        this.Weight = item.Weight;
         this.allergyData = item.allergyData;
         this.surgeryData = item.surgeryData;
         this.cancerData = item.cancerData;
@@ -101,9 +101,6 @@ public class OnboardingInfo {
         return this.DOB;
     }
 
-    public String getEmail() {
-        return this.Email;
-    }
 
     public String getPhone() {
         return this.PhoneNumber;
@@ -125,6 +122,9 @@ public class OnboardingInfo {
     }
     public String getHeight() {
         return this.Height;
+    }
+    public String getWeight() {
+        return this.Weight;
     }
 
     public ArrayList<NewAllergyFragment.AllergyInfo> getAllergyData() {
