@@ -76,13 +76,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
     private NotificationListAdapter.RecyclerViewClickListener listener;
     public static String Name;
     public static String flagData;
-    public final static String[] phoneData = new String[1];
-    public final static String[] heightData = new String[1];
-    public final static String[] weightData = new String[1];
-    public final static String[] emergencyPhoneData = new String[1];
-    public final static String[] emergencyNameData = new String[1];
-    public final static String[] emergencyEmailData = new String[1];
-    public final static String[] addressData = new String[1];
+    public static String phoneData, heightData, weightData, emergencyPhoneData, emergencyNameData, emergencyEmailData, addressData;
     public static ArrayList<NewAllergyFragment.AllergyInfo> allergiesList = new ArrayList<>();
     public static ArrayList<NewCancerFragment.CancerInfo> cancerList = new ArrayList<>();
     public static ArrayList<NewDiabetesFragment.DiabetesInfo> diabetesList = new ArrayList<>();
@@ -493,13 +487,13 @@ public class PatientDashboardActivity extends AppCompatActivity{
             @Override
             public void getResult(DocumentSnapshot object) {
 
-                phoneData[0] = object.get("phone").toString();
-                heightData[0] = object.get("height").toString();
-                weightData[0] = object.get("weight").toString();
-                emergencyPhoneData[0] = object.get("emergencyPhoneNumber").toString();
-                emergencyNameData[0] = object.get("emergencyName").toString();
-                emergencyEmailData[0] = object.get("emergencyEmail").toString();
-                addressData[0] = object.get("homeAddress").toString();
+                phoneData = object.getData().get("phone").toString();
+                heightData = object.getData().get("height").toString();
+                weightData = object.getData().get("weight").toString();
+                emergencyPhoneData = object.getData().get("emergencyPhoneNumber").toString();
+                emergencyNameData = object.getData().get("emergencyName").toString();
+                emergencyEmailData = object.getData().get("emergencyEmail").toString();
+                addressData = object.getData().get("homeAddress").toString();
 
 
                 String allergies = object.get("allergyData").toString();

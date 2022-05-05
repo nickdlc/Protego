@@ -33,12 +33,7 @@ public class PatientGeneralInfoActivity extends AppCompatActivity {
     public static PatientCancerRecyclerViewAdapter cancer_adapter;
     public static PatientDiabetesRecyclerViewAdapter diabetes_adapter;
     public static PatientOtherConditionsRecyclerViewAdapter other_conditions_adapter;
-    public final static String[] phoneData = new String[1];
-    public final static String[] heightData = new String[1];
-    public final static String[] emergencyPhoneData = new String[1];
-    public final static String[] emergencyNameData = new String[1];
-    public final static String[] emergencyEmailData = new String[1];
-    public final static String[] addressData = new String[1];
+    public String phoneData, heightData, emergencyPhoneData, emergencyNameData, emergencyEmailData, addressData;
     public ArrayList<NewAllergyFragment.AllergyInfo> allergiesList = new ArrayList<>();
     public ArrayList<NewCancerFragment.CancerInfo> cancerList = new ArrayList<>();
     public ArrayList<NewDiabetesFragment.DiabetesInfo> diabetesList = new ArrayList<>();
@@ -106,13 +101,13 @@ public class PatientGeneralInfoActivity extends AppCompatActivity {
         //display information when the user has completed onboarding
         if (PatientOnboardingActivity.flag.equals("true")) {
 
-            EmergencyEmail.setText(PatientDashboardActivity.emergencyEmailData[0]);
-            EmergencyName.setText(PatientDashboardActivity.emergencyNameData[0]);
-            EmergencyPhoneNumber.setText(PatientDashboardActivity.emergencyPhoneData[0]);
-            phoneNumber.setText(PatientDashboardActivity.phoneData[0]);
-            address.setText(PatientDashboardActivity.addressData[0]);
-            height.setText(PatientDashboardActivity.heightData[0]);
-            weight.setText(PatientDashboardActivity.weightData[0]);
+            EmergencyEmail.setText(PatientDashboardActivity.emergencyEmailData);
+            EmergencyName.setText(PatientDashboardActivity.emergencyNameData);
+            EmergencyPhoneNumber.setText(PatientDashboardActivity.emergencyPhoneData);
+            phoneNumber.setText(PatientDashboardActivity.phoneData);
+            address.setText(PatientDashboardActivity.addressData);
+            height.setText(PatientDashboardActivity.heightData);
+            weight.setText(PatientDashboardActivity.weightData);
 
 
             //if all medical fields are empty only show required fields and titles
@@ -231,12 +226,12 @@ public class PatientGeneralInfoActivity extends AppCompatActivity {
             @Override
             public void getResult(DocumentSnapshot object) {
 
-                phoneData[0] = object.get("phone").toString();
-                heightData[0] = object.get("height").toString();
-                emergencyPhoneData[0] = object.get("emergencyPhoneNumber").toString();
-                emergencyNameData[0] = object.get("emergencyName").toString();
-                emergencyEmailData[0] = object.get("emergencyEmail").toString();
-                addressData[0] = object.get("homeAddress").toString();
+                phoneData = object.getData().get("phone").toString();
+                heightData =object.getData().get("height").toString();
+                emergencyPhoneData = object.getData().get("emergencyPhoneNumber").toString();
+                emergencyNameData = object.getData().get("emergencyName").toString();
+                emergencyEmailData = object.getData().get("emergencyEmail").toString();
+                addressData = object.getData().get("homeAddress").toString();
 
 
                 String allergies = object.get("allergyData").toString();
