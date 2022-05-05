@@ -14,6 +14,7 @@
     <string name="splash_activity">activity_splash</string>
 
     <!-- BUTTON STRINGS -->
+    <string name="add_button">Add</string>
     <string name="return_button">Return</string>
     <string name="edit">Edit</string>
     <string name="cancel_connection">Cancel Connection</string>
@@ -47,6 +48,14 @@
     <string name="med_name_hint">Medication Name</string>
     <string name="med_dosage_hint">Dosage</string>
     <string name="med_frequency_hint">Frequency</string>
+
+    <!-- VITALS STRINGS -->
+    <string name="new_vital">New Vital Entry</string>
+    <string name="heart_rate">Heart Rate</string>
+    <string name="respiratory_rate">Respiratory Rate</string>
+    <string name="temperature">Temperature</string>
+    <string name="blood_pressure">Blood Pressure</string>
+    <string name="source_doctor">Source Doctor</string>
 
     <string-array name="type_of_user_array">
         <item>Select Option</item>
