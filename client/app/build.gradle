@@ -50,4 +50,9 @@ dependencies {
     implementation 'androidx.fragment:fragment:1.4.1'
     implementation group: 'com.google.zxing', name: 'core', version: '3.4.1'
     implementation group: 'com.google.zxing', name: 'javase', version: '3.4.1'
+
+
+    // Google Fit
+    implementation("com.google.android.gms:play-services-fitness:21.0.1")
+    implementation("com.google.android.gms:play-services-auth:20.2.0")
 }
