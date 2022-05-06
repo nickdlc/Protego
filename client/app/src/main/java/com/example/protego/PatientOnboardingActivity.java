@@ -22,6 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessOptions;
 import com.google.android.gms.fitness.data.Bucket;
@@ -30,6 +33,7 @@ import com.google.android.gms.fitness.data.DataSet;
 import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.request.DataReadRequest;
+import com.google.android.gms.tasks.Task;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -38,10 +42,20 @@ import java.time.ZonedDateTime;
 import java.util.concurrent.TimeUnit;
 
 public class PatientOnboardingActivity extends AppCompatActivity {
-
+    GoogleSignInClient mGoogleSignInClient;
+    GoogleSignInAccount account;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set up google sign to ask for basic profile
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
 
         // Sets first time in dashboard to false so
         // user doesn't get taken back to onboarding when going to dashboard
@@ -51,6 +65,32 @@ public class PatientOnboardingActivity extends AppCompatActivity {
         connectButtonToActivity(R.id.skipForNowBtn,PatientDashboardActivity.class);
         connectButtonToGoogleFit(R.id.connectFitButton);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == 1) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                account = task.getResult(ApiException.class);
+            } catch (ApiException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+//    @Override
+//    protected void onStart()
+//    {
+//        super.onStart();
+//        // Check for existing Google Sign In account, if the user is already signed in
+//        // the GoogleSignInAccount will be non-null.
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+//    }
 
     private void connectButtonToActivity(Integer buttonId, Class nextActivityClass) {
         Button button;
@@ -90,7 +130,11 @@ public class PatientOnboardingActivity extends AppCompatActivity {
                         .setTimeRange(startTime.toEpochSecond(), endTime.toEpochSecond(), TimeUnit.SECONDS)
                         .build();
 
-                Fitness.getHistoryClient(PatientOnboardingActivity.this, GoogleSignIn.getAccountForExtension(PatientOnboardingActivity.this, fitnessOptions))
+//                account = GoogleSignIn.getLastSignedInAccount(PatientOnboardingActivity.this);
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, 1);
+
+                Fitness.getHistoryClient(PatientOnboardingActivity.this, account)
                         .readData(readRequest)
                         .addOnSuccessListener (response -> {
                             // The aggregate query puts datasets into buckets, so convert to a
