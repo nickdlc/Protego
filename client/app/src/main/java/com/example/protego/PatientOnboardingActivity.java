@@ -31,8 +31,10 @@ import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.request.DataReadRequest;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.concurrent.TimeUnit;
 
 public class PatientOnboardingActivity extends AppCompatActivity {
@@ -76,36 +78,50 @@ public class PatientOnboardingActivity extends AppCompatActivity {
                         .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
                         .build();
 
-                LocalDateTime end = LocalDateTime.now();
-                LocalDateTime start = end.minusYears(1);
-                long endSeconds = end.atZone(ZoneId.systemDefault()).toEpochSecond();
-                long startSeconds = start.atZone(ZoneId.systemDefault()).toEpochSecond();
+                // Read the data that's been collected throughout the past week.
+                ZonedDateTime endTime = LocalDateTime.now().atZone(ZoneId.systemDefault());
+                ZonedDateTime startTime = endTime.minusWeeks(1);
+                Log.i(TAG, "Range Start: $startTime");
+                Log.i(TAG, "Range End: $endTime");
 
                 DataReadRequest readRequest = new DataReadRequest.Builder()
-                        .aggregate(DataType.AGGREGATE_STEP_COUNT_DELTA)
-                        .setTimeRange(startSeconds, endSeconds, TimeUnit.SECONDS)
-                        .bucketByTime(7, TimeUnit.DAYS)
+                        .aggregate(DataType.TYPE_STEP_COUNT_DELTA)
+                        .bucketByActivityType(7, TimeUnit.DAYS)
+                        .setTimeRange(startTime.toEpochSecond(), endTime.toEpochSecond(), TimeUnit.SECONDS)
                         .build();
-                Toast.makeText(PatientOnboardingActivity.this, "This button functions!", Toast.LENGTH_SHORT).show();
-                GoogleSignInAccount account = GoogleSignIn.getAccountForExtension(PatientOnboardingActivity.this, fitnessOptions);
 
-                Fitness.getHistoryClient(PatientOnboardingActivity.this, account)
+                Fitness.getHistoryClient(PatientOnboardingActivity.this, GoogleSignIn.getAccountForExtension(PatientOnboardingActivity.this, fitnessOptions))
                         .readData(readRequest)
                         .addOnSuccessListener (response -> {
                             // The aggregate query puts datasets into buckets, so convert to a
                             // single list of datasets
+                            Toast.makeText(PatientOnboardingActivity.this, "Did work", Toast.LENGTH_SHORT).show();
                             for (Bucket bucket : response.getBuckets()) {
                                 for (DataSet dataSet : bucket.getDataSets()) {
                                     dumpDataSet(dataSet);
                                 }
                             }
                         })
-                        .addOnFailureListener(e ->
-                                Log.w(TAG, "There was an error reading data from Google Fit", e));
-
-
+                        .addOnFailureListener(e ->{
+                            Toast.makeText(PatientOnboardingActivity.this, "Did not work", Toast.LENGTH_SHORT).show();
+                                Log.w(TAG, "There was an error reading data from Google Fit", e);
+                        });
 
             }
+
+            private void dumpDataSet(DataSet dataSet) {
+                Log.i(TAG, "Data returned for Data type: ${dataSet.dataType.name}");
+                for (DataPoint dp : dataSet.getDataPoints()) {
+                    Log.i(TAG,"Data point:");
+                    Log.i(TAG,"\tType: ${dp.dataType.name}");
+                    Log.i(TAG,"\tStart: ${dp.getStartTimeString()}");
+                    Log.i(TAG,"\tEnd: ${dp.getEndTimeString()}");
+                    for (Field field : dp.getDataType().getFields()) {
+                        Log.i(TAG,"\tField: ${field.name.toString()} Value: ${dp.getValue(field)}");
+                    }
+                }
+            }
+
         });
     }
 
