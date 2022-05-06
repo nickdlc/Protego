@@ -18,6 +18,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.10" />
 
+    <TextView
+        android:id="@+id/requiredField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* Denotes a Required field"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connectFitButton" />
+
     <Button
         android:id="@+id/uploadInsuranceButton"
         android:layout_width="381dp"
@@ -34,15 +45,15 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:background="#00FFFFFF"
         android:layout_width="380dp"
         android:layout_height="410dp"
+        android:background="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.57">
+        app:layout_constraintVertical_bias="0.62">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,7 +87,7 @@
                     android:id="@+id/textView14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="* Date of Birth (Required)"
+                    android:text="* Date of Birth"
                     android:textSize="20sp" />
 
                 <Space
@@ -111,7 +122,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="* Phone Number (Required)"
+                    android:text="* Phone Number"
                     android:textSize="20sp" />
 
                 <Space
@@ -119,11 +130,10 @@
                     android:layout_height="10dp" />
 
 
-
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/phoneNumber_EditText"
                         android:layout_width="match_parent"
@@ -150,7 +160,7 @@
                     android:id="@+id/addressTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="* Home Address (Required)"
+                    android:text="* Home Address"
                     android:textSize="20sp" />
 
                 <Space
@@ -165,17 +175,15 @@
                         android:id="@+id/home_Address_EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Enter Home Address" />
+                        android:hint="Enter Home Address"
+                        android:singleLine="true" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
-
 
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
-
-
 
 
             <TextView
@@ -199,7 +207,7 @@
                     android:id="@+id/textView12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="* Contact Name (Required)"
+                    android:text="* Contact Name"
                     android:textSize="20sp" />
 
                 <Space
@@ -235,7 +243,7 @@
                     android:id="@+id/textView16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="* Contact Number (Required)"
+                    android:text="* Contact Number"
                     android:textSize="20sp" />
 
                 <Space
@@ -270,7 +278,7 @@
                     android:id="@+id/textView17"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="* Contact Email (Required)"
+                    android:text="* Contact Email"
                     android:textSize="20sp" />
 
                 <Space
@@ -317,7 +325,7 @@
                     android:id="@+id/textView18"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="* Height (Required)"
+                    android:text="* Height"
                     android:textSize="20sp" />
 
                 <Space
@@ -326,7 +334,7 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:minWidth="100dp"
@@ -361,7 +369,7 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:minWidth="100dp"
@@ -392,7 +400,7 @@
                             android:gravity="center"
                             android:hint="Enter Inches (0-11)"
                             android:minWidth="200dp"
-                            android:minHeight="60dp"
+                            android:singleLine="true"
                             android:textSize="18sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -406,7 +414,7 @@
                     android:id="@+id/weightTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="* Weight (Required)"
+                    android:text="* Weight"
                     android:textSize="20sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -422,6 +430,7 @@
                         android:hint="Enter Weight in lbs "
                         android:minWidth="200dp"
                         android:minHeight="50dp"
+                        android:singleLine="true"
                         android:textSize="18sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -737,6 +746,7 @@
                         android:textSize="11sp" />
 
                 </LinearLayout>
+
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
