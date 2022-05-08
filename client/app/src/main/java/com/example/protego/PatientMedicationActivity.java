@@ -204,6 +204,12 @@ public class PatientMedicationActivity extends FragmentActivity
                 DocumentReference result = (DocumentReference) object.getResult();
                 String ID = result.getId();
                 result.update("medID", ID); //will update the document's ID field
+                Log.d(TAG, "Added medication " + ID);
+                Toast.makeText(
+                        getApplicationContext(),
+                        "Successfully added new medication. Please swipe up to refresh.",
+                        Toast.LENGTH_LONG
+                ).show();
             }
 
             @Override

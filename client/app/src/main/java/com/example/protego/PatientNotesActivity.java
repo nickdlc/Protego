@@ -207,6 +207,12 @@ public class PatientNotesActivity extends FragmentActivity
                 DocumentReference result = (DocumentReference) object.getResult();
                 String ID = result.getId();
                 result.update("noteID", ID); //will update the document's ID field
+                Log.d(TAG, "Added note " + ID);
+                Toast.makeText(
+                        getApplicationContext(),
+                        "Successfully added new note. Please swipe up to refresh.",
+                        Toast.LENGTH_LONG
+                ).show();
             }
 
             @Override
