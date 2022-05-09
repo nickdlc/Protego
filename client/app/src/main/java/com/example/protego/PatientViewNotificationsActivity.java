@@ -58,13 +58,13 @@ public class PatientViewNotificationsActivity extends AppCompatActivity {
 
         notificationText.setText(notificationMsg);
 
+        String duid = extras.getString("duid");
+        String puid = extras.getString("puid");
+
         if(type.equals("ConnectionRequest")) {
 
             btnAccept.setVisibility(View.VISIBLE);
             btnDecline.setVisibility(View.VISIBLE);
-
-            String duid = extras.getString("duid");
-            String puid = extras.getString("puid");
 
             btnAccept.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,6 +117,8 @@ public class PatientViewNotificationsActivity extends AppCompatActivity {
         else{
             btnAccept.setVisibility(View.INVISIBLE);
             btnDecline.setVisibility(View.INVISIBLE);
+
+            deactivateNotification(puid, duid);
         }
     }
 

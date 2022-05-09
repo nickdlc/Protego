@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DoctorViewPatientMedication
@@ -211,6 +214,15 @@ public class DoctorViewPatientMedication
                     ).show();
                     // send in-app notification
                     createNotification(pid, duid, timestamp);
+
+                    Date date = new Date();
+                    Intent intent1 = new Intent(DoctorViewPatientMedication.this, PrescriptionAlarmReceiver.class);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(DoctorViewPatientMedication.this, 0,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+                    if (am != null) {
+                        am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 20000, pendingIntent);
+                        Log.d(TAG, " set");
+                    }
                 }
 
                 @Override

@@ -18,8 +18,6 @@ import com.example.protego.web.schemas.Patient;
 import androidx.core.app.NotificationCompat;
 
 public class AlarmReceiver extends BroadcastReceiver {
-    private int id = 0;
-
     @Override
     public void onReceive(Context context, Intent intent) {
 

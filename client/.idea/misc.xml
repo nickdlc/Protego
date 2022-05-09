@@ -91,6 +91,7 @@
         <entry key="app/src/main/res/layout/content_activity_login.xml" value="0.23239909026564376" />
         <entry key="app/src/main/res/layout/content_doctor_profile.xml" value="0.264" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.23596014492753623" />
+        <entry key="app/src/main/res/layout/fragment_confirm_cancellation.xml" value="0.1265625" />
         <entry key="app/src/main/res/layout/fragment_doctor_dropdown_selection.xml" value="0.1408514492753623" />
         <entry key="app/src/main/res/layout/fragment_doctor_header.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_doctor_navbar_options.xml" value="0.1" />
