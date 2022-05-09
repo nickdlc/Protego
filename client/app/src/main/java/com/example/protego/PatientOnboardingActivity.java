@@ -1,6 +1,7 @@
 package com.example.protego;
 
 import static com.example.protego.MainActivity.TAG;
+import static com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE;
 
 import android.Manifest;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptionsExtension;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessOptions;
@@ -39,6 +41,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class PatientOnboardingActivity extends AppCompatActivity {
@@ -75,14 +78,20 @@ public class PatientOnboardingActivity extends AppCompatActivity {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                account = task.getResult(ApiException.class);
-            } catch (ApiException e) {
-                e.printStackTrace();
-            }
+            handleSignInResult(task);
         }
     }
 
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            account = completedTask.getResult(ApiException.class);
+
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("sign-in", "signInResult:failed code=" + e.getStatusCode());
+        }
+    }
 //    @Override
 //    protected void onStart()
 //    {
@@ -113,7 +122,7 @@ public class PatientOnboardingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                FitnessOptions fitnessOptions = FitnessOptions.builder()
+                GoogleSignInOptionsExtension fitnessOptions = FitnessOptions.builder()
                         .addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
                         .addDataType(DataType.AGGREGATE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ)
                         .build();
@@ -126,13 +135,25 @@ public class PatientOnboardingActivity extends AppCompatActivity {
 
                 DataReadRequest readRequest = new DataReadRequest.Builder()
                         .aggregate(DataType.TYPE_STEP_COUNT_DELTA)
-                        .bucketByActivityType(7, TimeUnit.DAYS)
+                        .bucketByActivityType(1, TimeUnit.DAYS)
                         .setTimeRange(startTime.toEpochSecond(), endTime.toEpochSecond(), TimeUnit.SECONDS)
                         .build();
 
-//                account = GoogleSignIn.getLastSignedInAccount(PatientOnboardingActivity.this);
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, 1);
+                account = GoogleSignIn.getAccountForExtension(PatientOnboardingActivity.this,fitnessOptions);
+
+                // Check Permission for Access Fine Location
+                int permissionCheck = ContextCompat.checkSelfPermission(PatientOnboardingActivity.this,
+                        Manifest.permission.ACTIVITY_RECOGNITION);
+                if(permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                    // ask permissions here using below code
+                    ActivityCompat.requestPermissions(PatientOnboardingActivity.this,
+                            new String[]{Manifest.permission.ACTIVITY_RECOGNITION},
+                            REQUEST_CODE);
+                }
+
+
 
                 Fitness.getHistoryClient(PatientOnboardingActivity.this, account)
                         .readData(readRequest)
@@ -140,6 +161,7 @@ public class PatientOnboardingActivity extends AppCompatActivity {
                             // The aggregate query puts datasets into buckets, so convert to a
                             // single list of datasets
                             Toast.makeText(PatientOnboardingActivity.this, "Did work", Toast.LENGTH_SHORT).show();
+                            Log.d("Fit", "Reading Success!");
                             for (Bucket bucket : response.getBuckets()) {
                                 for (DataSet dataSet : bucket.getDataSets()) {
                                     dumpDataSet(dataSet);
@@ -148,20 +170,20 @@ public class PatientOnboardingActivity extends AppCompatActivity {
                         })
                         .addOnFailureListener(e ->{
                             Toast.makeText(PatientOnboardingActivity.this, "Did not work", Toast.LENGTH_SHORT).show();
-                                Log.w(TAG, "There was an error reading data from Google Fit", e);
+                                Log.w("Fit", "There was an error reading data from Google Fit", e);
                         });
 
             }
 
             private void dumpDataSet(DataSet dataSet) {
-                Log.i(TAG, "Data returned for Data type: ${dataSet.dataType.name}");
+                Log.i("Fit", "Data returned for Data type: ${dataSet.dataType.name}");
                 for (DataPoint dp : dataSet.getDataPoints()) {
-                    Log.i(TAG,"Data point:");
-                    Log.i(TAG,"\tType: ${dp.dataType.name}");
-                    Log.i(TAG,"\tStart: ${dp.getStartTimeString()}");
-                    Log.i(TAG,"\tEnd: ${dp.getEndTimeString()}");
+                    Log.i("Fit","Data point:");
+                    Log.i("Fit","\tType: ${dp.dataType.name}");
+                    Log.i("Fit","\tStart: ${dp.getStartTimeString()}");
+                    Log.i("Fit","\tEnd: ${dp.getEndTimeString()}");
                     for (Field field : dp.getDataType().getFields()) {
-                        Log.i(TAG,"\tField: ${field.name.toString()} Value: ${dp.getValue(field)}");
+                        Log.i("Fit","\tField: ${field.name.toString()} Value: ${dp.getValue(field)}");
                     }
                 }
             }
