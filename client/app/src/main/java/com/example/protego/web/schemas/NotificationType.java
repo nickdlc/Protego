@@ -2,7 +2,8 @@ package com.example.protego.web.schemas;
 
 public enum NotificationType {
     CONNECTIONREQUEST("ConnectionRequest"),
-    MEDICATIONREMIDNER("MedicationReminder");
+    MEDICATIONREMINDER("MedicationReminder"),
+    PRESCRIPTION("Prescription");
 
     private String type;
 

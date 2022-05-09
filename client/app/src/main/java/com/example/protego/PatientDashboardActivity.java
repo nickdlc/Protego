@@ -24,6 +24,7 @@ import com.example.protego.web.ServerRequestListener;
 import com.example.protego.web.schemas.Notification;
 import com.example.protego.web.schemas.NotificationType;
 import com.example.protego.web.schemas.PatientDetails;
+import com.example.protego.web.schemas.ProtegoUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.example.protego.web.schemas.MedicalInfo;
@@ -277,6 +278,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
                 intent.putExtra("msg", notifications.get(position).getMsg());
                 intent.putExtra("duid", notifications.get(position).getDuid());
                 intent.putExtra("puid", notifications.get(position).getPuid());
+                intent.putExtra("type", notifications.get(position).getType());
                 startActivity(intent);
             }
         };

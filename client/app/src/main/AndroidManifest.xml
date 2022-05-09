@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Protego.NoActionBar"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".DoctorViewPatientVitals"
             android:exported="false" />
@@ -137,6 +138,8 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <receiver android:name=".AlarmReceiver"/>
     </application>
 
 </manifest>

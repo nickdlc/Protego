@@ -39,6 +39,16 @@ public class PatientViewNotificationsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        String notificationMsg = "No notification message set";
+        String type = "";
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            notificationMsg = extras.getString("msg");
+            type = extras.getString("type");
+        }
+
         setContentView(R.layout.patient_view_notifications_activity);
 
         notificationText = findViewById(R.id.tvNotificationView);
@@ -46,64 +56,68 @@ public class PatientViewNotificationsActivity extends AppCompatActivity {
         btnDecline = findViewById(R.id.btnDecline);
         db = FirebaseFirestore.getInstance();
 
-        String notificationMsg = "No notification message set";
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            notificationMsg = extras.getString("msg");
-        }
-
         notificationText.setText(notificationMsg);
 
-        String duid = extras.getString("duid");
-        String puid = extras.getString("puid");
+        if(type.equals("ConnectionRequest")) {
 
-        btnAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an active AssignedTo document for the patient and
-                // doctor denoted by patient and doctor
-                FirestoreAPI.getInstance().createConnection(puid, duid, new FirestoreListener<Task>() {
-                    @Override
-                    public void getResult(Task object) {
-                        if (object.isSuccessful()) {
-                            // Deactivate corresponding Notification(s) and ConnectionRequest
-                            // once the AssignedTo connection is created
-                            deactivateNotification(puid, duid);
-                            deactivateConnectionRequest(puid, duid);
+            btnAccept.setVisibility(View.VISIBLE);
+            btnDecline.setVisibility(View.VISIBLE);
 
-                            Log.d(TAG, "Successfully created an AssignedTo connection between puid = " +
-                                    puid + " and duid = " + duid);
-                            Toast.makeText(PatientViewNotificationsActivity.this,
-                                    "The connection has been approved and created.",
-                                    Toast.LENGTH_LONG).show();
+            String duid = extras.getString("duid");
+            String puid = extras.getString("puid");
+
+            btnAccept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Create an active AssignedTo document for the patient and
+                    // doctor denoted by patient and doctor
+                    FirestoreAPI.getInstance().createConnection(puid, duid, new FirestoreListener<Task>() {
+                        @Override
+                        public void getResult(Task object) {
+                            if (object.isSuccessful()) {
+                                // Deactivate corresponding Notification(s) and ConnectionRequest
+                                // once the AssignedTo connection is created
+                                deactivateNotification(puid, duid);
+                                deactivateConnectionRequest(puid, duid);
+
+                                Log.d(TAG, "Successfully created an AssignedTo connection between puid = " +
+                                        puid + " and duid = " + duid);
+                                Toast.makeText(PatientViewNotificationsActivity.this,
+                                        "The connection has been approved and created.",
+                                        Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void getError(Exception e, String msg) {
-                        Log.e(TAG, msg, e);
-                    }
-                });
+                        @Override
+                        public void getError(Exception e, String msg) {
+                            Log.e(TAG, msg, e);
+                        }
+                    });
 
-                Intent i = new Intent(getApplicationContext(), PatientDashboardActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
+                    Intent i = new Intent(getApplicationContext(), PatientDashboardActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+            });
 
-        btnDecline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deactivateNotification(puid, duid);
-                deactivateConnectionRequest(puid, duid);
-                Toast.makeText(PatientViewNotificationsActivity.this,
-                        "The connection was not created.",
-                        Toast.LENGTH_LONG).show();
-                Intent i = new Intent(getApplicationContext(), PatientDashboardActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
+            btnDecline.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deactivateNotification(puid, duid);
+                    deactivateConnectionRequest(puid, duid);
+                    Toast.makeText(PatientViewNotificationsActivity.this,
+                            "The connection was not created.",
+                            Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(getApplicationContext(), PatientDashboardActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+            });
+        }
+        else{
+            btnAccept.setVisibility(View.INVISIBLE);
+            btnDecline.setVisibility(View.INVISIBLE);
+        }
     }
 
     /**

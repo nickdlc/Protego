@@ -517,6 +517,27 @@ public class FirestoreAPI {
                 });
     }
 
+    public Task<DocumentReference> createPrescriptionNotification(String puid,
+                                                      String duid,
+                                                      String drLastName,
+                                                      FieldValue timestamp,
+                                                      FirestoreListener<Task> listener) {
+        // Generate a ConnectionRequest Notification for patient puid from doctor duid at timestamp
+        Map<String, Object> params = new HashMap<>();
+        String msg = "You received a new prescription from Dr. " + drLastName;
+        params.put("puid", puid);
+        params.put("duid", duid);
+        params.put("msg", msg);
+        params.put("timestamp", timestamp);
+        params.put("active", true);
+        params.put("type", NotificationType.PRESCRIPTION.getType());
+
+        return db.collection("Notification")
+                .add(params)
+                .addOnCompleteListener(getListenerForCreation(listener,
+                        "Failed to create Notification..."));
+    }
+
     public Task<DocumentReference> createNotification(String puid,
                                                       String duid,
                                                       String drLastName,
@@ -560,7 +581,8 @@ public class FirestoreAPI {
                                         (String) data.get("msg"),
                                         (Boolean) data.get("active"),
                                         ((Timestamp) data.get("timestamp")).toDate(),
-                                        NotificationType.CONNECTIONREQUEST.getType()
+                                        data.get("type").toString()
+                                        //NotificationType.CONNECTIONREQUEST.getType()
                                 ));
                             }
 

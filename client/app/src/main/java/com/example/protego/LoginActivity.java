@@ -21,6 +21,7 @@ import com.example.protego.web.RequestManager;
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
+import com.example.protego.web.schemas.ProtegoUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity{
     public static final String TAG = "LoginActivity";
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
-
+    public static String userT;
     private EditText etEmail;
     private EditText etPassword;
     private Button btnLogin;
@@ -103,10 +104,20 @@ public class LoginActivity extends AppCompatActivity{
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            reload();
-        }
+        /*FirebaseUser currentUser = mAuth.getCurrentUser();
+        Intent intentD = new Intent(LoginActivity.this, DoctorDashboardActivity.class);
+        Intent intentP = new Intent(LoginActivity.this, PatientDashboardActivity.class);*/
+
+        //System.out.println(userT);
+        reload();
+        /*if(currentUser != null){
+            //reload();
+            System.out.println("userT = " + userT);
+            if(userT.equals("DOCTOR"))
+                startActivity(intentD);
+            else if(userT.equals("PATIENT"))
+                startActivity(intentP);
+        }*/
 
     }
 
@@ -124,7 +135,7 @@ public class LoginActivity extends AppCompatActivity{
                             String uid = user.getUid();
 
                             if (user.isEmailVerified()) {
-                                updateUI(user);
+                                //updateUI(user);
                                 DocumentReference docRef = firestore.collection("users").document(uid);
                                 docRef.get().addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful()) {
@@ -134,10 +145,15 @@ public class LoginActivity extends AppCompatActivity{
                                           
                                             Intent intentD = new Intent(LoginActivity.this, DoctorDashboardActivity.class);
                                             Intent intentP = new Intent(LoginActivity.this, PatientDashboardActivity.class);
-                                            if(document.getString("userType").equals("DOCTOR"))
+                                            if(document.getString("userType").equals("DOCTOR")) {
                                                 startActivity(intentD);
-                                            else
+                                                //updateUI("DOCTOR");
+                                            }
+                                            else {
                                                 startActivity(intentP);
+                                                //updateUI("PATIENT");
+                                            }
+
                                         } else {
                                             Log.d(TAG, "No such document");
                                         }
@@ -145,7 +161,6 @@ public class LoginActivity extends AppCompatActivity{
                                         Log.d(TAG, "failed with ", task1.getException());
                                     }
                                 });
-
                             } else {
                                 Log.d(TAG, "user not verified by email");
                                 Toast.makeText(LoginActivity.this, "Please verify your email with the sent link.", Toast.LENGTH_LONG);
@@ -165,21 +180,8 @@ public class LoginActivity extends AppCompatActivity{
 
     private void reload() { }
 
-    private void updateUI(FirebaseUser user) {
-
-    }
-
-    // navigate to the appropriate dashboard activity if the user has signed in properly
-    private void goDoctorActivity() {
-        Intent i = new Intent(this, DoctorDashboardActivity.class);
-        startActivity(i);
-        finish();
-    }
-
-    private void goMainActivity() {
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-        finish();
+    private void updateUI(String userType) {
+        userT = userType;
     }
 
     // navigate to next activity

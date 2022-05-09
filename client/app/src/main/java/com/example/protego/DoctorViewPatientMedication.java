@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.protego.web.FirestoreAPI;
 import com.example.protego.web.FirestoreListener;
+import com.example.protego.web.schemas.AssignedTo;
 import com.example.protego.web.schemas.Doctor;
 import com.example.protego.web.schemas.Medication;
 import com.example.protego.web.schemas.Patient;
@@ -24,6 +25,7 @@ import com.example.protego.web.schemas.PatientDetails;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -194,6 +196,7 @@ public class DoctorViewPatientMedication
         String duid = mAuth.getCurrentUser().getUid();
 
         if (name != null && dosage != null && frequency != null) {
+            FieldValue timestamp = FieldValue.serverTimestamp();
             FirestoreAPI.getInstance().getDoctor(duid, new FirestoreListener<Doctor>() {
                 @Override
                 public void getResult(Doctor object) {
@@ -206,6 +209,8 @@ public class DoctorViewPatientMedication
                             "Medication successfully prescribed. Please swipe up to refresh.",
                             Toast.LENGTH_LONG
                     ).show();
+                    // send in-app notification
+                    createNotification(pid, duid, timestamp);
                 }
 
                 @Override
@@ -242,6 +247,24 @@ public class DoctorViewPatientMedication
             @Override
             public void getError(Exception e, String msg) {
                 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
+            }
+        });
+    }
+
+    private void createNotification(String puid, String duid, FieldValue timestamp) {
+        // Generate a ConnectionRequest Notification for patient puid from doctor duid at timestamp
+        FirestoreAPI.getInstance().createPrescriptionNotification(puid, duid, DoctorDashboardActivity.lastName, timestamp, new FirestoreListener<Task>() {
+            @Override
+            public void getResult(Task object) {
+                if (object.isSuccessful()) {
+                    Log.d(TAG, "Successfully added Notification for patient " + puid +
+                            "from Dr. " + DoctorDashboardActivity.lastName + " (" + duid + ")");
+                }
+            }
+
+            @Override
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, msg, e);
             }
         });
     }
