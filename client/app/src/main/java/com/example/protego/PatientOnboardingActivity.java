@@ -141,7 +141,8 @@ public class PatientOnboardingActivity extends AppCompatActivity {
 
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, 1);
-                account = GoogleSignIn.getAccountForExtension(PatientOnboardingActivity.this,fitnessOptions);
+
+                account = GoogleSignIn.getAccountForExtension(PatientOnboardingActivity.this, fitnessOptions);
 
                 // Check Permission for Access Fine Location
                 int permissionCheck = ContextCompat.checkSelfPermission(PatientOnboardingActivity.this,
