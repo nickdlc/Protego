@@ -27,6 +27,8 @@ public class PatientProfileActivity extends AppCompatActivity {
     private TextView tvPatientLastName;
     private TextView tvPatientEmail;
     private TextView tvPatientAddress;
+
+
     private FirebaseAuth mAuth;
 
     @Override
@@ -93,5 +95,4 @@ public class PatientProfileActivity extends AppCompatActivity {
             }
         });
     }
-
 }

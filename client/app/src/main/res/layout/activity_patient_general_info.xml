@@ -1,61 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    tools:context=".PatientGeneralInfoActivity">
+
 
     <TextView
         android:id="@+id/onboardingFormTextLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Onboarding Form"
-        android:textSize="34sp"
+        android:text="General Information"
+        android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.10" />
+        app:layout_constraintVertical_bias="0.08" />
 
     <TextView
-        android:id="@+id/requiredField"
-        android:layout_width="wrap_content"
+        android:id="@+id/noInformationLabel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="* Denotes a Required field"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:lineSpacingExtra="14sp"
+        android:text="No Information has been provided. Your information will be updated once you complete onboarding"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connectFitButton" />
-
-    <Button
-        android:id="@+id/uploadInsuranceButton"
-        android:layout_width="381dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/darker_gray"
-        android:text="Upload Insurance Card/ Information"
-        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.91" />
+        tools:layout_editor_absoluteX="16dp" />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="380dp"
-        android:layout_height="410dp"
-        android:background="#00FFFFFF"
+        android:layout_height="540dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62">
+        app:layout_constraintVertical_bias="0.57">
 
         <LinearLayout
+            android:id="@+id/informationLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -65,393 +61,318 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
 
-            <TextView
-                android:id="@+id/generalLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="General"
-                android:textSize="24sp"
-                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
 
-                <TextView
-                    android:id="@+id/textView14"
+                <TableLayout
+                    android:id="@+id/tableLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="* Date of Birth"
-                    android:textSize="20sp" />
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/DOB_EditText"
+                    <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="MM/DD/YYYY"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_height="match_parent">
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="* Phone Number"
-                    android:textSize="20sp" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/phoneNumber_EditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="XXX-XXX-XXXX"
-                        android:singleLine="true"
-                        android:textSize="16sp"
-                        tools:layout_editor_absoluteX="25dp"
-                        tools:layout_editor_absoluteY="95dp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <TextView
-                    android:id="@+id/addressTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="* Home Address"
-                    android:textSize="20sp" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/home_Address_EditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter Home Address"
-                        android:singleLine="true" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="50dp" />
-
-
-            <TextView
-                android:id="@+id/emergencyContactLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Emergency Contact"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="* Contact Name"
-                    android:textSize="20sp" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/emergency_contact_fullName_EditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter Full Name"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="* Contact Number"
-                    android:textSize="20sp" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/emergency_contact_number_EditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="XXX-XXX-XXXX"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="* Contact Email"
-                    android:textSize="20sp" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/emergency_contact_email_EditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter Email"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="50dp" />
-
-            <TextView
-                android:id="@+id/medicalLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Medical"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="* Height"
-                    android:textSize="20sp" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:minWidth="100dp"
-                    android:minHeight="50dp"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:minWidth="100dp"
-                        android:minHeight="50dp"
-                        android:text="Feet:"
-                        android:textSize="18dp" />
-
-                    <Spinner
-                        android:id="@+id/height_feet_spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minWidth="200dp"
-                        android:minHeight="50dp" />
-
-
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:minWidth="100dp"
-                    android:minHeight="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:minWidth="100dp"
-                        android:minHeight="50dp"
-                        android:text="Inches:"
-                        android:textSize="18dp" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/InchesEditText"
+                        <TextView
+                            android:id="@+id/GeneralSectionTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:autoText="true"
-                            android:gravity="center"
-                            android:hint="Enter Inches (0-11)"
-                            android:minWidth="200dp"
-                            android:singleLine="true"
-                            android:textSize="18sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:text="General"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
-                </LinearLayout>
+
+                    </TableRow>
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp" />
+
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/PatientProfileAddressTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Address:"
+                            android:textSize="16sp" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp" />
+
+                        <TextView
+                            android:id="@+id/addressEnter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="none"
+                            android:singleLine="false"
+                            android:textSize="16sp" />
+                    </TableRow>
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp" />
+
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:id="@+id/phoneNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Phone Number:"
+                            android:textSize="16sp" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp" />
+
+                        <TextView
+                            android:id="@+id/phoneNumberEnter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textSize="16sp" />
+
+
+                    </TableRow>
+
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp" />
+
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:id="@+id/height"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Height:"
+                            android:textSize="16sp" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp" />
+
+                        <TextView
+                            android:id="@+id/heightEnter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textSize="16sp" />
+
+
+                    </TableRow>
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp" />
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:id="@+id/weight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Weight:"
+                            android:textSize="16sp" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp" />
+
+                        <TextView
+                            android:id="@+id/weightEnter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textSize="16sp" />
+
+
+                    </TableRow>
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp" />
+
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/EmergencyContact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Emergency Contact"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </TableRow>
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp" />
+
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:id="@+id/EmergencyName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Name:"
+                            android:textSize="16sp" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp" />
+
+                        <TextView
+                            android:id="@+id/EmergencyNameEnter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textSize="16sp" />
+
+
+                    </TableRow>
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp" />
+
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:id="@+id/EmergencyEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email:"
+                            android:textSize="16sp" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp" />
+
+                        <TextView
+                            android:id="@+id/EmergencyEmailEnter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textSize="16sp" />
+
+
+                    </TableRow>
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp" />
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:id="@+id/EmergencyPhoneNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Phone Number:"
+                            android:textSize="16sp" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp" />
+
+                        <TextView
+                            android:id="@+id/EmergencyPhoneNumberEnter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textSize="16sp" />
+
+
+                    </TableRow>
+
+                </TableLayout>
+
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+                    android:layout_height="25dp" />
+
 
                 <TextView
-                    android:id="@+id/weightTitle"
+                    android:id="@+id/medicalTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="* Weight"
-                    android:textSize="20sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/weightInput"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:hint="Enter Weight in lbs "
-                        android:minWidth="200dp"
-                        android:minHeight="50dp"
-                        android:singleLine="true"
-                        android:textSize="18sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                    android:text="Medical"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="15dp" />
+                    android:layout_height="25dp" />
 
+                <TextView
+                    android:id="@+id/noMedicalInformation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No Medical Information provided"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/allergiesTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Allergies?"
-                    android:textSize="20sp" />
+                    android:text="Allergies"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:id="@+id/allergyHeading"
@@ -497,12 +418,21 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/noAllergiesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="No Allergy Data"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/allergiesRecyclerView"
+                    android:id="@+id/generalInfoAllergiesRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
@@ -511,12 +441,13 @@
                     android:layout_height="10dp" />
 
                 <Button
-                    android:id="@+id/addAllergyButton"
+                    android:id="@+id/generalAddAllergyButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
-                    android:text="Add Allergy Information" />
+                    android:text="Add Allergy Information"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -527,14 +458,19 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+                    android:layout_height="15dp" />
 
                 <TextView
                     android:id="@+id/surgeriesTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Past Surgeries?"
-                    android:textSize="20sp" />
+                    android:text="Past Surgeries"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:id="@+id/surgeryHeading"
@@ -584,8 +520,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
+                <TextView
+                    android:id="@+id/noSurgeriesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="No Surgery Data"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/surgeriesRecyclerView"
+                    android:id="@+id/generalInfosurgeriesRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
@@ -594,12 +543,13 @@
                     android:layout_height="10dp" />
 
                 <Button
-                    android:id="@+id/addSurgeryButton"
+                    android:id="@+id/generalAddSurgeryButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
-                    android:text="Add Surgery Information" />
+                    android:text="Add Surgery Information"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -611,14 +561,19 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+                    android:layout_height="15dp" />
 
                 <TextView
                     android:id="@+id/CancerTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Previously Diagnosed With Cancer?"
-                    android:textSize="20sp" />
+                    android:text="Previously Diagnosed With Cancer"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:id="@+id/cancerHeading"
@@ -664,12 +619,21 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/noCancerText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="No Cancer Data"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/cancerRecyclerView"
+                    android:id="@+id/generalInfoCancerRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
@@ -678,12 +642,13 @@
                     android:layout_height="10dp" />
 
                 <Button
-                    android:id="@+id/addCancerInformationButton"
+                    android:id="@+id/generalAddCancerInformationButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
-                    android:text="Add Cancer Information" />
+                    android:text="Add Cancer Information"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -694,14 +659,19 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+                    android:layout_height="15dp" />
 
                 <TextView
                     android:id="@+id/diabetesTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Previously Diagnosed With Diabetes?"
-                    android:textSize="20sp" />
+                    android:text="Previously Diagnosed With Diabetes"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:id="@+id/diabetesHeading"
@@ -751,8 +721,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
+                <TextView
+                    android:id="@+id/noDiabetesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="No Diabetes Data"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/diabetesRecyclerView"
+                    android:id="@+id/generalInfoDiabetesRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
@@ -761,13 +744,14 @@
                     android:layout_height="10dp" />
 
                 <Button
-                    android:id="@+id/addDiabetesInformationButton"
+                    android:id="@+id/generalAddDiabetesInformationButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
                     android:layout_weight="1"
-                    android:text="Add Diabetes Information" />
+                    android:text="Add Diabetes Information"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -779,14 +763,19 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp" />
+                    android:layout_height="15dp" />
 
                 <TextView
                     android:id="@+id/otherConditionsTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Other Medical Conditions?"
-                    android:textSize="20sp" />
+                    android:text="Other Medical Conditions"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
 
                 <LinearLayout
                     android:id="@+id/otherConditionHeading"
@@ -832,12 +821,22 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/noOtherConditionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="No Other Medical Conditions"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
+
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
 
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/otherConditionsRecyclerView"
+                    android:id="@+id/generalInfoOtherConditionsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
@@ -846,38 +845,25 @@
                     android:layout_height="10dp" />
 
                 <Button
-                    android:id="@+id/addMedicalConditionsButton"
+                    android:id="@+id/generalAddMedicalConditionsButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
-                    android:text="Add Other Medical Information" />
+                    android:text="Add Other Medical Information"
+                    android:visibility="gone" />
 
             </LinearLayout>
-
 
         </LinearLayout>
     </ScrollView>
 
     <Button
-        android:id="@+id/connectFitButton"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:text="Connect Data From My Google Fit"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.18" />
-
-    <Button
-        android:id="@+id/skipForNowBtn"
+        android:id="@+id/returnfromGeneralButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/darker_gray"
-        android:text="Skip For Now"
+        android:text="Return"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
@@ -886,10 +872,11 @@
         app:layout_constraintVertical_bias="0.98" />
 
     <Button
-        android:id="@+id/submitButton"
+        android:id="@+id/editGeneralButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit"
+        android:text="Edit"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"

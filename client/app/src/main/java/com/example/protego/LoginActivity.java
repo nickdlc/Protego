@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.protego.web.FirestoreAPI;
+import com.example.protego.web.FirestoreListener;
 import com.example.protego.web.RequestManager;
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
@@ -48,6 +50,9 @@ public class LoginActivity extends AppCompatActivity{
     private Spinner spinner;
     private Button btnForgotPassword;
     private Button btnSignUp;
+
+    public static String flagData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,13 +152,13 @@ public class LoginActivity extends AppCompatActivity{
                                             Intent intentP = new Intent(LoginActivity.this, PatientDashboardActivity.class);
                                             if(document.getString("userType").equals("DOCTOR")) {
                                                 startActivity(intentD);
-                                                //updateUI("DOCTOR");
-                                            }
-                                            else {
-                                                startActivity(intentP);
-                                                //updateUI("PATIENT");
                                             }
 
+                                            else {
+                                               startActivity(intentP);
+                                                //the goToOnboarding is included in this function to determine whether to show onboarding form
+                                                getOnboardingFlag(uid);
+                                            }
                                         } else {
                                             Log.d(TAG, "No such document");
                                         }
@@ -195,5 +200,40 @@ public class LoginActivity extends AppCompatActivity{
                 startActivity(i);
             }
         });
+    }
+
+
+
+    private void getOnboardingFlag(String id) {
+
+        FirestoreAPI.getInstance().getOnboardingFlag(id, new FirestoreListener<DocumentSnapshot>() {
+            @Override
+            public void getResult(DocumentSnapshot object) {
+                flagData = object.get("Onboarding Completed").toString();
+                Log.v(TAG, "flag: " + flagData);
+                goToOnboarding(id);
+            }
+            @Override
+            public void getError(Exception e, String msg) {
+
+            }
+        });
+    }
+
+
+    // Function that handles going to onboarding if user is new
+    private void goToOnboarding(String uid) {
+        Log.v(TAG, "onboarding flag: "+ flagData);
+
+        if(flagData == "false"){
+            PatientOnboardingActivity.flag = "false";
+            Intent i = new Intent(this, PatientOnboardingActivity.class);
+            startActivity(i);
+            finish();
+        }else{
+            PatientOnboardingActivity.flag = "true";
+            Intent intentP = new Intent(LoginActivity.this, PatientDashboardActivity.class);
+            startActivity(intentP);
+        }
     }
 }

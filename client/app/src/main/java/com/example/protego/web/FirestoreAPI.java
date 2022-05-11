@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.stream.Collectors;
 
+import com.example.protego.PatientOnboardingActivity;
 import com.example.protego.web.schemas.MedicalInfo;
 import com.example.protego.util.RandomGenerator;
 import com.example.protego.web.schemas.AssignedTo;
@@ -23,6 +24,7 @@ import com.example.protego.web.schemas.Medication;
 import com.example.protego.web.schemas.Note;
 import com.example.protego.web.schemas.Notification;
 import com.example.protego.web.schemas.NotificationType;
+import com.example.protego.web.schemas.Onboarding.OnboardingInfo;
 import com.example.protego.web.schemas.Patient;
 import com.example.protego.web.schemas.Vital;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -628,6 +630,29 @@ public class FirestoreAPI {
                 });
     }
 
+    public Task<DocumentReference> createVital(String puid,
+                                               int heartRate,
+                                               int respiratoryRate,
+                                               double temperature,
+                                               FieldValue timestamp,
+                                               String bloodPressure,
+                                               String source,
+                                               FirestoreListener<Task> listener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("heartRate", heartRate);
+        params.put("respiratoryRate", respiratoryRate);
+        params.put("temperature", temperature);
+        params.put("date", timestamp);
+        params.put("bloodPressure", bloodPressure);
+        params.put("source", source);
+
+        return db.collection("users")
+                .document(puid)
+                .collection("Vitals")
+                .add(params)
+                .addOnCompleteListener(getListenerForCreation(listener, "Failed to create vital entry..."));
+    }
+
 
 //GENERATE REQUESTS
 
@@ -801,4 +826,90 @@ public class FirestoreAPI {
             }
         };
     }
+
+    public Task<DocumentReference> createOnboarding(OnboardingInfo onboardingInfo,
+                                                    FirestoreListener<Task> listener) {
+        Date date = new Date();
+        PatientOnboardingActivity.onboardingInfo.setDateCreated(date);
+
+        return db.collection("users")
+                .document(PatientOnboardingActivity.onboardingInfo.getUserID()).collection("Onboarding")
+                .add(PatientOnboardingActivity.onboardingInfo)
+                .addOnCompleteListener(getListenerForCreation(listener, "Failed to create note..."));
+    }
+
+
+    public void updateOnboardingFlag(String uid,
+                                           FirestoreListener<Task> listener) {
+
+
+         db.collection("users").document(uid).update("Onboarding Completed", true)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Successfully updated user onboarding flag" + uid);
+                        } else {
+                            Log.e(TAG, "Unable to update user onboarding flag" + uid);
+                        }
+                    }
+                });
+    }
+
+
+    public void getOnboardingDetails(String uid,
+                                     FirestoreListener<DocumentSnapshot> listener) {
+
+        final OnboardingInfo[] onboardingInfo = {new OnboardingInfo()};
+        CollectionReference docReference = db.collection("users").document(uid).collection("Onboarding");
+
+        docReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot result = task.getResult().getDocuments().get(0);
+                    listener.getResult(result);
+
+                    Log.d(TAG, "get onboarding " + result.getData().toString());
+
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                    listener.getError(task.getException(), "Failed to get Onboarding details");
+                }
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+    public void getOnboardingFlag(String uid, FirestoreListener<DocumentSnapshot> listener) {
+
+        DocumentReference docReference = db.collection("users").document(uid);
+
+        docReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                   DocumentSnapshot result = task.getResult();
+                   listener.getResult(result);
+
+                   Log.d(TAG, "get onboarding " + result.get("Onboarding Completed"));
+
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                    listener.getError(task.getException(), "Failed to get Onboarding details");
+                }
+            }
+        });
+
+    }
+
+
 }
