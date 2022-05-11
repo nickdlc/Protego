@@ -54,12 +54,6 @@ tools:context=".DoctorViewPatientsActivity">
             android:layout_height="wrap_content"
             android:text="Return" />
 
-        <Button
-            android:id="@+id/testButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="View Patient Information" />
-
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
