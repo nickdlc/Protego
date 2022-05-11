@@ -23,6 +23,7 @@ public class PatientDetails {
     public Integer weight;
     public Integer heartRate;
     public String bloodPressure;
+    public String onboardingFlag;
 
     public PatientDetails(){
 
@@ -37,6 +38,7 @@ public class PatientDetails {
         firstName = patient.getFirstName();
         id = patient.getPatientID();
         lastName = patient.getLastName();
+        onboardingFlag = patient.getOnboardingFlag();
     }
 
     public static List<PatientDetails> constructPatients (JSONArray patientsArray) throws JSONException {

@@ -290,6 +290,8 @@ public class FirestoreAPI {
                             List<DocumentSnapshot> documents = task.getResult().getDocuments();
 
                             int totalPatients = documents.size();
+                            Log.d(TAG, "totalPatients " + totalPatients);
+
                             List<Patient> patients = new Vector<>();
                             documents.stream()
                                     .map(qds -> // results -> Patient IDs
@@ -304,6 +306,9 @@ public class FirestoreAPI {
                                                             if (task.isSuccessful()) {
                                                                 Patient p = task.getResult().toObject(Patient.class);
                                                                 p.setPatientID(puid);
+
+                                                                p.setOnboardingFlag(task.getResult().get("Onboarding Completed").toString());
+
                                                                 patients.add(p);
                                                                 if (patients.size() >= totalPatients) {
                                                                     listener.getResult(patients);

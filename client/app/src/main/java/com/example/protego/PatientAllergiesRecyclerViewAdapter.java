@@ -9,15 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.protego.web.schemas.Onboarding.AllergyInfo;
+
 import java.util.ArrayList;
 
 public class PatientAllergiesRecyclerViewAdapter extends RecyclerView.Adapter<PatientAllergiesRecyclerViewAdapter.MyViewHolder>{
 
 
     Context context;
-    ArrayList<NewAllergyFragment.AllergyInfo> AllergyData;
+    ArrayList<AllergyInfo> AllergyData;
 
-    public PatientAllergiesRecyclerViewAdapter(Context context, ArrayList<NewAllergyFragment.AllergyInfo> AllergyData){
+    public PatientAllergiesRecyclerViewAdapter(Context context, ArrayList<AllergyInfo> AllergyData){
         this.context = context;
         this.AllergyData = AllergyData;
     }

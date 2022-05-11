@@ -79,6 +79,7 @@ public class PatientsListAdapter extends RecyclerView.Adapter<PatientsListAdapte
                     i.putExtra("patientFirst", patient.firstName);
                     i.putExtra("patientLast", patient.lastName);
                     i.putExtra("patientId", patient.id);
+                    i.putExtra("onboardingFlag", patient.onboardingFlag);
                     context.startActivity(i);
                 }
             });

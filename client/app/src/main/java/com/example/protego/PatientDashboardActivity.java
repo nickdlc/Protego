@@ -23,6 +23,11 @@ import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
 import com.example.protego.web.schemas.Notification;
 import com.example.protego.web.schemas.NotificationType;
+import com.example.protego.web.schemas.Onboarding.AllergyInfo;
+import com.example.protego.web.schemas.Onboarding.CancerInfo;
+import com.example.protego.web.schemas.Onboarding.DiabetesInfo;
+import com.example.protego.web.schemas.Onboarding.OtherConditionsInfo;
+import com.example.protego.web.schemas.Onboarding.SurgeryInfo;
 import com.example.protego.web.schemas.PatientDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -77,11 +82,11 @@ public class PatientDashboardActivity extends AppCompatActivity{
     public static String Name;
     public static String flagData;
     public static String phoneData, heightData, weightData, emergencyPhoneData, emergencyNameData, emergencyEmailData, addressData;
-    public static ArrayList<NewAllergyFragment.AllergyInfo> allergiesList = new ArrayList<>();
-    public static ArrayList<NewCancerFragment.CancerInfo> cancerList = new ArrayList<>();
-    public static ArrayList<NewDiabetesFragment.DiabetesInfo> diabetesList = new ArrayList<>();
-    public static ArrayList<NewSurgeryFragment.SurgeryInfo> surgeryList = new ArrayList<>();
-    public static ArrayList<NewOtherMedicalConditionsFragment.OtherConditionsInfo> otherConditionsList = new ArrayList<>();
+    public static ArrayList<AllergyInfo> allergiesList = new ArrayList<>();
+    public static ArrayList<CancerInfo> cancerList = new ArrayList<>();
+    public static ArrayList<DiabetesInfo> diabetesList = new ArrayList<>();
+    public static ArrayList<SurgeryInfo> surgeryList = new ArrayList<>();
+    public static ArrayList<OtherConditionsInfo> otherConditionsList = new ArrayList<>();
 
 
 
@@ -540,28 +545,28 @@ public class PatientDashboardActivity extends AppCompatActivity{
             String date = dataItem.get("date").toString();
 
             if(firestoreName.equals("allergyData")){
-                NewAllergyFragment.AllergyInfo allergyItem = new NewAllergyFragment.AllergyInfo(name, date, doctor);
+                AllergyInfo allergyItem = new AllergyInfo(name, date, doctor);
                 objectList.add(allergyItem);
                 Log.v(TAG, "Allergies item: name = " + allergyItem.getName() + " date = " + allergyItem.getDate() + " doctor = " + allergyItem.getDoctor());
             }
             else if(firestoreName.equals("cancerData")){
-                NewCancerFragment.CancerInfo cancerItem = new NewCancerFragment.CancerInfo(name, date, doctor);
+                CancerInfo cancerItem = new CancerInfo(name, date, doctor);
                 objectList.add(cancerItem);
                 Log.v(TAG, "Cancer item: name = " + cancerItem.getName() + " date = " + cancerItem.getDate() + " doctor = " + cancerItem.getDoctor());
             }
             else if(firestoreName.equals("surgeryData")){
-                NewSurgeryFragment.SurgeryInfo surgeryItem = new NewSurgeryFragment.SurgeryInfo(name, date, doctor);
+                SurgeryInfo surgeryItem = new SurgeryInfo(name, date, doctor);
                 objectList.add(surgeryItem);
                 Log.v(TAG, "Surgery item: name = " + surgeryItem.getName() + " date = " + surgeryItem.getDate() + " doctor = " + surgeryItem.getDoctor());
             }
             else if(firestoreName.equals("diabetesData")){
-                NewDiabetesFragment.DiabetesInfo diabetesItem = new NewDiabetesFragment.DiabetesInfo(name, date, doctor);
+                DiabetesInfo diabetesItem = new DiabetesInfo(name, date, doctor);
                 objectList.add(diabetesItem);
                 Log.v(TAG, "Diabetes item: name = " + diabetesItem.getName() + " date = " + diabetesItem.getDate() + " doctor = " + diabetesItem.getDoctor());
             }
 
             else if(firestoreName.equals("otherConditionsData")){
-                NewOtherMedicalConditionsFragment.OtherConditionsInfo otherConditionItem = new NewOtherMedicalConditionsFragment.OtherConditionsInfo(name, date, doctor);
+                OtherConditionsInfo otherConditionItem = new OtherConditionsInfo(name, date, doctor);
                 objectList.add(otherConditionItem);
                 Log.v(TAG, "Cancer item: name = " + otherConditionItem.getName() + " date = " + otherConditionItem.getDate() + " doctor = " + otherConditionItem.getDoctor());
             }

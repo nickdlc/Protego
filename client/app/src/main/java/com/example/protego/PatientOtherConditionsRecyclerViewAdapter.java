@@ -9,15 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.protego.web.schemas.Onboarding.OtherConditionsInfo;
+
 import java.util.ArrayList;
 
 public class PatientOtherConditionsRecyclerViewAdapter extends RecyclerView.Adapter<PatientOtherConditionsRecyclerViewAdapter.MyViewHolder>{
 
 
     Context context;
-    ArrayList<NewOtherMedicalConditionsFragment.OtherConditionsInfo> OtherConditionsData;
+    ArrayList<OtherConditionsInfo> OtherConditionsData;
 
-    public PatientOtherConditionsRecyclerViewAdapter(Context context, ArrayList<NewOtherMedicalConditionsFragment.OtherConditionsInfo> OtherConditionsData){
+    public PatientOtherConditionsRecyclerViewAdapter(Context context, ArrayList<OtherConditionsInfo> OtherConditionsData){
         this.context = context;
         this.OtherConditionsData = OtherConditionsData;
     }

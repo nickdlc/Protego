@@ -41,6 +41,7 @@ public class DoctorViewPatientVitals
     private String patientFirst;
     private String patientLast;
     private String name;
+    private String onboardingFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class DoctorViewPatientVitals
         patientLast = extras.getString("patientLast");
         name = patientFirst + " " + patientLast;
         pid = extras.getString("patientId");
+        onboardingFlag = extras.getString("onboardingFlag");
+
         //System.out.println("Passing through " + pid);
 
         vitalsData = new ArrayList<>();
@@ -185,6 +188,7 @@ public class DoctorViewPatientVitals
                 i.putExtra("patientFirst", patientFirst);
                 i.putExtra("patientLast", patientLast);
                 i.putExtra("patientId", pid);
+                i.putExtra("onboardingFlag", onboardingFlag);
                 startActivity(i);
                 finish();
             }

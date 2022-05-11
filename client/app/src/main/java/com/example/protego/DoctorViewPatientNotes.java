@@ -31,6 +31,8 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
     private String patientFirst;
     private String patientLast;
     private String name;
+    private String onboardingFlag;
+
     private SwipeRefreshLayout swipeContainer;
 
     @Override
@@ -46,6 +48,8 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
         patientLast = extras.getString("patientLast");
         name = patientFirst + " " + patientLast;
         pid = extras.getString("patientId");
+        onboardingFlag = extras.getString("onboardingFlag");
+
         //System.out.println("Passing through " + pid);
 
         tvFullName = findViewById(R.id.notesPatientFullNameInput);
@@ -164,6 +168,7 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
                 i.putExtra("patientFirst", patientFirst);
                 i.putExtra("patientLast", patientLast);
                 i.putExtra("patientId", pid);
+                i.putExtra("onboardingFlag", onboardingFlag);
                 startActivity(i);
                 finish();
             }
