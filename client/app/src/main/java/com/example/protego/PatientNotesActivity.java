@@ -125,7 +125,6 @@ public class PatientNotesActivity extends FragmentActivity
 
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(PatientNotesActivity.this, LinearLayoutManager.HORIZONTAL, false));
-
             }
 
             @Override

@@ -15,6 +15,7 @@
         android:minHeight="300dp"
         app:cardBackgroundColor="@color/notes_color"
         app:cardElevation="15dp"
+        app:contentPadding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,21 +47,21 @@
                 android:layout_height="wrap_content"
                 android:text="Title"
                 android:textAlignment="center"
-                android:textSize="60sp" />
+                android:textSize="45sp" />
 
             <TextView
                 android:id="@+id/NoteVisibilityLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Visibility"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/NoteContentLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Details"
-                android:textSize="34sp" />
+                android:textSize="30sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
