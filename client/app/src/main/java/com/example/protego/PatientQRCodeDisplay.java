@@ -1,10 +1,13 @@
 package com.example.protego;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.LruCache;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +35,7 @@ public class PatientQRCodeDisplay extends AppCompatActivity {
 
     private NetworkImageView nv;
     private ImageLoader imageLoader;
+    private Button btnReturn;
 
     private int width;
     private int height;
@@ -42,6 +46,16 @@ public class PatientQRCodeDisplay extends AppCompatActivity {
         setContentView(R.layout.patient_qr_code_display);
 
         mAuth = FirebaseAuth.getInstance();
+
+        btnReturn = findViewById(R.id.qrCodeReturnBtn);
+        btnReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), PatientDashboardActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
         // TODO: figure out how to show based off dimensions
 //        DisplayMetrics displayMetrics = new DisplayMetrics();
