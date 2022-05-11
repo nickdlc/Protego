@@ -140,6 +140,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <receiver android:name=".AlarmReceiver"/>
+        <receiver android:name=".PrescriptionAlarmReceiver"/>
     </application>
 
 </manifest>
