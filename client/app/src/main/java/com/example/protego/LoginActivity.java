@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity{
                             String uid = user.getUid();
 
                             if (user.isEmailVerified()) {
-                                //updateUI(user);
+                                updateUI();
                                 DocumentReference docRef = firestore.collection("users").document(uid);
                                 docRef.get().addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful()) {
@@ -155,9 +155,8 @@ public class LoginActivity extends AppCompatActivity{
                                             }
 
                                             else {
-                                               startActivity(intentP);
-                                                //the goToOnboarding is included in this function to determine whether to show onboarding form
                                                 getOnboardingFlag(uid);
+                                                //the goToOnboarding is included in this function to determine whether to show onboarding form
                                             }
                                         } else {
                                             Log.d(TAG, "No such document");
@@ -177,7 +176,6 @@ public class LoginActivity extends AppCompatActivity{
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
                     }
                 });
@@ -185,8 +183,8 @@ public class LoginActivity extends AppCompatActivity{
 
     private void reload() { }
 
-    private void updateUI(String userType) {
-        userT = userType;
+    private void updateUI() {
+
     }
 
     // navigate to next activity
@@ -205,7 +203,7 @@ public class LoginActivity extends AppCompatActivity{
 
 
     private void getOnboardingFlag(String id) {
-
+        System.out.println("Testing testing testing");
         FirestoreAPI.getInstance().getOnboardingFlag(id, new FirestoreListener<DocumentSnapshot>() {
             @Override
             public void getResult(DocumentSnapshot object) {
@@ -215,7 +213,6 @@ public class LoginActivity extends AppCompatActivity{
             }
             @Override
             public void getError(Exception e, String msg) {
-
             }
         });
     }
