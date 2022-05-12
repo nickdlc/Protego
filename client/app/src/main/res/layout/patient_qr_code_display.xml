@@ -5,9 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="230dp"
-        android:layout_height="100dp"
+    <Button
+        android:id="@+id/doctorProfileEditButton15"
+        android:layout_width="243dp"
+        android:layout_height="43dp"
+        app:cornerRadius="20dp"
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="128dp" />
+
+    <TextView
+        android:id="@+id/yourQRCodeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your QR Code"
+        android:textSize="34sp"
+        android:translationZ="10dp"
+        android:textColor="#000000"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.38"
