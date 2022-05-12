@@ -57,8 +57,8 @@ tools:context=".PatientNavigationBarFragment">
 
         <Spinner
             android:id="@+id/patientNavbarSpinner"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@drawable/patient_circle"
             android:gravity="center"
