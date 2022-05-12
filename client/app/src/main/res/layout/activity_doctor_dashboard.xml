@@ -9,6 +9,14 @@
     android:visibility="visible"
     tools:context=".DoctorDashboardActivity">
 
+    <Button
+        android:id="@+id/doctorProfileEditButton3"
+        android:layout_width="233dp"
+        android:layout_height="46dp"
+        app:cornerRadius="20dp"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="123dp" />
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
@@ -26,7 +34,9 @@
             android:layout_height="wrap_content"
             android:height="75dp"
             android:text="Scan QR Code"
-            android:textSize="20dp" />
+            android:textColor="#000000"
+            android:textSize="20dp"
+            app:cornerRadius="20dp"/>
 
         <Space
             android:layout_width="match_parent"
@@ -38,7 +48,9 @@
             android:layout_height="wrap_content"
             android:height="75dp"
             android:text="View Patients"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textColor="#000000"
+            app:cornerRadius="20dp"/>
     </LinearLayout>
 
     <TextView
@@ -46,12 +58,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dashboard"
+        android:textColor="#000000"
         android:textSize="40dp"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.41"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.563" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"

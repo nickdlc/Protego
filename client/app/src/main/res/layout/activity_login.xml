@@ -21,6 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Layout_Password_Sign_In_Text_Input"
         app:layout_constraintVertical_bias="0.65"
         app:strokeColor="@color/black"
+        app:cornerRadius="20dp"
         app:strokeWidth="1dp" />
 
     <TextView
@@ -65,6 +66,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:ellipsize="none"
+            android:textColor="#000000"
             android:hint="Email *"
             android:inputType="textEmailAddress"
             android:textSize="20dp" />
@@ -96,6 +98,7 @@
             android:background="@android:color/transparent"
             android:ellipsize="none"
             android:hint="Password *"
+            android:textColor="#000000"
             android:inputType="textPassword"
             android:password="true"
             android:textSize="20dp" />
@@ -125,6 +128,7 @@
         android:text="Don't have an account? Sign Up"
         android:textColor="#000000"
         android:textSize="9sp"
+        app:cornerRadius="20dp"
         app:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -139,6 +143,7 @@
         android:text="Forgot Password"
         android:textColor="#000000"
         android:textSize="9sp"
+        app:cornerRadius="20dp"
         app:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -151,6 +156,7 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:textSize="34sp"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

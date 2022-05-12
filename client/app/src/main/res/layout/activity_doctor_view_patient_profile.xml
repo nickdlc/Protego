@@ -6,19 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".DoctorViewPatientProfile">
 
+
+    <Button
+        android:id="@+id/doctorProfileEditButton6"
+        android:layout_width="312dp"
+        android:layout_height="37dp"
+        app:cornerRadius="20dp"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="72dp" />
+
     <TextView
         android:id="@+id/DoctorViewPatientGeneralInfoTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="339dp"
+        android:layout_height="43dp"
         android:text="General Information"
+        android:textColor="#000000"
         android:textSize="30dp"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/doctorViewPatientDataRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.777"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
-
+        app:layout_constraintVertical_bias="0.473" />
 
     <LinearLayout
         android:layout_width="409dp"
@@ -58,7 +68,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.64" />
+        app:layout_constraintVertical_bias="0.64"
+        />
 
     <Button
         android:id="@+id/returnFromGeneral"
@@ -70,7 +81,8 @@
         app:layout_constraintHorizontal_bias="0.89"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.96" />
+        app:layout_constraintVertical_bias="0.96"
+        app:cornerRadius="20dp"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView10"

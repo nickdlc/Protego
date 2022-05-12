@@ -7,17 +7,28 @@
     tools:context=".DoctorEditProfileActivity">
 
 
-<TextView
-    android:id="@+id/DoctorEditProfileTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/edit_profile"
-    android:textSize="40sp"
-    app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.09"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/doctorProfileEditButton2"
+        android:layout_width="204dp"
+        android:layout_height="43dp"
+        app:cornerRadius="20dp"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="35dp" />
+
+    <TextView
+        android:id="@+id/DoctorEditProfileTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_profile"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:translationZ="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.53" />
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -42,7 +53,8 @@
                     android:layout_width="407dp"
                     android:layout_height="match_parent"
                     android:hint="@string/edit_first_name"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -194,13 +206,17 @@
         android:id="@+id/DoctorEditProfileUpdateButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/update" />
+        android:textColor="#000000"
+        android:text="@string/update"
+        app:cornerRadius="20dp"/>
 
     <Button
         android:id="@+id/DoctorEditProfileReturnButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/return_button" />
+        android:text="@string/return_button"
+        android:textColor="#000000"
+        app:cornerRadius="20dp"/>
 
 </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".PatientVitals">
 
+    <Button
+        android:id="@+id/doctorProfileEditButton14"
+        android:layout_width="132dp"
+        android:layout_height="39dp"
+        app:cornerRadius="20dp"
+        tools:layout_editor_absoluteX="-5dp"
+        tools:layout_editor_absoluteY="41dp" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView4"
         android:name="com.example.protego.PatientNavigationBarFragment"
@@ -93,11 +101,11 @@
 
     <Button
         android:id="@+id/btnReturn"
-        android:layout_width="59dp"
-        android:layout_height="55dp"
-        android:background="@drawable/circle"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
         android:text="Return"
-        android:textSize="8sp"
+        android:textSize="12sp"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.928"
@@ -107,17 +115,17 @@
 
     <Button
         android:id="@+id/btnAdd"
-        android:layout_width="59dp"
-        android:layout_height="55dp"
-        android:background="@drawable/circle"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
         android:text="Add"
-        android:textSize="10sp"
+        android:textSize="12sp"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.928"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.964" />
+        app:layout_constraintVertical_bias="0.918" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/patientVitalsRecyclerView"
@@ -135,12 +143,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Vitals"
+        android:textColor="#000000"
         android:textSize="30sp"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.78" />
+        app:layout_constraintVertical_bias="0.7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

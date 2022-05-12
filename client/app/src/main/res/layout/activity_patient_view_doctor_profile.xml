@@ -6,17 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".PatientViewDoctorProfile">
 
+    <Button
+        android:id="@+id/doctorProfileEditButton13"
+        android:layout_width="374dp"
+        android:layout_height="44dp"
+        app:cornerRadius="20dp"
+        tools:layout_editor_absoluteX="21dp"
+        tools:layout_editor_absoluteY="117dp" />
+
     <TextView
         android:id="@+id/PatientViewDoctorProfileGeneralInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/general_information"
+        android:textColor="#000000"
         android:textSize="40sp"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.589"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -123,7 +134,8 @@
             android:id="@+id/btnCancelConnection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/cancel_connection" />
+            android:text="@string/cancel_connection"
+            app:cornerRadius="20dp"/>
 
         <Space
             android:layout_width="match_parent"
@@ -133,7 +145,8 @@
             android:id="@+id/returnFromPatientViewDoctorProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/return_button" />
+            android:text="@string/return_button"
+            app:cornerRadius="20dp"/>
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
