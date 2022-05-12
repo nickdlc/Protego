@@ -79,6 +79,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
     private FirebaseFirestore db;
     private PatientDetails patientDetails;
     private ArrayList<Notification> notifications;
+    private ArrayList<Vital> vitals;
     private NotificationListAdapter.RecyclerViewClickListener listener;
     public static String Name;
     public static String flagData;
@@ -88,9 +89,6 @@ public class PatientDashboardActivity extends AppCompatActivity{
     public static ArrayList<DiabetesInfo> diabetesList = new ArrayList<>();
     public static ArrayList<SurgeryInfo> surgeryList = new ArrayList<>();
     public static ArrayList<OtherConditionsInfo> otherConditionsList = new ArrayList<>();
-
-
-
 
     public static class PatientInfo {
         private final String title;
@@ -111,14 +109,6 @@ public class PatientDashboardActivity extends AppCompatActivity{
     }
 
     ArrayList<PatientInfo> patientData = new ArrayList<>();
-
-    private void setUpPatientInfo(){
-        patientData.add( new PatientInfo("Heart Rate:", patientDetails.heartRate.toString()));
-        patientData.add( new PatientInfo("Blood Pressure:", patientDetails.bloodPressure.toString()));
-        // patientData.add( new PatientInfo("Temperature:", "87 Bpm"));
-        patientData.add( new PatientInfo("Height (in.)", patientDetails.heightIN.toString()));
-        patientData.add( new PatientInfo("Weight (lbs.)", patientDetails.weight.toString()));
-    }
 
     // Function that handles going to onboarding if user is new
     private void goToOnboarding(String uid) {
@@ -142,26 +132,12 @@ public class PatientDashboardActivity extends AppCompatActivity{
         PatientDashboardActivity thisObj = this;
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
 
         goToOnboarding(currentUser.getUid()); //checks the flag set during onboarding to determine if the onboarding button should be visible
 
-        //getOnboardingFlag(currentUser.getUid()); //the goToOnboarding is included in this function to determine whether to show onboarding form
-
-
         //updates the navbar to show the patient's first name
         getPatientFirstName(currentUser.getUid());
-
-        //PatientVitals.patientData.clear();
-        //to get and set the user's vitals for their vitals page
-        //getPatientVitals(mAuth.getCurrentUser().getUid());
-
-        //PatientMedicationActivity.medicationData.clear();
-        //to get and set the user's medication for their medications page
-        //getPatientMedications(currentUser.getUid());
-
-        //PatientNotesActivity.notesData.clear();
-        //to get and set the user's notes for their notes page
-        //getPatientNotes(currentUser.getUid());
 
         FirestoreAPI.getInstance().getPatient(currentUser.getUid(), new FirestoreListener<Patient>() {
             @Override
@@ -184,32 +160,38 @@ public class PatientDashboardActivity extends AppCompatActivity{
             }
         });
 
-        FirestoreAPI.getInstance().getMedicalInfo(currentUser.getUid(), new FirestoreListener<MedicalInfo>() {
+        FirestoreAPI.getInstance().getVitals(currentUser.getUid(), new FirestoreListener<List<Vital>>() {
             @Override
-            public void getResult(MedicalInfo medInfo) {
-                Log.d(TAG, "req received for medication : " + medInfo);
-
-                if (medInfo != null) {
-                    patientDetails.heartRate = medInfo.getHeartRate();
-                    patientDetails.bloodPressure = medInfo.getBloodPressure();
-                    patientDetails.heightIN = medInfo.getHeightIN();
-                    patientDetails.weight = medInfo.getWeight();
-
-                    RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
-                    setUpPatientInfo();
-
-                    PatientDashboardRecyclerViewAdapter adapter = new PatientDashboardRecyclerViewAdapter(thisObj, patientData);
-                    recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+            public void getResult(List<Vital> object) {
+                if (!object.isEmpty()) {
+                    vitals = new ArrayList<>(object);
+                    Collections.sort(vitals, Collections.reverseOrder());
+                    // grab the most recent vital
+                    Vital v = vitals.get(0);
+                    patientData.add(new PatientInfo("Heart Rate:", String.valueOf(v.getHeartRate())));
+                    patientData.add(new PatientInfo("Blood Pressure:", v.getBloodPressure()));
+                    patientData.add(new PatientInfo("Respiratory Rate:", String.valueOf(v.getRespiratoryRate())));
+                    patientData.add(new PatientInfo("Temperature:", String.valueOf(v.getTemperature())));
                 } else {
-                    Log.e(TAG, "could not receive patient info : ");
+                    patientData.add(new PatientInfo("Heart Rate:", "N/A"));
+                    patientData.add(new PatientInfo("Blood Pressure:", "N/A"));
+                    patientData.add(new PatientInfo("Respiratory Rate:", "N/A"));
+                    patientData.add(new PatientInfo("Temperature:", "N/A"));
                 }
+
+                PatientDashboardRecyclerViewAdapter adapter = new PatientDashboardRecyclerViewAdapter(thisObj, patientData);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
             }
 
             @Override
             public void getError(Exception e, String msg) {
-                Log.e(TAG, "failed to get medInfo : " + msg, e);
-                Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
+                Log.e(TAG, msg, e);
+                Toast.makeText(
+                        getApplicationContext(),
+                        msg,
+                        Toast.LENGTH_LONG
+                ).show();
             }
         });
 
@@ -220,8 +202,6 @@ public class PatientDashboardActivity extends AppCompatActivity{
                 showBottomSheetDialog();
             }
         });
-
-        RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
 
         // update the user's name based on their profile information
         Name = "Example";
