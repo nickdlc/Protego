@@ -9,62 +9,64 @@ android:layout_height="match_parent"
 android:theme="@style/Theme.Protego.NoActionBar"
 tools:context=".PatientNavigationBarFragment">
 
-<LinearLayout
-    android:id="@+id/linearLayout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center|center_horizontal|center_vertical"
-    android:orientation="horizontal"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.0">
-
-    <TextView
-        android:id="@+id/welcomeTextView"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="center|center_horizontal|center_vertical"
-        android:text="Welcome"
-        android:textSize="24sp" />
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-    <Space
-        android:layout_width="10dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_weight="1"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/welcomeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:text="Welcome"
+            android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/patientNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center|center_horizontal|center_vertical"
-        android:textSize="24dp" />
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Space
-        android:layout_width="10dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_weight="1"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/patientNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:textSize="24dp" />
 
-    <Spinner
-        android:id="@+id/patientNavbarSpinner"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_weight="1"
-        android:background="@drawable/patient_circle"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textColor = "@color/white"
-        android:visibility="visible" />
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/patientNavbarSpinner"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:background="@drawable/patient_circle"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:visibility="visible" />
 
 
-</LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
