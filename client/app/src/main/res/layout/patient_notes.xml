@@ -7,21 +7,23 @@
 
     <TextView
         android:id="@+id/myMedicationsLabel"
-        android:layout_width="175dp"
-        android:layout_height="54dp"
+        android:layout_width="172dp"
+        android:layout_height="92dp"
+        android:fontFamily="@font/chathura_bold"
         android:text="My Notes:"
-        android:textSize="34sp"
+        android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.067"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14" />
+        app:layout_constraintVertical_bias="0.120000005" />
 
     <Button
         android:id="@+id/patientNotesBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:cornerRadius="20dp"
         android:text="Create a new note"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

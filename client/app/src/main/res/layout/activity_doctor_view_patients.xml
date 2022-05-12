@@ -7,24 +7,38 @@ android:layout_height="match_parent"
 tools:context=".DoctorViewPatientsActivity">
 
 
+    <Button
+        android:id="@+id/doctorProfileEditButton11"
+        android:layout_width="201dp"
+        android:layout_height="42dp"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.120000005" />
+
+
     <TextView
         android:id="@+id/DoctorViewPatientsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/chathura_bold"
         android:text="Patients"
-        android:textSize="40dp"
+        android:textColor="#000000"
+        android:textSize="70dp"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/rvPatients"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView20"
-        app:layout_constraintVertical_bias="0.60" />
+        app:layout_constraintVertical_bias="0.63" />
 
-
-
-<androidx.fragment.app.FragmentContainerView
+    <androidx.fragment.app.FragmentContainerView
     android:id="@+id/fragmentContainerView20"
     android:name="com.example.protego.DoctorNavigationBarFragment"
     android:layout_width="wrap_content"
@@ -52,8 +66,9 @@ tools:context=".DoctorViewPatientsActivity">
             android:id="@+id/DoctorViewPatientsReturnButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Return" />
-
+            android:text="Return"
+            app:cornerRadius="20dp"/>
+      
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

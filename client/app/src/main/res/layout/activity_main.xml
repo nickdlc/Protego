@@ -12,10 +12,12 @@
         android:id="@+id/btnLoginOption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:height="75dp"
         android:layout_marginTop="200dp"
+        android:height="75dp"
+        android:fontFamily="@font/chathura_bold"
         android:text="LOGIN"
-        android:textSize="20dp" />
+        android:textSize="40dp"
+        app:cornerRadius="20dp" />
 
     <Space
         android:layout_width="match_parent"
@@ -26,8 +28,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:height="75dp"
+        android:fontFamily="@font/chathura_bold"
         android:text="SIGN UP"
-        android:textSize="20dp" />
+        android:textSize="40dp"
+        app:cornerRadius="20dp" />
 
 
 </LinearLayout>

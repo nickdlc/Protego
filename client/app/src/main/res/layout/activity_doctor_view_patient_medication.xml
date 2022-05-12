@@ -7,15 +7,30 @@
     tools:context=".DoctorViewPatientMedication">
 
 
+    <Button
+        android:id="@+id/doctorProfileEditButton5"
+        android:layout_width="226dp"
+        android:layout_height="39dp"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.120000005" />
+
     <TextView
         android:id="@+id/DoctorViewMedicationsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/chathura_bold"
         android:text="@string/medication"
-        android:textSize="40sp"
+        android:textColor="#000000"
+        android:textSize="70sp"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/doctorViewMedicationSwipeContainer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,7 +92,8 @@
         app:layout_constraintHorizontal_bias="0.89"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.513" />
+        app:layout_constraintVertical_bias="0.513"
+        app:cornerRadius="20dp"/>
 
     <Button
         android:id="@+id/returnFromMedications"
@@ -86,10 +102,11 @@
         android:text="@string/return_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.89"
+        app:layout_constraintHorizontal_bias="0.899"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.96" />
+        app:layout_constraintVertical_bias="0.96"
+        app:cornerRadius="20dp"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView9"

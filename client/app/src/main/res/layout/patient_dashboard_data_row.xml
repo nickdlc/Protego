@@ -9,6 +9,7 @@
         android:id="@+id/patientDataCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:elevation="15dp"
         app:cardBackgroundColor="#1B000000"
         app:layout_constraintBottom_toBottomOf="parent"

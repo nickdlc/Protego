@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".DoctorViewPatientSelections">
 
+    <Button
+        android:id="@+id/doctorProfileEditButton7"
+        android:layout_width="341dp"
+        android:layout_height="42dp"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.120000005" />
+
     <LinearLayout
         android:id="@+id/linearLayout7"
         android:layout_width="0dp"
@@ -22,8 +34,10 @@
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:layout_weight="1"
+            android:fontFamily="@font/chathura_bold"
             android:text="General"
-            android:textSize="23dp" />
+            android:textSize="40dp"
+            app:cornerRadius="20dp" />
 
         <Space
             android:layout_width="10dp"
@@ -34,8 +48,10 @@
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:layout_weight="1"
+            android:fontFamily="@font/chathura_bold"
             android:text="Medication"
-            android:textSize="23dp" />
+            android:textSize="40dp"
+            app:cornerRadius="20dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,8 +70,10 @@
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:layout_weight="1"
+            android:fontFamily="@font/chathura_bold"
             android:text="Notes"
-            android:textSize="23dp" />
+            android:textSize="40dp"
+            app:cornerRadius="20dp" />
 
         <Space
             android:layout_width="10dp"
@@ -66,8 +84,10 @@
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:layout_weight="1"
+            android:fontFamily="@font/chathura_bold"
             android:text="Vitals"
-            android:textSize="23dp" />
+            android:textSize="40dp"
+            app:cornerRadius="20dp" />
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
@@ -86,15 +106,20 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/chathura_bold"
         android:text="Patient Profile"
-        android:textSize="40dp"
+        android:textColor="#000000"
+        android:textSize="70dp"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.089999974" />
 
     <LinearLayout
+        android:id="@+id/linearLayout8"
         android:layout_width="409dp"
         android:layout_height="81dp"
         android:gravity="center_vertical"
@@ -131,5 +156,6 @@
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.5"
+        app:cornerRadius="20dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

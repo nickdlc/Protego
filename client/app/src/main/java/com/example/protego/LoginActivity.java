@@ -2,6 +2,7 @@ package com.example.protego;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.protego.web.FirestoreAPI;
 import com.example.protego.web.FirestoreListener;
@@ -58,6 +60,13 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        ConstraintLayout constraintLayout = findViewById(R.id.loginLayout);
+        // Animated Background Setup
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5000);
+        animationDrawable.start();
 
         // Set up Volley if external API calls are enabled
         if (RequestManager.ACTIVE)

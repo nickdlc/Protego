@@ -19,10 +19,11 @@
 
     <TextView
         android:id="@+id/myMedicationsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="54dp"
+        android:layout_width="269dp"
+        android:layout_height="105dp"
+        android:fontFamily="@font/chathura_bold"
         android:text="My Medications:"
-        android:textSize="34sp"
+        android:textSize="70sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.067"
@@ -55,13 +56,14 @@
         android:id="@+id/add_medication"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:cornerRadius="20dp"
         android:text="@string/add_button"
         app:layout_constraintBottom_toTopOf="@+id/swipeContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.81" />
+        app:layout_constraintVertical_bias="0.81"/>
 
     <Button
         android:id="@+id/set_reminder"

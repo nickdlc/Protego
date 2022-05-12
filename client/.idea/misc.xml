@@ -3,19 +3,57 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/font/chathura.xml" value="0.17685185185185184" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/font/chathura_bold.xml" value="0.17685185185185184" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_doctor_dashboard.xml" value="0.22" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_doctor_edit_profile.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_doctor_profile.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_doctor_scan_qrcode.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_doctor_view_patient_medication.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_doctor_view_patient_notes.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_doctor_view_patient_profile.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_doctor_view_patient_selections.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_doctor_view_patient_vitals.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_doctor_view_patients.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_forgot_password.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_login.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_paint_vitals.xml" value="0.22" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_patient_edit_profile.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_patient_profile.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_patient_view_doctor_profile.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_patient_vitals.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_signup.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/activity_splash.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/content_main.xml" value="0.1933876811594203" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/content_patient_vitals.xml" value="0.22" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/doctor_view_patient_notes.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_confirm_cancellation.xml" value="0.1933876811594203" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_doctor_navigation_bar.xml" value="0.1852355072463768" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_doctor_signup.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_first.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_new_medication.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_new_note.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_patient_navigation_bar.xml" value="0.1852355072463768" />
-        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_dashboard.xml" value="0.22" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_patient_notification_selections.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_patient_signup.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_prescribe_medication.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/fragment_second.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/item_doctor.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/item_patient.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/list_notifications.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/notifications_bottom_sheet.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_dashboard.xml" value="0.25" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_dashboard_data_row.xml" value="0.22" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_medication.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_medications_medication_container.xml" value="0.18" />
-        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_notes.xml" value="0.1" />
-        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_notes_note_container.xml" value="0.1" />
-        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_qr_code_display.xml" value="0.1" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_notes.xml" value="0.22" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_notes_note_container.xml" value="0.22" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_onboarding.xml" value="0.1933876811594203" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_qr_code_display.xml" value="0.22" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_update_data.xml" value="0.18" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_view_doctors.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_view_notifications_activity.xml" value="0.21" />
         <entry key="..\:/Users/agonzalez/Documents/GitHub/Protego/client/app/src/main/res/layout/patient_vitals_row.xml" value="0.33" />
         <entry key="..\:/Users/chels/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_item.xml" value="0.1308876811594203" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/drawable/circle.xml" value="0.146" />
@@ -44,6 +82,7 @@
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/circle.xml" value="0.2" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_doctor_navigation_bar.xml" value="0.4" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_doctor_signup.xml" value="0.2" />
+        <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_new_note.xml" value="0.264" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_new_allergy.xml" value="0.264" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_new_allergy_dialog.xml" value="0.1" />
         <entry key="..\:/Users/chels/Desktop/Protego/client/app/src/main/res/layout/fragment_new_cancer.xml" value="0.16802536231884058" />
@@ -76,7 +115,7 @@
         <entry key="app/src/main/res/drawable/ic_illustration.xml" value="0.1296875" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.15885416666666666" />
         <entry key="app/src/main/res/drawable/ic_splash.xml" value="0.159375" />
-        <entry key="app/src/main/res/drawable/ic_splash_screen.xml" value="0.948783987694939" />
+        <entry key="app/src/main/res/drawable/ic_splash_screen.xml" value="0.2964310824215014" />
         <entry key="app/src/main/res/drawable/splash_background.xml" value="0.15885416666666666" />
         <entry key="app/src/main/res/drawable/splash_fg_background.xml" value="0.15885416666666666" />
         <entry key="app/src/main/res/drawable/splash_screen_background.xml" value="0.18425925925925926" />
@@ -84,18 +123,17 @@
         <entry key="app/src/main/res/layout/activity_doctor_edit_profile.xml" value="0.176" />
         <entry key="app/src/main/res/layout/activity_doctor_profile.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_doctor_scan_qrcode.xml" value="0.176" />
+        <entry key="app/src/main/res/layout/activity_doctor_view_patient_profile.xml" value="0.10199025472005208" />
+        <entry key="app/src/main/res/layout/activity_doctor_view_patients.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_doctor_view_patient_medication.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_doctor_view_patient_notes.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_doctor_view_patient_profile.xml" value="0.10199025472005208" />
         <entry key="app/src/main/res/layout/activity_doctor_view_patient_selections.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/activity_doctor_view_patient_vitals.xml" value="0.159375" />
-        <entry key="app/src/main/res/layout/activity_doctor_view_patients.xml" value="0.267108154296875" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.29913232421875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/activity_paint_vitals.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_patient_dashboard.xml" value="0.10989583333333333" />
         <entry key="app/src/main/res/layout/activity_patient_general_info.xml" value="0.12708333333333333" />
-        <entry key="app/src/main/res/layout/activity_patient_view_doctor_profile.xml" value="0.48398576512455516" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.176" />
         <entry key="app/src/main/res/layout/circle.xml" value="0.1" />
@@ -112,7 +150,6 @@
         <entry key="app/src/main/res/layout/fragment_new_note.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_patient_new_vital.xml" value="0.19701086956521738" />
         <entry key="app/src/main/res/layout/fragment_patient_signup.xml" value="0.176" />
-        <entry key="app/src/main/res/layout/fragment_prescribe_medication.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/list_notifications.xml" value="0.12708333333333333" />
         <entry key="app/src/main/res/layout/notifications_bottom_sheet.xml" value="0.21145833333333333" />

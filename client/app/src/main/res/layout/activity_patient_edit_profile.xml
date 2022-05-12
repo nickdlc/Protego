@@ -7,15 +7,30 @@
     tools:context=".PatientEditProfileActivity">
 
 
+    <Button
+        android:id="@+id/doctorProfileEditButton10"
+        android:layout_width="226dp"
+        android:layout_height="42dp"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.110000014" />
+
     <TextView
         android:id="@+id/PatientEditProfileTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/chathura_bold"
         android:text="@string/edit_profile"
-        android:textSize="40sp"
+        android:textColor="#000000"
+        android:textSize="70sp"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -147,13 +162,15 @@
             android:id="@+id/PatientEditProfileUpdateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/update" />
+            android:text="@string/update"
+            app:cornerRadius="20dp"/>
 
         <Button
             android:id="@+id/PatientEditProfileReturnButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/return_button" />
+            android:text="@string/return_button"
+            app:cornerRadius="20dp"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

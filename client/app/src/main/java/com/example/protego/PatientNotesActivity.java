@@ -129,7 +129,7 @@ public class PatientNotesActivity extends FragmentActivity
                 if(!notesData.isEmpty()) {
                     no_notes_message.setVisibility(View.GONE);
                     recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(PatientNotesActivity.this, LinearLayoutManager.HORIZONTAL, false));
                 }else {
                     no_notes_message.setVisibility(View.VISIBLE);
 
@@ -177,7 +177,7 @@ public class PatientNotesActivity extends FragmentActivity
                         if(!notesData.isEmpty()) {
                             no_notes_message.setVisibility(View.GONE);
                             recyclerView.setAdapter(adapter);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+                            recyclerView.setLayoutManager(new LinearLayoutManager(PatientNotesActivity.this, LinearLayoutManager.HORIZONTAL, false));
                         }else {
                             no_notes_message.setVisibility(View.VISIBLE);
 
