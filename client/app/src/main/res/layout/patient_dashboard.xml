@@ -36,7 +36,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/patientDataRecyclerView"
-        android:layout_width="401dp"
+        android:layout_width="380dp"
         android:layout_height="317dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"

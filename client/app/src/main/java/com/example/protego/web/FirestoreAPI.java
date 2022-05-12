@@ -752,6 +752,30 @@ public class FirestoreAPI {
                 });
     }
 
+    //get notes with visibility = 'Public' to display to doctors
+    public void getPublicNotes(String puid, FirestoreListener<List<Note>> listener) {
+        // Asynchronously retrieve multiple documents
+        db.collection("users")
+                .document(puid)
+                .collection("Notes")
+                .whereEqualTo("visibility", "Public")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<Note> noteList = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                noteList.add(document.toObject(Note.class));
+                            }
+                            listener.getResult(noteList);
+                        } else {
+                            listener.getError(task.getException(), "Failed to get notes for puid = " + puid);
+                        }
+                    }
+                });
+    }
+
 
     //generate random medication data
     public void generateMedicationData(String puid, List<String> doctors, FirestoreListener listener) {

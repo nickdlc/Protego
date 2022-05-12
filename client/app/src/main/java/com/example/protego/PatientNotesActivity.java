@@ -51,6 +51,8 @@ public class PatientNotesActivity extends FragmentActivity
     public static String userID;
     String visibility = "Public";
     private SwipeRefreshLayout swipeContainer;
+    private TextView no_notes_message;
+
 
     public static class NotesInfo {
         private final String note_id;
@@ -98,6 +100,7 @@ public class PatientNotesActivity extends FragmentActivity
         mAuth = FirebaseAuth.getInstance();
         PatientNotesActivity thisObj = this;
         final PatientNotesRecyclerViewAdapter adapter = new PatientNotesRecyclerViewAdapter(thisObj,notesData);
+        no_notes_message = (TextView) findViewById(R.id.patientNoNotesTextView);
 
         userID = mAuth.getCurrentUser().getUid();
 
@@ -123,8 +126,14 @@ public class PatientNotesActivity extends FragmentActivity
                     notesData.add(new NotesInfo(note_id, title,date,visibility,details));
                 }
 
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+                if(!notesData.isEmpty()) {
+                    no_notes_message.setVisibility(View.GONE);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+                }else {
+                    no_notes_message.setVisibility(View.VISIBLE);
+
+                }
 
             }
 
@@ -165,8 +174,14 @@ public class PatientNotesActivity extends FragmentActivity
                             notesData.add(new NotesInfo(note_id, title,date,visibility,details));
                         }
 
-                        recyclerView.setAdapter(adapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+                        if(!notesData.isEmpty()) {
+                            no_notes_message.setVisibility(View.GONE);
+                            recyclerView.setAdapter(adapter);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+                        }else {
+                            no_notes_message.setVisibility(View.VISIBLE);
+
+                        }
 
                         //adapter.addAll(notesData);
                         swipeContainer.setRefreshing(false);
