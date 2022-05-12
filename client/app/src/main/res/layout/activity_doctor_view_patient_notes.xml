@@ -21,6 +21,7 @@
         app:layout_constraintVertical_bias="0.45" />
 
     <LinearLayout
+        android:id="@+id/linearLayout9"
         android:layout_width="409dp"
         android:layout_height="81dp"
         android:gravity="center_vertical"
@@ -45,7 +46,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="27dp" />
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/noNotesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Public Notes"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/doctorViewNoteSwipeContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/doctorViewNoteSwipeContainer"
