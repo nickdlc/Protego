@@ -75,9 +75,9 @@
 <!--                    android:text="Edit"-->
 <!--                    android:visibility="visible" />-->
 
-                <Space
-                    android:layout_width="10dp"
-                    android:layout_height="wrap_content" />
+<!--                <Space-->
+<!--                    android:layout_width="10dp"-->
+<!--                    android:layout_height="wrap_content" />-->
 
                 <Button
                     android:id="@+id/deleteButton"

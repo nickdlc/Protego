@@ -71,7 +71,7 @@ public class DoctorViewPatientNotesAdapter extends RecyclerView.Adapter<DoctorVi
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tvTitle, tvDate, tvVisibility, tvDetails;
-        Button editButton, deleteButton;
+        Button deleteButton;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -80,7 +80,6 @@ public class DoctorViewPatientNotesAdapter extends RecyclerView.Adapter<DoctorVi
             tvVisibility = itemView.findViewById(R.id.NoteVisibilityLabel);
             tvDetails = itemView.findViewById(R.id.NoteContentLabel);
 
-            editButton = itemView.findViewById(R.id.editButton);
             deleteButton = itemView.findViewById(R.id.deleteButton);
 
         }
