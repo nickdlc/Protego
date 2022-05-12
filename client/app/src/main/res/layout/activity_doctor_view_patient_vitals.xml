@@ -23,16 +23,17 @@
         android:id="@+id/VitalsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/chathura_bold"
         android:text="Vitals"
         android:textColor="#000000"
-        android:textSize="35sp"
+        android:textSize="70sp"
         android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.417" />
+        app:layout_constraintVertical_bias="0.35000002" />
 
     <LinearLayout
         android:layout_width="409dp"

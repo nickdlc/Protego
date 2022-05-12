@@ -22,9 +22,10 @@
         android:id="@+id/PatientProfileTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/chathura_regular"
         android:text="@string/profile"
         android:textColor="#000000"
-        android:textSize="40sp"
+        android:textSize="80sp"
         android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -197,8 +198,10 @@
             android:id="@+id/PatientProfileEditButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/chathura_bold"
             android:text="@string/edit"
-            app:cornerRadius="20dp"/>
+            android:textSize="30sp"
+            app:cornerRadius="20dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -208,8 +211,9 @@
             android:id="@+id/PatientProfileReturnButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/chathura_bold"
             android:text="@string/return_button"
-            app:cornerRadius="20dp"
-            />
+            android:textSize="30sp"
+            app:cornerRadius="20dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

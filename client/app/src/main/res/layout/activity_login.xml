@@ -12,8 +12,11 @@
         android:id="@+id/btnLogin"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/chathura_bold"
         android:text="LOGIN"
+        android:textSize="30sp"
         app:backgroundTint="@color/protego_color"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toTopOf="@+id/btnSignup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -21,7 +24,6 @@
         app:layout_constraintTop_toBottomOf="@+id/Layout_Password_Sign_In_Text_Input"
         app:layout_constraintVertical_bias="0.65"
         app:strokeColor="@color/black"
-        app:cornerRadius="20dp"
         app:strokeWidth="1dp" />
 
     <TextView

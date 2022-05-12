@@ -19,10 +19,11 @@
 
     <TextView
         android:id="@+id/myMedicationsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="54dp"
+        android:layout_width="269dp"
+        android:layout_height="105dp"
+        android:fontFamily="@font/chathura_bold"
         android:text="My Medications:"
-        android:textSize="34sp"
+        android:textSize="70sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.067"

@@ -37,9 +37,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:height="75dp"
+            android:fontFamily="@font/chathura_bold"
             android:text="Scan QR Code"
             android:textColor="#000000"
-            android:textSize="20dp"
+            android:textSize="40dp"
             app:cornerRadius="20dp" />
 
         <Space
@@ -51,9 +52,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:height="75dp"
+            android:fontFamily="@font/chathura_bold"
             android:text="View Patients"
             android:textColor="#000000"
-            android:textSize="20dp"
+            android:textSize="40dp"
             app:cornerRadius="20dp" />
     </LinearLayout>
 
@@ -61,15 +63,17 @@
         android:id="@+id/DoctorDashboardTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/chathura_bold"
         android:text="Dashboard:"
         android:textColor="#000000"
-        android:textSize="40dp"
+        android:textSize="70dp"
         android:translationZ="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19999999" />
+        app:layout_constraintVertical_bias="0.17000002" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"

@@ -26,16 +26,17 @@ tools:context=".DoctorViewPatientsActivity">
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/chathura_bold"
         android:text="Patients"
         android:textColor="#000000"
-        android:textSize="40dp"
+        android:textSize="70dp"
         android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/rvPatients"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.181"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView20"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.63" />
 
     <androidx.fragment.app.FragmentContainerView
     android:id="@+id/fragmentContainerView20"

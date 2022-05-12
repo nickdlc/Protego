@@ -34,9 +34,10 @@
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:layout_weight="1"
+            android:fontFamily="@font/chathura_bold"
             android:text="General"
-            android:textSize="23dp"
-            app:cornerRadius="20dp"/>
+            android:textSize="40dp"
+            app:cornerRadius="20dp" />
 
         <Space
             android:layout_width="10dp"
@@ -47,9 +48,10 @@
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:layout_weight="1"
+            android:fontFamily="@font/chathura_bold"
             android:text="Medication"
-            android:textSize="23dp"
-            app:cornerRadius="20dp"/>
+            android:textSize="40dp"
+            app:cornerRadius="20dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -68,9 +70,10 @@
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:layout_weight="1"
+            android:fontFamily="@font/chathura_bold"
             android:text="Notes"
-            android:textSize="23dp"
-            app:cornerRadius="20dp"/>
+            android:textSize="40dp"
+            app:cornerRadius="20dp" />
 
         <Space
             android:layout_width="10dp"
@@ -81,9 +84,10 @@
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:layout_weight="1"
+            android:fontFamily="@font/chathura_bold"
             android:text="Vitals"
-            android:textSize="23dp"
-            app:cornerRadius="20dp"/>
+            android:textSize="40dp"
+            app:cornerRadius="20dp" />
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
@@ -102,15 +106,17 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/chathura_bold"
         android:text="Patient Profile"
-        android:textSize="40dp"
         android:textColor="#000000"
+        android:textSize="70dp"
         android:translationZ="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.089999974" />
 
     <LinearLayout
         android:id="@+id/linearLayout8"
