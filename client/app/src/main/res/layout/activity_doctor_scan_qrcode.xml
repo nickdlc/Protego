@@ -12,8 +12,11 @@
         android:layout_width="290dp"
         android:layout_height="42dp"
         app:cornerRadius="20dp"
-        tools:layout_editor_absoluteX="60dp"
-        tools:layout_editor_absoluteY="87dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13" />
 
     <TextView
         android:id="@+id/DoctorScanQRCodeTextView"

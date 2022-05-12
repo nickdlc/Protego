@@ -46,6 +46,7 @@
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
 
+        android:textColorHint="@color/white"
         app:boxCornerRadiusBottomEnd="1dp"
         app:boxCornerRadiusBottomStart="1dp"
         app:boxCornerRadiusTopEnd="1dp"
@@ -66,9 +67,9 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:ellipsize="none"
-            android:textColor="#000000"
             android:hint="Email *"
             android:inputType="textEmailAddress"
+            android:textColor="#FFFFFF"
             android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,6 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
+        android:textColorHint="@color/white"
         app:boxCornerRadiusBottomEnd="1dp"
         app:boxCornerRadiusBottomStart="1dp"
         app:boxCornerRadiusTopEnd="1dp"
@@ -98,9 +100,9 @@
             android:background="@android:color/transparent"
             android:ellipsize="none"
             android:hint="Password *"
-            android:textColor="#000000"
             android:inputType="textPassword"
             android:password="true"
+            android:textColor="#FFFFFF"
             android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
     <!--
@@ -126,10 +128,10 @@
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="56dp"
         android:text="Don't have an account? Sign Up"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textSize="9sp"
-        app:cornerRadius="20dp"
         app:backgroundTint="@android:color/transparent"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -141,10 +143,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
         android:text="Forgot Password"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textSize="9sp"
-        app:cornerRadius="20dp"
         app:backgroundTint="@android:color/transparent"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.003"
@@ -155,8 +157,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
+        android:textColor="@color/white"
         android:textSize="34sp"
-        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -164,18 +166,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.20" />
 
-    <ImageView
-        android:id="@+id/Sign_In_Icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@color/protego_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.324"
-        app:srcCompat="@android:drawable/ic_lock_idle_lock" />
     <!--
         <Spinner
             android:id="@+id/loginTypeOfUserSpinner"

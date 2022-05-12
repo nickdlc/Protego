@@ -10,8 +10,12 @@
         android:layout_width="263dp"
         android:layout_height="49dp"
         app:cornerRadius="20dp"
-        tools:layout_editor_absoluteX="76dp"
-        tools:layout_editor_absoluteY="94dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.28"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13999999" />
 
     <Spinner
         android:id="@+id/typeOfUserSpinner"

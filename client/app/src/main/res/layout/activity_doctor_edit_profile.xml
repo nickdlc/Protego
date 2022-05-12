@@ -12,8 +12,12 @@
         android:layout_width="204dp"
         android:layout_height="43dp"
         app:cornerRadius="20dp"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="35dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tableLayout"
+        app:layout_constraintHorizontal_bias="0.24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.050000012" />
 
     <TextView
         android:id="@+id/DoctorEditProfileTextView"

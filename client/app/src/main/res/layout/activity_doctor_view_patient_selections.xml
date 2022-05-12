@@ -11,8 +11,12 @@
         android:layout_width="341dp"
         android:layout_height="42dp"
         app:cornerRadius="20dp"
-        tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="79dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.120000005" />
 
     <LinearLayout
         android:id="@+id/linearLayout7"
@@ -109,6 +113,7 @@
         app:layout_constraintVertical_bias="0.13" />
 
     <LinearLayout
+        android:id="@+id/linearLayout8"
         android:layout_width="409dp"
         android:layout_height="81dp"
         android:gravity="center_vertical"
