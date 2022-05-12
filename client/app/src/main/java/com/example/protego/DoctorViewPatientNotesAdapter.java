@@ -49,6 +49,16 @@ public class DoctorViewPatientNotesAdapter extends RecyclerView.Adapter<DoctorVi
         holder.tvDate.setText(patientNotes.get(position).getDate());
         holder.tvVisibility.setText(patientNotes.get(position).getVisibility());
         holder.tvDetails.setText(patientNotes.get(position).getDetails());
+
+        View card = holder.itemView.findViewById(R.id.patientMedicationCard);
+
+        if(patientNotes.get(position).getVisibility().equals("Private")){
+            card.setBackgroundColor(context.getColor(R.color.protego_pink));
+        }
+        else if (patientNotes.get(position).getVisibility().equals("Public")){
+            card.setBackgroundColor(context.getColor(R.color.protego_blue));
+        }
+
     }
 
     @Override
@@ -71,7 +81,7 @@ public class DoctorViewPatientNotesAdapter extends RecyclerView.Adapter<DoctorVi
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tvTitle, tvDate, tvVisibility, tvDetails;
-        Button editButton, deleteButton;
+        Button deleteButton;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -80,7 +90,6 @@ public class DoctorViewPatientNotesAdapter extends RecyclerView.Adapter<DoctorVi
             tvVisibility = itemView.findViewById(R.id.NoteVisibilityLabel);
             tvDetails = itemView.findViewById(R.id.NoteContentLabel);
 
-            editButton = itemView.findViewById(R.id.editButton);
             deleteButton = itemView.findViewById(R.id.deleteButton);
 
         }

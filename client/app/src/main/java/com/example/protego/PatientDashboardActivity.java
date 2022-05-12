@@ -23,7 +23,13 @@ import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
 import com.example.protego.web.schemas.Notification;
 import com.example.protego.web.schemas.NotificationType;
+import com.example.protego.web.schemas.Onboarding.AllergyInfo;
+import com.example.protego.web.schemas.Onboarding.CancerInfo;
+import com.example.protego.web.schemas.Onboarding.DiabetesInfo;
+import com.example.protego.web.schemas.Onboarding.OtherConditionsInfo;
+import com.example.protego.web.schemas.Onboarding.SurgeryInfo;
 import com.example.protego.web.schemas.PatientDetails;
+import com.example.protego.web.schemas.ProtegoUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.example.protego.web.schemas.MedicalInfo;
@@ -61,8 +67,6 @@ import java.util.List;
 public class PatientDashboardActivity extends AppCompatActivity{
     public static final String TAG = "PatientDashboardActivity";
 
-    // Static variable in charge of deciding if user should go to onboarding instead of dashboard
-    public static boolean firstTime = true;
 
     //input fields
     private Button button;
@@ -75,8 +79,16 @@ public class PatientDashboardActivity extends AppCompatActivity{
     private FirebaseFirestore db;
     private PatientDetails patientDetails;
     private ArrayList<Notification> notifications;
+    private ArrayList<Vital> vitals;
     private NotificationListAdapter.RecyclerViewClickListener listener;
     public static String Name;
+    public static String flagData;
+    public static String phoneData, heightData, weightData, emergencyPhoneData, emergencyNameData, emergencyEmailData, addressData;
+    public static ArrayList<AllergyInfo> allergiesList = new ArrayList<>();
+    public static ArrayList<CancerInfo> cancerList = new ArrayList<>();
+    public static ArrayList<DiabetesInfo> diabetesList = new ArrayList<>();
+    public static ArrayList<SurgeryInfo> surgeryList = new ArrayList<>();
+    public static ArrayList<OtherConditionsInfo> otherConditionsList = new ArrayList<>();
 
     public static class PatientInfo {
         private final String title;
@@ -98,19 +110,16 @@ public class PatientDashboardActivity extends AppCompatActivity{
 
     ArrayList<PatientInfo> patientData = new ArrayList<>();
 
-    private void setUpPatientInfo(){
-        patientData.add( new PatientInfo("Heart Rate:", patientDetails.heartRate.toString()));
-        patientData.add( new PatientInfo("Blood Pressure:", patientDetails.bloodPressure.toString()));
-        // patientData.add( new PatientInfo("Temperature:", "87 Bpm"));
-        patientData.add( new PatientInfo("Height (in.)", patientDetails.heightIN.toString()));
-        patientData.add( new PatientInfo("Weight (lbs.)", patientDetails.weight.toString()));
-    }
-
     // Function that handles going to onboarding if user is new
-    private void goToOnboarding() {
-        Intent i = new Intent(this, PatientOnboardingActivity.class);
-        startActivity(i);
-        finish();
+    private void goToOnboarding(String uid) {
+
+        Log.v(TAG, "onboarding flag: "+ flagData);
+
+        if(PatientOnboardingActivity.flag.equals("false")) {
+            Log.v(TAG, "patient onboarding flag: "+ PatientOnboardingActivity.flag);
+            Button button = (Button) findViewById(R.id.onBoardingButton);
+            button.setVisibility(View.VISIBLE);
+        }
     }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,21 +132,12 @@ public class PatientDashboardActivity extends AppCompatActivity{
         PatientDashboardActivity thisObj = this;
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
+
+        goToOnboarding(currentUser.getUid()); //checks the flag set during onboarding to determine if the onboarding button should be visible
 
         //updates the navbar to show the patient's first name
         getPatientFirstName(currentUser.getUid());
-
-        //PatientVitals.patientData.clear();
-        //to get and set the user's vitals for their vitals page
-        //getPatientVitals(mAuth.getCurrentUser().getUid());
-
-        //PatientMedicationActivity.medicationData.clear();
-        //to get and set the user's medication for their medications page
-        //getPatientMedications(currentUser.getUid());
-
-        //PatientNotesActivity.notesData.clear();
-        //to get and set the user's notes for their notes page
-        //getPatientNotes(currentUser.getUid());
 
         FirestoreAPI.getInstance().getPatient(currentUser.getUid(), new FirestoreListener<Patient>() {
             @Override
@@ -160,32 +160,38 @@ public class PatientDashboardActivity extends AppCompatActivity{
             }
         });
 
-        FirestoreAPI.getInstance().getMedicalInfo(currentUser.getUid(), new FirestoreListener<MedicalInfo>() {
+        FirestoreAPI.getInstance().getVitals(currentUser.getUid(), new FirestoreListener<List<Vital>>() {
             @Override
-            public void getResult(MedicalInfo medInfo) {
-                Log.d(TAG, "req received for medication : " + medInfo);
-
-                if (medInfo != null) {
-                    patientDetails.heartRate = medInfo.getHeartRate();
-                    patientDetails.bloodPressure = medInfo.getBloodPressure();
-                    patientDetails.heightIN = medInfo.getHeightIN();
-                    patientDetails.weight = medInfo.getWeight();
-
-                    RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
-                    setUpPatientInfo();
-
-                    PatientDashboardRecyclerViewAdapter adapter = new PatientDashboardRecyclerViewAdapter(thisObj, patientData);
-                    recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+            public void getResult(List<Vital> object) {
+                if (!object.isEmpty()) {
+                    vitals = new ArrayList<>(object);
+                    Collections.sort(vitals, Collections.reverseOrder());
+                    // grab the most recent vital
+                    Vital v = vitals.get(0);
+                    patientData.add(new PatientInfo("Heart Rate:", String.valueOf(v.getHeartRate())));
+                    patientData.add(new PatientInfo("Blood Pressure:", v.getBloodPressure()));
+                    patientData.add(new PatientInfo("Respiratory Rate:", String.valueOf(v.getRespiratoryRate())));
+                    patientData.add(new PatientInfo("Temperature:", String.valueOf(v.getTemperature())));
                 } else {
-                    Log.e(TAG, "could not receive patient info : ");
+                    patientData.add(new PatientInfo("Heart Rate:", "N/A"));
+                    patientData.add(new PatientInfo("Blood Pressure:", "N/A"));
+                    patientData.add(new PatientInfo("Respiratory Rate:", "N/A"));
+                    patientData.add(new PatientInfo("Temperature:", "N/A"));
                 }
+
+                PatientDashboardRecyclerViewAdapter adapter = new PatientDashboardRecyclerViewAdapter(thisObj, patientData);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
             }
 
             @Override
             public void getError(Exception e, String msg) {
-                Log.e(TAG, "failed to get medInfo : " + msg, e);
-                Toast.makeText(PatientDashboardActivity.this, msg, Toast.LENGTH_LONG);
+                Log.e(TAG, msg, e);
+                Toast.makeText(
+                        getApplicationContext(),
+                        msg,
+                        Toast.LENGTH_LONG
+                ).show();
             }
         });
 
@@ -197,21 +203,20 @@ public class PatientDashboardActivity extends AppCompatActivity{
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.patientDataRecyclerView);
-
         // update the user's name based on their profile information
-        //TODO: update this name according to the database to get the patient's first name
         Name = "Example";
 
 
-        //TODO : update the connection, the View Doctors button is connected to the View Notes Activity to test it.
         connectButtonToActivity(R.id.viewDoctorsButton, PatientViewDoctorsActivity.class);
-        connectButtonToActivity(R.id.updateDataButton, PatientUpdateDataActivity.class);
+        // connectButtonToActivity(R.id.updateDataButton, PatientUpdateDataActivity.class);
         connectImageButtonToActivity(R.id.qrCodeButton, PatientQRCodeDisplay.class);
         connectButtonToActivity(R.id.onBoardingButton, PatientOnboardingActivity.class);
 
-        // If this is user's first time, then takes them to onboarding page
-        if(firstTime)goToOnboarding();
+        //to get the user's onboarding detail if the form has been completed
+        if(PatientOnboardingActivity.flag.equals("true")){
+            getOnboardingDetails(currentUser.getUid());
+        }
+
     }
 
     public void showBottomSheetDialog() {
@@ -232,8 +237,8 @@ public class PatientDashboardActivity extends AppCompatActivity{
         connectLayoutToActivity(R.id.notesSelectionLayout, PatientNotesActivity.class,  bottomSheetDialog);
         //connects the notification View vitals button to the vitals activity
         connectLayoutToActivity(R.id.VitalsSelectionLayout, PatientVitals.class,  bottomSheetDialog);
-        //connects the notification View QR Code button to the View QR Code activity
-        connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientQRCodeDisplay.class,  bottomSheetDialog);
+        //connects the notification View geneeral Information button to the View QR Code activity
+        connectLayoutToActivity(R.id.viewQRCodeSelectionLayout, PatientGeneralInfoActivity.class,  bottomSheetDialog);
 
         bottomSheetDialog.show();
     }
@@ -277,6 +282,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
                 intent.putExtra("msg", notifications.get(position).getMsg());
                 intent.putExtra("duid", notifications.get(position).getDuid());
                 intent.putExtra("puid", notifications.get(position).getPuid());
+                intent.putExtra("type", notifications.get(position).getType());
                 startActivity(intent);
             }
         };
@@ -332,7 +338,7 @@ public class PatientDashboardActivity extends AppCompatActivity{
                 patientDetails.firstName = patient.getFirstName();
 
 
-                if (patientDetails.firstName == "" || patientDetails.firstName == null) {
+                if (patientDetails.firstName.equals("") || patientDetails.firstName == null) {
                     Name = "";
                 } else {
                     Name = patientDetails.firstName;
@@ -461,5 +467,93 @@ public class PatientDashboardActivity extends AppCompatActivity{
         });
     }
 
+    //to retrieve the onboarding fields from the dashboard to display immediately on the general health Info page
+    private void getOnboardingDetails(String id){
+
+        FirestoreAPI.getInstance().getOnboardingDetails(id, new FirestoreListener<DocumentSnapshot>() {
+            @Override
+            public void getResult(DocumentSnapshot object) {
+
+                phoneData = object.getData().get("phone").toString();
+                heightData = object.getData().get("height").toString();
+                weightData = object.getData().get("weight").toString();
+                emergencyPhoneData = object.getData().get("emergencyPhoneNumber").toString();
+                emergencyNameData = object.getData().get("emergencyName").toString();
+                emergencyEmailData = object.getData().get("emergencyEmail").toString();
+                addressData = object.getData().get("homeAddress").toString();
+
+
+                String allergies = object.get("allergyData").toString();
+
+
+                Log.v(TAG, "Allergies: "+ allergies);
+
+
+                //will retrieve the allergies from firestore
+                getFirestoreLists(object, "allergyData", allergiesList);
+                //will retrieve the cancer data from firestore
+                getFirestoreLists(object, "cancerData", cancerList);
+                //will retrieve the surgeries from firestore
+                getFirestoreLists(object, "surgeryData", surgeryList);
+                //will retrieve the other conditions from firestore
+                getFirestoreLists(object, "otherConditionsData", otherConditionsList);
+                //will retrieve the diabetes data from firestore
+                getFirestoreLists(object, "diabetesData", diabetesList);
+
+                //to check the length of the lists
+                Log.v(TAG, "AllergyList Length = " + allergiesList.size());
+                Log.v(TAG, "CancerList Length = " + cancerList.size());
+                Log.v(TAG, "SurgeryList Length = " + surgeryList.size());
+                Log.v(TAG, "DiabetesList Length = " + diabetesList.size());
+                Log.v(TAG, "OtherConditionsList Length = " + otherConditionsList.size());
+            }
+
+            @Override
+            public void getError(Exception e, String msg) {
+
+            }
+        });
+    }
+
+
+    private void getFirestoreLists(DocumentSnapshot object, String firestoreName, ArrayList objectList) {
+
+        objectList.clear();
+
+        List<Map<String, Object>> data = (List<Map<String, Object>>) object.get(firestoreName);
+        for (Map<String, Object> dataItem : data) {
+            String name = dataItem.get("name").toString();
+            String doctor = dataItem.get("doctor").toString();
+            String date = dataItem.get("date").toString();
+
+            if(firestoreName.equals("allergyData")){
+                AllergyInfo allergyItem = new AllergyInfo(name, date, doctor);
+                objectList.add(allergyItem);
+                Log.v(TAG, "Allergies item: name = " + allergyItem.getName() + " date = " + allergyItem.getDate() + " doctor = " + allergyItem.getDoctor());
+            }
+            else if(firestoreName.equals("cancerData")){
+                CancerInfo cancerItem = new CancerInfo(name, date, doctor);
+                objectList.add(cancerItem);
+                Log.v(TAG, "Cancer item: name = " + cancerItem.getName() + " date = " + cancerItem.getDate() + " doctor = " + cancerItem.getDoctor());
+            }
+            else if(firestoreName.equals("surgeryData")){
+                SurgeryInfo surgeryItem = new SurgeryInfo(name, date, doctor);
+                objectList.add(surgeryItem);
+                Log.v(TAG, "Surgery item: name = " + surgeryItem.getName() + " date = " + surgeryItem.getDate() + " doctor = " + surgeryItem.getDoctor());
+            }
+            else if(firestoreName.equals("diabetesData")){
+                DiabetesInfo diabetesItem = new DiabetesInfo(name, date, doctor);
+                objectList.add(diabetesItem);
+                Log.v(TAG, "Diabetes item: name = " + diabetesItem.getName() + " date = " + diabetesItem.getDate() + " doctor = " + diabetesItem.getDoctor());
+            }
+
+            else if(firestoreName.equals("otherConditionsData")){
+                OtherConditionsInfo otherConditionItem = new OtherConditionsInfo(name, date, doctor);
+                objectList.add(otherConditionItem);
+                Log.v(TAG, "Cancer item: name = " + otherConditionItem.getName() + " date = " + otherConditionItem.getDate() + " doctor = " + otherConditionItem.getDoctor());
+            }
+
+        }
+    }
 
 }

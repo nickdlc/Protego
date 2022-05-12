@@ -77,20 +77,6 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         //apply adapter to spinner
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-
-
-        
-        /*btnSignup = findViewById(R.id.btnSignup);
-            btnSignup.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "onClick signup button");
-
-                String email = email_input.getText().toString();
-                String password = password_input.getText().toString();
-                registerUser(email, password);
-            }
-        });*/
     }
 
     @Override
@@ -158,6 +144,20 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                             firebaseUser.sendEmailVerification();
 
                                             if (spinner.getSelectedItem().toString().equals("Patient")) {
+
+                                                firestore.collection("users").document(uid).update("Onboarding Completed", false)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "successful update");
+                                                    }
+                                                })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.w(TAG, "Error updating document", e);
+                                                        }
+                                                    });
 
                                                 FirestoreAPI.getInstance().generateMedData(uid, new FirestoreListener() {
                                                     @Override
@@ -352,10 +352,6 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
             startActivity(intent); //starts an instance of the doctor dashboard
 
     }
-
-
-
-
 }
 
 

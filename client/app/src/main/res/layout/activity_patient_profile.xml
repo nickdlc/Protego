@@ -43,148 +43,168 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/PatientProfileFirstNameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/first_name"
-                android:textSize="15sp" />
-
-            <Space
-                android:layout_width="30dp"
-                android:layout_height="wrap_content" />
-
-
-            <TextView
-                android:id="@+id/tvPatientProfileFirstName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp" />
-
-        </TableRow>
+        <TextView
+            android:id="@+id/PatientProfileFirstNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/first_name"
+            android:textSize="25sp" />
 
         <Space
+            android:layout_width="30dp"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/tvPatientProfileFirstName"
             android:layout_width="wrap_content"
-            android:layout_height="25dp" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="none"
+            android:singleLine="false"
+            android:textSize="25sp" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    </TableRow>
 
-            <TextView
-                android:id="@+id/PatientProfileLastNameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/last_name"
-                android:textSize="15sp" />
-
-            <Space
-                android:layout_width="30dp"
-                android:layout_height="wrap_content" />
-
-
-            <TextView
-                android:id="@+id/tvPatientProfileLastName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp" />
-
-        </TableRow>
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="25dp" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/PatientProfileEmailTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/email"
-                android:textSize="15sp" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="25dp" />
-
-            <TextView
-                android:id="@+id/tvPatientProfileEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp" />
-        </TableRow>
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="25dp" />
-
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/PatientProfileAddressTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/home_address"
-                android:textSize="15sp" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="25dp" />
-
-            <TextView
-                android:id="@+id/tvPatientProfileAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp" />
-        </TableRow>
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="25dp" />
-
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="25dp" />
-
-
-
-        </TableRow>
-
-    </TableLayout>
-
-
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView20"
-        android:name="com.example.protego.PatientNavigationBarFragment"
+    <Space
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_height="25dp" />
 
-    <LinearLayout
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/PatientProfileLastNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/last_name"
+            android:textSize="25sp" />
+
+        <Space
+            android:layout_width="30dp"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/tvPatientProfileLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="none"
+            android:singleLine="false"
+            android:textSize="25sp" />
+
+    </TableRow>
+
+    <Space
         android:layout_width="wrap_content"
+        android:layout_height="25dp" />
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/PatientProfileEmailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:textSize="25sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="25dp" />
+
+        <TextView
+            android:id="@+id/tvPatientProfileEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="none"
+            android:singleLine="false"
+            android:textSize="25sp" />
+    </TableRow>
+
+<!--    <Space-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="25dp" />-->
+
+
+<!--    <TableRow-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/PatientProfileAddressTextView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/home_address"-->
+<!--            android:textSize="15sp" />-->
+
+<!--        <Space-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="25dp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvPatientProfileAddress"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="15sp" />-->
+<!--    </TableRow>-->
+
+<!--    <Space-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="25dp" />-->
+
+
+<!--    <TableRow-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+
+<!--        <Space-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="25dp" />-->
+
+
+
+<!--    </TableRow>-->
+
+</TableLayout>
+
+
+
+<androidx.fragment.app.FragmentContainerView
+    android:id="@+id/fragmentContainerView20"
+    android:name="com.example.protego.PatientNavigationBarFragment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.0" />
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.89"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+    app:layout_constraintVertical_bias="0.7">
+
+    <Button
+        android:id="@+id/PatientProfileEditButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -203,9 +223,9 @@
             android:textSize="30sp"
             app:cornerRadius="20dp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="2dp" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="2dp" />
 
         <Button
             android:id="@+id/PatientProfileReturnButton"
@@ -216,4 +236,5 @@
             android:textSize="30sp"
             app:cornerRadius="20dp" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

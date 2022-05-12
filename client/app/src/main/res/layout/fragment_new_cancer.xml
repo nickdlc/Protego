@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="350dp"
+android:layout_height="350dp"
+android:gravity="center"
+android:orientation="vertical"
+tools:context=".NewCancerFragment">
+
+<TextView
+    android:id="@+id/addCancerTitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:text="Add Cancer"
+    android:textSize="35sp" />
+
+<Space
+    android:layout_width="match_parent"
+    android:layout_height="10dp" />
+
+<TextView
+    android:id="@+id/cancerTypeTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Type of Cancer"
+    android:textSize="20sp" />
+
+<EditText
+    android:id="@+id/cancerTypeEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="4dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginBottom="4dp"
+    android:hint="Type of Cancer"
+    android:inputType="textAutoCorrect"
+    android:minHeight="48dp" />
+
+
+<TextView
+    android:id="@+id/cancerDateTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Cancer Diagnosis Date"
+    android:textSize="20sp" />
+
+<EditText
+    android:id="@+id/cancerDiagnosisDateEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="4dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginBottom="4dp"
+    android:fontFamily="sans-serif"
+    android:hint="MM/DD/YYYY"
+    android:inputType="date|text"
+    />
+
+<TextView
+    android:id="@+id/cancerDoctorTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Doctor who Diagnosed"
+    android:textSize="20sp" />
+
+<EditText
+    android:id="@+id/cancerDoctorEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="4dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginBottom="4dp"
+    android:fontFamily="sans-serif"
+    android:hint="Doctor Name"
+    />
+
+</LinearLayout>

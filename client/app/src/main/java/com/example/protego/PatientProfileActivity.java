@@ -26,7 +26,9 @@ public class PatientProfileActivity extends AppCompatActivity {
     private TextView tvPatientFirstName;
     private TextView tvPatientLastName;
     private TextView tvPatientEmail;
-    private TextView tvPatientAddress;
+//    private TextView tvPatientAddress;
+
+
     private FirebaseAuth mAuth;
 
     @Override
@@ -44,7 +46,7 @@ public class PatientProfileActivity extends AppCompatActivity {
         tvPatientFirstName = findViewById(R.id.tvPatientProfileFirstName);
         tvPatientLastName = findViewById(R.id.tvPatientProfileLastName);
         tvPatientEmail = findViewById(R.id.tvPatientProfileEmail);
-        tvPatientAddress = findViewById(R.id.tvPatientProfileAddress);
+//        tvPatientAddress = findViewById(R.id.tvPatientProfileAddress);
 
         String puid = mAuth.getCurrentUser().getUid();
 
@@ -54,7 +56,7 @@ public class PatientProfileActivity extends AppCompatActivity {
                 tvPatientFirstName.setText(object.getFirstName());
                 tvPatientLastName.setText(object.getLastName());
                 tvPatientEmail.setText(object.getEmail());
-                tvPatientAddress.setText(object.getHomeAddress());
+//                tvPatientAddress.setText(object.getHomeAddress());
             }
 
             @Override
@@ -72,7 +74,7 @@ public class PatientProfileActivity extends AppCompatActivity {
                 i.putExtra("firstName", tvPatientFirstName.getText().toString());
                 i.putExtra("lastName", tvPatientLastName.getText().toString());
                 i.putExtra("email", tvPatientEmail.getText().toString());
-                i.putExtra("address", tvPatientAddress.getText().toString());
+//                i.putExtra("address", tvPatientAddress.getText().toString());
                 startActivity(i);
                 finish();
             }
@@ -93,5 +95,4 @@ public class PatientProfileActivity extends AppCompatActivity {
             }
         });
     }
-
 }

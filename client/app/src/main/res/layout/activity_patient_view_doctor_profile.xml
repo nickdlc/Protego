@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/full_name"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <Space
                 android:layout_width="30dp"
@@ -63,7 +63,10 @@
                 android:id="@+id/tvPatientViewDoctorProfileFullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp" />
+                android:layout_weight="1"
+                android:ellipsize="none"
+                android:singleLine="false"
+                android:textSize="20sp" />
 
         </TableRow>
 
@@ -80,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/workplace_name"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <Space
                 android:layout_width="30dp"
@@ -91,7 +94,10 @@
                 android:id="@+id/tvPatientViewDoctorProfileWorkplaceName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp" />
+                android:layout_weight="1"
+                android:ellipsize="none"
+                android:singleLine="false"
+                android:textSize="20sp" />
 
         </TableRow>
 
@@ -108,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/workplace_address"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -118,7 +124,39 @@
                 android:id="@+id/tvPatientViewDoctorProfileAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp" />
+                android:layout_weight="1"
+                android:ellipsize="none"
+                android:singleLine="false"
+                android:textSize="20sp" />
+        </TableRow>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="25dp" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/PatientViewDoctorSpecialty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/doctor_specialty"
+                android:textSize="20sp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="25dp" />
+
+            <TextView
+                android:id="@+id/tvPatientViewDoctorSpecialty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="none"
+                android:singleLine="false"
+                android:textSize="20sp" />
         </TableRow>
 
     </TableLayout>

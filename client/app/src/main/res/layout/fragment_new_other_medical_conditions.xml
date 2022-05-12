@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="350dp"
+android:layout_height="350dp"
+android:gravity="center"
+android:orientation="vertical"
+tools:context=".NewOtherMedicalConditionsFragment">
+
+    <TextView
+        android:id="@+id/addOtherConditionTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Add Other Medical Condition"
+        android:textSize="25sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
+    <TextView
+        android:id="@+id/otherConditionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Other Medical Condition Name"
+        android:textSize="18sp" />
+
+<EditText
+    android:id="@+id/otherConditionEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="4dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginBottom="4dp"
+    android:hint="Medical Condition"
+    android:inputType="textAutoCorrect"
+    android:minHeight="48dp" />
+
+
+    <TextView
+        android:id="@+id/otherConditionDateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Other Medical Condition Diagnosis Date"
+        android:textSize="18sp" />
+
+<EditText
+    android:id="@+id/otherConditionDiagnosisDateEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="4dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginBottom="4dp"
+    android:fontFamily="sans-serif"
+    android:hint="MM/DD/YYYY"
+    android:inputType="date|text"
+    />
+
+    <TextView
+        android:id="@+id/otherConditionDoctorTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Doctor who Diagnosed"
+        android:textSize="18sp" />
+
+<EditText
+    android:id="@+id/otherConditionDoctorEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="4dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginBottom="4dp"
+    android:fontFamily="sans-serif"
+    android:hint="Doctor Name"
+    />
+
+</LinearLayout>

@@ -7,8 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="protego_color">#FFC328</color>
     <color name="button_color">#F8D374</color>
     <color name="notes_color">#FBDE94</color>
     <color name="splash_screen_color">#332d98</color>
+    <color name="protego_color"> #F0C044 </color>
+    <color name="protego_pink"> #FDB7C2 </color>
+    <color name="protego_blue"> #CBF6FF </color>
 </resources>

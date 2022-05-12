@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="350dp"
+android:layout_height="350dp"
+android:gravity="center"
+android:orientation="vertical"
+tools:context=".NewSurgeryFragment">
+
+<TextView
+    android:id="@+id/addSurgeryTitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:text="Add Surgery"
+    android:textSize="35sp" />
+
+<Space
+    android:layout_width="match_parent"
+    android:layout_height="10dp" />
+
+<TextView
+    android:id="@+id/surgeryNameTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Surgery Name"
+    android:textSize="20sp" />
+
+<EditText
+    android:id="@+id/surgeryNameEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="4dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginBottom="4dp"
+    android:hint="Surgery Name"
+    android:inputType="textAutoCorrect"
+    android:minHeight="48dp" />
+
+
+<TextView
+    android:id="@+id/surgeryDateTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Surgery Diagnosis Date"
+    android:textSize="20sp" />
+
+<EditText
+    android:id="@+id/surgeryDiagnosisDateEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="4dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginBottom="4dp"
+    android:fontFamily="sans-serif"
+    android:hint="MM/DD/YYYY"
+    android:inputType="date|text"
+    />
+
+<TextView
+    android:id="@+id/surgeryDoctorTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Doctor who performed surgery"
+    android:textSize="20sp" />
+
+<EditText
+    android:id="@+id/surgeryDoctorEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="4dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginBottom="4dp"
+    android:fontFamily="sans-serif"
+    android:hint="Doctor Name"
+    />
+
+</LinearLayout>

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.protego.web.FirestoreAPI;
 import com.example.protego.web.FirestoreListener;
+import com.example.protego.web.schemas.AssignedTo;
 import com.example.protego.web.schemas.Doctor;
 import com.example.protego.web.schemas.Medication;
 import com.example.protego.web.schemas.Patient;
@@ -24,8 +27,10 @@ import com.example.protego.web.schemas.PatientDetails;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DoctorViewPatientMedication
@@ -42,6 +47,7 @@ public class DoctorViewPatientMedication
     private String patientFirst;
     private String patientLast;
     private String name;
+    private String onboardingFlag;
     private SwipeRefreshLayout swipeContainer;
 
     @Override
@@ -56,6 +62,8 @@ public class DoctorViewPatientMedication
         patientLast = extras.getString("patientLast");
         name = patientFirst + " " + patientLast;
         pid = extras.getString("patientId");
+        onboardingFlag = extras.getString("onboardingFlag");
+
 
         //System.out.println("Passing through " + pid);
 
@@ -194,6 +202,7 @@ public class DoctorViewPatientMedication
         String duid = mAuth.getCurrentUser().getUid();
 
         if (name != null && dosage != null && frequency != null) {
+            FieldValue timestamp = FieldValue.serverTimestamp();
             FirestoreAPI.getInstance().getDoctor(duid, new FirestoreListener<Doctor>() {
                 @Override
                 public void getResult(Doctor object) {
@@ -206,6 +215,17 @@ public class DoctorViewPatientMedication
                             "Medication successfully prescribed. Please swipe up to refresh.",
                             Toast.LENGTH_LONG
                     ).show();
+                    // send in-app notification
+                    createNotification(pid, duid, timestamp);
+
+                    Date date = new Date();
+                    Intent intent1 = new Intent(DoctorViewPatientMedication.this, PrescriptionAlarmReceiver.class);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(DoctorViewPatientMedication.this, 0,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+                    if (am != null) {
+                        am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 20000, pendingIntent);
+                        Log.d(TAG, " set");
+                    }
                 }
 
                 @Override
@@ -246,6 +266,24 @@ public class DoctorViewPatientMedication
         });
     }
 
+    private void createNotification(String puid, String duid, FieldValue timestamp) {
+        // Generate a ConnectionRequest Notification for patient puid from doctor duid at timestamp
+        FirestoreAPI.getInstance().createPrescriptionNotification(puid, duid, DoctorDashboardActivity.lastName, timestamp, new FirestoreListener<Task>() {
+            @Override
+            public void getResult(Task object) {
+                if (object.isSuccessful()) {
+                    Log.d(TAG, "Successfully added Notification for patient " + puid +
+                            "from Dr. " + DoctorDashboardActivity.lastName + " (" + duid + ")");
+                }
+            }
+
+            @Override
+            public void getError(Exception e, String msg) {
+                Log.e(TAG, msg, e);
+            }
+        });
+    }
+
     // navigate to next activity
     private void connectButtonToActivity(Integer buttonId, Class nextActivityClass) {
 
@@ -257,6 +295,7 @@ public class DoctorViewPatientMedication
                 i.putExtra("patientFirst", patientFirst);
                 i.putExtra("patientLast", patientLast);
                 i.putExtra("patientId", pid);
+                i.putExtra("onboardingFlag", onboardingFlag);
                 startActivity(i);
                 finish();
             }

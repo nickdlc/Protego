@@ -49,6 +49,12 @@ public class PatientVitalsRecyclerViewAdapter extends RecyclerView.Adapter<Patie
         return patientVitals.size();
     }
 
+    // Clean all elements of the recycler
+    public void clear() {
+        patientVitals.clear();
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvDate,tvSource, tvHeartRate, tvBloodPressure, tvRespiratoryRate, tvTemperature;
         public ViewHolder(@NonNull View itemView) {

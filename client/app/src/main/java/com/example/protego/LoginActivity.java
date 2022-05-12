@@ -19,10 +19,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.protego.web.FirestoreAPI;
+import com.example.protego.web.FirestoreListener;
 import com.example.protego.web.RequestManager;
 import com.example.protego.web.ServerAPI;
 import com.example.protego.web.ServerRequest;
 import com.example.protego.web.ServerRequestListener;
+import com.example.protego.web.schemas.ProtegoUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -42,13 +45,16 @@ public class LoginActivity extends AppCompatActivity{
     public static final String TAG = "LoginActivity";
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
-
+    public static String userT;
     private EditText etEmail;
     private EditText etPassword;
     private Button btnLogin;
     private Spinner spinner;
     private Button btnForgotPassword;
     private Button btnSignUp;
+
+    public static String flagData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,10 +118,20 @@ public class LoginActivity extends AppCompatActivity{
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            reload();
-        }
+        /*FirebaseUser currentUser = mAuth.getCurrentUser();
+        Intent intentD = new Intent(LoginActivity.this, DoctorDashboardActivity.class);
+        Intent intentP = new Intent(LoginActivity.this, PatientDashboardActivity.class);*/
+
+        //System.out.println(userT);
+        reload();
+        /*if(currentUser != null){
+            //reload();
+            System.out.println("userT = " + userT);
+            if(userT.equals("DOCTOR"))
+                startActivity(intentD);
+            else if(userT.equals("PATIENT"))
+                startActivity(intentP);
+        }*/
 
     }
 
@@ -133,7 +149,7 @@ public class LoginActivity extends AppCompatActivity{
                             String uid = user.getUid();
 
                             if (user.isEmailVerified()) {
-                                updateUI(user);
+                                updateUI();
                                 DocumentReference docRef = firestore.collection("users").document(uid);
                                 docRef.get().addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful()) {
@@ -143,10 +159,14 @@ public class LoginActivity extends AppCompatActivity{
                                           
                                             Intent intentD = new Intent(LoginActivity.this, DoctorDashboardActivity.class);
                                             Intent intentP = new Intent(LoginActivity.this, PatientDashboardActivity.class);
-                                            if(document.getString("userType").equals("DOCTOR"))
+                                            if(document.getString("userType").equals("DOCTOR")) {
                                                 startActivity(intentD);
-                                            else
-                                                startActivity(intentP);
+                                            }
+
+                                            else {
+                                                getOnboardingFlag(uid);
+                                                //the goToOnboarding is included in this function to determine whether to show onboarding form
+                                            }
                                         } else {
                                             Log.d(TAG, "No such document");
                                         }
@@ -154,7 +174,6 @@ public class LoginActivity extends AppCompatActivity{
                                         Log.d(TAG, "failed with ", task1.getException());
                                     }
                                 });
-
                             } else {
                                 Log.d(TAG, "user not verified by email");
                                 Toast.makeText(LoginActivity.this, "Please verify your email with the sent link.", Toast.LENGTH_LONG);
@@ -166,7 +185,6 @@ public class LoginActivity extends AppCompatActivity{
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
                     }
                 });
@@ -174,21 +192,8 @@ public class LoginActivity extends AppCompatActivity{
 
     private void reload() { }
 
-    private void updateUI(FirebaseUser user) {
+    private void updateUI() {
 
-    }
-
-    // navigate to the appropriate dashboard activity if the user has signed in properly
-    private void goDoctorActivity() {
-        Intent i = new Intent(this, DoctorDashboardActivity.class);
-        startActivity(i);
-        finish();
-    }
-
-    private void goMainActivity() {
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-        finish();
     }
 
     // navigate to next activity
@@ -202,5 +207,39 @@ public class LoginActivity extends AppCompatActivity{
                 startActivity(i);
             }
         });
+    }
+
+
+
+    private void getOnboardingFlag(String id) {
+        System.out.println("Testing testing testing");
+        FirestoreAPI.getInstance().getOnboardingFlag(id, new FirestoreListener<DocumentSnapshot>() {
+            @Override
+            public void getResult(DocumentSnapshot object) {
+                flagData = object.get("Onboarding Completed").toString();
+                Log.v(TAG, "flag: " + flagData);
+                goToOnboarding(id);
+            }
+            @Override
+            public void getError(Exception e, String msg) {
+            }
+        });
+    }
+
+
+    // Function that handles going to onboarding if user is new
+    private void goToOnboarding(String uid) {
+        Log.v(TAG, "onboarding flag: "+ flagData);
+
+        if(flagData == "false"){
+            PatientOnboardingActivity.flag = "false";
+            Intent i = new Intent(this, PatientOnboardingActivity.class);
+            startActivity(i);
+            finish();
+        }else{
+            PatientOnboardingActivity.flag = "true";
+            Intent intentP = new Intent(LoginActivity.this, PatientDashboardActivity.class);
+            startActivity(intentP);
+        }
     }
 }

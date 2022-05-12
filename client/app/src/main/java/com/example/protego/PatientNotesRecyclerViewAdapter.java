@@ -3,6 +3,8 @@ package com.example.protego;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +45,7 @@ public class PatientNotesRecyclerViewAdapter extends RecyclerView.Adapter<Patien
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.patient_notes_note_container,parent,false);
 
+
         return new PatientNotesRecyclerViewAdapter.MyViewHolder(view);
     }
 
@@ -51,6 +54,15 @@ public class PatientNotesRecyclerViewAdapter extends RecyclerView.Adapter<Patien
         holder.tvDate.setText(patientNotes.get(position).getDate());
         holder.tvVisibility.setText(patientNotes.get(position).getVisibility());
         holder.tvDetails.setText(patientNotes.get(position).getDetails());
+
+        View card = holder.itemView.findViewById(R.id.patientMedicationCard);
+
+        if(patientNotes.get(position).getVisibility().equals("Private")){
+            card.setBackgroundColor(context.getColor(R.color.protego_pink));
+        }
+        else if (patientNotes.get(position).getVisibility().equals("Public")){
+            card.setBackgroundColor(context.getColor(R.color.protego_blue));
+        }
 
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +134,7 @@ public class PatientNotesRecyclerViewAdapter extends RecyclerView.Adapter<Patien
             tvVisibility = itemView.findViewById(R.id.NoteVisibilityLabel);
             tvDetails = itemView.findViewById(R.id.NoteContentLabel);
 
-            editButton = itemView.findViewById(R.id.editButton);
+//            editButton = itemView.findViewById(R.id.editButton);
             deleteButton = itemView.findViewById(R.id.deleteButton);
 
         }
