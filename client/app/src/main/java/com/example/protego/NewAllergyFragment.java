@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.protego.web.schemas.Onboarding.AllergyInfo;
+
 import java.util.ArrayList;
 
 public class NewAllergyFragment extends DialogFragment {
@@ -25,34 +27,7 @@ public class NewAllergyFragment extends DialogFragment {
     public static String Date;
     public static String Doctor;
 
-    public static ArrayList<NewAllergyFragment.AllergyInfo> allergyData = new ArrayList<>();
-
-    public static class AllergyInfo {
-        private final String name;
-        private final String date;
-        private final String doctor;
-
-        public AllergyInfo(String name, String date, String doctor) {
-            this.name = name;
-            this.date = date;
-            this.doctor = doctor;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getDoctor() {
-            return doctor;
-        }
-
-
-    }
-
+    public static ArrayList<AllergyInfo> allergyData = new ArrayList<>();
 
     @Override
     public void onAttach(Context context) {

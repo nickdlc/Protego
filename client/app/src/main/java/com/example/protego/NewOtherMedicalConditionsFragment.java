@@ -17,6 +17,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.protego.web.schemas.Onboarding.OtherConditionsInfo;
+
 import java.util.ArrayList;
 
 public class NewOtherMedicalConditionsFragment extends DialogFragment{
@@ -26,34 +28,7 @@ public class NewOtherMedicalConditionsFragment extends DialogFragment{
     public static String Date;
     public static String Doctor;
 
-    public static ArrayList<NewOtherMedicalConditionsFragment.OtherConditionsInfo> OtherConditionsData = new ArrayList<>();
-
-    public static class OtherConditionsInfo {
-        private final String name;
-        private final String date;
-        private final String doctor;
-
-        public OtherConditionsInfo(String name, String date, String doctor) {
-            this.name = name;
-            this.date = date;
-            this.doctor = doctor;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getDoctor() {
-            return doctor;
-        }
-
-
-    }
-
+    public static ArrayList<OtherConditionsInfo> OtherConditionsData = new ArrayList<>();
 
     @Override
         public void onAttach(Context context) {

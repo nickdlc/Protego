@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.protego" >
+    package="com.example.protego">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -18,7 +18,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Protego.NoActionBar"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".DoctorViewPatientGeneralInfo"
+            android:exported="false" />
         <activity
             android:name=".PatientGeneralInfoActivity"
             android:exported="false" />
@@ -58,7 +61,7 @@
         <activity
             android:name=".DoctorViewPatientsActivity"
             android:exported="false"
-            android:theme="@style/Theme.Protego.NoActionBar" >
+            android:theme="@style/Theme.Protego.NoActionBar">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -79,7 +82,7 @@
         <activity
             android:name=".DoctorDashboardActivity"
             android:exported="false"
-            android:theme="@style/Theme.Protego.NoActionBar" >
+            android:theme="@style/Theme.Protego.NoActionBar">
 
             <!--
             <intent-filter>
@@ -93,7 +96,7 @@
             android:name=".SplashScreenActivity"
             android:exported="true"
             android:label="@string/splash_activity"
-            android:theme="@style/Theme.Protego.NoActionBar" >
+            android:theme="@style/Theme.Protego.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

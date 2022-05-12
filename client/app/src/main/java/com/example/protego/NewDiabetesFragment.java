@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.protego.web.schemas.Onboarding.DiabetesInfo;
+
 import java.util.ArrayList;
 
 
@@ -31,33 +33,7 @@ public class NewDiabetesFragment extends DialogFragment implements AdapterView.O
     public static String Doctor;
 
 
-    public static ArrayList<NewDiabetesFragment.DiabetesInfo> DiabetesData = new ArrayList<>();
-
-    public static class DiabetesInfo {
-            private final String name;
-            private final String date;
-            private final String doctor;
-
-            public DiabetesInfo(String name, String date, String doctor) {
-                this.name = name;
-                this.date = date;
-                this.doctor = doctor;
-            }
-
-            public String getDate() {
-                return date;
-            }
-
-            public String getName() {
-            return name;
-        }
-
-        public String getDoctor() {
-            return doctor;
-        }
-
-
-    }
+    public static ArrayList<DiabetesInfo> DiabetesData = new ArrayList<>();
 
     @Override
         public void onAttach(Context context) {

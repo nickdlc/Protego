@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class PatientGeneralInfoActivity extends AppCompatActivity {
+public class DoctorViewPatientGeneralInfo extends AppCompatActivity {
 
     public static final String TAG = "PatientGeneralInfoActivity";
 
@@ -54,73 +54,90 @@ public class PatientGeneralInfoActivity extends AppCompatActivity {
     private TextView EmergencyEmail;
     private TextView EmergencyPhoneNumber;
 
+    private String pid;
+    private String patientFirst;
+    private String patientLast;
+    private String onboardingFlag;
+    private String name;
+    private TextView tvFullName;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_general_info);
+        setContentView(R.layout.activity_doctor_view_patient_general_info);
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        String id = currentUser.getUid();
-        connectButtonToActivity(R.id.returnfromGeneralButton, PatientDashboardActivity.class);
+
+        connectButtonToActivity(R.id.doctorViewReturnfromGeneralButton, DoctorViewPatientSelections.class);
+
+        Bundle extras = getIntent().getExtras();
+        patientFirst = extras.getString("patientFirst");
+        patientLast = extras.getString("patientLast");
+        name = patientFirst + " " + patientLast;
+        pid = extras.getString("patientId");
+        onboardingFlag = extras.getString("onboardingFlag");
 
 
-        phoneNumber = findViewById(R.id.phoneNumberEnter);
-        height = findViewById(R.id.heightEnter);
-        weight = findViewById(R.id.weightEnter);
-        EmergencyName = findViewById(R.id.EmergencyNameEnter);
-        EmergencyEmail = findViewById(R.id.EmergencyEmailEnter);
-        EmergencyPhoneNumber = findViewById(R.id.EmergencyPhoneNumberEnter);
-        address = findViewById(R.id.addressEnter);
+        tvFullName = findViewById(R.id.doctorViewPatientNameTextLabel);
+        tvFullName.setText("Patient Name:" + name);
 
-        LinearLayout allergyLayout = findViewById(R.id.allergyHeading);
-        LinearLayout surgeryLayout = findViewById(R.id.surgeryHeading);
-        LinearLayout cancerLayout = findViewById(R.id.cancerHeading);
-        LinearLayout diabetesLayout = findViewById(R.id.diabetesHeading);
-        LinearLayout otherConditionLayout = findViewById(R.id.otherConditionHeading);
-        LinearLayout informationLayout = findViewById(R.id.informationLayout);
 
-        TextView allergyTitle = findViewById(R.id.allergiesTitle);
-        TextView surgeryTitle = findViewById(R.id.surgeriesTitle);
-        TextView cancerTitle = findViewById(R.id.CancerTitle);
-        TextView diabetesTitle = findViewById(R.id.diabetesTitle);
-        TextView otherConditionsTitle = findViewById(R.id.otherConditionsTitle);
-        TextView noInformationText = findViewById(R.id.noInformationLabel);
+        phoneNumber = findViewById(R.id.doctorViewPhoneNumberEnter);
+        height = findViewById(R.id.doctorViewheightEnter);
+        weight = findViewById(R.id.doctorViewWeightEnter);
+        EmergencyName = findViewById(R.id.doctorViewEmergencyNameEnter);
+        EmergencyEmail = findViewById(R.id.doctorViewEmergencyEmailEnter);
+        EmergencyPhoneNumber = findViewById(R.id.doctorViewEmergencyPhoneNumberEnter);
+        address = findViewById(R.id.doctorViewAddressEnter);
 
-        TextView noAllergiesText = findViewById(R.id.noAllergiesText);
-        TextView noSurgeriesText = findViewById(R.id.noSurgeriesText);
-        TextView noCancerText = findViewById(R.id.noCancerText);
-        TextView noDiabetesText = findViewById(R.id.noDiabetesText);
-        TextView noOtherConditionText = findViewById(R.id.noOtherConditionText);
-        TextView noMedicalInformation = findViewById(R.id.noMedicalInformation);
+        LinearLayout allergyLayout = findViewById(R.id.doctorViewAllergyHeading);
+        LinearLayout surgeryLayout = findViewById(R.id.doctorViewSurgeryHeading);
+        LinearLayout cancerLayout = findViewById(R.id.doctorViewCancerHeading);
+        LinearLayout diabetesLayout = findViewById(R.id.doctorViewDiabetesHeading);
+        LinearLayout otherConditionLayout = findViewById(R.id.doctorViewOtherConditionHeading);
+        LinearLayout informationLayout = findViewById(R.id.doctorViewnformationLayout);
 
-        RecyclerView allergyRecyclerView = findViewById(R.id.generalInfoAllergiesRecyclerView);
-        RecyclerView surgeryRecyclerView = findViewById(R.id.generalInfosurgeriesRecyclerView);
-        RecyclerView cancerRecyclerView = findViewById(R.id.generalInfoCancerRecyclerView);
-        RecyclerView diabetesRecyclerView = findViewById(R.id.generalInfoDiabetesRecyclerView);
-        RecyclerView otherConditionsRecyclerView = findViewById(R.id.generalInfoOtherConditionsRecyclerView);
+        TextView allergyTitle = findViewById(R.id.doctorViewAllergiesTitle);
+        TextView surgeryTitle = findViewById(R.id.doctorViewSurgeriesTitle);
+        TextView cancerTitle = findViewById(R.id.doctorViewCancerTitle);
+        TextView diabetesTitle = findViewById(R.id.doctorViewDiabetesTitle);
+        TextView otherConditionsTitle = findViewById(R.id.doctorViewOtherConditionsTitle);
+        TextView noInformationText = findViewById(R.id.doctorViewNoInformationLabel);
+
+        TextView noAllergiesText = findViewById(R.id.doctorViewNoAllergiesText);
+        TextView noSurgeriesText = findViewById(R.id.doctorViewNoSurgeriesText);
+        TextView noCancerText = findViewById(R.id.doctorViewNoCancerText);
+        TextView noDiabetesText = findViewById(R.id.doctorViewNoDiabetesText);
+        TextView noOtherConditionText = findViewById(R.id.doctorViewNoOtherConditionText);
+        TextView noMedicalInformation = findViewById(R.id.doctorViewNoMedicalInformation);
+
+        RecyclerView allergyRecyclerView = findViewById(R.id.doctorViewGeneralInfoAllergiesRecyclerView);
+        RecyclerView surgeryRecyclerView = findViewById(R.id.doctorViewGeneralInfosurgeriesRecyclerView);
+        RecyclerView cancerRecyclerView = findViewById(R.id.doctorViewGeneralInfoCancerRecyclerView);
+        RecyclerView diabetesRecyclerView = findViewById(R.id.doctorViewGeneralInfoDiabetesRecyclerView);
+        RecyclerView otherConditionsRecyclerView = findViewById(R.id.doctorViewGeneralInfoOtherConditionsRecyclerView);
 
 
 
         //display information when the user has completed onboarding
-        if (PatientOnboardingActivity.flag.equals("true")) {
+        if (onboardingFlag.equals("true")) {
 
-            EmergencyEmail.setText(PatientDashboardActivity.emergencyEmailData);
-            EmergencyName.setText(PatientDashboardActivity.emergencyNameData);
-            EmergencyPhoneNumber.setText(PatientDashboardActivity.emergencyPhoneData);
-            phoneNumber.setText(PatientDashboardActivity.phoneData);
-            address.setText(PatientDashboardActivity.addressData);
-            height.setText(PatientDashboardActivity.heightData);
-            weight.setText(PatientDashboardActivity.weightData);
+            EmergencyEmail.setText(DoctorViewPatientSelections.emergencyEmailData);
+            EmergencyName.setText(DoctorViewPatientSelections.emergencyNameData);
+            EmergencyPhoneNumber.setText(DoctorViewPatientSelections.emergencyPhoneData);
+            phoneNumber.setText(DoctorViewPatientSelections.phoneData);
+            address.setText(DoctorViewPatientSelections.addressData);
+            height.setText(DoctorViewPatientSelections.heightData);
+            weight.setText(DoctorViewPatientSelections.weightData);
 
 
             //if all medical fields are empty only show required fields and titles
-            if(PatientDashboardActivity.allergiesList.isEmpty() &&
-                    PatientDashboardActivity.surgeryList.isEmpty() &&
-                    PatientDashboardActivity.cancerList.isEmpty() &&
-                    PatientDashboardActivity.diabetesList.isEmpty() &&
-                    PatientDashboardActivity.otherConditionsList.isEmpty()
+            if(DoctorViewPatientSelections.allergiesList.isEmpty() &&
+                    DoctorViewPatientSelections.surgeryList.isEmpty() &&
+                    DoctorViewPatientSelections.cancerList.isEmpty() &&
+                    DoctorViewPatientSelections.diabetesList.isEmpty() &&
+                    DoctorViewPatientSelections.otherConditionsList.isEmpty()
             ){
 
 //                noMedicalInformation.setVisibility(View.VISIBLE);
@@ -146,13 +163,13 @@ public class PatientGeneralInfoActivity extends AppCompatActivity {
 
             }
 
-            if(!PatientDashboardActivity.allergiesList.isEmpty()) { //at least one allergy data
+            if(!DoctorViewPatientSelections.allergiesList.isEmpty()) { //at least one allergy data
 
                 allergyLayout.setVisibility(View.VISIBLE);
                 allergyTitle.setVisibility(View.VISIBLE);
                 allergyRecyclerView.setVisibility(View.VISIBLE);
                 //setting the recycler views with corresponding data arrays
-                allergy_adapter = new PatientAllergiesRecyclerViewAdapter(this, PatientDashboardActivity.allergiesList);
+                allergy_adapter = new PatientAllergiesRecyclerViewAdapter(this, DoctorViewPatientSelections.allergiesList);
                 allergyRecyclerView.setAdapter(allergy_adapter);
                 allergyRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             } else {
@@ -161,12 +178,12 @@ public class PatientGeneralInfoActivity extends AppCompatActivity {
 
             }
 
-            if(!PatientDashboardActivity.surgeryList.isEmpty()) { //at least one surgery data
+            if(!DoctorViewPatientSelections.surgeryList.isEmpty()) { //at least one surgery data
                 surgeryTitle.setVisibility(View.VISIBLE);
                 surgeryLayout.setVisibility(View.VISIBLE);
                 surgeryRecyclerView.setVisibility(View.VISIBLE);
 
-                surgery_adapter = new PatientSurgeryRecyclerViewAdapter(this, PatientDashboardActivity.surgeryList);
+                surgery_adapter = new PatientSurgeryRecyclerViewAdapter(this, DoctorViewPatientSelections.surgeryList);
                 surgeryRecyclerView.setAdapter(surgery_adapter);
                 surgeryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             } else{
@@ -175,12 +192,12 @@ public class PatientGeneralInfoActivity extends AppCompatActivity {
             }
 
 
-            if(!PatientDashboardActivity.cancerList.isEmpty()) { //at least one cancer data
+            if(!DoctorViewPatientSelections.cancerList.isEmpty()) { //at least one cancer data
                 cancerTitle.setVisibility(View.VISIBLE);
                 cancerLayout.setVisibility(View.VISIBLE);
                 cancerRecyclerView.setVisibility(View.VISIBLE);
 
-                cancer_adapter = new PatientCancerRecyclerViewAdapter(this, PatientDashboardActivity.cancerList);
+                cancer_adapter = new PatientCancerRecyclerViewAdapter(this, DoctorViewPatientSelections.cancerList);
                 cancerRecyclerView.setAdapter(cancer_adapter);
                 cancerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             }else{
@@ -188,12 +205,12 @@ public class PatientGeneralInfoActivity extends AppCompatActivity {
                 noCancerText.setVisibility(View.VISIBLE);
             }
 
-            if(!PatientDashboardActivity.diabetesList.isEmpty()) { //at least one diabetes data
+            if(!DoctorViewPatientSelections.diabetesList.isEmpty()) { //at least one diabetes data
                 diabetesTitle.setVisibility(View.VISIBLE);
                 diabetesLayout.setVisibility(View.VISIBLE);
                 diabetesRecyclerView.setVisibility(View.VISIBLE);
 
-                diabetes_adapter = new PatientDiabetesRecyclerViewAdapter(this, PatientDashboardActivity.diabetesList);
+                diabetes_adapter = new PatientDiabetesRecyclerViewAdapter(this, DoctorViewPatientSelections.diabetesList);
                 diabetesRecyclerView.setAdapter(diabetes_adapter);
                 diabetesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -202,12 +219,12 @@ public class PatientGeneralInfoActivity extends AppCompatActivity {
                 noDiabetesText.setVisibility(View.VISIBLE);
             }
 
-            if(!PatientDashboardActivity.otherConditionsList.isEmpty()) { //at least one other condition data
+            if(!DoctorViewPatientSelections.otherConditionsList.isEmpty()) { //at least one other condition data
                 otherConditionsTitle.setVisibility(View.VISIBLE);
                 otherConditionLayout.setVisibility(View.VISIBLE);
                 otherConditionsRecyclerView.setVisibility(View.VISIBLE);
 
-                other_conditions_adapter = new PatientOtherConditionsRecyclerViewAdapter(this, PatientDashboardActivity.otherConditionsList);
+                other_conditions_adapter = new PatientOtherConditionsRecyclerViewAdapter(this, DoctorViewPatientSelections.otherConditionsList);
                 otherConditionsRecyclerView.setAdapter(other_conditions_adapter);
                 otherConditionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             } else{
@@ -218,6 +235,7 @@ public class PatientGeneralInfoActivity extends AppCompatActivity {
         }
 
         else{ //when the user skips the onboarding form show
+            noInformationText.setText(patientFirst + " has not provided their information. " + patientFirst + "'s information will be updated once they complete onboarding");
             noInformationText.setVisibility(View.VISIBLE); //show message instead of recycler views and titles to organize onboarding components
             informationLayout.setVisibility(View.GONE);
         }
@@ -317,10 +335,15 @@ public class PatientGeneralInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), nextActivityClass);
+                i.putExtra("patientFirst", patientFirst);
+                i.putExtra("patientLast", patientLast);
+                i.putExtra("patientId", pid);
+                i.putExtra("onboardingFlag", onboardingFlag);
                 startActivity(i);
                 finish();
             }
         });
     }
+
 
 }

@@ -21,20 +21,20 @@ public class OnboardingInfo {
     private final String Emergency_Email;
     private final String Height;
     private final String Weight;
-    private ArrayList<NewAllergyFragment.AllergyInfo> allergyData = new ArrayList<>();
-    private ArrayList<NewSurgeryFragment.SurgeryInfo> surgeryData = new ArrayList<>();
-    private ArrayList<NewCancerFragment.CancerInfo> cancerData = new ArrayList<>();
-    private ArrayList<NewDiabetesFragment.DiabetesInfo> diabetesData = new ArrayList<>();
-    private ArrayList<NewOtherMedicalConditionsFragment.OtherConditionsInfo> otherConditionsData = new ArrayList<>();
+    private ArrayList<AllergyInfo> allergyData = new ArrayList<>();
+    private ArrayList<SurgeryInfo> surgeryData = new ArrayList<>();
+    private ArrayList<CancerInfo> cancerData = new ArrayList<>();
+    private ArrayList<DiabetesInfo> diabetesData = new ArrayList<>();
+    private ArrayList<OtherConditionsInfo> otherConditionsData = new ArrayList<>();
 
 
     public OnboardingInfo(String userID, String DOB, String PhoneNumber, String Home_Address, String Emergency_Name,
                           String Emergency_PhoneNumber, String Emergency_Email, String Height, String Weight,
-                          ArrayList<NewAllergyFragment.AllergyInfo> allergyData,
-                          ArrayList<NewSurgeryFragment.SurgeryInfo> surgeryData,
-                          ArrayList<NewCancerFragment.CancerInfo> cancerData,
-                          ArrayList<NewDiabetesFragment.DiabetesInfo> diabetesData,
-                          ArrayList<NewOtherMedicalConditionsFragment.OtherConditionsInfo> otherConditionsData
+                          ArrayList<AllergyInfo> allergyData,
+                          ArrayList<SurgeryInfo> surgeryData,
+                          ArrayList<CancerInfo> cancerData,
+                          ArrayList<DiabetesInfo> diabetesData,
+                          ArrayList<OtherConditionsInfo> otherConditionsData
 
     ) {
         this.userID = userID;
@@ -127,19 +127,19 @@ public class OnboardingInfo {
         return this.Weight;
     }
 
-    public ArrayList<NewAllergyFragment.AllergyInfo> getAllergyData() {
+    public ArrayList<AllergyInfo> getAllergyData() {
         return this.allergyData;
     }
-    public ArrayList<NewSurgeryFragment.SurgeryInfo> getSurgeryData() {
+    public ArrayList<SurgeryInfo> getSurgeryData() {
         return this.surgeryData;
     }
-    public ArrayList<NewCancerFragment.CancerInfo> getCancerData() {
+    public ArrayList<CancerInfo> getCancerData() {
         return this.cancerData;
     }
-    public ArrayList<NewDiabetesFragment.DiabetesInfo> getDiabetesData() {
+    public ArrayList<DiabetesInfo> getDiabetesData() {
         return this.diabetesData;
     }
-    public ArrayList<NewOtherMedicalConditionsFragment.OtherConditionsInfo> getOtherConditionsData() {
+    public ArrayList<OtherConditionsInfo> getOtherConditionsData() {
         return this.otherConditionsData;
     }
 

@@ -42,6 +42,7 @@ public class DoctorViewPatientMedication
     private String patientFirst;
     private String patientLast;
     private String name;
+    private String onboardingFlag;
     private SwipeRefreshLayout swipeContainer;
 
     @Override
@@ -56,6 +57,8 @@ public class DoctorViewPatientMedication
         patientLast = extras.getString("patientLast");
         name = patientFirst + " " + patientLast;
         pid = extras.getString("patientId");
+        onboardingFlag = extras.getString("onboardingFlag");
+
 
         //System.out.println("Passing through " + pid);
 
@@ -257,6 +260,7 @@ public class DoctorViewPatientMedication
                 i.putExtra("patientFirst", patientFirst);
                 i.putExtra("patientLast", patientLast);
                 i.putExtra("patientId", pid);
+                i.putExtra("onboardingFlag", onboardingFlag);
                 startActivity(i);
                 finish();
             }
