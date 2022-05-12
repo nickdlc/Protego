@@ -30,10 +30,10 @@
         android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/doctorViewPatientDataRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.58"
+        app:layout_constraintHorizontal_bias="0.246"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31" />
+        app:layout_constraintVertical_bias="0.234" />
 
     <LinearLayout
         android:layout_width="409dp"
