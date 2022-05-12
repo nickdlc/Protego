@@ -32,6 +32,7 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
     private String patientLast;
     private String name;
     private String onboardingFlag;
+    private TextView no_notes_message;
 
     private SwipeRefreshLayout swipeContainer;
 
@@ -49,7 +50,7 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
         name = patientFirst + " " + patientLast;
         pid = extras.getString("patientId");
         onboardingFlag = extras.getString("onboardingFlag");
-
+        no_notes_message = (TextView) findViewById(R.id.noNotesTextView);
         //System.out.println("Passing through " + pid);
 
         tvFullName = findViewById(R.id.notesPatientFullNameInput);
@@ -57,7 +58,7 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
 
         notesData = new ArrayList<>();
 
-        FirestoreAPI.getInstance().getNotes(pid, new FirestoreListener<List<Note>>() {
+        FirestoreAPI.getInstance().getPublicNotes(pid, new FirestoreListener<List<Note>>() {
             @Override
             public void getResult(List<Note> nList) {
                 String note_id;
@@ -84,12 +85,19 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
                     Log.d(TAG, "info : " + note.getContent());
                 }
 
-                // create adapter
-                final DoctorViewPatientNotesAdapter adapter = new DoctorViewPatientNotesAdapter(thisObj, notesData);
-                // Set the adapter on recyclerview
-                rvNotesForDoctors.setAdapter(adapter);
-                // set a layout manager on RV
-                rvNotesForDoctors.setLayoutManager(new LinearLayoutManager(thisObj));
+
+                if(!notesData.isEmpty()) {
+                    no_notes_message.setVisibility(View.GONE);
+                    // create adapter
+                    final DoctorViewPatientNotesAdapter adapter = new DoctorViewPatientNotesAdapter(thisObj, notesData);
+                    // Set the adapter on recyclerview
+                    rvNotesForDoctors.setAdapter(adapter);
+                    // set a layout manager on RV
+                    rvNotesForDoctors.setLayoutManager(new LinearLayoutManager(thisObj));
+                } else { //when the user has no public notes then show text saying so
+                    no_notes_message.setVisibility(View.VISIBLE);
+                }
+
                 Log.d(TAG, "Received request for patients' notes data");
             }
 
@@ -111,7 +119,7 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
             public void onRefresh() {
                 //getPatientNotes(userID);
                 adapter.clear();
-                FirestoreAPI.getInstance().getNotes(pid, new FirestoreListener<List<Note>>() {
+                FirestoreAPI.getInstance().getPublicNotes(pid, new FirestoreListener<List<Note>>() {
                     @Override
                     public void getResult(List<Note> notes) {
                         String note_id;
@@ -132,8 +140,16 @@ public class DoctorViewPatientNotes extends AppCompatActivity {
                             notesData.add(new PatientNotesActivity.NotesInfo(note_id, title,date,visibility,details));
                         }
 
-                        recyclerView.setAdapter(adapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+
+                        if(!notesData.isEmpty()) {
+                            no_notes_message.setVisibility(View.GONE);
+                            recyclerView.setAdapter(adapter);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(thisObj));
+
+                        } else { //when the user has no public notes then show text saying so
+                            no_notes_message.setVisibility(View.VISIBLE);
+                        }
+
 
                         //adapter.addAll(notesData);
                         swipeContainer.setRefreshing(false);
