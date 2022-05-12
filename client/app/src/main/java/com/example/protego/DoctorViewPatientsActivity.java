@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DoctorViewPatientsActivity extends AppCompatActivity {
@@ -61,6 +62,7 @@ public class DoctorViewPatientsActivity extends AppCompatActivity {
 
                 RecyclerView rvPatients = findViewById(R.id.rvPatients);
                 patients.addAll(PatientDetails.constructPatients(pList));
+                Collections.sort(patients);
 
                 // create adapter
                 final PatientsListAdapter patientsAdapter = new PatientsListAdapter(thisObj,  patients);
