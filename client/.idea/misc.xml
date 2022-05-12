@@ -94,6 +94,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/activity_paint_vitals.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_patient_dashboard.xml" value="0.10989583333333333" />
+        <entry key="app/src/main/res/layout/activity_patient_general_info.xml" value="0.12708333333333333" />
         <entry key="app/src/main/res/layout/activity_patient_view_doctor_profile.xml" value="0.48398576512455516" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.176" />

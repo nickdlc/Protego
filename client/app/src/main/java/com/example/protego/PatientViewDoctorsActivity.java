@@ -86,6 +86,7 @@ public class PatientViewDoctorsActivity extends AppCompatActivity {
                 i.putExtra("lastName", doctors.get(position).getLastName());
                 i.putExtra("workplaceName", doctors.get(position).getWorkplaceName());
                 i.putExtra("address", doctors.get(position).getAddress());
+                i.putExtra("specialty", doctors.get(position).getSpecialty());
                 i.putExtra("duid", doctors.get(position).getDoctorID());
                 startActivity(i);
                 finish();

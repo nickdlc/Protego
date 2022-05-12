@@ -26,6 +26,7 @@ public class PatientViewDoctorProfile
     private TextView tvDoctorFullName;
     private TextView tvDoctorWorkplaceName;
     private TextView tvDoctorAddress;
+    private TextView tvDoctorSpecialty;
     private FirebaseAuth mAuth;
 
     @Override
@@ -47,6 +48,8 @@ public class PatientViewDoctorProfile
         tvDoctorWorkplaceName.setText(extras.getString("workplaceName"));
         tvDoctorAddress = findViewById(R.id.tvPatientViewDoctorProfileAddress);
         tvDoctorAddress.setText(extras.getString("address"));
+        tvDoctorSpecialty = findViewById(R.id.tvPatientViewDoctorSpecialty);
+        tvDoctorSpecialty.setText(extras.getString("specialty"));
 
         btnReturn = findViewById(R.id.returnFromPatientViewDoctorProfile);
         btnReturn.setOnClickListener(new View.OnClickListener() {

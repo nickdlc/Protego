@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/first_name"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <Space
                 android:layout_width="30dp"
@@ -48,7 +48,10 @@
                 android:id="@+id/tvDoctorProfileFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp" />
+                android:layout_weight="1"
+                android:ellipsize="none"
+                android:singleLine="false"
+                android:textSize="20sp" />
 
         </TableRow>
 
@@ -65,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/last_name"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <Space
                 android:layout_width="30dp"
@@ -76,7 +79,10 @@
                 android:id="@+id/tvDoctorProfileLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp" />
+                android:layout_weight="1"
+                android:ellipsize="none"
+                android:singleLine="false"
+                android:textSize="20sp" />
 
         </TableRow>
 
@@ -93,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/email"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -103,7 +109,10 @@
                 android:id="@+id/tvDoctorProfileEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp" />
+                android:layout_weight="1"
+                android:ellipsize="none"
+                android:singleLine="false"
+                android:textSize="20sp" />
         </TableRow>
 
         <Space
@@ -120,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/workplace_name"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -130,7 +139,9 @@
                 android:id="@+id/tvDoctorProfileWorkplaceName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp" />
+                android:ellipsize="none"
+                android:singleLine="false"
+                android:textSize="20sp" />
 
         </TableRow>
 
@@ -148,7 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/workplace_address"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -158,7 +169,10 @@
                 android:id="@+id/tvDoctorProfileAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp" />
+                android:layout_weight="1"
+                android:ellipsize="none"
+                android:singleLine="false"
+                android:textSize="20sp" />
         </TableRow>
 
         <Space
@@ -175,7 +189,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/doctor_specialty"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -185,7 +199,10 @@
                 android:id="@+id/tvDoctorProfileSpecialty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp" />
+                android:layout_weight="1"
+                android:ellipsize="none"
+                android:singleLine="false"
+                android:textSize="20sp" />
 
         </TableRow>
 

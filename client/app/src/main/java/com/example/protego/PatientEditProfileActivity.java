@@ -31,7 +31,7 @@ public class PatientEditProfileActivity extends AppCompatActivity {
     private EditText etFirstName;
     private EditText etLastName;
     private EditText etEmail;
-    private EditText etAddress;
+//    private EditText etAddress;
     private FirebaseAuth mAuth;
 
     @Override
@@ -50,12 +50,12 @@ public class PatientEditProfileActivity extends AppCompatActivity {
         etFirstName = findViewById(R.id.etPatientEditProfileFirstName);
         etLastName = findViewById(R.id.etPatientEditProfileLastName);
         etEmail = findViewById(R.id.etPatientEditProfileEmail);
-        etAddress = findViewById(R.id.etPatientEditProfileAddress);
+//        etAddress = findViewById(R.id.etPatientEditProfileAddress);
 
         etFirstName.setText(firstName);
         etLastName.setText(lastName);
         etEmail.setText(email);
-        etAddress.setText(address);
+//        etAddress.setText(address);
 
         btnUpdate = findViewById(R.id.PatientEditProfileUpdateButton);
         btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -73,10 +73,10 @@ public class PatientEditProfileActivity extends AppCompatActivity {
         String firstName = etFirstName.getText().toString();
         String lastName = etLastName.getText().toString();
         String email = etEmail.getText().toString();
-        String address = etAddress.getText().toString();
+//        String address = etAddress.getText().toString();
 
         // TODO: Add address.isEmpty() if we add home address to patients
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || address.isEmpty()) {
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
             Toast.makeText(
                     getApplicationContext(),
                     "At least one of the required fields is empty! Please complete all required fields.",
@@ -90,7 +90,7 @@ public class PatientEditProfileActivity extends AppCompatActivity {
             // Do not put email yet since we only want the update to go through if it is valid
             data.put("firstName", firstName);
             data.put("lastName", lastName);
-            data.put("homeAddress", address);
+//            data.put("homeAddress", address);
 
             if (!user.getEmail().equals(email)) {
                 user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
