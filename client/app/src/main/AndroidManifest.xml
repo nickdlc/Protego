@@ -141,6 +141,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <receiver android:name=".AlarmReceiver"/>
+        <receiver android:name=".PrescriptionAlarmReceiver"/>
     </application>
 
 </manifest>

@@ -55,7 +55,11 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
         @Override
         public void onClick(View view) {
-            listener.onClick(view, getAdapterPosition());
+            try {
+                listener.onClick(view, getAdapterPosition());
+            } catch(Exception e) {
+                Log.d("Adapter", "No Click");
+            };
         }
     }
 
