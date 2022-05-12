@@ -147,8 +147,8 @@ public class PatientMedicationActivity extends FragmentActivity
         //RegisterAlarmBroadcast();
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 11);
-        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.HOUR_OF_DAY, 20);
+        calendar.set(Calendar.MINUTE, 5);
         calendar.set(Calendar.SECOND, 0);
         if (calendar.getTime().compareTo(new Date()) < 0) calendar.add(Calendar.HOUR_OF_DAY, 0);
 
