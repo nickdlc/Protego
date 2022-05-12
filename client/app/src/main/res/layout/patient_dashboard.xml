@@ -36,17 +36,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnNotifications" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/patientDataRecyclerView"
-        android:layout_width="380dp"
-        android:layout_height="317dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@color/notes_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnNotifications" />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/patientDataRecyclerView"-->
+<!--        android:layout_width="380dp"-->
+<!--        android:layout_height="317dp"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        android:layout_marginRight="15dp"-->
+<!--        android:background="@color/notes_color"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btnNotifications" />-->
 
     <ImageButton
         android:id="@+id/qrCodeButton"
