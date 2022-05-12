@@ -17,6 +17,7 @@ import com.example.protego.web.schemas.Doctor;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PatientViewDoctorsActivity extends AppCompatActivity {
@@ -52,6 +53,7 @@ public class PatientViewDoctorsActivity extends AppCompatActivity {
             @Override
             public void getResult(List<Doctor> object) {
                 doctors = new ArrayList<>(object);
+                Collections.sort(doctors);
                 setRecyclerView();
             }
 

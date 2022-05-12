@@ -49,7 +49,6 @@ public class PatientNavigationBarFragment extends Fragment implements AdapterVie
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -69,8 +68,10 @@ public class PatientNavigationBarFragment extends Fragment implements AdapterVie
 
                 if (patient != null) {
                     PatientDashboardActivity.Name = patient.getFirstName();
+                    //LoginActivity.userT = patient.getUserType();
 
                     Log.d(TAG, "info first name : " + patient.getFirstName());
+                    Log.d(TAG, "info user type : " + patient.getUserType());
                     //to update the first name of the patient on their navbar
                     updateNavbarName(view);
 
@@ -135,6 +136,7 @@ public class PatientNavigationBarFragment extends Fragment implements AdapterVie
 
             try {
                 mAuth.signOut();
+                FirebaseUser currentUser = mAuth.getCurrentUser();
                 createIntent(LoginActivity.class);
             } catch (Exception e) {
                 e.printStackTrace();

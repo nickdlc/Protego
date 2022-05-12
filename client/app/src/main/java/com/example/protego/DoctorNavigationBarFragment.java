@@ -47,7 +47,6 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
-
     }
 
     @Override
@@ -122,6 +121,7 @@ public class DoctorNavigationBarFragment extends Fragment implements AdapterView
         else if (userNavbarSelection.equals(userNavbarOptions[3])) { //the user selects the Log out option which will take them to sign in
             try {
                 mAuth.signOut();
+                FirebaseUser currentUser = mAuth.getCurrentUser();
                 createIntent(LoginActivity.class);
             } catch (Exception e) {
                 e.printStackTrace();

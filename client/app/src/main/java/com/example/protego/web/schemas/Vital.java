@@ -2,7 +2,7 @@ package com.example.protego.web.schemas;
 
 import java.util.Date;
 
-public class Vital {
+public class Vital implements Comparable<Vital> {
     private String vitalID;
     private String patientID;
     private String source;
@@ -52,9 +52,6 @@ public class Vital {
     public void setDate(Date date) {
         this.date = date;
     }
-//    public void setDate(Date date) {
-//        this.date = firebase.database.ServerValue.TIMESTAMP;
-//    }
 
     public int getHeartRate() {
         return heartRate;
@@ -72,7 +69,6 @@ public class Vital {
     public void setRespiratoryRate(int respiratoryRate) {
         this.respiratoryRate = respiratoryRate;
     }
-
 
     public double getTemperature() {
         return temperature;
@@ -102,5 +98,10 @@ public class Vital {
                 ", temperature=" + temperature +
                 ", bloodPressure=" + bloodPressure
                 + '}';
+    }
+
+    @Override
+    public int compareTo(Vital v) {
+        return getDate().compareTo(v.getDate());
     }
 }

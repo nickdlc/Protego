@@ -134,7 +134,7 @@ public class PatientNotesRecyclerViewAdapter extends RecyclerView.Adapter<Patien
             tvVisibility = itemView.findViewById(R.id.NoteVisibilityLabel);
             tvDetails = itemView.findViewById(R.id.NoteContentLabel);
 
-            editButton = itemView.findViewById(R.id.editButton);
+//            editButton = itemView.findViewById(R.id.editButton);
             deleteButton = itemView.findViewById(R.id.deleteButton);
 
         }

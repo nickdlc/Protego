@@ -1,6 +1,6 @@
 package com.example.protego.web.schemas;
 
-public class ProtegoUser {
+public class ProtegoUser implements Comparable<ProtegoUser> {
     private String firstName;
     private String lastName;
     private String email;
@@ -50,5 +50,10 @@ public class ProtegoUser {
                 ", email='" + email + '\'' +
                 ", userType='" + userType + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(ProtegoUser user) {
+        return getLastName().compareTo(user.getLastName());
     }
 }

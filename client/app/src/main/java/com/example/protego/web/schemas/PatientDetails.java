@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientDetails {
+public class PatientDetails implements Comparable<PatientDetails> {
     public static final String TAG = "PatientDetails";
 
     public String firstName;
@@ -57,5 +57,10 @@ public class PatientDetails {
             Log.d(TAG, "info first name : " + patient.getFirstName());
         }
         return patientDetails;
+    }
+
+    @Override
+    public int compareTo(PatientDetails pd) {
+        return lastName.compareTo(pd.lastName);
     }
 }
