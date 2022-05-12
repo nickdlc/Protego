@@ -15,6 +15,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
     <style name="Theme.Protego.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Protego.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
