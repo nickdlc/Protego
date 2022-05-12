@@ -7,6 +7,15 @@ android:layout_height="match_parent"
 tools:context=".DoctorViewPatientsActivity">
 
 
+    <Button
+        android:id="@+id/doctorProfileEditButton11"
+        android:layout_width="201dp"
+        android:layout_height="42dp"
+        app:cornerRadius="20dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="80dp" />
+
+
     <TextView
         android:id="@+id/DoctorViewPatientsTextView"
         android:layout_width="wrap_content"
@@ -14,17 +23,17 @@ tools:context=".DoctorViewPatientsActivity">
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Patients"
+        android:textColor="#000000"
         android:textSize="40dp"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/rvPatients"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView20"
-        app:layout_constraintVertical_bias="0.60" />
+        app:layout_constraintVertical_bias="0.6" />
 
-
-
-<androidx.fragment.app.FragmentContainerView
+    <androidx.fragment.app.FragmentContainerView
     android:id="@+id/fragmentContainerView20"
     android:name="com.example.protego.DoctorNavigationBarFragment"
     android:layout_width="wrap_content"
@@ -52,13 +61,15 @@ tools:context=".DoctorViewPatientsActivity">
             android:id="@+id/DoctorViewPatientsReturnButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Return" />
+            android:text="Return"
+            app:cornerRadius="20dp"/>
 
         <Button
             android:id="@+id/testButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="View Patient Information" />
+            android:text="View Patient Information"
+            app:cornerRadius="20dp"/>
 
     </LinearLayout>
 

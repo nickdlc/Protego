@@ -5,6 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/doctorProfileEditButton16"
+        android:layout_width="263dp"
+        android:layout_height="49dp"
+        app:cornerRadius="20dp"
+        tools:layout_editor_absoluteX="76dp"
+        tools:layout_editor_absoluteY="94dp" />
+
     <Spinner
         android:id="@+id/typeOfUserSpinner"
         android:layout_width="0dp"
@@ -25,6 +33,8 @@
         android:layout_marginTop="16dp"
         android:text="Sign Up"
         android:textSize="50sp"
+        android:textColor="#000000"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/typeOfUserSpinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
