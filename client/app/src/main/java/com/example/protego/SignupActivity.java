@@ -158,61 +158,6 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                                                             Log.w(TAG, "Error updating document", e);
                                                         }
                                                     });
-
-                                                FirestoreAPI.getInstance().generateMedData(uid, new FirestoreListener() {
-                                                    @Override
-                                                    public void getResult(Object object) {
-                                                        // Do nothing
-                                                    }
-
-                                                    @Override
-                                                    public void getError(Exception e, String msg) {
-                                                        Log.e(TAG, "Failed to generate medical information data:\n\t" + msg, e);
-                                                        Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
-                                                    }
-                                                });
-
-                                                // generate random vital information
-                                                FirestoreAPI.getInstance().generateVitalData(uid, new FirestoreListener<Task>() {
-                                                    @Override
-                                                    public void getResult(Task object) {
-                                                        // do nothing, just generate data
-                                                    }
-
-                                                    @Override
-                                                    public void getError(Exception e, String msg) {
-                                                        Log.e(TAG, "Failed to generate vital data:\n\t" + msg, e);
-                                                        Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
-                                                    }
-                                                });
-
-                                                //generate random Note information
-                                                FirestoreAPI.getInstance().generateNoteData(uid, randomDoctors, new FirestoreListener<Task>() {
-                                                    @Override
-                                                    public void getResult(Task object) {
-                                                        // Do nothing
-                                                    }
-
-                                                    @Override
-                                                    public void getError(Exception e, String msg) {
-                                                        Log.e(TAG, "Failed to generate note data:\n\t" + msg, e);
-                                                        Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
-                                                    }
-                                                });
-
-                                                //generate random Medication information
-                                                FirestoreAPI.getInstance().generateMedicationData(uid, randomDoctors, new FirestoreListener() {
-                                                    @Override
-                                                    public void getResult(Object object) {
-                                                        // Do nothing
-                                                    }
-
-                                                    @Override
-                                                    public void getError(Exception e, String msg) {
-                                                        Log.e(TAG, "Failed to generate medication data:\n\t" + msg, e);
-                                                        Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_LONG);
-                                                    }
-                                                });
                                             }
                                             finish();
                                         }
