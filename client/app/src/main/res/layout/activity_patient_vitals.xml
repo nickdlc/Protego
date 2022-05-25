@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PatientVitals">
+    tools:context=".dashboard.notification.menu.vital.PatientVitals">
 
     <Button
         android:id="@+id/doctorProfileEditButton14"
@@ -20,7 +20,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView4"
-        android:name="com.example.protego.PatientNavigationBarFragment"
+        android:name="com.example.protego.navbar.PatientNavigationBarFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

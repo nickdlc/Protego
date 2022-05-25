@@ -7,7 +7,7 @@
     android:layout_height="350dp"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ConfirmCancellationFragment">
+    tools:context=".dashboard.patient.ConfirmCancellationFragment">
 
     <TextView
         android:id="@+id/confirmCancellationTitle"

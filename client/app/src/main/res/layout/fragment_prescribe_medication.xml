@@ -7,7 +7,7 @@
     android:layout_height="350dp"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".PrescribeMedicationFragment">
+    tools:context=".dashboard.doctor.PrescribeMedicationFragment">
 
     <TextView
         android:id="@+id/addMedTitle"

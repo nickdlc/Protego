@@ -7,7 +7,7 @@
     android:layout_height="350dp"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".NewAllergyFragment">
+    tools:context=".onboarding.NewAllergyFragment">
 
     <TextView
         android:id="@+id/addAllergyTitle"

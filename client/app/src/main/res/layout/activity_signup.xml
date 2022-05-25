@@ -48,7 +48,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/patientFragmentContainerView"
-        android:name="com.example.protego.PatientSignupFragment"
+        android:name="com.example.protego.auth.PatientSignupFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
@@ -60,7 +60,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/doctorFragmentContainerView"
-        android:name="com.example.protego.DoctorSignupFragment"
+        android:name="com.example.protego.auth.DoctorSignupFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
