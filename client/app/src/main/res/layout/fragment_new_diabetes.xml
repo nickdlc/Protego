@@ -7,7 +7,7 @@ android:layout_width="350dp"
 android:layout_height="350dp"
 android:gravity="center"
 android:orientation="vertical"
-tools:context=".NewDiabetesFragment">
+tools:context=".onboarding.NewDiabetesFragment">
 
 <TextView
     android:id="@+id/addDiabetesTitle"

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="visible"
-    tools:context=".DoctorDashboardActivity">
+    tools:context=".dashboard.doctor.DoctorDashboardActivity">
 
     <Button
         android:id="@+id/doctorProfileEditButton3"
@@ -77,7 +77,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="com.example.protego.DoctorNavigationBarFragment"
+        android:name="com.example.protego.navbar.DoctorNavigationBarFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"

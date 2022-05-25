@@ -20,46 +20,46 @@
         android:theme="@style/Theme.Protego.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".DoctorViewPatientGeneralInfo"
+            android:name=".dashboard.doctor.DoctorViewPatientGeneralInfo"
             android:exported="false" />
         <activity
-            android:name=".PatientGeneralInfoActivity"
+            android:name=".dashboard.notification.menu.general.PatientGeneralInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".DoctorViewPatientVitals"
+            android:name=".dashboard.doctor.DoctorViewPatientVitals"
             android:exported="false" />
         <activity
-            android:name=".DoctorViewPatientProfile"
+            android:name=".dashboard.doctor.DoctorViewPatientProfile"
             android:exported="false" />
         <activity
-            android:name=".DoctorViewPatientNotes"
+            android:name=".dashboard.doctor.DoctorViewPatientNotes"
             android:exported="false" />
         <activity
-            android:name=".DoctorViewPatientMedication"
+            android:name=".dashboard.doctor.DoctorViewPatientMedication"
             android:exported="false" />
         <activity
-            android:name=".DoctorViewPatientSelections"
+            android:name=".dashboard.doctor.DoctorViewPatientSelections"
             android:exported="false" />
         <activity
-            android:name=".PatientProfileActivity"
+            android:name=".profile.PatientProfileActivity"
             android:exported="true" />
         <activity
-            android:name=".PatientEditProfileActivity"
+            android:name=".profile.PatientEditProfileActivity"
             android:exported="true" />
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".auth.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".PatientViewDoctorsActivity"
+            android:name=".dashboard.patient.PatientViewDoctorsActivity"
             android:exported="false" />
         <activity
-            android:name=".PatientUpdateDataActivity"
+            android:name=".dashboard.patient.PatientUpdateDataActivity"
             android:exported="false" />
         <activity
-            android:name=".DoctorScanQRCodeActivity"
+            android:name=".dashboard.doctor.DoctorScanQRCodeActivity"
             android:exported="false" />
         <activity
-            android:name=".DoctorViewPatientsActivity"
+            android:name=".dashboard.doctor.DoctorViewPatientsActivity"
             android:exported="false"
             android:theme="@style/Theme.Protego.NoActionBar">
 
@@ -72,15 +72,15 @@
 
         </activity>
         <activity
-            android:name=".DoctorEditProfileActivity"
+            android:name=".profile.DoctorEditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".DoctorProfileActivity"
+            android:name=".profile.DoctorProfileActivity"
             android:exported="false"
             android:label="@string/title_activity_doctor_profile"
             android:theme="@style/Theme.Protego.NoActionBar.NoActionBar" />
         <activity
-            android:name=".DoctorDashboardActivity"
+            android:name=".dashboard.doctor.DoctorDashboardActivity"
             android:exported="false"
             android:theme="@style/Theme.Protego.NoActionBar">
 
@@ -93,7 +93,7 @@
             -->
         </activity>
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".auth.SplashScreenActivity"
             android:exported="true"
             android:label="@string/splash_activity"
             android:theme="@style/Theme.Protego.NoActionBar">
@@ -104,46 +104,46 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PatientDashboardActivity"
+            android:name=".dashboard.patient.PatientDashboardActivity"
             android:exported="true" />
         <activity
-            android:name=".PatientNotesActivity"
+            android:name=".dashboard.notification.menu.note.PatientNotesActivity"
             android:exported="false" />
         <activity
-            android:name=".PatientMedicationActivity"
+            android:name=".dashboard.notification.menu.medication.PatientMedicationActivity"
             android:exported="false" />
         <activity
-            android:name=".PatientQRCodeDisplay"
+            android:name=".dashboard.patient.PatientQRCodeDisplay"
             android:exported="true" />
         <activity
-            android:name=".PatientVitals"
+            android:name=".dashboard.notification.menu.vital.PatientVitals"
             android:exported="false" />
         <activity
-            android:name=".PatientOnboardingActivity"
+            android:name=".onboarding.PatientOnboardingActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".auth.LoginActivity"
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.Protego.NoActionBar" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".auth.SignupActivity"
             android:exported="false"
             android:label="@string/title_activity_signup"
             android:theme="@style/Theme.Protego.NoActionBar" />
         <activity
-            android:name=".PatientViewNotificationsActivity"
+            android:name=".dashboard.notification.menu.PatientViewNotificationsActivity"
             android:exported="false" />
         <activity
-            android:name=".PatientViewDoctorProfile"
+            android:name=".dashboard.patient.PatientViewDoctorProfile"
             android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <receiver android:name=".AlarmReceiver"/>
-        <receiver android:name=".PrescriptionAlarmReceiver"/>
+        <receiver android:name=".dashboard.notification.push.AlarmReceiver"/>
+        <receiver android:name=".dashboard.notification.push.PrescriptionAlarmReceiver"/>
     </application>
 
 </manifest>
