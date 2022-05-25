@@ -1,6 +1,6 @@
 # Protego
 
-Protego is an Android healthcare app which improves communication between patients and their doctors by offering real-time access to health and fitness data. Our QR Code technology gives patients greater control to securely share their data. Doctors can scan a patient’s QR code to begin a connection with the patient, which includes access to viewing and adding to the patient’s data, and this connection must be approved and maintained by the patient. Patients can also choose to anonymously monetize their information on the blockchain; researchers can then pay these patients for access to this information.
+Protego is an Android healthcare app which improves communication between patients and their doctors by offering real-time access to health data. Our QR Code technology gives patients greater control to securely share their data. Doctors can scan a patient’s QR code to begin a connection with the patient, which includes access to viewing and adding to the patient’s data, and this connection must be approved and maintained by the patient. Patients can also choose to anonymously monetize their information on the blockchain; researchers can then pay these patients for access to this information.
 
 [Final Engineering Report](https://github.com/nickdlc/Protego/files/8767308/Final.Engineering.Report.pdf)
 
